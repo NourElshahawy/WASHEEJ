@@ -1,0 +1,29 @@
+/* Covers the whole CTA section, behind its content. */
+.ctaKnot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* A slow, slight drift so the knot feels alive once it is tied. */
+  .breathing {
+    animation: knotBreath 7s ease-in-out infinite alternate;
+  }
+
+  .resting .breathing {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes knotBreath {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(3px, 5px);
+  }
+}

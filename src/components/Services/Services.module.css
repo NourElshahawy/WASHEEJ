@@ -1,0 +1,202 @@
+.services {
+  position: relative;
+}
+
+.servicesPin {
+  position: relative;
+  isolation: isolate;
+  padding-block: calc(var(--section-space) * 0.5);
+}
+
+.serviceGrid {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  /* Extra row gap leaves a lane for the thread to run between the two rows. */
+  gap: clamp(1.75rem, 1rem + 2.2vw, 3rem) var(--card-gap);
+}
+
+/* Grid slot. The dealt-cards motion transforms this element. */
+.serviceItem {
+  position: relative;
+  flex: 1 1 calc((100% - var(--card-gap) * 3) / 4);
+  min-width: 0;
+  display: flex;
+}
+
+/* Card look comes from styles/card.module.css. */
+.serviceCard {
+  flex: 1;
+}
+
+/* ---- Hover: a soft burgundy glow follows the cursor inside the card ---- */
+.cursorGlow {
+  position: absolute;
+  inset-block-start: 0;
+  left: 0;
+  z-index: -1;
+  width: 24rem;
+  height: 24rem;
+  margin: -12rem 0 0 -12rem; /* centre the disc on the point it is moved to */
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(89, 23, 27, 0.16), rgba(89, 23, 27, 0) 100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.serviceCard:hover .cursorGlow {
+  opacity: 1;
+}
+
+/* ---- Hover: three fine threads wrap around the card ---- */
+.wrapThread {
+  --wrap: 9px; /* how far outside the card the outermost thread runs */
+  position: absolute;
+  inset: calc(var(--wrap) * -1);
+  width: calc(100% + var(--wrap) * 2);
+  height: calc(100% + var(--wrap) * 2);
+  overflow: visible;
+  pointer-events: none;
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.wrapThread rect {
+  fill: none;
+  stroke: var(--burgundy);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  transition:
+    stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.15s ease 0.55s;
+}
+
+.wrapThread rect:nth-child(1) {
+  x: 0;
+  y: 0;
+  width: 100%;
+  height: 100%;
+  rx: calc(var(--radius-card) + 9px);
+  stroke: #f0a983;
+}
+
+.wrapThread rect:nth-child(2) {
+  x: 3px;
+  y: 3px;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  rx: calc(var(--radius-card) + 6px);
+  stroke: #b4574a;
+  transition-delay: 0.07s, 0.6s;
+}
+
+.wrapThread rect:nth-child(3) {
+  x: 6px;
+  y: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  rx: calc(var(--radius-card) + 3px);
+  transition-delay: 0.14s, 0.65s;
+}
+
+.serviceItem:is(:hover, :focus-within) .wrapThread {
+  transform: translateY(-5px); /* stays with the lifted card */
+}
+
+.serviceItem:is(:hover, :focus-within) .wrapThread rect {
+  stroke-dashoffset: 0;
+  opacity: 1;
+  transition:
+    stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.05s ease;
+}
+
+.serviceItem:is(:hover, :focus-within) .wrapThread rect:nth-child(2) {
+  transition-delay: 0.07s, 0.07s;
+}
+
+.serviceItem:is(:hover, :focus-within) .wrapThread rect:nth-child(3) {
+  transition-delay: 0.14s, 0.14s;
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .wrapThread,
+  .cursorGlow {
+    display: none;
+  }
+}
+
+@media (max-width: 1080px) {
+  .serviceItem {
+    flex-basis: calc((100% - var(--card-gap)) / 2);
+  }
+
+  .serviceGrid {
+    row-gap: var(--card-gap);
+  }
+}
+
+@media (max-width: 560px) {
+  .serviceItem {
+    flex-basis: 100%;
+  }
+
+  .serviceCard > :last-child {
+    width: min(100%, 17rem);
+    margin-inline: auto;
+  }
+}
+
+/* Medium-height desktop screens: a little tighter, so both rows fit while pinned. */
+@media (min-width: 1081px) and (max-height: 960px) {
+  .serviceGrid {
+    row-gap: 1.25rem;
+  }
+
+  .serviceGrid .serviceCard {
+    padding-block-start: 3.5rem;
+  }
+}
+
+/*
+ * Short desktop screens (e.g. 1366×768, 1280×720): the cards get more compact,
+ * so both rows fit on screen while the section is pinned and the cards are dealt.
+ */
+@media (min-width: 1081px) and (max-height: 880px) {
+  .serviceGrid {
+    row-gap: 1.25rem;
+  }
+
+  .serviceGrid .serviceCard {
+    padding: 1rem 1.1rem;
+    padding-block-start: 2.6rem;
+  }
+
+  .serviceGrid .serviceCard > span[aria-hidden='true']:not(.cursorGlow) {
+    font-size: 4rem;
+  }
+
+  .serviceGrid .serviceCard h3 {
+    font-size: 1.1rem;
+  }
+
+  .serviceGrid .serviceCard p {
+    margin-block-start: 0.3rem;
+    font-size: 0.86rem;
+    line-height: 1.6;
+  }
+
+  .serviceGrid .serviceCard > :last-child {
+    width: min(100%, 13rem);
+    margin-inline: auto;
+    padding-block-start: 0.7rem;
+  }
+}
+
+@media (min-width: 1081px) and (max-height: 750px) {
+  .serviceGrid .serviceCard > :last-child {
+    width: min(100%, 10.5rem);
+  }
+}

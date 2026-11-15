@@ -1,0 +1,280 @@
+.work {
+  position: relative;
+}
+
+.workPin {
+  /* The row lines up with the page container on both sides. */
+  --rail-inset: max(var(--page-gutter), calc((100vw - var(--page-max)) / 2));
+  padding-block: calc(var(--section-space) * 0.5);
+}
+
+/* =====================================================================
+   Card (surface, border, glow and lift come from styles/card.module.css)
+   ===================================================================== */
+.workItem {
+  min-width: 0;
+}
+
+.workPin .workCard {
+  height: 100%;
+  padding: 0;
+}
+
+.coverFrame {
+  position: relative;
+  flex: 1 1 auto;
+  aspect-ratio: 4 / 3;
+  background: var(--peach-wash);
+  overflow: hidden;
+}
+
+.coverImage {
+  object-fit: cover;
+}
+
+.demoBadge {
+  position: absolute;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  background: var(--burgundy);
+  color: var(--paper);
+  font-size: var(--text-small);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* The numeral is anchored to the text block, not to the cover above it. */
+.cardBody {
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--card-padding);
+  padding-block-start: clamp(2.4rem, 2rem + 1.2vw, 3.25rem);
+  isolation: isolate;
+}
+
+.workPin .cardMark {
+  inset-block-start: -0.35rem;
+  font-size: clamp(4rem, 3.2rem + 2.6vw, 5.75rem);
+}
+
+.visitLink,
+.comingSoon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  margin-block-start: clamp(0.9rem, 0.7rem + 0.6vw, 1.4rem);
+  padding: 0.4rem 1.25rem;
+  border-radius: 999px;
+  font-size: var(--text-small);
+  font-weight: 500;
+}
+
+.visitLink {
+  border: 1.5px solid var(--burgundy);
+  color: var(--burgundy);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.visitLink:hover {
+  background: var(--burgundy);
+  color: var(--paper);
+}
+
+:global([dir='rtl']) .visitIcon {
+  transform: scaleX(-1);
+}
+
+.comingSoon {
+  border: 1.5px dashed var(--hairline-strong);
+  color: var(--burgundy-soft);
+  cursor: default;
+}
+
+/* =====================================================================
+   Mode: grid — default, no JS, and reduced motion (4 cards, then 3 centred)
+   ===================================================================== */
+.workViewport {
+  position: relative;
+  padding-inline: var(--rail-inset);
+}
+
+.workTrack {
+  position: relative;
+}
+
+.workList {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.5rem, 1rem + 2vw, 2.75rem) var(--card-gap);
+}
+
+/* The row's own thread (only in the single-row modes). */
+.workThread {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.workThread path {
+  fill: none;
+}
+
+.workItem {
+  flex: 0 1 calc((100% - var(--card-gap) * 3) / 4);
+}
+
+.workFoot {
+  display: none;
+}
+
+@media (max-width: 1080px) {
+  .workItem {
+    flex-basis: calc((100% - var(--card-gap)) / 2);
+  }
+}
+
+@media (max-width: 560px) {
+  .workItem {
+    flex-basis: 100%;
+  }
+}
+
+/* =====================================================================
+   Shared by the two single-row modes: counter + progress line
+   ===================================================================== */
+.workPin:is([data-mode='rail'], [data-mode='swipe']) .workTrack {
+  width: max-content;
+}
+
+.workPin:is([data-mode='rail'], [data-mode='swipe']) .workList {
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.workPin:is([data-mode='rail'], [data-mode='swipe']) .workThread {
+  display: block;
+}
+
+.workPin:is([data-mode='rail'], [data-mode='swipe']) .workFoot {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 2rem);
+  margin-block-start: clamp(1rem, 2.4vh, 1.75rem);
+}
+
+/* Room under the row for the thread to dip into. */
+.workPin[data-mode='rail'] .workFoot {
+  margin-block-start: clamp(2.75rem, 6vh, 3.75rem);
+}
+
+.workCounter {
+  flex: none;
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: clamp(1.15rem, 1rem + 0.5vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--burgundy-soft);
+  direction: ltr;
+}
+
+.workCounterCurrent {
+  color: var(--burgundy);
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.workProgress {
+  flex: 1;
+  height: 1px;
+  background: var(--hairline-strong);
+}
+
+.workProgressFill {
+  display: block;
+  height: 3px;
+  margin-block-start: -1px;
+  background: var(--burgundy);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+:global([dir='rtl']) .workProgressFill {
+  transform-origin: right center;
+}
+
+/* =====================================================================
+   Mode: swipe — mobile. One row, swiped sideways, snapping to each card.
+   ===================================================================== */
+.workPin[data-mode='swipe'] .workViewport {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--rail-inset);
+  scrollbar-width: none;
+  /* Room for the card's hover/focus lift and shadow inside the scroller. */
+  padding-block: 0.5rem 2rem;
+}
+
+.workPin[data-mode='swipe'] .workViewport::-webkit-scrollbar {
+  display: none;
+}
+
+.workPin[data-mode='swipe'] .workItem {
+  flex: none;
+  width: min(78vw, 22rem);
+  scroll-snap-align: start;
+}
+
+.workPin[data-mode='swipe'] .workFoot {
+  margin-block-start: 0;
+}
+
+/* =====================================================================
+   Mode: rail — desktop pinned row. The pinned panel fills the viewport and
+   the cards are sized from its height, so no empty band is left under them.
+   ===================================================================== */
+.workPin[data-mode='rail'] {
+  --work-card-height: clamp(22rem, calc(100svh - var(--header-height) - 17.5rem), 46rem);
+  --work-card-width: clamp(15.5rem, calc(var(--work-card-height) * 0.72), 31rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100svh;
+  padding-block: calc(var(--header-height) + clamp(0.5rem, 2vh, 1.5rem)) clamp(0.75rem, 2.5vh, 1.75rem);
+  overflow: clip;
+}
+
+.workPin[data-mode='rail'] .workHead > :first-child {
+  margin-block-end: clamp(0.75rem, 2.4vh, 1.75rem);
+}
+
+.workPin[data-mode='rail'] .workTrack {
+  will-change: transform;
+}
+
+.workPin[data-mode='rail'] .workItem {
+  flex: none;
+  width: var(--work-card-width);
+  height: var(--work-card-height);
+  /* First card on top while the cards are still piled up. */
+  z-index: calc(20 - var(--card-index));
+  will-change: transform;
+}
+
+.workPin[data-mode='rail'] .coverFrame {
+  aspect-ratio: auto;
+  min-height: 7rem;
+}

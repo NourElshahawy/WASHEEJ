@@ -1,0 +1,240 @@
+.previewSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* The drawings have no text, so in Arabic they simply mirror: steps, charts
+   and chats then run right-to-left like the rest of the page. */
+:global([dir='rtl']) .previewSvg {
+  transform: scaleX(-1);
+}
+
+/* …except drawings about direction itself (the right-to-left arrow). */
+:global([dir='rtl']) .previewSvg.neverMirrored {
+  transform: none;
+}
+
+/* Check marks and glyphs are flipped back so they never read mirrored. */
+.keepUpright {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+:global([dir='rtl']) .keepUpright {
+  transform: scaleX(-1);
+}
+
+/* ---- Ink ---- */
+.line,
+.soft {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.line {
+  stroke: var(--burgundy);
+  stroke-width: 1.3;
+}
+
+.heavy {
+  stroke-width: 1.9;
+}
+
+.soft {
+  stroke: var(--hairline-strong);
+  stroke-width: 1.2;
+}
+
+.ink {
+  fill: var(--burgundy);
+}
+
+.dashed {
+  fill: none;
+  stroke: var(--hairline-strong);
+  stroke-width: 1.2;
+  stroke-dasharray: 3.5 3.5;
+}
+
+.paperCard {
+  fill: #fffcf9;
+  stroke: var(--burgundy);
+  stroke-width: 1.3;
+}
+
+.onInk {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.peach {
+  fill: var(--peach);
+  stroke: var(--burgundy);
+  stroke-width: 1.1;
+}
+
+.peachSoft {
+  fill: rgba(254, 215, 184, 0.55);
+  stroke: var(--burgundy);
+  stroke-width: 1.1;
+}
+
+.peachFill {
+  fill: var(--peach);
+  stroke: var(--burgundy);
+  stroke-width: 1.1;
+}
+
+.paperDisc {
+  fill: var(--paper);
+  stroke: var(--hairline-strong);
+  stroke-width: 1.2;
+}
+
+/* ---- Motion hooks (each element animates around its own box) ---- */
+.rise,
+.drop,
+.pop,
+.slide,
+.growX,
+.growXEnd,
+.growY {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.growX {
+  transform-origin: left center;
+}
+
+.growXEnd {
+  transform-origin: right center;
+}
+
+.growY {
+  transform-origin: center bottom;
+}
+
+.draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+/* "Thinking" dots are only visible while the preview plays. */
+.typing {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :global([data-preview-host]:is(:hover, :focus-visible, [data-preview-play])) .rise {
+    animation: previewRise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) var(--delay, 0s) both;
+  }
+
+  :global([data-preview-host]:is(:hover, :focus-visible, [data-preview-play])) .drop {
+    animation: previewDrop 0.55s cubic-bezier(0.3, 1.25, 0.5, 1) var(--delay, 0s) both;
+  }
+
+  :global([data-preview-host]:is(:hover, :focus-visible, [data-preview-play])) .pop {
+    animation: previewPop 0.4s cubic-bezier(0.3, 1.4, 0.5, 1) var(--delay, 0s) both;
+  }
+
+  :global([data-preview-host]:is(:hover, :focus-visible, [data-preview-play])) .growX {
+    animation: previewGrowX 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) var(--delay, 0s) both;
+  }
+
+  :global([data-preview-host]:is(:hover, :focus-visible, [data-preview-play])) .growXEnd {
+    animation: previewGrowX 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) var(--delay, 0s) both;
+  }
+
+  :global([data-preview-host]:is(:hover, :focus-visible, [data-preview-play])) .slide {
+    animation: previewSlide 0.75s cubic-bezier(0.3, 1.2, 0.5, 1) var(--delay, 0s) both;
+  }
+
+  :global([data-preview-host]:is(:hover, :focus-visible, [data-preview-play])) .growY {
+    animation: previewGrowY 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) var(--delay, 0s) both;
+  }
+
+  :global([data-preview-host]:is(:hover, :focus-visible, [data-preview-play])) .draw {
+    animation: previewDraw 0.75s ease-in-out var(--delay, 0s) both;
+  }
+
+  :global([data-preview-host]:is(:hover, :focus-visible, [data-preview-play])) .drawSlow {
+    animation-duration: 1.3s;
+  }
+
+  :global([data-preview-host]:is(:hover, :focus-visible, [data-preview-play])) .drawFast {
+    animation-duration: 0.32s;
+    animation-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+  }
+
+  :global([data-preview-host]:is(:hover, :focus-visible, [data-preview-play])) .typing {
+    animation: previewTyping 0.8s ease-in-out var(--delay, 0s) both;
+  }
+}
+
+@keyframes previewRise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes previewDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-36px);
+  }
+}
+
+@keyframes previewPop {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+}
+
+@keyframes previewSlide {
+  from {
+    transform: translateX(var(--from, -40px));
+  }
+}
+
+@keyframes previewGrowX {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes previewGrowY {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes previewDraw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes previewTyping {
+  0% {
+    opacity: 0;
+  }
+  20%,
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

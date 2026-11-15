@@ -1,0 +1,40 @@
+.quickNumbers {
+  position: relative;
+  padding-block: clamp(1.5rem, 1rem + 2vw, 3rem);
+}
+
+.factList {
+  display: flex;
+  gap: var(--card-gap);
+}
+
+/* Card look comes from styles/card.module.css. */
+.factList .fact {
+  flex: 1 1 0;
+  justify-content: center;
+  /* No index numeral here (it would compete with the "25"), so no extra top room. */
+  padding-block: clamp(1.5rem, 1.1rem + 1.4vw, 2.5rem);
+  min-height: clamp(7rem, 6rem + 3.4vw, 9.5rem);
+}
+
+.factText {
+  max-width: 15em;
+  line-height: 1.6;
+}
+
+.factFigure {
+  font-size: 1.5em;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: -0.05em;
+}
+
+@media (max-width: 720px) {
+  .factList {
+    flex-direction: column;
+  }
+
+  .fact {
+    min-height: 0;
+  }
+}

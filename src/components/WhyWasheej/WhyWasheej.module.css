@@ -1,0 +1,48 @@
+.why {
+  position: relative;
+  padding-block: calc(var(--section-space) * 0.5);
+}
+
+/* Seven cards: 4 + 3 centred, then 2 per row, then 1 per row. */
+.reasonGrid {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--card-gap);
+}
+
+/* Grid slot. The bloom motion transforms this element. */
+.reasonItem {
+  flex: 0 1 calc((100% - var(--card-gap) * 3) / 4);
+  min-width: 0;
+  display: flex;
+}
+
+/* Card look comes from styles/card.module.css. */
+.reasonCard {
+  flex: 1;
+}
+
+/* English copy continues the title after a colon, so it starts lower-case. */
+:global([dir='ltr']) .reasonText::first-letter {
+  text-transform: uppercase;
+}
+
+/* The drawings are a little smaller here than on the service cards. */
+.reasonArt {
+  width: min(100%, 13.5rem);
+  margin-inline: auto;
+}
+
+@media (max-width: 1080px) {
+  .reasonItem {
+    flex-basis: calc((100% - var(--card-gap)) / 2);
+  }
+}
+
+@media (max-width: 560px) {
+  .reasonItem {
+    flex-basis: 100%;
+  }
+}

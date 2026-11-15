@@ -1,0 +1,159 @@
+.faq {
+  position: relative;
+  padding-block: calc(var(--section-space) * 0.5) var(--section-space);
+}
+
+.faqStandalone {
+  padding-block-start: calc(var(--header-height) + clamp(1.5rem, 1rem + 2vw, 3.5rem));
+}
+
+.faqColumns {
+  display: flex;
+  align-items: flex-start;
+  gap: 0 clamp(1.5rem, 0.5rem + 3.5vw, 4.5rem);
+}
+
+.faqColumn {
+  flex: 1 1 0;
+  min-width: 0;
+  border-block-start: 1px solid var(--hairline-strong);
+}
+
+.faqItem {
+  border-block-end: 1px solid var(--hairline-strong);
+}
+
+.faqQuestion {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 0.5rem + 0.8vw, 1.25rem);
+  padding-block: clamp(1rem, 0.85rem + 0.5vw, 1.35rem);
+  color: var(--burgundy);
+  font-size: var(--text-card-title);
+  font-weight: 500;
+  line-height: 1.5;
+  list-style: none;
+  cursor: pointer;
+}
+
+.faqQuestion::-webkit-details-marker {
+  display: none;
+}
+
+.faqNumber {
+  flex: none;
+  min-width: 1.8em;
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--burgundy-soft);
+}
+
+.faqQuestionText {
+  flex: 1;
+}
+
+/* ---- The knot: tied when closed, undone when open ---- */
+.faqKnot {
+  flex: none;
+  width: 1.9rem;
+  height: 1.9rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  overflow: visible;
+}
+
+.knotTied,
+.knotLoose {
+  stroke-dasharray: 1;
+  transition: stroke-dashoffset 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+}
+
+.knotTied {
+  stroke-dashoffset: 0;
+}
+
+/* Hidden while tied (a zero-length round dash would show as a dot). */
+.knotLoose {
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+
+.faqItem[open] .knotTied {
+  stroke-dashoffset: -1;
+  opacity: 0;
+  transition-delay: 0s, 0.3s;
+}
+
+.faqItem[open] .knotLoose {
+  stroke-dashoffset: 0;
+  opacity: 1;
+  transition-delay: 0.2s, 0.2s;
+}
+
+.faqQuestion:hover .faqKnot {
+  color: var(--burgundy-deep);
+}
+
+/* ---- The answer, with a thread drawn down its side ---- */
+.faqAnswerWrap {
+  position: relative;
+  margin-inline-start: calc(1.8em * 1.1 + clamp(0.75rem, 0.5rem + 0.8vw, 1.25rem));
+  padding-inline-start: 1.1rem;
+  padding-block-end: clamp(1.1rem, 0.9rem + 0.6vw, 1.5rem);
+}
+
+.faqAnswerWrap::before {
+  content: '';
+  position: absolute;
+  inset-block: 0.35rem clamp(1.1rem, 0.9rem + 0.6vw, 1.5rem);
+  inset-inline-start: 0;
+  width: 1.5px;
+  background: var(--thread-gradient);
+  background: linear-gradient(180deg, var(--burgundy), #f0a983);
+  transform-origin: top center;
+}
+
+/* Plain, fully readable text: nothing fades it or lies over it. */
+.faqAnswer {
+  max-width: 44em;
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .faqItem[open] .faqAnswerWrap::before {
+    animation: faqThreadDown 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+}
+
+@keyframes faqThreadDown {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+.faqFooter {
+  display: flex;
+  margin-block-start: clamp(1.75rem, 1.2rem + 2vw, 3rem);
+}
+
+@media (max-width: 860px) {
+  .faqColumns {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* The two columns read as one continuous list. */
+  .faqColumn + .faqColumn {
+    border-block-start: 0;
+  }
+
+  .faqAnswerWrap {
+    margin-inline-start: 0.25rem;
+  }
+}

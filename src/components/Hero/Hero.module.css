@@ -1,0 +1,198 @@
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* Starts at the very top of the viewport, behind the transparent header. */
+  min-height: max(36rem, min(100svh, 62vw));
+  overflow: clip;
+}
+
+.heroStage {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  /* The copy is centred below the header; the art behind it fills the stage to the top edge. */
+  padding-block: calc(var(--header-height) + 0.5rem) clamp(2rem, 1rem + 4vw, 5rem);
+}
+
+/* The roots fade out before the strip at the bottom, so it stays clear.
+   (Not over the gutters: the traveling thread passes there.) */
+.heroStage::after {
+  content: '';
+  position: absolute;
+  inset-inline: var(--page-gutter);
+  inset-block-end: -2px;
+  height: clamp(5rem, 9vw, 8.5rem);
+  background: linear-gradient(to bottom, rgba(250, 246, 242, 0), var(--paper) 78%);
+  pointer-events: none;
+}
+
+/* Caption under the Arabic letterform (English only). Sits under the art, same width. */
+.heroCaption {
+  position: absolute;
+  inset-block-start: calc(50% + 11.4vw + 1.4rem);
+  /* Centred under the letterform (which is 41vw wide, 3vw from the edge). */
+  inset-inline-end: 23.5vw;
+  z-index: 1;
+  padding: 0.2rem 1rem;
+  border-radius: 999px;
+  /* A soft paper backing keeps it readable over the roots. */
+  background: rgba(250, 246, 242, 0.86);
+  white-space: nowrap;
+  transform: translateX(50%);
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: clamp(1rem, 0.9rem + 0.45vw, 1.3rem);
+  font-weight: 500;
+  color: var(--burgundy);
+  text-align: center;
+}
+
+/* ---- Copy ---- */
+.heroContent {
+  position: relative;
+  z-index: 1;
+}
+
+.heroCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(1.1rem, 0.8rem + 1.2vw, 2rem);
+  width: min(100%, clamp(24rem, 46vw, 44rem));
+}
+
+.heroTitle {
+  color: var(--burgundy);
+  font-size: var(--text-hero);
+  font-weight: 600;
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+}
+
+:global([dir='ltr']) .heroTitle {
+  font-size: calc(var(--text-hero) * 0.8);
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+}
+
+/* Burgundy → peach, following the reading direction. Used on this word only. */
+.gradientWord {
+  display: inline-block;
+  padding-block: 0.12em;
+  margin-block: -0.12em;
+  background-image: linear-gradient(to left, var(--burgundy) 0%, #c26b55 52%, #f6bd99 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+:global([dir='ltr']) .gradientWord {
+  background-image: linear-gradient(to right, var(--burgundy) 0%, #c26b55 52%, #f6bd99 100%);
+}
+
+.heroLead {
+  max-width: 38em;
+  font-size: var(--text-lead);
+  color: var(--ink-soft);
+  line-height: 1.85;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.75rem, 0.5rem + 1vw, 1.5rem);
+  margin-block-start: 0.5rem;
+}
+
+/* ---- Bottom strip: tags — hairline — wordmark ---- */
+.heroStrip {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding-block: clamp(1rem, 0.8rem + 1vw, 1.75rem);
+  font-size: var(--text-small);
+  color: var(--burgundy);
+}
+
+.stripTags {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  white-space: nowrap;
+}
+
+.stripTag {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.stripTag + .stripTag::before {
+  content: '';
+  width: 1.4rem;
+  height: 1px;
+  background: var(--hairline-strong);
+}
+
+.stripRule {
+  flex: 1;
+  height: 1px;
+  background: var(--burgundy);
+  opacity: 0.55;
+}
+
+.stripWordmark {
+  font-family: var(--font-accent);
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  white-space: nowrap;
+  direction: ltr;
+}
+
+/* ---- Tablet and mobile: art on top, copy underneath ---- */
+@media (max-width: 860px) {
+  .hero {
+    min-height: 0;
+  }
+
+  .heroStage::after {
+    display: none;
+  }
+
+  .heroCaption {
+    position: static;
+    background: none;
+    white-space: normal;
+    transform: none;
+    margin-block: -0.25rem 1.25rem;
+    padding-inline: var(--page-gutter);
+  }
+
+  .heroStage {
+    flex-direction: column;
+    align-items: stretch;
+    padding-block: 0 clamp(1.5rem, 1rem + 3vw, 3rem);
+  }
+
+  .heroCopy {
+    width: 100%;
+  }
+
+  .heroActions {
+    width: 100%;
+  }
+
+  .heroActions > * {
+    flex: 1 1 auto;
+    font-size: var(--text-body);
+  }
+
+  .stripWordmark {
+    display: none;
+  }
+}

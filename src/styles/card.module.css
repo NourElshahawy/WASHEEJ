@@ -1,0 +1,90 @@
+/*
+ * The one card language of the site (the services card is the reference).
+ * Paper surface that warms to a peach glow at the bottom, hairline border,
+ * a large calligraphic-serif mark partly behind the title, and a small lift
+ * on hover/focus. Components import this next to their own module.
+ */
+.card {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--card-padding);
+  padding-block-start: var(--card-padding-top);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, #fffcf9 0%, #fffcf9 46%, #fdeee2 100%);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 0.35s ease,
+    box-shadow 0.45s ease;
+}
+
+.card:hover,
+.card:focus-visible,
+.card:focus-within {
+  border-color: var(--hairline-strong);
+  box-shadow: 0 24px 42px -30px rgba(89, 23, 27, 0.5);
+  transform: translateY(-5px);
+}
+
+.card:focus-visible {
+  outline-offset: 2px;
+}
+
+/* 01, 02 … or a quote mark — in the accent serif, behind the content. */
+.mark {
+  position: absolute;
+  inset-block-start: clamp(0.1rem, -0.3rem + 0.8vw, 0.6rem);
+  inset-inline-end: clamp(0.9rem, 0.6rem + 0.8vw, 1.5rem);
+  z-index: -1;
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(4.75rem, 3.8rem + 3.4vw, 7.25rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--peach);
+  user-select: none;
+  transition: color 0.4s ease;
+}
+
+.card:hover .mark,
+.card:focus-visible .mark,
+.card:focus-within .mark {
+  color: #f9bf97;
+}
+
+.title {
+  color: var(--burgundy);
+  font-size: clamp(1.2rem, 1.05rem + 0.55vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+.text {
+  margin-block-start: 0.55rem;
+  color: var(--ink-soft);
+  font-size: var(--text-body);
+}
+
+/* Line drawing pinned to the bottom of the card. */
+.art {
+  margin-block-start: auto;
+  padding-block-start: clamp(1.1rem, 0.8rem + 1vw, 1.9rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: border-color 0.2s ease;
+  }
+
+  .card:hover,
+  .card:focus-visible,
+  .card:focus-within {
+    transform: none;
+  }
+}

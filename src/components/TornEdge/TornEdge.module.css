@@ -1,0 +1,18 @@
+.tornEdge {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: -1px; /* no hairline gap against the next section */
+  display: block;
+  width: 100%;
+  height: clamp(1.25rem, 0.9rem + 1.6vw, 2.5rem);
+  pointer-events: none;
+}
+
+.fibres {
+  fill: var(--peach);
+  opacity: 0.55;
+}
+
+.paper {
+  fill: var(--paper);
+}

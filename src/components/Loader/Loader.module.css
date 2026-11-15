@@ -1,0 +1,128 @@
+/*
+ * The intro's timing, in one place:
+ *   0.00 – 0.85s  the thread draws across the screen
+ *   0.85 – 1.20s  it ties a knot in the middle
+ *   1.20 – 1.70s  the knot holds
+ *   1.70 – 2.20s  the screen lifts away (the hero starts writing at 1.70s)
+ */
+.loader {
+  --draw: 0.85s;
+  --tie: 0.35s;
+  --hold: 0.5s;
+  --lift: 0.5s;
+  display: none;
+}
+
+/* Shown only when the inline script asked for it (first visit of the session). */
+:global(html[data-loader='show']) .loader,
+:global(html[data-loader='done']) .loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: block;
+  background: var(--paper);
+  animation: loaderLift var(--lift) cubic-bezier(0.7, 0, 0.2, 1) calc(var(--draw) + var(--tie) + var(--hold)) forwards;
+}
+
+/* Once it has lifted away it must not catch clicks. */
+:global(html[data-loader='done']) .loader {
+  pointer-events: none;
+}
+
+@keyframes loaderLift {
+  to {
+    transform: translateY(-100%);
+    visibility: hidden;
+  }
+}
+
+.line,
+.knot {
+  position: absolute;
+  inset-block-start: 50%;
+  fill: none;
+  stroke: var(--burgundy);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Both paths have pathLength="1": dash offset 1 = not drawn yet, 0 = fully drawn. */
+.line path,
+.knot path {
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1;
+}
+
+/* The thread, across the whole screen. */
+.line {
+  inset-inline: 0;
+  width: 100%;
+  height: 40px;
+  margin-block-start: -20px;
+}
+
+.line path {
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
+  animation: loaderDraw var(--draw) cubic-bezier(0.5, 0, 0.3, 1) forwards;
+}
+
+/* The line starts where reading starts. */
+:global([dir='rtl']) .line {
+  transform: scaleX(-1);
+}
+
+/* The knot it ties in the middle. */
+.knot {
+  left: 50%;
+  width: 6.5rem;
+  height: 6.5rem;
+  margin: -3.25rem 0 0 -3.25rem;
+  stroke-width: 0.9;
+  /* A paper disc behind the knot hides the straight line passing through it. */
+  background: radial-gradient(closest-side, var(--paper) 58%, rgba(250, 246, 242, 0));
+  opacity: 0;
+  animation: loaderKnotIn 0.01s linear var(--draw) forwards;
+}
+
+.knot path {
+  animation: loaderDraw var(--tie) cubic-bezier(0.4, 0, 0.2, 1) var(--draw) forwards;
+}
+
+@keyframes loaderDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes loaderKnotIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Reduced motion: no drawing, no lift — the screen simply fades. */
+@media (prefers-reduced-motion: reduce) {
+  :global(html[data-loader='show']) .loader,
+  :global(html[data-loader='done']) .loader {
+    animation: loaderFade 0.3s ease 0.3s forwards;
+  }
+
+  .line path,
+  .knot path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .knot {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@keyframes loaderFade {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

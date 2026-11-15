@@ -1,0 +1,129 @@
+.sectors {
+  position: relative;
+  padding-block: calc(var(--section-space) * 0.5);
+}
+
+.sectorRows {
+  --string: 16px; /* from the thread down to a chip */
+  --chip-gap: clamp(1.1rem, 0.6rem + 1.6vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.1rem, 0.8rem + 0.8vw, 1.6rem);
+}
+
+/* One row: a thread across the page with the chips hanging from it. */
+.sectorRow {
+  position: relative;
+  padding-block: var(--string) 0.75rem; /* room for the strings, and for the chips to swing */
+}
+
+.sectorRow::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+  height: 1px;
+  background: var(--burgundy);
+  opacity: 0.75;
+}
+
+/* Default (no JS, reduced motion): the chips simply wrap inside the page width. */
+.sectorTrack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--string) + 1rem) var(--chip-gap);
+  padding-inline: var(--page-gutter);
+  max-width: calc(var(--page-max) + var(--page-gutter) * 2);
+  margin-inline: auto;
+}
+
+/* The hanger is what swings when hovered (GSAP rotates it around the thread). */
+.sectorHanger {
+  position: relative;
+  flex: none;
+  transform-origin: 50% calc(var(--string) * -1);
+}
+
+.sectorHanger::before {
+  content: '';
+  position: absolute;
+  inset-block-end: 100%;
+  inset-inline-start: 50%;
+  width: 1px;
+  height: var(--string);
+  background: var(--burgundy);
+  opacity: 0.75;
+}
+
+.sectorChip {
+  display: block;
+  padding: 0.6rem clamp(1rem, 0.8rem + 0.8vw, 1.6rem);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 999px;
+  background: #fffcf9;
+  color: var(--burgundy);
+  font-size: var(--text-lead);
+  line-height: 1.5;
+  white-space: nowrap;
+  cursor: default;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.sectorHanger:hover .sectorChip {
+  border-color: var(--burgundy);
+  background: #fdeee2;
+}
+
+/* ---- Marquee mode (set by SectorsMarquee when motion is allowed) ---- */
+.sectorRows[data-marquee] .sectorRow {
+  /* Positions are handled in px by the script, the same way in both languages. */
+  direction: ltr;
+  overflow-x: clip;
+  /* The row fades out toward both edges of the page. */
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+
+.sectorRows[data-marquee] .sectorTrack {
+  flex-wrap: nowrap;
+  gap: 0;
+  width: max-content;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  will-change: transform;
+}
+
+.sectorRows[data-marquee] .sectorHanger {
+  margin-inline-end: var(--chip-gap);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* A very soft, continuous sway, a little different for each chip. */
+  .sectorRows[data-marquee] .sectorHanger > .sectorChip {
+    transform-origin: 50% calc((var(--string) + 0.6rem) * -1);
+    animation: chipSway 5.5s ease-in-out infinite alternate;
+  }
+
+  .sectorRows[data-marquee] .sectorHanger:nth-child(2n) > .sectorChip {
+    animation-duration: 6.4s;
+    animation-delay: -2.1s;
+  }
+
+  .sectorRows[data-marquee] .sectorHanger:nth-child(3n) > .sectorChip {
+    animation-duration: 4.9s;
+    animation-delay: -3.4s;
+  }
+
+  .sectorRows[data-resting] .sectorChip {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes chipSway {
+  from {
+    transform: rotate(-0.9deg);
+  }
+  to {
+    transform: rotate(0.9deg);
+  }
+}

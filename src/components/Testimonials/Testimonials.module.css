@@ -1,0 +1,4 @@
+.testimonials {
+  position: relative;
+  padding-block: calc(var(--section-space) * 0.5);
+}

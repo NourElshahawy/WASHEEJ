@@ -1,0 +1,43 @@
+.localeSwitch {
+  display: flex;
+  align-items: center;
+  /* Always "EN | AR" in the same visual order, as in the mockup. */
+  direction: ltr;
+  font-size: clamp(0.82rem, 0.76rem + 0.25vw, 1rem);
+  letter-spacing: 0.08em;
+}
+
+.localeLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  /* A comfortable tap target (44px). */
+  min-height: 2.75rem;
+  padding: 0.5rem 0.8rem;
+  color: var(--ink-soft);
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.localeLink + .localeLink {
+  border-left: 1px solid var(--hairline-strong);
+}
+
+.localeLink:hover {
+  color: var(--burgundy);
+}
+
+.localeLinkActive {
+  color: var(--burgundy);
+  font-weight: 600;
+}
+
+.localeLinkActive::after {
+  content: '';
+  position: absolute;
+  left: 0.8rem;
+  right: 0.8rem;
+  bottom: 0.45rem;
+  height: 1.5px;
+  background: var(--burgundy);
+}

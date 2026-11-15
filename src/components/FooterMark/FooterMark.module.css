@@ -1,0 +1,35 @@
+.footerMark {
+  width: clamp(11rem, 8rem + 12vw, 20rem);
+  /* Room underneath for the roots to grow into. */
+  padding-block-end: clamp(2.25rem, 1.5rem + 3.5vw, 4.5rem);
+  color: var(--burgundy);
+}
+
+.markSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.incoming path {
+  fill: none;
+  stroke-linecap: butt;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 0;
+}
+
+.rootLayer {
+  fill: none;
+  stroke: var(--burgundy);
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+}
+
+/* English: the Latin wordmark is the main logo. */
+.wordmark {
+  fill: currentColor;
+  font-family: var(--font-accent);
+  font-size: 190px;
+  font-weight: 600;
+}

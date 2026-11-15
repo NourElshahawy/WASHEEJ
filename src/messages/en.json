@@ -1,0 +1,170 @@
+{
+  "brand": {
+    "name": "Washeej",
+    "tagline": "We build the bond between your brand and its people."
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "work": "Work",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "ui": {
+    "skipToContent": "Skip to content",
+    "mainNav": "Main navigation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "homeLink": "WASHEEJ — Home",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "previousTestimonial": "Previous testimonial",
+    "nextTestimonial": "Next testimonial"
+  },
+  "hero": {
+    "title": "Websites that look like your brand —<br></br>and work <accent>for it</accent>.",
+    "sub": "From a single landing page to a full platform, we design and build Arabic and English websites for brands across the Gulf, Egypt and the Arab world.",
+    "primary": "Start your project",
+    "secondary": "Explore our services",
+    "caption": "Washeej — Arabic for a strong, intertwined bond."
+  },
+  "numbers": {
+    "experience": "Our team's experience spans <num>25+</num> projects",
+    "clients": "Clients in Saudi Arabia and Egypt",
+    "team": "Idea to launch, one team"
+  },
+  "about": {
+    "label": "About",
+    "title": "A web studio that binds your identity to your customers' experience.",
+    "text": "Washeej is a digital studio that builds websites and platforms end to end, from the interface to the server. We learn your business first, design an experience that fits your audience, then build it with clean, fast code that is easy to grow. Arabic is never a translation for us; it is a native right-to-left version."
+  },
+  "services": {
+    "label": "Services",
+    "title": "Digital solutions that build your brand's presence and grow its impact.",
+    "items": [
+      { "icon": "landing", "title": "Landing pages", "text": "One page that turns campaign visitors into customers." },
+      { "icon": "company", "title": "Company websites", "text": "A professional presence you manage yourself." },
+      { "icon": "story", "title": "Story websites", "text": "Your brand story, told through motion." },
+      { "icon": "store", "title": "Online stores", "text": "Catalogue, cart, checkout and an orders dashboard." },
+      { "icon": "booking", "title": "Booking & real estate platforms", "text": "Listings, bookings and secure payment in one place." },
+      { "icon": "portal", "title": "Service portals", "text": "Clear step-by-step requests with tracking." },
+      { "icon": "systems", "title": "Custom systems & dashboards", "text": "A system built around how you work." },
+      { "icon": "ai", "title": "Integrations & AI", "text": "We connect your systems and add AI." }
+    ]
+  },
+  "work": {
+    "label": "Work",
+    "title": "Real work for diverse brands.",
+    "visit": "Visit site",
+    "demo": "Demo",
+    "comingSoon": "Coming soon",
+    "coverAlt": "Website preview: {title}",
+    "items": {
+      "tableware": { "title": "Tableware store", "text": "A bilingual store with catalogue, search, wishlist, cart and a wholesale quote flow." },
+      "kids": { "title": "Interactive kids' store", "text": "A storefront drawn as a scene: clothes hang on a washing line and drop into the basket with a tap." },
+      "bakery": { "title": "Bakery one-page shop", "text": "Menu with prices; customers fill a bag and send the order straight to WhatsApp." },
+      "hara": { "title": "Hara Oven — pizza builder", "text": "Dough, sauce and toppings assemble on screen, then straight to ordering." },
+      "waraqa": { "title": "Waraqa — tea brand story", "text": "A chaptered scroll story following one tea leaf from the hills to the cup." },
+      "rakaez": { "title": "Rakaez — engineering company site", "text": "The building rises as you scroll; each stage reveals a section." },
+      "wasan": { "title": "Wasan Suites — booking dashboard", "text": "Occupancy calendar, bookings, payments, reports and a smart assistant." }
+    }
+  },
+  "why": {
+    "label": "Why Washeej",
+    "title": "What sets working with us apart.",
+    "items": [
+      { "icon": "team", "title": "One team, front to back", "text": "no juggling a designer, a developer and a host." },
+      { "icon": "rtl", "title": "Native Arabic", "text": "right-to-left from day one, not a flipped English site." },
+      { "icon": "unique", "title": "Not a template", "text": "motion, story and interaction that set your site apart." },
+      { "icon": "fast", "title": "Fast from the first visit", "text": "optimized assets, only what the visitor needs." },
+      { "icon": "screens", "title": "Every screen", "text": "tested on mobile, tablet and desktop before handover." },
+      { "icon": "control", "title": "You're in control", "text": "a simple dashboard to change content without calling us." },
+      { "icon": "support", "title": "With you after launch", "text": "we stay with you and look after your site." }
+    ]
+  },
+  "process": {
+    "label": "Process",
+    "title": "From idea to launch, in clear steps.",
+    "steps": [
+      { "title": "Understand", "text": "We learn your business, audience and exact needs." },
+      { "title": "Design", "text": "You review and refine the design before any code." },
+      { "title": "Build", "text": "Front end, back end and dashboard, with regular updates." },
+      { "title": "Launch", "text": "Tested on every screen, published, and handed over to you." }
+    ]
+  },
+  "sectors": {
+    "label": "Sectors",
+    "title": "We serve brands across many sectors.",
+    "items": [
+      "Real estate & hospitality",
+      "Retail & commerce",
+      "Government & semi-government",
+      "Education & training",
+      "Legal & consulting",
+      "Transport & logistics",
+      "Construction & engineering",
+      "Food & restaurants",
+      "Media & agencies"
+    ]
+  },
+  "testimonials": {
+    "label": "Testimonials",
+    "title": "Trust and a lasting partnership.",
+    "items": [
+      {
+        "quote": "\"We needed a corporate site that looked serious in both Arabic and English, and that's exactly what we got. Revisions came back fast and every decision was explained clearly.\"",
+        "role": "Project Manager",
+        "org": "Saudi engineering & contracting group"
+      },
+      {
+        "quote": "\"The request flow had to feel trustworthy for government-facing users. The front end got that right from the first version, and the team was easy to reach throughout the project.\"",
+        "role": "Platform Owner",
+        "org": "Saudi services company"
+      },
+      {
+        "quote": "\"Clean work, delivered on schedule, with a landing page that holds up on mobile as well as desktop. Would work with them again without hesitation.\"",
+        "role": "Project Manager",
+        "org": "Public transport technology provider"
+      }
+    ]
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Answers to the questions we hear most.",
+    "all": "All questions",
+    "items": [
+      { "q": "How much does it cost, and how long does it take?", "a": "Every project has its own scope, so we set price and timeline after a short call about your needs. Get in touch and you'll receive a clear quote." },
+      { "q": "Do you use templates?", "a": "No. Every site is designed and built for your brand and audience." },
+      { "q": "Arabic and English?", "a": "Yes, with native RTL Arabic; more languages can be added." },
+      { "q": "Does it work on mobile?", "a": "Yes, it's tested on mobile, tablet and desktop before handover." },
+      { "q": "Can I edit content myself?", "a": "Yes, from a dashboard made for your site." },
+      { "q": "Online payments?", "a": "Yes, we connect the gateway that fits your country, such as mada, Apple Pay, Tabby and Tamara in the Gulf, or Paymob and Fawry in Egypt." },
+      { "q": "Can you add AI to my site?", "a": "Yes, for example an assistant that understands requests in plain words or voice, or reads data from photos and invoices." },
+      { "q": "Is it ready for search engines?", "a": "It's built with search basics: speed, clean URLs, and a title and description for every page in both languages." },
+      { "q": "Domain and hosting?", "a": "We help you choose them, then publish and connect the site." },
+      { "q": "Who owns the site?", "a": "Once paid in full, the site and its content are yours." },
+      { "q": "How do I follow progress?", "a": "You review the design before development and get regular updates at every stage." },
+      { "q": "Do you work with clients outside Egypt?", "a": "Yes, we work remotely with clients in Saudi Arabia, the Gulf, Egypt and the Arab world." },
+      { "q": "What happens after launch?", "a": "Launch isn't the end. We stay with you, look after the site and help with any change or question." }
+    ]
+  },
+  "notFound": {
+    "title": "Looks like the thread broke here.",
+    "text": "This page doesn't exist, but home is close.",
+    "button": "Take me home"
+  },
+  "cta": {
+    "title": "Got an idea? Let's build its bond with your customers.",
+    "whatsapp": "Talk to us on WhatsApp",
+    "request": "Send a project request"
+  },
+  "footer": {
+    "studio": "Washeej — Web studio.",
+    "tags": [
+      "Web design",
+      "Development",
+      "Digital experience"
+    ]
+  }
+}

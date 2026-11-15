@@ -1,0 +1,51 @@
+.about {
+  position: relative;
+  padding-block: calc(var(--section-space) * 0.5);
+}
+
+/* Copy on the start half; the far half stays open for the thread art. */
+.aboutLayout {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+
+.aboutCopy {
+  flex: 0 1 50%;
+  min-width: 0;
+}
+
+.aboutStatement {
+  max-width: 36em;
+  font-size: var(--text-lead);
+  line-height: 1.95;
+  color: var(--ink-soft);
+}
+
+:global([dir='ltr']) .aboutStatement {
+  line-height: 1.7;
+}
+
+.threadSpace {
+  flex: 1 1 0;
+  min-height: clamp(13rem, 20vw, 19rem);
+}
+
+/* Mobile: a smaller loop sits above the text. */
+@media (max-width: 860px) {
+  .aboutLayout {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .aboutCopy {
+    flex-basis: auto;
+  }
+
+  .threadSpace {
+    order: -1;
+    flex: none;
+    height: clamp(7rem, 34vw, 10rem);
+    min-height: 0;
+  }
+}

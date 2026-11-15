@@ -1,0 +1,64 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  color: var(--burgundy);
+  line-height: 1;
+}
+
+/* ---- Arabic: mark with a small Latin caption under it ---- */
+.arabicFirst {
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.mark {
+  width: clamp(3.9rem, 3.3rem + 2vw, 5.25rem);
+  height: auto;
+}
+
+.caption {
+  font-family: var(--font-accent);
+  font-size: clamp(0.5rem, 0.46rem + 0.16vw, 0.62rem);
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  /* Balance the trailing letter-space so the word stays centred. */
+  margin-inline-end: -0.42em;
+  direction: ltr;
+}
+
+.arabicFirst.small .mark {
+  width: 3.4rem;
+}
+
+.arabicFirst.small .caption {
+  display: none;
+}
+
+/* ---- English: Latin wordmark with the small Arabic mark beside it ---- */
+.latinFirst {
+  gap: 0.7rem;
+}
+
+.wordmark {
+  font-family: var(--font-accent);
+  font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  margin-inline-end: -0.3em;
+}
+
+.sideMark {
+  width: clamp(2.1rem, 1.9rem + 0.7vw, 2.75rem);
+  height: auto;
+  padding-inline-start: 0.7rem;
+  border-inline-start: 1px solid var(--hairline-strong);
+  box-sizing: content-box;
+}
+
+.latinFirst.small .wordmark {
+  font-size: 1.05rem;
+}
+
+.latinFirst.small .sideMark {
+  width: 1.9rem;
+}

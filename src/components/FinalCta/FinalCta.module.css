@@ -1,0 +1,72 @@
+/* Deep burgundy: the one section that breaks the paper rhythm. */
+.finalCta {
+  position: relative;
+  padding-block: clamp(4rem, 3rem + 5vw, 7.5rem) clamp(5rem, 3.8rem + 6vw, 9rem);
+  background: var(--burgundy);
+  color: var(--paper);
+  overflow: clip;
+}
+
+.ctaLayout {
+  position: relative; /* above the knot */
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+
+.ctaCopy {
+  flex: 0 1 46rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(1.75rem, 1.2rem + 2vw, 3rem);
+}
+
+.ctaTitle {
+  color: var(--paper);
+  font-size: clamp(2rem, 1.3rem + 3vw, 4rem);
+  font-weight: 600;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+:global([dir='ltr']) .ctaTitle {
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+}
+
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.75rem, 0.5rem + 1vw, 1.5rem);
+}
+
+.knotStage {
+  flex: 1 1 14rem;
+  align-self: stretch;
+  min-height: clamp(11rem, 7rem + 14vw, 21rem);
+}
+
+.finalCta :global(a):focus-visible {
+  outline-color: var(--peach);
+}
+
+@media (max-width: 860px) {
+  .ctaLayout {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .ctaCopy {
+    flex-basis: auto;
+  }
+
+  .ctaActions > * {
+    flex: 1 1 13rem;
+  }
+
+  .knotStage {
+    flex: none;
+    min-height: clamp(7rem, 30vw, 12rem);
+  }
+}

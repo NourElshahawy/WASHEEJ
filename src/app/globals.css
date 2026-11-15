@@ -1,0 +1,216 @@
+/* ---------------------------------------------------------------
+   Washeej — design tokens and base styles (light mode only)
+---------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  /* Brand colours */
+  --burgundy: #59171b;
+  --peach: #fed7b8;
+  --ink: #282828;
+  --paper: #faf6f2;
+
+  /* Derived tones */
+  --burgundy-deep: #3f0f13;
+  --burgundy-soft: rgba(89, 23, 27, 0.72);
+  --ink-soft: rgba(40, 40, 40, 0.74);
+  --hairline: rgba(89, 23, 27, 0.16);
+  --hairline-strong: rgba(89, 23, 27, 0.32);
+  --peach-wash: rgba(254, 215, 184, 0.34);
+  --card-surface: rgba(255, 252, 249, 0.82);
+  --thread-gradient: linear-gradient(100deg, var(--burgundy) 0%, #b4574a 48%, #f0a983 100%);
+
+  /* Type */
+  --font-body: var(--font-sans), 'Segoe UI', Tahoma, sans-serif;
+  --font-accent: var(--font-serif), Georgia, 'Times New Roman', serif;
+
+  --text-hero: clamp(2.2rem, 1rem + 3.9vw, 4.6rem);
+  --text-section: clamp(1.5rem, 1.15rem + 1.5vw, 2.5rem);
+  --text-statement: clamp(1.3rem, 1rem + 1.35vw, 2.15rem);
+  --text-lead: clamp(1.02rem, 0.94rem + 0.42vw, 1.3rem);
+  --text-card-title: clamp(1.06rem, 1rem + 0.3vw, 1.25rem);
+  --text-body: clamp(0.95rem, 0.92rem + 0.14vw, 1.04rem);
+  --text-small: clamp(0.8rem, 0.78rem + 0.1vw, 0.88rem);
+
+  /* Space */
+  --page-gutter: clamp(1.25rem, 0.4rem + 4.2vw, 5rem);
+  --page-max: 86rem;
+  --section-space: clamp(3.25rem, 2.2rem + 3.4vw, 5.5rem);
+  --card-gap: clamp(0.9rem, 0.6rem + 1vw, 1.5rem);
+  --card-padding: clamp(1.25rem, 1rem + 0.9vw, 1.9rem);
+  --card-padding-top: clamp(3.4rem, 2.8rem + 2vw, 4.75rem); /* room for the index numeral */
+
+  /* Shape */
+  --radius-card: 14px;
+  --radius-control: 999px;
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 14px 34px -22px rgba(89, 23, 27, 0.35);
+
+  /* Height of the top bar (logo, language, menu). It overlays the top of the page. */
+  --header-height: clamp(4.5rem, 4.1rem + 1.2vw, 5.25rem);
+  /* Space the floating nav takes at the top of the viewport once it has appeared. */
+  --nav-clearance: 5.25rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-gutter: stable;
+  background: var(--paper);
+  -webkit-text-size-adjust: 100%;
+  /* Anchor jumps stop below the floating nav, with a little air. */
+  scroll-padding-top: calc(var(--nav-clearance) + 1rem);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+html[lang='en'] body {
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+blockquote,
+figure {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--burgundy);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--burgundy);
+  color: var(--paper);
+}
+
+/* Page scrollbar in brand colours ----------------------------------
+   Chrome / Edge / Safari use the ::-webkit-scrollbar rules (thumb turns peach
+   on hover). Firefox has no thumb-hover hook, so it gets scrollbar-color only.
+   The standard properties are kept away from Chromium on purpose: when they
+   are set, Chromium ignores ::-webkit-scrollbar and the hover colour is lost.
+   Nothing here is direction-specific, so it works on either side (RTL/LTR). */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--burgundy) var(--paper);
+  }
+}
+
+html::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: var(--paper);
+}
+
+html::-webkit-scrollbar-thumb {
+  background: var(--burgundy);
+  /* A paper-coloured border keeps the thumb slim inside the track. */
+  border: 2px solid var(--paper);
+  border-radius: 999px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--peach);
+}
+
+/* The traveling thread lives in <main>, behind every section. */
+main {
+  position: relative;
+  /* Threads may run past the page edge; never let them widen the page. */
+  overflow-x: clip;
+}
+
+main > section {
+  position: relative;
+  z-index: 1;
+}
+
+/*
+ * A strand of thread (page thread, Services, Work, CTA). Every strand has
+ * pathLength="1", so "1" is always its whole length: dash offset 1 = hidden,
+ * 0 = fully drawn. Without JS (or with reduced motion) it is simply there.
+ */
+.thread-strand {
+  fill: none;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 0;
+}
+
+/* Shared helpers ------------------------------------------------ */
+.page-container {
+  width: 100%;
+  max-width: calc(var(--page-max) + var(--page-gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--burgundy);
+  color: var(--paper);
+  border-radius: var(--radius-control);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}

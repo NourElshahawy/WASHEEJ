@@ -1,0 +1,358 @@
+/* =====================================================================
+   Shared shape
+   ===================================================================== */
+.button {
+  --button-height: 3.25rem; /* 52px */
+  --button-base: var(--peach);
+  --button-text: var(--burgundy);
+  --button-ink: var(--burgundy);
+  --button-inked-text: var(--paper);
+  --button-line: var(--burgundy);
+  --ink-x: 50%;
+  --ink-y: 50%;
+  --ink-r: 0px;
+
+  position: relative;
+  display: inline-flex;
+  height: var(--button-height);
+  border-radius: 999px;
+  color: var(--button-text);
+  font-size: var(--text-body);
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.large {
+  --button-height: clamp(3.4rem, 3rem + 1.1vw, 4rem);
+  font-size: var(--text-lead);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--button-line);
+  outline-offset: 4px;
+}
+
+/* The part that squeezes on press — like a thread pulled tight. */
+.body {
+  position: relative;
+  flex: 1;
+  display: flex;
+  border-radius: inherit;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.12s ease;
+}
+
+.button:active .body {
+  transform: scale(0.97, 1.03);
+}
+
+.content {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7em;
+  padding-inline: clamp(1.4rem, 1rem + 1.6vw, 2.4rem);
+}
+
+.large .content {
+  padding-inline: clamp(1.6rem, 1rem + 2.4vw, 3rem);
+}
+
+.label {
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.arrowSlot {
+  flex: none;
+  display: flex;
+}
+
+/* Arrows point with the reading direction. */
+:global([dir='rtl']) .arrowSlot {
+  transform: scaleX(-1);
+}
+
+/* =====================================================================
+   Primary — "ink & root"
+   ===================================================================== */
+.primary .body {
+  background: var(--button-base);
+}
+
+/* The filter sits on the wrapper so it roughens the pool's clipped edge. */
+.inkEdge {
+  position: absolute;
+  inset: 0;
+  filter: url(#ink-edge);
+  pointer-events: none;
+}
+
+.inkPool {
+  position: absolute;
+  inset: -12px;
+  background: var(--button-ink);
+  /* The pool is 12px larger than the button on each side, so offset the centre. */
+  clip-path: circle(var(--ink-r) at calc(var(--ink-x) + 12px) calc(var(--ink-y) + 12px));
+}
+
+.contentInked {
+  position: absolute;
+  inset: 0;
+  color: var(--button-inked-text);
+  clip-path: circle(var(--ink-r) at var(--ink-x) var(--ink-y));
+  pointer-events: none;
+}
+
+.threads {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  fill: none;
+  stroke: var(--button-inked-text);
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+/* The root arrow */
+.rootArrow {
+  width: 1.9em;
+  height: 1em;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.rootStem {
+  stroke-width: 1.5;
+}
+
+.rootBranch {
+  stroke-width: 1.1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  /* Hidden at rest: a zero-length round dash would otherwise show as a dot. */
+  opacity: 0;
+  transition: stroke-dashoffset 0.4s ease 0.08s, opacity 0.1s ease 0.08s;
+}
+
+.primary:is(:hover, :focus-visible) .rootArrow {
+  transform: translateX(3px) rotate(-6deg);
+}
+
+.primary:is(:hover, :focus-visible) .rootBranch {
+  opacity: 1;
+  stroke-dashoffset: 0;
+}
+
+/* WhatsApp: green ink, and the bubble's tail draws itself. */
+.whatsapp {
+  --button-ink: #128c7e;
+  --button-inked-text: #ffffff;
+}
+
+.brandIcon {
+  flex: none;
+  width: 1.45em;
+  height: 1.45em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bubbleTail {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.primary:is(:hover, :focus-visible) .bubbleTail {
+  animation: tailDraw 0.55s ease 0.15s both;
+}
+
+@keyframes tailDraw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* On the burgundy CTA: light button, the ink colour does the talking. */
+.primary.onDark {
+  --button-base: var(--paper);
+  --button-line: var(--peach);
+}
+
+.primary.onDark:not(.whatsapp) {
+  --button-ink: var(--peach);
+  --button-inked-text: var(--burgundy);
+}
+
+/* =====================================================================
+   Secondary — "stitched"
+   ===================================================================== */
+.secondary .body {
+  border: 1.5px solid var(--button-line);
+}
+
+.secondary.onDark {
+  --button-text: var(--peach);
+  --button-line: var(--peach);
+}
+
+.lineArrow {
+  width: 1.15em;
+  height: 1.15em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The running stitch sits just inside the outline. */
+.stitch {
+  --stitch-inset: 5px;
+  position: absolute;
+  inset: var(--stitch-inset);
+  width: calc(100% - var(--stitch-inset) * 2);
+  height: calc(100% - var(--stitch-inset) * 2);
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* The rectangle's outline starts at its top-left; flipped in English so the
+   sewing always starts on the arrow side. */
+:global([dir='ltr']) .stitch {
+  transform: scaleX(-1);
+}
+
+/* Corner radius = half the stitch height, so it follows the pill (a larger
+   value would be clamped per axis and turn the outline into an ellipse). */
+.stitchLine,
+.stitchReveal {
+  rx: calc(var(--button-height) / 2 - var(--stitch-inset));
+  ry: calc(var(--button-height) / 2 - var(--stitch-inset));
+}
+
+.stitchLine {
+  fill: none;
+  stroke: var(--button-line);
+  stroke-width: 1.2;
+  stroke-dasharray: 5 4;
+  stroke-linecap: round;
+  /* Fully hidden at rest so no speck of thread shows before the hover. */
+  opacity: 0;
+  transition: opacity 0.15s ease 0.6s;
+}
+
+.secondary:is(:hover, :focus-visible) .stitchLine {
+  opacity: 1;
+  transition: opacity 0.05s ease;
+}
+
+.stitchReveal {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.secondary:is(:hover, :focus-visible) .stitchReveal {
+  stroke-dashoffset: 0;
+}
+
+/* The knot closes the stitch where it started. */
+.knot {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: 2px;
+  inset-inline-end: calc(var(--button-height) / 2 - 3px);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--button-line);
+  transform: scale(0);
+  transition: transform 0.15s ease;
+}
+
+.secondary:is(:hover, :focus-visible) .knot {
+  transform: scale(1);
+  transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1) 0.68s;
+}
+
+.secondary:is(:hover, :focus-visible) .label {
+  transform: translateX(3px);
+}
+
+:global([dir='rtl']) .secondary:is(:hover, :focus-visible) .label {
+  transform: translateX(-3px);
+}
+
+/* =====================================================================
+   Reduced motion: a simple colour change, nothing else
+   ===================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .body,
+  .label,
+  .rootArrow,
+  .knot {
+    transition: none;
+  }
+
+  .button:active .body,
+  .primary:is(:hover, :focus-visible) .rootArrow,
+  .secondary:is(:hover, :focus-visible) .label {
+    transform: none;
+  }
+
+  .inkEdge,
+  .contentInked,
+  .threads,
+  .stitch,
+  .knot,
+  .rootBranch {
+    display: none;
+  }
+
+  .primary .body {
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .primary:is(:hover, :focus-visible) .body {
+    background: var(--button-ink);
+    color: var(--button-inked-text);
+  }
+
+  .secondary .body {
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .secondary:is(:hover, :focus-visible) .body {
+    background: var(--button-line);
+    color: var(--paper);
+  }
+
+  .secondary.onDark:is(:hover, :focus-visible) .body {
+    color: var(--burgundy);
+  }
+
+  .primary:is(:hover, :focus-visible) .bubbleTail {
+    animation: none;
+  }
+}

@@ -1,0 +1,107 @@
+/* Paper + letterform + roots, anchored to the far (inline-end) edge of the hero. */
+.heroArt {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
+  width: 50%;
+  pointer-events: none;
+  /* Roots may spread sideways and upward, but never below the stage (the strip). */
+  clip-path: inset(-200vh -200vw 0 -200vw);
+}
+
+/* The sheet runs from above the top edge of the page down to just above the strip;
+   its width follows from its height. */
+.paperSheet {
+  position: absolute;
+  inset-block: -3vw 7%;
+  inset-inline-end: -13vw;
+  aspect-ratio: 1122 / 1402;
+}
+
+.paperImage {
+  object-fit: fill;
+}
+
+/* The whole word is visible; roots are drawn in the same SVG and overflow it. */
+.artSvg {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: 3vw;
+  width: 41vw;
+  max-width: none;
+  height: auto;
+  overflow: visible;
+  color: var(--burgundy);
+  transform: translateY(-50%);
+}
+
+.rootLayer {
+  fill: none;
+  stroke: var(--burgundy);
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+}
+
+.labelLeader {
+  stroke: var(--burgundy);
+  stroke-linecap: round;
+  opacity: 0.7;
+}
+
+.labelDot {
+  fill: var(--burgundy);
+}
+
+.labelText {
+  fill: var(--burgundy);
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/*
+ * Before JS takes over, keep the ink hidden so the written reveal does not
+ * flash the finished word first. If JS never runs, it fades in by itself.
+ * With reduced motion nothing is hidden: the final state shows immediately.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .heroArt:not([data-state]) .inkLayer {
+    opacity: 0;
+    animation: inkFallback 0.6s ease 5s forwards;
+  }
+}
+
+@keyframes inkFallback {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---- Tablet and mobile: the art sits above the copy ---- */
+@media (max-width: 860px) {
+  .heroArt {
+    position: relative;
+    inset: auto;
+    clip-path: none;
+    width: 100%;
+    /* Taller by the height of the header that now lies over its top. */
+    height: calc(clamp(17rem, 80vw, 36rem) + 2.5rem);
+    margin-block-end: clamp(0.5rem, 2vw, 1.5rem);
+  }
+
+  .paperSheet {
+    inset-block: -6vw auto;
+    inset-inline-end: -8vw;
+    width: 52vw;
+  }
+
+  .artSvg {
+    inset-inline-end: 9vw;
+    width: 80vw;
+    inset-block-start: calc(50% + 1.75rem);
+    transform: translateY(-56%);
+  }
+}

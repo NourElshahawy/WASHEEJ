@@ -1,0 +1,122 @@
+.process {
+  position: relative;
+  padding-block: calc(var(--section-space) * 0.5);
+}
+
+.timeline {
+  --marker-size: clamp(3rem, 2.6rem + 1.4vw, 4rem);
+  position: relative;
+  display: flex;
+  gap: clamp(1rem, 0.4rem + 2.4vw, 3rem);
+}
+
+/* A faint rail under the thread (and the whole timeline when there is no motion). */
+.timeline::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: calc(var(--marker-size) / 2);
+  height: 1px;
+  background: var(--hairline);
+}
+
+.step {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.stepMarker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--marker-size);
+  height: var(--marker-size);
+  margin-block-end: clamp(0.75rem, 0.5rem + 1vw, 1.5rem);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--burgundy);
+}
+
+/* Burgundy disc that scales in over the marker when the thread reaches it. */
+.stepMarkerLit {
+  position: absolute;
+  inset: -1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--burgundy);
+  color: var(--paper);
+  transform: scale(0);
+}
+
+.stepNumber {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: clamp(1.15rem, 1rem + 0.5vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.stepCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stepTitle {
+  color: var(--burgundy);
+  font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.85rem);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.stepText {
+  max-width: 22em;
+  color: var(--ink-soft);
+}
+
+/* Mobile: the rail runs down the start edge. */
+@media (max-width: 720px) {
+  .timeline {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .timeline::before {
+    inset-inline: calc(var(--marker-size) / 2) auto;
+    inset-block: 0;
+    width: 1px;
+    height: auto;
+  }
+
+  .step {
+    flex: none;
+    padding-inline-start: calc(var(--marker-size) + 1.1rem);
+    min-height: var(--marker-size);
+  }
+
+  .stepMarker {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    margin: 0;
+  }
+
+  .stepCopy {
+    gap: 0.25rem;
+  }
+}
+
+/* Reduced motion: no scroll-driven lighting, so the steps are shown lit (the final state). */
+@media (prefers-reduced-motion: reduce) {
+  .stepMarkerLit {
+    transform: none;
+  }
+}
