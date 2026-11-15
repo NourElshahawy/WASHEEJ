@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import { whatsappUrl, emailUrl } from '@/config/site';
+import { whatsappUrl } from '@/config/site';
 import Button from '@/components/Button/Button';
 import CtaKnot from '@/components/CtaKnot/CtaKnot';
 import TornEdge from '@/components/TornEdge/TornEdge';
@@ -22,7 +22,7 @@ export default async function FinalCta() {
             <Button href={whatsappUrl} variant="primary" tone="dark" brand="whatsapp" size="large" newTab>
               {t('whatsapp')}
             </Button>
-            <Button href={emailUrl} variant="secondary" tone="dark" size="large">
+            <Button href="/contact" variant="secondary" tone="dark" size="large">
               {t('request')}
             </Button>
           </div>

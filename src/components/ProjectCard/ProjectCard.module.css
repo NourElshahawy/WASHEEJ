@@ -1,0 +1,76 @@
+/* Surface, border, glow and lift come from styles/card.module.css. */
+.projectCard {
+  height: 100%;
+  padding: 0;
+  color: inherit;
+}
+
+.coverFrame {
+  position: relative;
+  display: block;
+  flex: 1 1 auto;
+  aspect-ratio: 4 / 3;
+  min-height: 7rem;
+  background: var(--peach-wash);
+  overflow: hidden;
+}
+
+.coverImage {
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.projectCard:hover .coverImage,
+.projectCard:focus-visible .coverImage {
+  transform: scale(1.04);
+}
+
+.demoBadge {
+  position: absolute;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  background: var(--burgundy);
+  color: var(--paper);
+  font-size: var(--text-small);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* The numeral is anchored to the text block, not to the cover above it. */
+.cardBody {
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: var(--card-padding);
+  padding-block-start: clamp(2.2rem, 1.9rem + 1vw, 3rem);
+  isolation: isolate;
+}
+
+.projectCard .cardMark {
+  inset-block-start: -0.35rem;
+  font-size: clamp(4rem, 3.2rem + 2.6vw, 5.75rem);
+}
+
+.cardTitle {
+  margin: 0;
+}
+
+.cardCategory {
+  color: var(--ink-soft);
+  font-size: var(--text-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coverImage {
+    transition: none;
+  }
+
+  .projectCard:hover .coverImage,
+  .projectCard:focus-visible .coverImage {
+    transform: none;
+  }
+}

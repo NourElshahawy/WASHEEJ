@@ -58,7 +58,7 @@ function rootPaths(from, to, seed) {
   return { main: toPathData(samples.map((sample) => [sample.x, sample.y])), twigs };
 }
 
-export default function MenuPanel({ open, onClose, links, current }) {
+export default function MenuPanel({ open, onClose, links }) {
   const t = useTranslations('ui');
   const isRtl = useLocale() === 'ar';
   const panelRef = useRef(null);
@@ -201,12 +201,12 @@ export default function MenuPanel({ open, onClose, links, current }) {
 
       <nav className={styles.menuNav} aria-label={t('mainNav')}>
         <ul className={styles.menuList}>
-          {links.map(({ key, hash, href, label }, index) => (
+          {links.map(({ key, href, label, current }, index) => (
             <li key={key} className={styles.menuItem}>
               <Link
                 href={href}
                 className={styles.menuLink}
-                aria-current={current === hash ? 'location' : undefined}
+                aria-current={current ? 'page' : undefined}
                 onClick={onClose}
               >
                 <span className={styles.menuIndex} data-menu-extra aria-hidden="true">

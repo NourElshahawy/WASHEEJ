@@ -18,11 +18,11 @@ export const siteConfig = {
 export const whatsappUrl = `https://wa.me/${siteConfig.contact.whatsappNumber}`;
 export const emailUrl = `mailto:${siteConfig.contact.email}`;
 
-/** In-page anchors used by the header, footer and hero buttons. */
+/** Main navigation (header, menu, footer). Labels are in the messages under `nav`. */
 export const navLinks = [
-  { key: 'home', hash: 'top' },
-  { key: 'services', hash: 'services' },
-  { key: 'work', hash: 'work' },
-  { key: 'about', hash: 'about' },
-  { key: 'contact', hash: 'contact' },
+  { key: 'home', href: '/' },
+  { key: 'services', href: '/services' },
+  { key: 'work', href: '/work' },
+  { key: 'about', href: '/about' },
+  { key: 'contact', href: '/contact' },
 ];

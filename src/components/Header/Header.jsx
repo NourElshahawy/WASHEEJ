@@ -19,14 +19,11 @@ import styles from './Header.module.css';
  *    a paper texture, and a thread draws its outline. Back at the very top it
  *    hides again.
  *  - Link hover: a tiny root sprouts above the word and a thread draws itself
- *    underneath, ending in a knot. The current section's link keeps its knot.
+ *    underneath, ending in a knot. The current page's link keeps its knot.
  *  - The knot button opens the full-screen menu (MenuPanel).
  */
 
 const SHOW_NAV_AFTER = 80; // px scrolled before the floating nav appears
-const SPY_LINE = 0.4; // a section is "current" once its top passes this part of the viewport
-
-const hrefFor = (hash) => (hash === 'top' ? '/' : `/#${hash}`);
 
 /** The menu button: a small knot. */
 function KnotButton({ label, expanded, onClick, buttonRef, className = '' }) {
@@ -50,43 +47,29 @@ function KnotButton({ label, expanded, onClick, buttonRef, className = '' }) {
 export default function Header() {
   const t = useTranslations();
   const pathname = usePathname();
-  const isHome = pathname === '/';
+  // The current page: its link (or its section's link, e.g. /work/… → Work) keeps its knot.
+  const isCurrent = (href) => (href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`));
   const [scrolled, setScrolled] = useState(false);
-  const [current, setCurrent] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const opener = useRef(null);
 
-  // Show the floating nav after the first scroll, and track the current section.
+  // Show the floating nav after the first scroll.
   useEffect(() => {
     let frame = 0;
     const update = () => {
       frame = 0;
       setScrolled(window.scrollY > SHOW_NAV_AFTER);
-      if (!isHome) return;
-      const line = window.innerHeight * SPY_LINE;
-      let best = null;
-      let bestTop = -Infinity;
-      navLinks.forEach(({ hash }) => {
-        const top = document.getElementById(hash)?.getBoundingClientRect().top;
-        if (top !== undefined && top <= line && top > bestTop) {
-          best = hash;
-          bestTop = top;
-        }
-      });
-      setCurrent(best);
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
     update();
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
     };
-  }, [isHome]);
+  }, [pathname]);
 
   const openMenu = (event) => {
     opener.current = event.currentTarget;
@@ -97,7 +80,7 @@ export default function Header() {
     opener.current?.focus();
   };
 
-  const links = navLinks.map(({ key, hash }) => ({ key, hash, href: hrefFor(hash), label: t(`nav.${key}`) }));
+  const links = navLinks.map(({ key, href }) => ({ key, href, label: t(`nav.${key}`), current: isCurrent(href) }));
 
   return (
     <>
@@ -132,12 +115,12 @@ export default function Header() {
 
           <nav className={styles.pillNav} aria-label={t('ui.mainNav')}>
             <ul className={styles.navList}>
-              {links.map(({ key, hash, href, label }) => (
+              {links.map(({ key, href, label, current }) => (
                 <li key={key}>
                   <Link
                     href={href}
                     className={styles.navLink}
-                    aria-current={isHome && current === hash ? 'location' : undefined}
+                    aria-current={current ? 'page' : undefined}
                   >
                     {/* A tiny root that sprouts above the word. */}
                     <svg className={styles.sprout} viewBox="0 0 24 14" aria-hidden="true" focusable="false">
@@ -171,7 +154,7 @@ export default function Header() {
         </div>
       </div>
 
-      <MenuPanel open={menuOpen} onClose={closeMenu} links={links} current={isHome ? current : null} />
+      <MenuPanel open={menuOpen} onClose={closeMenu} links={links} />
     </>
   );
 }

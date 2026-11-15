@@ -43,7 +43,8 @@
   color: var(--burgundy);
 }
 
-/* Burgundy disc that scales in over the marker when the thread reaches it. */
+/* Burgundy disc over the marker. On the homepage it scales in when the thread reaches the step;
+   everywhere else (and with reduced motion) the steps are simply lit. */
 .stepMarkerLit {
   position: absolute;
   inset: -1px;
@@ -53,7 +54,6 @@
   border-radius: 50%;
   background: var(--burgundy);
   color: var(--paper);
-  transform: scale(0);
 }
 
 .stepNumber {
@@ -111,12 +111,5 @@
 
   .stepCopy {
     gap: 0.25rem;
-  }
-}
-
-/* Reduced motion: no scroll-driven lighting, so the steps are shown lit (the final state). */
-@media (prefers-reduced-motion: reduce) {
-  .stepMarkerLit {
-    transform: none;
   }
 }

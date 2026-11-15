@@ -1,0 +1,59 @@
+/* A few strands that sweep across the top of the new page, then fade. */
+.sweep {
+  position: fixed;
+  inset-inline: 0;
+  inset-block-start: 0;
+  z-index: 70;
+  width: 100%;
+  height: 2.5rem;
+  fill: none;
+  pointer-events: none;
+  animation: sweepFade 0.55s ease-in forwards;
+}
+
+/* It runs in the reading direction. */
+:global([dir='rtl']) .sweep {
+  transform: scaleX(-1);
+}
+
+.sweep path {
+  stroke: var(--burgundy);
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1;
+  animation: sweepDraw 0.42s cubic-bezier(0.5, 0, 0.2, 1) forwards;
+}
+
+.sweep path:nth-child(2) {
+  stroke: #b4574a;
+  animation-delay: 0.04s;
+}
+
+.sweep path:nth-child(3) {
+  stroke: #f0a983;
+  animation-delay: 0.08s;
+}
+
+@keyframes sweepDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes sweepFade {
+  0%,
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sweep {
+    display: none;
+  }
+}

@@ -26,7 +26,7 @@ export default async function Hero() {
             </h1>
             <p className={styles.heroLead}>{t('hero.sub')}</p>
             <div className={styles.heroActions}>
-              <Button href="#contact" variant="primary" size="large">{t('hero.primary')}</Button>
+              <Button href="/contact" variant="primary" size="large">{t('hero.primary')}</Button>
               <Button href="#services" variant="secondary" size="large">
                 {t('hero.secondary')}
               </Button>

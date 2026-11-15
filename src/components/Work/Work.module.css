@@ -8,92 +8,8 @@
   padding-block: calc(var(--section-space) * 0.5);
 }
 
-/* =====================================================================
-   Card (surface, border, glow and lift come from styles/card.module.css)
-   ===================================================================== */
 .workItem {
   min-width: 0;
-}
-
-.workPin .workCard {
-  height: 100%;
-  padding: 0;
-}
-
-.coverFrame {
-  position: relative;
-  flex: 1 1 auto;
-  aspect-ratio: 4 / 3;
-  background: var(--peach-wash);
-  overflow: hidden;
-}
-
-.coverImage {
-  object-fit: cover;
-}
-
-.demoBadge {
-  position: absolute;
-  inset-block-start: 0.75rem;
-  inset-inline-start: 0.75rem;
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
-  background: var(--burgundy);
-  color: var(--paper);
-  font-size: var(--text-small);
-  font-weight: 500;
-  line-height: 1.5;
-}
-
-/* The numeral is anchored to the text block, not to the cover above it. */
-.cardBody {
-  position: relative;
-  flex: none;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: var(--card-padding);
-  padding-block-start: clamp(2.4rem, 2rem + 1.2vw, 3.25rem);
-  isolation: isolate;
-}
-
-.workPin .cardMark {
-  inset-block-start: -0.35rem;
-  font-size: clamp(4rem, 3.2rem + 2.6vw, 5.75rem);
-}
-
-.visitLink,
-.comingSoon {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: 2.75rem;
-  margin-block-start: clamp(0.9rem, 0.7rem + 0.6vw, 1.4rem);
-  padding: 0.4rem 1.25rem;
-  border-radius: 999px;
-  font-size: var(--text-small);
-  font-weight: 500;
-}
-
-.visitLink {
-  border: 1.5px solid var(--burgundy);
-  color: var(--burgundy);
-  transition: background-color 0.25s ease, color 0.25s ease;
-}
-
-.visitLink:hover {
-  background: var(--burgundy);
-  color: var(--paper);
-}
-
-:global([dir='rtl']) .visitIcon {
-  transform: scaleX(-1);
-}
-
-.comingSoon {
-  border: 1.5px dashed var(--hairline-strong);
-  color: var(--burgundy-soft);
-  cursor: default;
 }
 
 /* =====================================================================
@@ -272,9 +188,4 @@
   /* First card on top while the cards are still piled up. */
   z-index: calc(20 - var(--card-index));
   will-change: transform;
-}
-
-.workPin[data-mode='rail'] .coverFrame {
-  aspect-ratio: auto;
-  min-height: 7rem;
 }

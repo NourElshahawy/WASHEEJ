@@ -125,3 +125,18 @@ Use this text exactly. Do not invent testimonials, numbers, sectors or FAQs.
 | Title | يبدو أن الخيط انقطع هنا. | Looks like the thread broke here. |
 | Text | الصفحة غير موجودة، لكن الطريق للرئيسية قريب. | This page doesn't exist, but home is close. |
 | Button | رجّعني للرئيسية | Take me home |
+
+## 16. Inner pages (phase 5) — labels added for the new pages
+Page headlines reuse the section headlines above. New short labels:
+| Where | AR | EN |
+|---|---|---|
+| Work filters | الكل · متاجر · مواقع قصصية · مواقع تعريفية · منصات | All · Stores · Story sites · Company sites · Platforms |
+| Card category line | متجر إلكتروني · موقع قصصي · موقع تعريفي · منصة حجز | Online store · Story website · Company website · Booking platform |
+| Project page | الفكرة والتحدي · ما بنيناه · ما يميّزه · التقنيات المستخدمة · معرض الصور · المشروع التالي · كل الأعمال | The idea and the challenge · What we built · What makes it different · Tech used · Gallery · Next project · All work |
+| Project tags | نوع الخدمة · القطاع · الدولة · اللغات | Service type · Sector · Country · Languages |
+| Services page | ما هي · لمن · ما تشمله · مشروع من أعمالنا | What it is · Who it's for · What's included · A project from our work |
+| Contact form | الاسم · الشركة · الدولة · نوع الخدمة · الرسالة · أرسل طلب مشروع | Name · Company · Country · Service type · Message · Send a project request |
+| Contact success | وصل طلبك | Request received |
+
+"What we built" lists are taken from the Work card texts (section 5) only.
+Everything not in this file is shown on the site as a visible [TO FILL] placeholder.

@@ -43,14 +43,46 @@
     "label": "Services",
     "title": "Digital solutions that build your brand's presence and grow its impact.",
     "items": [
-      { "icon": "landing", "title": "Landing pages", "text": "One page that turns campaign visitors into customers." },
-      { "icon": "company", "title": "Company websites", "text": "A professional presence you manage yourself." },
-      { "icon": "story", "title": "Story websites", "text": "Your brand story, told through motion." },
-      { "icon": "store", "title": "Online stores", "text": "Catalogue, cart, checkout and an orders dashboard." },
-      { "icon": "booking", "title": "Booking & real estate platforms", "text": "Listings, bookings and secure payment in one place." },
-      { "icon": "portal", "title": "Service portals", "text": "Clear step-by-step requests with tracking." },
-      { "icon": "systems", "title": "Custom systems & dashboards", "text": "A system built around how you work." },
-      { "icon": "ai", "title": "Integrations & AI", "text": "We connect your systems and add AI." }
+      {
+        "icon": "landing",
+        "title": "Landing pages",
+        "text": "One page that turns campaign visitors into customers."
+      },
+      {
+        "icon": "company",
+        "title": "Company websites",
+        "text": "A professional presence you manage yourself."
+      },
+      {
+        "icon": "story",
+        "title": "Story websites",
+        "text": "Your brand story, told through motion."
+      },
+      {
+        "icon": "store",
+        "title": "Online stores",
+        "text": "Catalogue, cart, checkout and an orders dashboard."
+      },
+      {
+        "icon": "booking",
+        "title": "Booking & real estate platforms",
+        "text": "Listings, bookings and secure payment in one place."
+      },
+      {
+        "icon": "portal",
+        "title": "Service portals",
+        "text": "Clear step-by-step requests with tracking."
+      },
+      {
+        "icon": "systems",
+        "title": "Custom systems & dashboards",
+        "text": "A system built around how you work."
+      },
+      {
+        "icon": "ai",
+        "title": "Integrations & AI",
+        "text": "We connect your systems and add AI."
+      }
     ]
   },
   "work": {
@@ -61,36 +93,136 @@
     "comingSoon": "Coming soon",
     "coverAlt": "Website preview: {title}",
     "items": {
-      "tableware": { "title": "Tableware store", "text": "A bilingual store with catalogue, search, wishlist, cart and a wholesale quote flow." },
-      "kids": { "title": "Interactive kids' store", "text": "A storefront drawn as a scene: clothes hang on a washing line and drop into the basket with a tap." },
-      "bakery": { "title": "Bakery one-page shop", "text": "Menu with prices; customers fill a bag and send the order straight to WhatsApp." },
-      "hara": { "title": "Hara Oven — pizza builder", "text": "Dough, sauce and toppings assemble on screen, then straight to ordering." },
-      "waraqa": { "title": "Waraqa — tea brand story", "text": "A chaptered scroll story following one tea leaf from the hills to the cup." },
-      "rakaez": { "title": "Rakaez — engineering company site", "text": "The building rises as you scroll; each stage reveals a section." },
-      "wasan": { "title": "Wasan Suites — booking dashboard", "text": "Occupancy calendar, bookings, payments, reports and a smart assistant." }
+      "tableware": {
+        "title": "Tableware store",
+        "text": "A bilingual store with catalogue, search, wishlist, cart and a wholesale quote flow."
+      },
+      "kids": {
+        "title": "Interactive kids' store",
+        "text": "A storefront drawn as a scene: clothes hang on a washing line and drop into the basket with a tap."
+      },
+      "bakery": {
+        "title": "Bakery one-page shop",
+        "text": "Menu with prices; customers fill a bag and send the order straight to WhatsApp."
+      },
+      "hara": {
+        "title": "Hara Oven — pizza builder",
+        "text": "Dough, sauce and toppings assemble on screen, then straight to ordering."
+      },
+      "waraqa": {
+        "title": "Waraqa — tea brand story",
+        "text": "A chaptered scroll story following one tea leaf from the hills to the cup."
+      },
+      "rakaez": {
+        "title": "Rakaez — engineering company site",
+        "text": "The building rises as you scroll; each stage reveals a section."
+      },
+      "wasan": {
+        "title": "Wasan Suites — booking dashboard",
+        "text": "Occupancy calendar, bookings, payments, reports and a smart assistant."
+      }
+    },
+    "types": {
+      "all": "All",
+      "store": "Stores",
+      "story": "Story sites",
+      "company": "Company sites",
+      "platform": "Platforms"
+    },
+    "category": {
+      "store": "Online store",
+      "story": "Story website",
+      "company": "Company website",
+      "platform": "Booking platform"
+    },
+    "viewProject": "View project",
+    "features": {
+      "tableware": [
+        "Catalogue",
+        "Search",
+        "Wishlist",
+        "Cart",
+        "Wholesale quote flow"
+      ],
+      "bakery": [
+        "Menu with prices",
+        "A bag customers fill",
+        "Orders sent straight to WhatsApp"
+      ],
+      "hara": [
+        "Dough, sauce and toppings assemble on screen",
+        "Straight to ordering"
+      ],
+      "wasan": [
+        "Occupancy calendar",
+        "Bookings",
+        "Payments",
+        "Reports",
+        "Smart assistant"
+      ]
     }
   },
   "why": {
     "label": "Why Washeej",
     "title": "What sets working with us apart.",
     "items": [
-      { "icon": "team", "title": "One team, front to back", "text": "no juggling a designer, a developer and a host." },
-      { "icon": "rtl", "title": "Native Arabic", "text": "right-to-left from day one, not a flipped English site." },
-      { "icon": "unique", "title": "Not a template", "text": "motion, story and interaction that set your site apart." },
-      { "icon": "fast", "title": "Fast from the first visit", "text": "optimized assets, only what the visitor needs." },
-      { "icon": "screens", "title": "Every screen", "text": "tested on mobile, tablet and desktop before handover." },
-      { "icon": "control", "title": "You're in control", "text": "a simple dashboard to change content without calling us." },
-      { "icon": "support", "title": "With you after launch", "text": "we stay with you and look after your site." }
+      {
+        "icon": "team",
+        "title": "One team, front to back",
+        "text": "no juggling a designer, a developer and a host."
+      },
+      {
+        "icon": "rtl",
+        "title": "Native Arabic",
+        "text": "right-to-left from day one, not a flipped English site."
+      },
+      {
+        "icon": "unique",
+        "title": "Not a template",
+        "text": "motion, story and interaction that set your site apart."
+      },
+      {
+        "icon": "fast",
+        "title": "Fast from the first visit",
+        "text": "optimized assets, only what the visitor needs."
+      },
+      {
+        "icon": "screens",
+        "title": "Every screen",
+        "text": "tested on mobile, tablet and desktop before handover."
+      },
+      {
+        "icon": "control",
+        "title": "You're in control",
+        "text": "a simple dashboard to change content without calling us."
+      },
+      {
+        "icon": "support",
+        "title": "With you after launch",
+        "text": "we stay with you and look after your site."
+      }
     ]
   },
   "process": {
     "label": "Process",
     "title": "From idea to launch, in clear steps.",
     "steps": [
-      { "title": "Understand", "text": "We learn your business, audience and exact needs." },
-      { "title": "Design", "text": "You review and refine the design before any code." },
-      { "title": "Build", "text": "Front end, back end and dashboard, with regular updates." },
-      { "title": "Launch", "text": "Tested on every screen, published, and handed over to you." }
+      {
+        "title": "Understand",
+        "text": "We learn your business, audience and exact needs."
+      },
+      {
+        "title": "Design",
+        "text": "You review and refine the design before any code."
+      },
+      {
+        "title": "Build",
+        "text": "Front end, back end and dashboard, with regular updates."
+      },
+      {
+        "title": "Launch",
+        "text": "Tested on every screen, published, and handed over to you."
+      }
     ]
   },
   "sectors": {
@@ -134,19 +266,58 @@
     "title": "Answers to the questions we hear most.",
     "all": "All questions",
     "items": [
-      { "q": "How much does it cost, and how long does it take?", "a": "Every project has its own scope, so we set price and timeline after a short call about your needs. Get in touch and you'll receive a clear quote." },
-      { "q": "Do you use templates?", "a": "No. Every site is designed and built for your brand and audience." },
-      { "q": "Arabic and English?", "a": "Yes, with native RTL Arabic; more languages can be added." },
-      { "q": "Does it work on mobile?", "a": "Yes, it's tested on mobile, tablet and desktop before handover." },
-      { "q": "Can I edit content myself?", "a": "Yes, from a dashboard made for your site." },
-      { "q": "Online payments?", "a": "Yes, we connect the gateway that fits your country, such as mada, Apple Pay, Tabby and Tamara in the Gulf, or Paymob and Fawry in Egypt." },
-      { "q": "Can you add AI to my site?", "a": "Yes, for example an assistant that understands requests in plain words or voice, or reads data from photos and invoices." },
-      { "q": "Is it ready for search engines?", "a": "It's built with search basics: speed, clean URLs, and a title and description for every page in both languages." },
-      { "q": "Domain and hosting?", "a": "We help you choose them, then publish and connect the site." },
-      { "q": "Who owns the site?", "a": "Once paid in full, the site and its content are yours." },
-      { "q": "How do I follow progress?", "a": "You review the design before development and get regular updates at every stage." },
-      { "q": "Do you work with clients outside Egypt?", "a": "Yes, we work remotely with clients in Saudi Arabia, the Gulf, Egypt and the Arab world." },
-      { "q": "What happens after launch?", "a": "Launch isn't the end. We stay with you, look after the site and help with any change or question." }
+      {
+        "q": "How much does it cost, and how long does it take?",
+        "a": "Every project has its own scope, so we set price and timeline after a short call about your needs. Get in touch and you'll receive a clear quote."
+      },
+      {
+        "q": "Do you use templates?",
+        "a": "No. Every site is designed and built for your brand and audience."
+      },
+      {
+        "q": "Arabic and English?",
+        "a": "Yes, with native RTL Arabic; more languages can be added."
+      },
+      {
+        "q": "Does it work on mobile?",
+        "a": "Yes, it's tested on mobile, tablet and desktop before handover."
+      },
+      {
+        "q": "Can I edit content myself?",
+        "a": "Yes, from a dashboard made for your site."
+      },
+      {
+        "q": "Online payments?",
+        "a": "Yes, we connect the gateway that fits your country, such as mada, Apple Pay, Tabby and Tamara in the Gulf, or Paymob and Fawry in Egypt."
+      },
+      {
+        "q": "Can you add AI to my site?",
+        "a": "Yes, for example an assistant that understands requests in plain words or voice, or reads data from photos and invoices."
+      },
+      {
+        "q": "Is it ready for search engines?",
+        "a": "It's built with search basics: speed, clean URLs, and a title and description for every page in both languages."
+      },
+      {
+        "q": "Domain and hosting?",
+        "a": "We help you choose them, then publish and connect the site."
+      },
+      {
+        "q": "Who owns the site?",
+        "a": "Once paid in full, the site and its content are yours."
+      },
+      {
+        "q": "How do I follow progress?",
+        "a": "You review the design before development and get regular updates at every stage."
+      },
+      {
+        "q": "Do you work with clients outside Egypt?",
+        "a": "Yes, we work remotely with clients in Saudi Arabia, the Gulf, Egypt and the Arab world."
+      },
+      {
+        "q": "What happens after launch?",
+        "a": "Launch isn't the end. We stay with you, look after the site and help with any change or question."
+      }
     ]
   },
   "notFound": {
@@ -166,5 +337,71 @@
       "Development",
       "Digital experience"
     ]
+  },
+  "pages": {
+    "work": {
+      "label": "Work",
+      "title": "Real work for diverse brands.",
+      "filter": "Filter by type",
+      "count": "{count, plural, one {# project} other {# projects}}"
+    },
+    "project": {
+      "back": "All work",
+      "tags": {
+        "service": "Service type",
+        "sector": "Sector",
+        "country": "Country",
+        "languages": "Languages"
+      },
+      "languageNames": {
+        "ar": "Arabic",
+        "en": "English"
+      },
+      "idea": "The idea and the challenge",
+      "built": "What we built",
+      "highlights": "What makes it different",
+      "tech": "Tech used",
+      "gallery": "Gallery",
+      "gallerySlot": "Screenshot — to be added",
+      "next": "Next project"
+    },
+    "services": {
+      "label": "Services",
+      "title": "Digital solutions that build your brand's presence and grow its impact.",
+      "what": "What it is",
+      "who": "Who it's for",
+      "included": "What's included",
+      "related": "A project from our work"
+    },
+    "about": {
+      "label": "About",
+      "title": "A web studio that binds your identity to your customers' experience."
+    },
+    "contact": {
+      "label": "Contact",
+      "title": "Got an idea? Let's build its bond with your customers.",
+      "formTitle": "Send a project request",
+      "name": "Name",
+      "company": "Company",
+      "country": "Country",
+      "service": "Service type",
+      "message": "Message",
+      "optional": "optional",
+      "submit": "Send a project request",
+      "sending": "Sending…",
+      "or": "Or reach us directly",
+      "errors": {
+        "name": "Please enter your name.",
+        "service": "Please choose a service type.",
+        "message": "Please write a message.",
+        "failed": "The request couldn't be sent. Please try again."
+      },
+      "successTitle": "Request received",
+      "successAgain": "Send another request"
+    },
+    "faq": {
+      "label": "FAQ",
+      "title": "Answers to the questions we hear most."
+    }
   }
 }

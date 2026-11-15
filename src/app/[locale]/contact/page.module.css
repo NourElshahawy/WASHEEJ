@@ -1,0 +1,65 @@
+.contact {
+  position: relative;
+  padding-block-end: var(--section-space);
+}
+
+.contactLayout {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+}
+
+.formColumn {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.direct {
+  flex: 0 1 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding-block-start: clamp(0.5rem, 0.2rem + 1vw, 1.5rem);
+}
+
+.directTitle {
+  color: var(--burgundy);
+  font-size: var(--text-card-title);
+  font-weight: 600;
+}
+
+.directList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.directLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 2.75rem;
+  color: var(--ink);
+}
+
+.directLink svg {
+  flex: none;
+  color: var(--burgundy);
+}
+
+.directLink:hover span {
+  text-decoration: underline dashed;
+  text-underline-offset: 0.3em;
+}
+
+@media (max-width: 860px) {
+  .contactLayout {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .direct {
+    flex: none;
+  }
+}

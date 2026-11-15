@@ -8,6 +8,7 @@ import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import SmoothScroll from '@/components/SmoothScroll/SmoothScroll';
 import InkFilter from '@/components/InkFilter/InkFilter';
+import PageTransition from '@/components/PageTransition/PageTransition';
 import Loader from '@/components/Loader/Loader';
 import { LOADER_SCRIPT_HTML } from '@/components/Loader/loaderScript';
 import '../globals.css';
@@ -105,6 +106,7 @@ export default async function LocaleLayout({ children, params }) {
           </a>
           <InkFilter />
           <SmoothScroll />
+          <PageTransition />
           <Header />
           <main id="main">{children}</main>
           <Footer />

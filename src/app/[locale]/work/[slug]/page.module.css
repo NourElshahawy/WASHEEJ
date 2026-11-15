@@ -1,0 +1,327 @@
+.project {
+  position: relative;
+}
+
+/* ---- Hero ---- */
+.projectHero {
+  padding-block: calc(var(--header-height) + clamp(1.5rem, 1rem + 2vw, 3.5rem)) clamp(2rem, 1.5rem + 2vw, 4rem);
+}
+
+.heroLayout {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 0.5rem + 4vw, 5rem);
+}
+
+.heroCopy {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  color: var(--burgundy);
+  font-size: var(--text-small);
+}
+
+.backLink:hover {
+  text-decoration: underline dashed;
+  text-underline-offset: 0.3em;
+}
+
+/* The arrow points back toward the start side. */
+:global([dir='ltr']) .backIcon {
+  transform: scaleX(-1);
+}
+
+.projectNumber {
+  margin-block-start: clamp(0.75rem, 0.5rem + 1vw, 1.5rem);
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: clamp(1.4rem, 1.2rem + 0.8vw, 2rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--burgundy-soft);
+  direction: ltr;
+}
+
+.projectTitle {
+  margin-block-start: 0.5rem;
+  color: var(--burgundy);
+  font-size: clamp(1.9rem, 1.3rem + 2.6vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+:global([dir='ltr']) .projectTitle {
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem clamp(1.25rem, 0.8rem + 1.6vw, 2.5rem);
+  margin-block: clamp(1.25rem, 1rem + 1.2vw, 2.25rem);
+  padding-block: 1rem;
+  border-block: 1px solid var(--hairline-strong);
+  align-self: stretch;
+}
+
+.tag {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.tag dt {
+  color: var(--ink-soft);
+  font-size: var(--text-small);
+}
+
+.tag dd {
+  margin: 0;
+  color: var(--burgundy);
+  font-weight: 500;
+}
+
+.comingSoon {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3.25rem;
+  padding-inline: 1.75rem;
+  border: 1.5px dashed var(--hairline-strong);
+  border-radius: 999px;
+  color: var(--burgundy-soft);
+}
+
+.heroCover {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--hairline);
+  border-radius: 18px;
+  background: var(--peach-wash);
+  box-shadow: 0 30px 60px -36px rgba(89, 23, 27, 0.55);
+  overflow: hidden;
+}
+
+.coverImage {
+  object-fit: cover;
+}
+
+/* ---- Body: blocks in two columns ---- */
+.projectBody {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.75rem, 1.2rem + 2vw, 3.5rem) clamp(2rem, 1rem + 4vw, 5rem);
+  padding-block: clamp(2rem, 1.5rem + 2vw, 4rem);
+}
+
+.block {
+  flex: 1 1 calc(50% - clamp(1rem, 0.5rem + 2vw, 2.5rem));
+  min-width: min(100%, 18rem);
+}
+
+.blockTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-block-end: 0.9rem;
+  color: var(--burgundy);
+  font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.6rem);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* A short thread ending in a knot, before each block title. */
+.blockTitle::before {
+  content: '';
+  flex: none;
+  width: 1.75rem;
+  height: 7px;
+  background:
+    radial-gradient(circle at 100% 50%, var(--burgundy) 3.5px, transparent 4px),
+    linear-gradient(var(--burgundy), var(--burgundy)) 0 50% / calc(100% - 3px) 1px no-repeat;
+}
+
+:global([dir='rtl']) .blockTitle::before {
+  transform: scaleX(-1);
+}
+
+.blockText {
+  max-width: 38em;
+  color: var(--ink);
+  font-size: var(--text-lead);
+}
+
+.highlight {
+  color: var(--burgundy);
+}
+
+.featureList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.feature {
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 999px;
+  background: #fffcf9;
+  color: var(--burgundy);
+}
+
+/* ---- Gallery ---- */
+.gallery {
+  padding-block-end: clamp(2.5rem, 2rem + 3vw, 5rem);
+}
+
+.galleryGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--card-gap);
+}
+
+.galleryItem {
+  position: relative;
+  flex: 1 1 14rem;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.galleryMain {
+  flex: 2 1 26rem;
+  border: 1px solid var(--hairline);
+  background: var(--peach-wash);
+}
+
+/* An empty slot, waiting for a screenshot. */
+.gallerySlot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border: 1.5px dashed var(--hairline-strong);
+  color: var(--ink-soft);
+  font-size: var(--text-small);
+  text-align: center;
+}
+
+/* ---- Next project ---- */
+.nextProject {
+  border-block-start: 1px solid var(--hairline-strong);
+}
+
+.nextLink {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem clamp(1rem, 0.5rem + 2vw, 2.5rem);
+  padding-block: clamp(2rem, 1.5rem + 2.5vw, 4rem);
+  color: var(--burgundy);
+}
+
+.nextLabel {
+  flex-basis: 100%;
+  color: var(--ink-soft);
+  font-size: var(--text-small);
+}
+
+.nextTitle {
+  font-size: clamp(1.6rem, 1.2rem + 2vw, 3rem);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.nextArrow {
+  align-self: center;
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+:global([dir='rtl']) .nextArrow {
+  transform: scaleX(-1);
+}
+
+.nextLink:hover .nextArrow,
+.nextLink:focus-visible .nextArrow {
+  transform: translateX(10px);
+}
+
+:global([dir='rtl']) .nextLink:hover .nextArrow,
+:global([dir='rtl']) .nextLink:focus-visible .nextArrow {
+  transform: scaleX(-1) translateX(10px);
+}
+
+/* The thread that draws across, toward the next project, on hover or focus. */
+.nextThread {
+  position: absolute;
+  inset-inline: var(--page-gutter);
+  inset-block-end: 0.75rem;
+  width: calc(100% - var(--page-gutter) * 2);
+  height: 2rem;
+  fill: none;
+  pointer-events: none;
+}
+
+:global([dir='rtl']) .nextThread {
+  transform: scaleX(-1);
+}
+
+.nextThread path {
+  stroke: var(--burgundy);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nextThread path:nth-child(2) {
+  stroke: #b4574a;
+  transition-delay: 0.06s;
+}
+
+.nextThread path:nth-child(3) {
+  stroke: #f0a983;
+  transition-delay: 0.12s;
+}
+
+.nextLink:hover .nextThread path,
+.nextLink:focus-visible .nextThread path {
+  stroke-dashoffset: 0;
+}
+
+@media (max-width: 860px) {
+  .heroLayout {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .heroCover {
+    flex: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nextThread path {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+
+  .nextArrow {
+    transition: none;
+  }
+}

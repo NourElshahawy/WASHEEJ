@@ -1,10 +1,8 @@
-import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { workItems } from '@/data/work';
 import SectionHeading from '@/components/SectionHeading/SectionHeading';
+import ProjectCard from '@/components/ProjectCard/ProjectCard';
 import WorkRail from '@/components/WorkRail/WorkRail';
-import Icon from '@/components/Icon/Icon';
-import card from '@/styles/card.module.css';
 import styles from './Work.module.css';
 
 const twoDigits = (value) => String(value).padStart(2, '0');
@@ -25,44 +23,16 @@ export default async function Work() {
             {/* The thread runs along the row behind the cards and moves with it (built by WorkRail). */}
             <svg className={styles.workThread} data-work-thread aria-hidden="true" focusable="false" />
             <ul className={styles.workList}>
-            {workItems.map(({ id, image, url, demo }, index) => {
-              const title = t(`items.${id}.title`);
-
-              return (
-                <li key={id} className={styles.workItem} style={{ '--card-index': index }} data-work-card>
-                  <article className={`${card.card} ${styles.workCard}`}>
-                    <div className={styles.coverFrame}>
-                      <Image
-                        src={image}
-                        alt={t('coverAlt', { title })}
-                        fill
-                        sizes="(max-width: 860px) 78vw, (max-width: 1400px) 34vw, 480px"
-                        className={styles.coverImage}
-                      />
-                      {demo ? <span className={styles.demoBadge}>{t('demo')}</span> : null}
-                    </div>
-
-                    <div className={styles.cardBody}>
-                      <span className={`${card.mark} ${styles.cardMark}`} aria-hidden="true">
-                        {twoDigits(index + 1)}
-                      </span>
-                      <h3 className={card.title}>{title}</h3>
-                      <p className={card.text}>{t(`items.${id}.text`)}</p>
-
-                      {url ? (
-                        <a href={url} className={styles.visitLink} target="_blank" rel="noopener noreferrer">
-                          <span>{t('visit')}</span>
-                          <span className="visually-hidden"> — {title}</span>
-                          <Icon name="external" size={16} className={styles.visitIcon} />
-                        </a>
-                      ) : (
-                        <span className={styles.comingSoon}>{t('comingSoon')}</span>
-                      )}
-                    </div>
-                  </article>
+              {workItems.map((project, index) => (
+                // Each card is one link to the project's page (the live-site link lives there).
+                <li key={project.id} className={styles.workItem} style={{ '--card-index': index }} data-work-card>
+                  <ProjectCard
+                    project={project}
+                    number={index + 1}
+                    sizes="(max-width: 860px) 78vw, (max-width: 1400px) 34vw, 480px"
+                  />
                 </li>
-              );
-              })}
+              ))}
             </ul>
           </div>
         </div>

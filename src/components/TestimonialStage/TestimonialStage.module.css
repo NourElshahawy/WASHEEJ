@@ -191,9 +191,9 @@
   font-size: var(--text-small);
 }
 
-.sourceKnot:not([aria-pressed='true']) .sourceRole,
-.sourceKnot:not([aria-pressed='true']) .sourceOrg {
-  opacity: 0.6;
+/* The chosen source is marked by its filled knot and bolder role (the text is never dimmed: contrast). */
+.sourceKnot:not([aria-pressed='true']) .sourceRole {
+  font-weight: 400;
 }
 
 /* Mobile: the arrows move under the quote; the knots stay in a row. */

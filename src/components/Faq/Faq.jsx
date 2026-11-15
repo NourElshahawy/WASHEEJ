@@ -19,11 +19,13 @@ export default async function Faq({ limit, showAllLink = false, headingLevel = '
   return (
     <section
       className={`${styles.faq} ${standalone ? styles.faqStandalone : ''}`}
-      aria-labelledby="faq-heading"
+      aria-labelledby={standalone ? undefined : 'faq-heading'}
+      aria-label={standalone ? t('label') : undefined}
       data-thread="faq"
     >
       <div className="page-container">
-        <SectionHeading as={headingLevel} id="faq-heading" label={t('label')} title={t('title')} />
+        {/* On its own page the page header carries the title. */}
+        {standalone ? null : <SectionHeading as={headingLevel} id="faq-heading" label={t('label')} title={t('title')} />}
 
         <div className={styles.faqColumns}>
           {columns.map((column, columnIndex) => (

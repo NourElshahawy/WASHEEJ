@@ -1,0 +1,260 @@
+/* The form sits on a card in the site's card language. */
+.form,
+.success {
+  padding: clamp(1.5rem, 1rem + 2.4vw, 3rem);
+  border: 1px solid var(--hairline);
+  border-radius: 20px;
+  background: linear-gradient(180deg, #fffcf9 0%, #fffcf9 55%, #fdeee2 100%);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem);
+}
+
+.formTitle {
+  color: var(--burgundy);
+  font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.8rem);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem);
+}
+
+.field {
+  flex: 1 1 14rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.label {
+  padding: 0;
+  color: var(--burgundy);
+  font-size: var(--text-body);
+  font-weight: 500;
+}
+
+.fieldset .label {
+  margin-block-end: 0.6rem;
+}
+
+.optional {
+  color: var(--ink-soft);
+  font-size: var(--text-small);
+  font-weight: 400;
+}
+
+/* A line to write on, like a thread. */
+.input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.6rem 0.2rem;
+  border: 0;
+  border-block-end: 1.5px solid var(--hairline-strong);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-lead);
+  transition: border-color 0.25s ease;
+}
+
+.input:hover {
+  border-block-end-color: var(--burgundy-soft);
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--burgundy);
+  outline-offset: 3px;
+  border-block-end-color: var(--burgundy);
+}
+
+.input[aria-invalid='true'] {
+  border-block-end-color: #a3261f;
+}
+
+.textarea {
+  resize: vertical;
+  line-height: 1.7;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.chip {
+  position: relative;
+  cursor: pointer;
+}
+
+.chip span {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.4rem 1.2rem;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 999px;
+  background: #fffcf9;
+  color: var(--burgundy);
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.chip:hover span {
+  border-color: var(--burgundy);
+}
+
+.chip input:checked + span {
+  border-color: var(--burgundy);
+  background: var(--burgundy);
+  color: var(--paper);
+}
+
+.chip input:focus-visible + span {
+  outline: 2px solid var(--burgundy);
+  outline-offset: 3px;
+}
+
+.error {
+  color: #a3261f;
+  font-size: var(--text-small);
+}
+
+.fieldset .error {
+  display: block;
+  margin-block-start: 0.5rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.submit,
+.againButton {
+  min-height: 3.5rem;
+  padding: 0.7rem 2.5rem;
+  border: 1.5px solid var(--burgundy);
+  border-radius: 999px;
+  background: var(--burgundy);
+  color: var(--paper);
+  font: inherit;
+  font-size: var(--text-lead);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.12s ease;
+}
+
+.submit:hover {
+  background: var(--burgundy-deep);
+}
+
+.submit:active {
+  transform: scale(0.97, 1.03);
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* ---- Success ---- */
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  min-height: 24rem;
+  text-align: center;
+}
+
+.success:focus-visible {
+  outline-offset: 4px;
+}
+
+.successKnot {
+  width: min(100%, 22rem);
+  height: auto;
+  fill: none;
+  stroke: var(--burgundy);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.successKnot path {
+  stroke-dasharray: 1 2;
+}
+
+.successTitle {
+  color: var(--burgundy);
+  font-size: var(--text-section);
+  font-weight: 600;
+}
+
+.againButton {
+  min-height: 2.75rem;
+  background: transparent;
+  color: var(--burgundy);
+  font-size: var(--text-body);
+}
+
+.againButton:hover {
+  background: var(--burgundy);
+  color: var(--paper);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The two ends come in, then the knot ties itself between them. */
+  .successKnot path {
+    animation: knotDraw 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  .successKnot .successTie {
+    animation-duration: 0.7s;
+    animation-delay: 0.55s;
+  }
+
+  .successTitle {
+    animation: successIn 0.5s ease 1s both;
+  }
+}
+
+@keyframes knotDraw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes successIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* Fields that sit directly in the form (not in a row) keep their natural height. */
+.form > .field {
+  flex: none;
+}

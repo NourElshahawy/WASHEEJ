@@ -1,0 +1,70 @@
+.workIndex {
+  position: relative;
+  padding-block-end: var(--section-space);
+}
+
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-block-end: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+/* The same chip as the sectors, as a toggle button. */
+.filterChip {
+  min-height: 2.75rem;
+  padding: 0.4rem 1.25rem;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 999px;
+  background: #fffcf9;
+  color: var(--burgundy);
+  font-size: var(--text-body);
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.filterChip:hover {
+  border-color: var(--burgundy);
+}
+
+.filterChip[aria-pressed='true'] {
+  border-color: var(--burgundy);
+  background: var(--burgundy);
+  color: var(--paper);
+}
+
+.resultCount {
+  color: var(--ink-soft);
+  font-size: var(--text-small);
+}
+
+.projectGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.25rem, 0.8rem + 1.6vw, 2.25rem) var(--card-gap);
+}
+
+.projectItem {
+  flex: 0 1 calc((100% - var(--card-gap) * 2) / 3);
+  min-width: 0;
+}
+
+@media (max-width: 1080px) {
+  .projectItem {
+    flex-basis: calc((100% - var(--card-gap)) / 2);
+  }
+}
+
+@media (max-width: 640px) {
+  .projectItem {
+    flex-basis: 100%;
+  }
+}

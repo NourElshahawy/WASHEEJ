@@ -26,9 +26,9 @@ export default async function Footer() {
 
         <nav className={styles.footerNav} aria-label={t('ui.mainNav')}>
           <ul className={styles.footerNavList}>
-            {navLinks.map(({ key, hash }) => (
+            {navLinks.map(({ key, href }) => (
               <li key={key}>
-                <Link href={hash === 'top' ? '/' : `/#${hash}`} className={styles.footerLink}>
+                <Link href={href} className={styles.footerLink}>
                   {t(`nav.${key}`)}
                 </Link>
               </li>
