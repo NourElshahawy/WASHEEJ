@@ -297,5 +297,20 @@
       "issues": [],
       "updated": "2026-11-17"
     }
-  }
+  },
+  "summary": {
+    "projects": 21,
+    "withAllImages": 21,
+    "provenance": {
+      "generated (supplied, approved)": 1,
+      "screenshot": 4,
+      "code-rendered concept": 16
+    }
+  },
+  "openIssues": [
+    "settings.whatsappNumber is null: concept CTAs fall back to /contact?project=<slug> and site WhatsApp buttons are hidden until a number is set.",
+    "Contact email is still the placeholder hello@washeej.com.",
+    "gd-tableware images are supplied generative renders, not literal screenshots of the live site.",
+    "Contact form submitProjectRequest() has no backend connected yet."
+  ]
 }

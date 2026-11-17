@@ -94,6 +94,11 @@
   .third {
     flex-basis: calc((100% - var(--gap)) / 2);
   }
+
+  /* Two columns: the last of the three would sit alone, so it spans the row. */
+  .third:nth-child(6n) {
+    flex-basis: 100%;
+  }
 }
 
 @media (max-width: 640px) {
