@@ -1,0 +1,18 @@
+/*
+  Shared frame for concept pages (portfolio-studio/concepts/<slug>.html).
+  Each page draws three screens that produce.mjs captures:
+    #hero    1600×900  desktop first view
+    #detail  1600×900  a key feature of the product, in use
+    #mobile  390×844   the phone first view (designed for mobile, not a crop)
+    #mobile2 390×844   optional second phone screen
+  Only layout plumbing lives here — every concept brings its own type,
+  palette and composition.
+*/
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #777; }
+body { display: flex; flex-direction: column; align-items: flex-start; gap: 40px; padding: 0; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+#hero, #detail { position: relative; width: 1600px; height: 900px; overflow: hidden; flex: none; }
+#mobile, #mobile2 { position: relative; width: 390px; height: 844px; overflow: hidden; flex: none; }
+img, svg { display: block; }
+button { font: inherit; border: 0; background: none; color: inherit; }
+ul { list-style: none; }

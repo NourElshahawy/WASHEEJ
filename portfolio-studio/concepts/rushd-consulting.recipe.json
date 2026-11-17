@@ -1,0 +1,27 @@
+{
+  "cover": {
+    "variant": "laptop",
+    "desk": "{hero}",
+    "mob": "{mob}",
+    "side": "end",
+    "size": 1140,
+    "dx": -60,
+    "top": 150,
+    "pw": 230,
+    "px": 90,
+    "py": 430,
+    "bg": "linear-gradient(160deg,#1b3157 0%,#0d1a30 100%)",
+    "light": ".14",
+    "grain": ".06",
+    "shapeAt": "260,240,560",
+    "shape": "rgba(184,146,90,.28)",
+    "shape-blur": "40px"
+  },
+  "mobile": {
+    "bg": "linear-gradient(170deg,#efe5d3 0%,#d9c7a6 100%)",
+    "light": ".3",
+    "grain": ".06",
+    "shapeAt": "820,1480,1100",
+    "shape": "rgba(18,35,63,.9)"
+  }
+}

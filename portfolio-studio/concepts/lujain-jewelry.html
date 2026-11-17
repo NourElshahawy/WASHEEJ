@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>LUJAIN — concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Marcellus&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<!--
+  LUJAIN (لُجين) — fictional jewellery house. Concept: a refined store with
+  catalogue, piece personalisation and cart. Blush paper, rose gold, deep
+  plum ink. Pieces drawn in SVG (no photos).
+-->
+<style>
+  :root {
+    --blush: #f7e6e1;
+    --petal: #efd2ca;
+    --rose: #c98b76;
+    --rosegold: #b8735e;
+    --plum: #4a2433;
+    --ink: #3b2129;
+    --mute: #8f6f70;
+    --line: rgba(74, 36, 51, .14);
+    --paper: #fdf6f3;
+  }
+  body { font-family: 'El Messiri', sans-serif; color: var(--ink); }
+  .latin { font-family: 'Marcellus', serif; direction: ltr; letter-spacing: .3em; }
+
+  /* ---------- hero ---------- */
+  #hero { background: var(--paper); }
+  .nav { position: absolute; inset: 0 0 auto; height: 92px; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; flex-direction: column; align-items: center; line-height: 1; }
+  .brand b { font-size: 38px; font-weight: 700; color: var(--plum); }
+  .brand small { margin-top: 6px; font-size: 11px; color: var(--rosegold); }
+  .links { display: flex; gap: 40px; font-size: 17px; color: var(--mute); }
+  .links .on { color: var(--plum); border-bottom: 1.5px solid var(--rosegold); padding-bottom: 4px; }
+  .tools { display: flex; align-items: center; gap: 22px; color: var(--plum); font-size: 15px; }
+  .tools svg { width: 24px; height: 24px; }
+  .bag { position: relative; }
+  .bag i { position: absolute; top: -6px; left: -8px; width: 18px; height: 18px; border-radius: 50%; background: var(--rosegold); color: #fff; font-size: 11px; font-style: normal; display: flex; align-items: center; justify-content: center; }
+
+  .arch { position: absolute; left: 80px; top: 112px; width: 640px; height: 740px; border-radius: 320px 320px 28px 28px; background:
+      radial-gradient(70% 50% at 50% 42%, #fff6f2 0%, transparent 70%),
+      linear-gradient(180deg, #f3d9d1, #e7c0b4); overflow: hidden; }
+  .arch .neck { position: absolute; left: 50%; top: 40px; width: 560px; margin-left: -280px; }
+  .arch .plinth { position: absolute; left: 50%; bottom: 0; width: 420px; height: 150px; margin-left: -210px; border-radius: 210px 210px 0 0; background: linear-gradient(180deg, #f9ebe6, #edcfc6); box-shadow: 0 -20px 40px -20px rgba(74,36,51,.25); }
+  .arch .ringp { position: absolute; left: 50%; bottom: 96px; width: 200px; margin-left: -100px; filter: drop-shadow(0 18px 18px rgba(74,36,51,.3)); }
+  .arch .chip { position: absolute; top: 260px; right: 34px; padding: 12px 18px; border-radius: 16px; background: rgba(253,246,243,.9); font-size: 15px; color: var(--plum); box-shadow: 0 12px 30px -16px rgba(74,36,51,.4); }
+  .arch .chip small { display: block; font-size: 12px; color: var(--mute); }
+
+  .copy { position: absolute; right: 80px; top: 170px; width: 760px; }
+  .eyebrow { font-size: 17px; color: var(--rosegold); display: flex; gap: 12px; align-items: center; }
+  .eyebrow::before { content: ''; width: 8px; height: 8px; transform: rotate(45deg); background: var(--rosegold); }
+  h1 { white-space: nowrap; margin-top: 14px; font-size: 78px; line-height: 1.3; font-weight: 600; color: var(--plum); }
+  h1 em { font-style: normal; color: var(--rosegold); }
+  .lead { margin-top: 18px; font-size: 22px; line-height: 1.8; color: var(--mute); max-width: 590px; }
+  .actions { margin-top: 36px; display: flex; gap: 18px; }
+  .btn { display: inline-flex; align-items: center; gap: 12px; padding: 18px 36px; border-radius: 999px; background: var(--plum); color: var(--blush); font-size: 19px; font-weight: 500; }
+  .btn.alt { background: transparent; color: var(--plum); border: 1.5px solid var(--plum); }
+  .cats { position: absolute; right: 80px; bottom: 56px; display: flex; gap: 16px; }
+  .cat { width: 160px; padding: 16px 16px 14px; border-radius: 22px; background: #fff; border: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 16px; color: var(--plum); }
+  .cat svg { width: 70px; height: 56px; }
+
+  /* ---------- detail: personalisation ---------- */
+  #detail { background: linear-gradient(180deg, #fbf1ee, #f5e2dc); }
+  .dnav { position: absolute; inset: 0 0 auto; height: 80px; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); background: var(--paper); }
+  .crumbs { font-size: 15px; color: var(--mute); }
+  .crumbs b { color: var(--plum); font-weight: 500; }
+  .viewer { position: absolute; left: 80px; top: 120px; width: 760px; height: 730px; border-radius: 32px; background: radial-gradient(60% 55% at 50% 45%, #fff, #f2d6ce 80%); border: 1px solid var(--line); }
+  .viewer .bigring { position: absolute; left: 50%; top: 70px; width: 470px; margin-left: -235px; filter: drop-shadow(0 30px 30px rgba(74,36,51,.28)); }
+  .viewer .engr { position: absolute; left: 50%; bottom: 150px; transform: translateX(-50%); padding: 10px 26px; border-radius: 999px; background: var(--plum); color: #f6d7cb; font-size: 20px; }
+  .viewer .engr small { font-size: 13px; color: #c9a0a0; margin-inline-start: 10px; }
+  .thumbs { position: absolute; left: 50%; bottom: 32px; transform: translateX(-50%); display: flex; gap: 14px; }
+  .thumbs span { width: 82px; height: 82px; border-radius: 18px; background: #fff; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; }
+  .thumbs span.on { border: 2px solid var(--rosegold); }
+  .thumbs svg { width: 56px; height: 56px; }
+  .viewer .rot { position: absolute; top: 26px; right: 26px; font-size: 14px; color: var(--mute); display: flex; gap: 8px; align-items: center; }
+
+  .config { position: absolute; right: 80px; top: 120px; width: 640px; }
+  .config h2 { font-size: 46px; font-weight: 600; color: var(--plum); line-height: 1.3; }
+  .config > p { margin-top: 4px; font-size: 18px; color: var(--mute); }
+  .group { margin-top: 26px; }
+  .group h3 { font-size: 16px; color: var(--mute); font-weight: 500; display: flex; justify-content: space-between; }
+  .group h3 b { color: var(--plum); font-weight: 600; }
+  .swatches { margin-top: 12px; display: flex; gap: 14px; }
+  .sw { display: flex; align-items: center; gap: 10px; padding: 10px 18px 10px 12px; border-radius: 999px; background: #fff; border: 1px solid var(--line); font-size: 16px; }
+  .sw i { width: 26px; height: 26px; border-radius: 50%; }
+  .sw.on { border: 2px solid var(--plum); }
+  .stones { margin-top: 12px; display: flex; gap: 12px; }
+  .stone { width: 92px; padding: 12px 0 10px; border-radius: 18px; background: #fff; border: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 14px; }
+  .stone svg { width: 34px; height: 34px; }
+  .stone.on { border: 2px solid var(--plum); }
+  .sizes { margin-top: 12px; display: flex; gap: 10px; }
+  .sizes span { width: 56px; height: 52px; border-radius: 14px; border: 1px solid var(--line); background: #fff; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .sizes span.on { background: var(--plum); color: #fbe7df; border-color: var(--plum); }
+  .input { margin-top: 12px; display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-radius: 16px; border: 1.5px solid var(--rosegold); background: #fff; font-size: 20px; color: var(--plum); }
+  .input small { font-size: 13px; color: var(--mute); }
+  .addrow { margin-top: 30px; display: flex; gap: 14px; align-items: center; }
+  .addrow .btn { flex: 1; justify-content: center; }
+  .heart { width: 62px; height: 62px; border-radius: 50%; border: 1.5px solid var(--plum); display: flex; align-items: center; justify-content: center; }
+  .heart svg { width: 26px; height: 26px; }
+
+  /* ---------- mobile: catalogue ---------- */
+  #mobile { background: var(--paper); }
+  .m-top { position: absolute; inset: 54px 20px auto; display: flex; align-items: center; justify-content: space-between; color: var(--plum); }
+  .m-top b { font-size: 28px; font-weight: 700; }
+  .m-top svg { width: 24px; height: 24px; }
+  .m-banner { position: absolute; top: 108px; inset-inline: 20px; height: 250px; border-radius: 26px; background: linear-gradient(160deg, #f0d3ca, #e2b6a7); overflow: hidden; }
+  .m-banner p { position: absolute; right: 22px; top: 26px; font-size: 13px; color: var(--plum); opacity: .7; }
+  .m-banner h2 { position: absolute; right: 22px; top: 48px; font-size: 32px; line-height: 1.3; color: var(--plum); font-weight: 600; }
+  .m-banner .go { position: absolute; right: 22px; bottom: 24px; padding: 10px 18px; border-radius: 999px; background: var(--plum); color: #fbe7df; font-size: 14px; }
+  .m-banner svg { position: absolute; left: -10px; bottom: -6px; width: 190px; }
+  .m-chips { position: absolute; top: 378px; inset-inline: 20px; display: flex; gap: 8px; }
+  .m-chips span { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); font-size: 13px; color: var(--mute); background: #fff; }
+  .m-chips span.on { background: var(--plum); color: #fbe7df; border-color: var(--plum); }
+  .m-grid { position: absolute; top: 432px; inset-inline: 20px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .m-card { width: calc(50% - 6px); border-radius: 20px; background: #fff; border: 1px solid var(--line); padding: 10px 10px 12px; }
+  .m-card .img { height: 128px; border-radius: 14px; background: radial-gradient(circle at 50% 45%, #fff, #f4dcd5); display: flex; align-items: center; justify-content: center; }
+  .m-card .img svg { width: 90px; height: 90px; }
+  .m-card h4 { margin-top: 8px; font-size: 15px; color: var(--plum); font-weight: 600; }
+  .m-card p { font-size: 12px; color: var(--mute); }
+  .m-tab { position: absolute; bottom: 18px; inset-inline: 20px; height: 64px; border-radius: 22px; background: var(--plum); display: flex; align-items: center; justify-content: space-around; color: #e9c6b9; font-size: 12px; }
+  .m-tab span { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .m-tab svg { width: 22px; height: 22px; }
+  .m-tab .on { color: #fff; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f3c7b2" />
+      <stop offset=".35" stop-color="#b8735e" />
+      <stop offset=".6" stop-color="#f6d4c3" />
+      <stop offset="1" stop-color="#8c4f3f" />
+    </linearGradient>
+    <radialGradient id="gem" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#ffffff" />
+      <stop offset=".4" stop-color="#f6e7ef" />
+      <stop offset="1" stop-color="#c7a7bd" />
+    </radialGradient>
+    <radialGradient id="pearl" cx=".35" cy=".3" r=".75">
+      <stop offset="0" stop-color="#fff" />
+      <stop offset=".6" stop-color="#f3e6e0" />
+      <stop offset="1" stop-color="#cdb2a8" />
+    </radialGradient>
+    <!-- ring: band + set stone -->
+    <symbol id="ring" viewBox="0 0 200 200">
+      <ellipse cx="100" cy="128" rx="70" ry="58" fill="none" stroke="url(#rg)" stroke-width="15" />
+      <ellipse cx="100" cy="128" rx="70" ry="58" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2" transform="translate(-3 -3)" />
+      <path d="M78 74 L100 46 L122 74 Z" fill="url(#rg)" />
+      <path d="M100 18 L124 44 L100 76 L76 44 Z" fill="url(#gem)" stroke="#d9b8c8" stroke-width="1" />
+      <path d="M100 18 L112 44 L100 76 M100 18 L88 44 L100 76 M76 44 L124 44" fill="none" stroke="rgba(150,110,140,.45)" stroke-width="1" />
+    </symbol>
+    <!-- necklace with a crescent pendant -->
+    <symbol id="necklace" viewBox="0 0 560 420">
+      <path d="M40 0 C60 210 200 300 280 300 C360 300 500 210 520 0" fill="none" stroke="url(#rg)" stroke-width="3" />
+      <g fill="url(#pearl)">
+        <circle cx="96" cy="150" r="7" /><circle cx="140" cy="210" r="7" /><circle cx="196" cy="262" r="7" />
+        <circle cx="464" cy="150" r="7" /><circle cx="420" cy="210" r="7" /><circle cx="364" cy="262" r="7" />
+      </g>
+      <path d="M280 300 L280 322" stroke="url(#rg)" stroke-width="3" />
+      <path d="M244 340 A44 44 0 1 0 316 340 A34 34 0 1 1 244 340 Z" fill="url(#rg)" />
+      <circle cx="280" cy="390" r="10" fill="url(#gem)" stroke="#d9b8c8" />
+    </symbol>
+    <symbol id="earring" viewBox="0 0 100 100">
+      <circle cx="50" cy="16" r="6" fill="none" stroke="url(#rg)" stroke-width="3" />
+      <path d="M50 22 L50 40" stroke="url(#rg)" stroke-width="2.5" />
+      <path d="M50 40 L66 62 L50 92 L34 62 Z" fill="url(#gem)" stroke="#d9b8c8" />
+    </symbol>
+    <symbol id="bracelet" viewBox="0 0 120 100">
+      <ellipse cx="60" cy="52" rx="48" ry="30" fill="none" stroke="url(#rg)" stroke-width="7" />
+      <circle cx="60" cy="82" r="7" fill="url(#gem)" stroke="#d9b8c8" />
+      <circle cx="30" cy="74" r="4" fill="url(#pearl)" /><circle cx="90" cy="74" r="4" fill="url(#pearl)" />
+    </symbol>
+  </defs>
+</svg>
+
+<!-- =================== HERO =================== -->
+<section id="hero">
+  <nav class="nav">
+    <div class="brand"><b>لُجين</b><small class="latin">LUJAIN</small></div>
+    <div class="links"><span class="on">المجموعات</span><span>خواتم</span><span>قلائد</span><span>أقراط</span><span>صمّمي قطعتك</span></div>
+    <div class="tools">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg>
+      <span class="bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><i>2</i></span>
+    </div>
+  </nav>
+
+  <div class="arch">
+    <svg class="neck" viewBox="0 0 560 420"><use href="#necklace" /></svg>
+    <div class="chip">قلادة «هلال»<small>ذهب وردي · قابلة للنقش</small></div>
+    <div class="plinth"></div>
+    <svg class="ringp" viewBox="0 0 200 200"><use href="#ring" /></svg>
+  </div>
+
+  <div class="copy">
+    <p class="eyebrow">مجموعة الضوء الهادئ</p>
+    <h1>قطعة تحمل <em>اسمكِ</em><br />وتُشبه حكايتكِ</h1>
+    <p class="lead">مجوهرات مصنوعة بعناية، تختارين معدنها وحجرها وتنقشين عليها ما تحبّين قبل أن تصلكِ.</p>
+    <div class="actions"><span class="btn">تسوّقي المجموعة</span><span class="btn alt">صمّمي قطعتك</span></div>
+  </div>
+
+  <div class="cats">
+    <span class="cat"><svg viewBox="0 0 200 200"><use href="#ring" /></svg>خواتم</span>
+    <span class="cat"><svg viewBox="0 0 560 420"><use href="#necklace" /></svg>قلائد</span>
+    <span class="cat"><svg viewBox="0 0 100 100"><use href="#earring" /></svg>أقراط</span>
+    <span class="cat"><svg viewBox="0 0 120 100"><use href="#bracelet" /></svg>أساور</span>
+  </div>
+</section>
+
+<!-- =================== DETAIL: personalise a piece =================== -->
+<section id="detail">
+  <nav class="dnav">
+    <div class="brand"><b style="font-size:30px">لُجين</b></div>
+    <p class="crumbs">المجموعات / خواتم / <b>خاتم «ندى»</b></p>
+    <div class="tools"><span class="bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><i>2</i></span></div>
+  </nav>
+
+  <div class="viewer">
+    <span class="rot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12a8 8 0 0 1 14-5l2-2v6h-6l2-2a5 5 0 1 0 1 6"/></svg>اسحبي للتدوير</span>
+    <svg class="bigring" viewBox="0 0 200 200"><use href="#ring" /></svg>
+    <span class="engr">«نور»<small>النقش الداخلي</small></span>
+    <div class="thumbs">
+      <span class="on"><svg viewBox="0 0 200 200"><use href="#ring" /></svg></span>
+      <span><svg viewBox="0 0 120 100"><use href="#bracelet" /></svg></span>
+      <span><svg viewBox="0 0 100 100"><use href="#earring" /></svg></span>
+    </div>
+  </div>
+
+  <div class="config">
+    <h2>خاتم «ندى» — صمّميه بنفسك</h2>
+    <p>كل اختيار يظهر مباشرةً في المعاينة.</p>
+
+    <div class="group"><h3>المعدن <b>ذهب وردي</b></h3>
+      <div class="swatches">
+        <span class="sw on"><i style="background:linear-gradient(135deg,#f3c7b2,#b8735e)"></i>ذهب وردي</span>
+        <span class="sw"><i style="background:linear-gradient(135deg,#f6e2a5,#c9a24c)"></i>ذهب أصفر</span>
+        <span class="sw"><i style="background:linear-gradient(135deg,#f2f2f2,#a9adb3)"></i>فضة</span>
+      </div>
+    </div>
+
+    <div class="group"><h3>الحجر <b>زركون شفاف</b></h3>
+      <div class="stones">
+        <span class="stone on"><svg viewBox="0 0 40 40"><path d="M20 4 L34 18 L20 36 L6 18 Z" fill="url(#gem)" stroke="#c7a7bd"/></svg>شفاف</span>
+        <span class="stone"><svg viewBox="0 0 40 40"><path d="M20 4 L34 18 L20 36 L6 18 Z" fill="#e7a7b6" stroke="#b97084"/></svg>وردي</span>
+        <span class="stone"><svg viewBox="0 0 40 40"><path d="M20 4 L34 18 L20 36 L6 18 Z" fill="#8fb8c9" stroke="#5f8a9c"/></svg>أزرق</span>
+        <span class="stone"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="13" fill="url(#pearl)"/></svg>لؤلؤ</span>
+      </div>
+    </div>
+
+    <div class="group"><h3>المقاس <b>14</b></h3>
+      <div class="sizes"><span>12</span><span>13</span><span class="on">14</span><span>15</span><span>16</span><span>17</span></div>
+    </div>
+
+    <div class="group"><h3>النقش <b>حتى 12 حرفًا</b></h3>
+      <div class="input">نور<small>3 / 12</small></div>
+    </div>
+
+    <div class="addrow">
+      <span class="btn">أضيفي إلى السلة</span>
+      <span class="heart"><svg viewBox="0 0 24 24" fill="none" stroke="#4a2433" stroke-width="1.6"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg></span>
+    </div>
+  </div>
+</section>
+
+<!-- =================== MOBILE: catalogue =================== -->
+<section id="mobile">
+  <div class="m-top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+    <b>لُجين</b>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+  </div>
+  <div class="m-banner">
+    <p>مجموعة الضوء الهادئ</p>
+    <h2>قطعة تحمل<br />اسمكِ</h2>
+    <span class="go">صمّمي قطعتك</span>
+    <svg viewBox="0 0 200 200"><use href="#ring" /></svg>
+  </div>
+  <div class="m-chips"><span class="on">الكل</span><span>خواتم</span><span>قلائد</span><span>أقراط</span></div>
+  <div class="m-grid">
+    <div class="m-card"><div class="img"><svg viewBox="0 0 200 200"><use href="#ring" /></svg></div><h4>خاتم «ندى»</h4><p>ذهب وردي · قابل للنقش</p></div>
+    <div class="m-card"><div class="img"><svg viewBox="0 0 560 420"><use href="#necklace" /></svg></div><h4>قلادة «هلال»</h4><p>ذهب وردي · لؤلؤ</p></div>
+    <div class="m-card"><div class="img"><svg viewBox="0 0 100 100"><use href="#earring" /></svg></div><h4>أقراط «قطرة»</h4><p>فضة · زركون</p></div>
+    <div class="m-card"><div class="img"><svg viewBox="0 0 120 100"><use href="#bracelet" /></svg></div><h4>سوار «مدار»</h4><p>ذهب أصفر</p></div>
+  </div>
+  <div class="m-tab">
+    <span class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 11l8-7 8 7v9H4z"/></svg>الرئيسية</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg>الأقسام</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg>المفضّلة</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>السلة</span>
+  </div>
+</section>
+
+</body>
+</html>

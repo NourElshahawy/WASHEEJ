@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>NABD — concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Rubik:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<!--
+  NABD (نَبض) — fictional fitness app. Concept: app launch campaign page.
+  Palette: electric lime on near-black, a pulse line running through.
+  All drawn in SVG/CSS.
+-->
+<style>
+  ol { list-style: none; }
+  :root { --ink: #0b0c0a; --coal: #161814; --lime: #c8f53a; --lime-d: #9fcc12; --paper: #f2f5ea; --mute: #8c9283; --line: rgba(200,245,58,.25); }
+  body { font-family: 'Rubik', sans-serif; color: var(--paper); }
+  .disp { font-family: 'Lalezar', sans-serif; font-weight: 400; }
+  .lat { font-family: 'Space Grotesk', sans-serif; direction: ltr; }
+
+  #hero { background: var(--ink); }
+  /* the lime slab behind the phones */
+  .slab { position: absolute; left: -120px; top: 0; width: 820px; height: 900px; background: var(--lime); clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%); }
+  .slab::after { content: none; display: none; --x: 'NABD'; position: absolute; left: 40px; bottom: -40px; font-family: 'Space Grotesk'; font-weight: 700; font-size: 300px; letter-spacing: -.06em; color: rgba(11,12,10,.08); direction: ltr; }
+  .nav { position: absolute; inset: 0 0 auto; height: 92px; padding: 0 80px; display: flex; align-items: center; gap: 70px; z-index: 4; }
+  .nav .navbtn { margin-inline-start: auto; }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo b { font-family: 'Lalezar'; font-size: 42px; font-weight: 400; color: var(--lime); line-height: 1; }
+  .logo svg { width: 40px; height: 24px; }
+  .links { display: flex; gap: 40px; font-size: 16px; color: var(--mute); }
+  .links .on { color: var(--paper); }
+  .navbtn { padding: 12px 26px; border-radius: 999px; background: var(--ink); color: var(--lime); font-weight: 600; font-size: 15px; border: 1.5px solid var(--ink); }
+
+  .copy { position: absolute; right: 80px; top: 170px; width: 660px; z-index: 3; }
+  .chip { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); color: var(--lime); font-size: 15px; }
+  .chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 5px rgba(200,245,58,.2); }
+  h1 { margin-top: 22px; font-size: 132px; line-height: 1.08; }
+  h1 em { font-style: normal; color: var(--lime); }
+  .lead { margin-top: 18px; font-size: 23px; line-height: 1.75; color: #c9cec0; max-width: 560px; }
+  .dl { margin-top: 40px; display: flex; align-items: center; gap: 22px; }
+  .btn { display: inline-flex; align-items: center; gap: 12px; padding: 20px 34px; border-radius: 18px; background: var(--lime); color: var(--ink); font-weight: 700; font-size: 20px; }
+  .btn svg { width: 22px; height: 22px; }
+  .qr { display: flex; align-items: center; gap: 14px; padding: 10px 16px 10px 10px; border: 1px solid var(--line); border-radius: 18px; font-size: 14px; color: var(--mute); line-height: 1.5; }
+  .qr svg { width: 58px; height: 58px; border-radius: 8px; background: var(--paper); padding: 5px; }
+  .pulse { position: absolute; left: 0; right: 0; bottom: 70px; height: 120px; z-index: 1; }
+  .feat { position: absolute; right: 80px; bottom: 64px; display: flex; gap: 14px; z-index: 3; }
+  .feat span { padding: 10px 18px; border-radius: 12px; background: var(--coal); border: 1px solid #262920; color: #c9cec0; font-size: 15px; }
+
+  /* ---------- the app, drawn ---------- */
+  .ph { position: absolute; width: 300px; height: 620px; border-radius: 46px; background: #050604; padding: 12px; box-shadow: 0 40px 70px -20px rgba(0,0,0,.6), inset 0 0 0 2px #2a2d25; z-index: 2; }
+  .ph .scr { color: var(--paper); width: 100%; height: 100%; border-radius: 36px; overflow: hidden; background: var(--coal); position: relative; padding: 46px 20px 20px; }
+  .ph .scr::before { content: ''; position: absolute; top: 12px; left: 50%; width: 88px; height: 24px; margin-left: -44px; border-radius: 14px; background: #000; }
+  .ph1 { left: 110px; top: 150px; transform: rotate(-7deg); }
+  .ph2 { left: 380px; top: 210px; transform: rotate(5deg); }
+  .apphead { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--mute); }
+  .apphead b { font-size: 19px; color: var(--paper); font-weight: 600; }
+  .avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--lime), #5c7a07); }
+  .ring { margin: 20px auto 0; width: 200px; height: 200px; position: relative; }
+  .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .ring .mid { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .ring .mid b { font-family: 'Space Grotesk'; font-size: 44px; color: var(--paper); line-height: 1; }
+  .ring .mid span { font-size: 13px; color: var(--mute); margin-top: 6px; }
+  .tiles { margin-top: 18px; display: flex; gap: 10px; }
+  .tile { flex: 1; padding: 12px; border-radius: 16px; background: #20231c; font-size: 12px; color: var(--mute); }
+  .tile b { display: block; margin-top: 4px; font-size: 16px; color: var(--paper); font-weight: 600; }
+  .tile.l { background: var(--lime); color: #3a4a08; }
+  .tile.l b { color: var(--ink); }
+  .start { margin-top: 16px; padding: 15px; border-radius: 16px; background: var(--lime); color: var(--ink); text-align: center; font-weight: 700; font-size: 16px; }
+  .plan h5 { font-size: 13px; color: var(--mute); font-weight: 400; }
+  .plan h4 { margin-top: 4px; font-size: 22px; font-weight: 600; line-height: 1.35; }
+  .week { margin-top: 16px; display: flex; justify-content: space-between; }
+  .week span { width: 32px; height: 46px; border-radius: 12px; background: #20231c; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; color: var(--mute); gap: 3px; }
+  .week span b { font-size: 14px; color: var(--paper); font-family: 'Space Grotesk'; }
+  .week span.on { background: var(--lime); color: #3a4a08; }
+  .week span.on b { color: var(--ink); }
+  .ex { margin-top: 14px; display: flex; flex-direction: column; gap: 9px; }
+  .ex li { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 14px; background: #20231c; font-size: 14px; }
+  .ex li i { width: 44px; height: 44px; border-radius: 12px; background: #2c3026; display: flex; align-items: center; justify-content: center; flex: none; }
+  .ex li i svg { width: 26px; height: 26px; }
+  .ex li small { display: block; color: var(--mute); font-size: 12px; margin-top: 2px; }
+  .ex li .ck { margin-inline-start: auto; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #3a3e33; }
+  .ex li .ck.d { background: var(--lime); border-color: var(--lime); }
+
+  /* ---------- detail: feature highlights + download ---------- */
+  #detail { background: var(--paper); color: var(--ink); }
+  .d-nav { position: absolute; inset: 0 0 auto; height: 88px; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #dfe3d4; }
+  .d-nav .logo b { color: var(--ink); }
+  .d-nav .links { color: #6d7263; }
+  .d-nav .links .on { color: var(--ink); }
+  .d-head { position: absolute; right: 80px; top: 136px; width: 820px; }
+  .d-head .chip { color: #4d6406; border-color: #cfd8b6; }
+  .d-head .chip i { background: var(--lime-d); box-shadow: none; }
+  .d-head h2 { margin-top: 16px; font-family: 'Lalezar'; font-weight: 400; font-size: 76px; line-height: 1.1; }
+  .grid { position: absolute; right: 80px; top: 360px; width: 820px; display: flex; flex-wrap: wrap; gap: 18px; }
+  .card { width: 401px; height: 196px; border-radius: 26px; padding: 26px; background: #fff; border: 1px solid #e3e7d8; position: relative; overflow: hidden; }
+  .card .n { font-family: 'Space Grotesk'; font-weight: 700; font-size: 15px; color: #8a9a3c; }
+  .card h3 { margin-top: 10px; font-size: 25px; font-weight: 600; }
+  .card p { margin-top: 6px; font-size: 16px; line-height: 1.6; color: #5d6253; max-width: 240px; }
+  .card svg.ic { position: absolute; left: 22px; bottom: 22px; width: 92px; height: 92px; }
+  .card.k { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .card.k p { color: #a7ad9b; }
+  .card.k .n { color: var(--lime); }
+  .card.l { background: var(--lime); border-color: var(--lime); }
+  .card.l p { color: #3f4d0e; }
+  .card.l .n { color: #3f4d0e; }
+  .bigph { position: absolute; left: 90px; top: 120px; width: 340px; height: 700px; z-index: 2; transform: none; }
+  .bigph .scr { padding: 52px 22px 22px; }
+  .blob { position: absolute; left: 30px; top: 170px; width: 470px; height: 640px; border-radius: 240px; background: var(--lime); }
+  .dlbar { position: absolute; left: 520px; bottom: 80px; display: flex; flex-direction: column; gap: 14px; width: 180px; }
+  .dlbar .qr { flex-direction: column; text-align: center; padding: 14px; border-color: #d5dbc4; color: #5d6253; background: #fff; }
+  .dlbar .qr svg { width: 110px; height: 110px; background: #fff; padding: 0; }
+
+  /* ---------- mobile ---------- */
+  #mobile, #mobile2 { background: var(--ink); }
+  .m-nav { position: absolute; inset: 58px 22px auto; display: flex; align-items: center; justify-content: space-between; }
+  .m-nav .logo b { font-size: 32px; }
+  .m-nav .burger { width: 42px; height: 42px; border-radius: 12px; background: var(--coal); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; }
+  .m-nav .burger i { width: 18px; height: 2px; background: var(--paper); border-radius: 2px; }
+  .m-slab { position: absolute; left: 0; right: 0; top: 410px; height: 434px; background: var(--lime); clip-path: polygon(0 18%, 100% 0, 100% 100%, 0 100%); }
+  .m-copy { position: absolute; top: 126px; inset-inline: 22px; }
+  .m-copy h1 { margin-top: 14px; font-size: 64px; line-height: 1.1; }
+  .m-copy .lead { font-size: 16px; margin-top: 10px; }
+  .m-copy .chip { font-size: 13px; padding: 6px 12px; }
+  .mph { position: absolute; left: 50%; top: 452px; width: 220px; height: 456px; margin-left: -110px; transform: rotate(-4deg); border-radius: 36px; padding: 9px; }
+  .mph .scr { border-radius: 28px; padding: 36px 14px 14px; }
+  .mph .scr::before { width: 66px; height: 18px; margin-left: -33px; top: 9px; }
+  .mph .ring { width: 140px; height: 140px; margin-top: 12px; }
+  .mph .ring .mid b { font-size: 32px; }
+  .mph .apphead b { font-size: 15px; }
+  .mph .tile { padding: 9px; font-size: 10px; }
+  .mph .tile b { font-size: 13px; }
+  .m-btn { position: absolute; bottom: 30px; inset-inline: 22px; justify-content: center; padding: 18px; font-size: 18px; background: var(--ink); color: var(--lime); z-index: 3; }
+
+  /* mobile2: in the app — today's workout */
+  .w-top { position: absolute; inset: 58px 22px auto; display: flex; justify-content: space-between; align-items: center; }
+  .w-top .back { width: 42px; height: 42px; border-radius: 12px; background: var(--coal); display: flex; align-items: center; justify-content: center; }
+  .w-top b { font-size: 17px; font-weight: 600; }
+  .w-ring { position: absolute; top: 130px; left: 50%; width: 260px; height: 260px; margin-left: -130px; }
+  .w-ring .mid b { font-size: 60px; }
+  .w-meta { position: absolute; top: 410px; inset-inline: 22px; text-align: center; }
+  .w-meta h3 { font-family: 'Lalezar'; font-weight: 400; font-size: 34px; color: var(--lime); }
+  .w-meta p { font-size: 14px; color: var(--mute); margin-top: 2px; }
+  .w-list { position: absolute; top: 500px; inset-inline: 22px; }
+  .w-ctrl { position: absolute; bottom: 34px; inset-inline: 22px; display: flex; gap: 12px; align-items: center; }
+  .w-ctrl span { height: 60px; border-radius: 18px; display: flex; align-items: center; justify-content: center; }
+  .w-ctrl .sm { width: 60px; background: var(--coal); }
+  .w-ctrl .go { flex: 1; background: var(--lime); color: var(--ink); font-weight: 700; font-size: 18px; gap: 10px; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="beat" viewBox="0 0 40 24"><path d="M1 13h9l4-10 6 19 5-13 3 4h11" fill="none" stroke="#c8f53a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="beatk" viewBox="0 0 40 24"><path d="M1 13h9l4-10 6 19 5-13 3 4h11" fill="none" stroke="#0b0c0a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="qr" viewBox="0 0 21 21"><path fill="#0b0c0a" d="M0 0h7v7H0zM2 2v3h3V2zM14 0h7v7h-7zm2 2v3h3V2zM0 14h7v7H0zm2 2v3h3v-3zM9 0h2v2H9zm2 2h2v3h-2zM9 5h2v2H9zm0 4h3v2H9zm5 0h2v2h-2zm4 0h3v2h-3zM9 12h2v3H9zm3 1h2v2h-2zm3 -1h3v2h-3zm4 2h2v3h-2zm-6 3h3v2h-3zm5 2h2v2h-2zM9 17h2v4H9zm3 2h2v2h-2zM0 9h3v2H0zm4 0h3v2H4z"/></symbol>
+    <symbol id="dumb" viewBox="0 0 32 32"><g fill="none" stroke="#c8f53a" stroke-width="2.2" stroke-linecap="round"><path d="M9 16h14M5 11v10M9 9v14M23 9v14M27 11v10"/></g></symbol>
+    <symbol id="run" viewBox="0 0 32 32"><g fill="none" stroke="#c8f53a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="6" r="2.6"/><path d="M12 13l5-3 4 4 4 1M17 10l-3 8 5 4-2 7M14 18l-5 2-3-2"/></g></symbol>
+    <symbol id="stretch" viewBox="0 0 32 32"><g fill="none" stroke="#c8f53a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="6" r="2.6"/><path d="M6 12l10 2 10-2M16 14v8l-6 7M16 22l6 7"/></g></symbol>
+  </defs>
+</svg>
+
+<!-- =================== HERO =================== -->
+<section id="hero">
+  <div class="slab"></div>
+  <nav class="nav">
+    <div class="logo"><svg><use href="#beat"/></svg><b>نَبض</b></div>
+    <div class="links"><span class="on">التطبيق</span><span>المزايا</span><span>الخطط</span><span>الأسئلة</span></div>
+    <span class="navbtn">حمّل التطبيق</span>
+  </nav>
+
+  <div class="ph ph1"><div class="scr">
+    <div class="apphead"><div><span>صباح الخير</span><b>تمرين اليوم</b></div><span class="avatar"></span></div>
+    <div class="ring">
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#262920" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="#c8f53a" stroke-width="9" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="92"/></svg>
+      <div class="mid"><b class="lat">24:10</b><span>قوة الجزء العلوي</span></div>
+    </div>
+    <div class="tiles"><div class="tile l">التمرين<b>٤ من ٦</b></div><div class="tile">الراحة<b>٤٥ ثانية</b></div></div>
+    <div class="start">تابع التمرين</div>
+  </div></div>
+
+  <div class="ph ph2"><div class="scr plan">
+    <h5>خطة الأسبوع</h5>
+    <h4>ابدأ بخطوات صغيرة وثابتة</h4>
+    <div class="week"><span>س<b>١</b></span><span class="on">ح<b>٢</b></span><span>ن<b>٣</b></span><span class="on">ث<b>٤</b></span><span>ر<b>٥</b></span><span>خ<b>٦</b></span><span>ج<b>٧</b></span></div>
+    <ul class="ex">
+      <li><i><svg><use href="#run"/></svg></i><div>إحماء وجري خفيف<small>١٠ دقائق</small></div><span class="ck d"></span></li>
+      <li><i><svg><use href="#dumb"/></svg></i><div>تمارين الأوزان<small>٣ جولات</small></div><span class="ck d"></span></li>
+      <li><i><svg><use href="#stretch"/></svg></i><div>إطالة وتهدئة<small>٨ دقائق</small></div><span class="ck"></span></li>
+      <li><i><svg><use href="#run"/></svg></i><div>مشي سريع<small>٢٠ دقيقة</small></div><span class="ck"></span></li>
+    </ul>
+  </div></div>
+
+  <svg class="pulse" viewBox="0 0 1600 120" preserveAspectRatio="none"><path d="M0 70 H880 l26 -52 l34 104 l30 -80 l20 28 H1600" fill="none" stroke="#c8f53a" stroke-width="2" opacity=".35"/></svg>
+
+  <div class="copy">
+    <span class="chip"><i></i>متاح الآن للتحميل</span>
+    <h1 class="disp">تمرّن على <em>إيقاعك</em></h1>
+    <p class="lead">خطط تمارين قصيرة تناسب يومك، ومتابعة واضحة لكل جلسة، في تطبيق واحد.</p>
+    <div class="dl">
+      <span class="btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>حمّل التطبيق</span>
+      <span class="qr"><svg><use href="#qr"/></svg>امسح الرمز<br/>للتحميل</span>
+    </div>
+  </div>
+  <div class="feat"><span>خطط أسبوعية</span><span>مؤقّت للجولات</span><span>تذكير بالتمرين</span></div>
+</section>
+
+<!-- =================== DETAIL: feature highlights + download =================== -->
+<section id="detail">
+  <nav class="d-nav">
+    <div class="logo"><svg><use href="#beatk"/></svg><b>نَبض</b></div>
+    <div class="links"><span>التطبيق</span><span class="on">المزايا</span><span>الخطط</span><span>الأسئلة</span></div>
+    <span class="navbtn">حمّل التطبيق</span>
+  </nav>
+  <div class="blob"></div>
+  <div class="ph bigph"><div class="scr plan">
+    <h5>خطة الأسبوع</h5>
+    <h4>ابدأ بخطوات صغيرة وثابتة</h4>
+    <div class="week"><span>س<b>١</b></span><span class="on">ح<b>٢</b></span><span>ن<b>٣</b></span><span class="on">ث<b>٤</b></span><span>ر<b>٥</b></span><span>خ<b>٦</b></span><span>ج<b>٧</b></span></div>
+    <ul class="ex">
+      <li><i><svg><use href="#run"/></svg></i><div>إحماء وجري خفيف<small>١٠ دقائق</small></div><span class="ck d"></span></li>
+      <li><i><svg><use href="#dumb"/></svg></i><div>تمارين الأوزان<small>٣ جولات</small></div><span class="ck d"></span></li>
+      <li><i><svg><use href="#stretch"/></svg></i><div>إطالة وتهدئة<small>٨ دقائق</small></div><span class="ck"></span></li>
+      <li><i><svg><use href="#run"/></svg></i><div>مشي سريع<small>٢٠ دقيقة</small></div><span class="ck"></span></li>
+      <li><i><svg><use href="#dumb"/></svg></i><div>تمارين البطن<small>٢ جولة</small></div><span class="ck"></span></li>
+    </ul>
+    <div class="start">ابدأ تمرين اليوم</div>
+  </div></div>
+
+  <div class="d-head">
+    <span class="chip"><i></i>مزايا مختصرة</span>
+    <h2>كل ما تحتاجه لتبدأ، بلا تعقيد</h2>
+  </div>
+  <div class="grid">
+    <div class="card k"><span class="n lat">01</span><h3>خطة تناسب وقتك</h3><p>اختر أيام التمرين ومدّته، والتطبيق يرتّب الأسبوع.</p>
+      <svg class="ic" viewBox="0 0 92 92"><rect x="10" y="16" width="72" height="62" rx="14" fill="none" stroke="#c8f53a" stroke-width="3"/><path d="M10 34h72M30 10v12M62 10v12" stroke="#c8f53a" stroke-width="3" stroke-linecap="round"/><rect x="24" y="44" width="12" height="10" rx="3" fill="#c8f53a"/><rect x="56" y="58" width="12" height="10" rx="3" fill="#c8f53a"/></svg></div>
+    <div class="card"><span class="n lat">02</span><h3>مؤقّت لكل جولة</h3><p>تمرين وراحة بإيقاع واضح، دون أن تنظر للساعة.</p>
+      <svg class="ic" viewBox="0 0 92 92"><circle cx="46" cy="50" r="32" fill="none" stroke="#0b0c0a" stroke-width="3"/><path d="M46 50 L46 30" stroke="#0b0c0a" stroke-width="3" stroke-linecap="round"/><path d="M46 18 a32 32 0 0 1 30 22" fill="none" stroke="#9fcc12" stroke-width="7" stroke-linecap="round"/><path d="M38 8h16" stroke="#0b0c0a" stroke-width="3" stroke-linecap="round"/></svg></div>
+    <div class="card"><span class="n lat">03</span><h3>تقدّمك أمامك</h3><p>سجلّ بسيط لكل جلسة أنهيتها خلال الأسبوع.</p>
+      <svg class="ic" viewBox="0 0 92 92"><path d="M12 76h70" stroke="#0b0c0a" stroke-width="3" stroke-linecap="round"/><rect x="18" y="50" width="12" height="22" rx="4" fill="#0b0c0a"/><rect x="38" y="38" width="12" height="34" rx="4" fill="#0b0c0a"/><rect x="58" y="22" width="12" height="50" rx="4" fill="#9fcc12"/></svg></div>
+    <div class="card l"><span class="n lat">04</span><h3>تذكير في وقته</h3><p>تنبيه لطيف في الموعد الذي اخترته أنت.</p>
+      <svg class="ic" viewBox="0 0 92 92"><path d="M28 62V42a18 18 0 0 1 36 0v20l6 8H22z" fill="none" stroke="#0b0c0a" stroke-width="3" stroke-linejoin="round"/><path d="M40 76a6 6 0 0 0 12 0" fill="none" stroke="#0b0c0a" stroke-width="3"/></svg></div>
+  </div>
+  <div class="dlbar"><span class="qr"><svg><use href="#qr"/></svg>امسح الرمز وحمّل التطبيق</span></div>
+</section>
+
+<!-- =================== MOBILE =================== -->
+<section id="mobile">
+  <div class="m-nav"><div class="logo"><svg><use href="#beat"/></svg><b>نَبض</b></div><span class="burger"><i></i><i></i></span></div>
+  <div class="m-copy">
+    <span class="chip"><i></i>متاح الآن للتحميل</span>
+    <h1 class="disp">تمرّن على <em>إيقاعك</em></h1>
+    <p class="lead">خطط قصيرة تناسب يومك، ومتابعة واضحة لكل جلسة.</p>
+  </div>
+  <div class="m-slab"></div>
+  <div class="ph mph"><div class="scr">
+    <div class="apphead"><div><span>صباح الخير</span><b>تمرين اليوم</b></div><span class="avatar"></span></div>
+    <div class="ring">
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#262920" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="#c8f53a" stroke-width="9" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="92"/></svg>
+      <div class="mid"><b class="lat">24:10</b><span>قوة الجزء العلوي</span></div>
+    </div>
+    <div class="tiles"><div class="tile l">التمرين<b>٤ من ٦</b></div><div class="tile">الراحة<b>٤٥ ث</b></div></div>
+  </div></div>
+  <span class="btn m-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>حمّل التطبيق</span>
+</section>
+
+<!-- =================== MOBILE 2: inside the app =================== -->
+<section id="mobile2">
+  <div class="w-top"><span class="back"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f2f5ea" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span><b>الجولة ٤ من ٦</b><span class="back"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f2f5ea" stroke-width="2"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></span></div>
+  <div class="ring w-ring">
+    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="43" fill="none" stroke="#1f221b" stroke-width="7"/><circle cx="50" cy="50" r="43" fill="none" stroke="#c8f53a" stroke-width="7" stroke-linecap="round" stroke-dasharray="270" stroke-dashoffset="80"/></svg>
+    <div class="mid"><b class="lat">00:32</b><span>متبقٍّ من الجولة</span></div>
+  </div>
+  <div class="w-meta"><h3 class="disp">ضغط بالأوزان</h3><p>١٢ تكرارًا · ثم راحة ٤٥ ثانية</p></div>
+  <ul class="ex w-list">
+    <li><i><svg><use href="#dumb"/></svg></i><div>التالي: تجديف بالأوزان<small>١٠ تكرارات</small></div><span class="ck"></span></li>
+    <li><i><svg><use href="#stretch"/></svg></i><div>إطالة الكتفين<small>٣٠ ثانية</small></div><span class="ck"></span></li>
+  </ul>
+  <div class="w-ctrl"><span class="sm"><svg width="22" height="22" viewBox="0 0 24 24" fill="#f2f5ea"><path d="M18 6v12l-9-6zM6 6h2v12H6z"/></svg></span><span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="#0b0c0a"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>إيقاف مؤقت</span><span class="sm"><svg width="22" height="22" viewBox="0 0 24 24" fill="#f2f5ea"><path d="M6 6v12l9-6zM16 6h2v12h-2z"/></svg></span></div>
+</section>
+
+</body>
+</html>

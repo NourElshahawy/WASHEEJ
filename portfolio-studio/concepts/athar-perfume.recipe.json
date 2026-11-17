@@ -1,0 +1,4 @@
+{
+  "cover": { "variant": "bleed", "desk": "{hero}", "mob": "{mob}", "side": "start", "pw": 250, "px": 80, "py": 360, "size": 1380, "bg": "linear-gradient(160deg,#2a1c13 0%,#0f0b08 100%)", "light": ".08", "grain": ".1" },
+  "mobile": { "bg": "radial-gradient(70% 50% at 50% 45%,#5a3518 0%,#120d0a 75%)", "light": ".06", "grain": ".1" }
+}

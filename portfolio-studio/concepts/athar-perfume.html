@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>ATHAR — concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<!--
+  ATHAR (أثَر) — fictional fragrance house. Concept: launch page for an oud
+  fragrance. Night palette: smoked oud, amber, old gold. Everything is drawn
+  in SVG/CSS (no photos).
+-->
+<style>
+  :root {
+    --night: #120d0a;
+    --smoke: #1d1510;
+    --oud: #2a1c13;
+    --amber: #d9933d;
+    --gold: #e8c48a;
+    --ivory: #f3e7d3;
+    --mute: #a58f74;
+    --line: rgba(232, 196, 138, .22);
+  }
+  body { font-family: 'IBM Plex Sans Arabic', sans-serif; color: var(--ivory); }
+  .ruqaa { font-family: 'Aref Ruqaa', serif; }
+  .latin { font-family: 'Cormorant Garamond', serif; letter-spacing: .32em; direction: ltr; }
+
+  .screen { background:
+      radial-gradient(60% 75% at 28% 55%, rgba(217,147,61,.32), transparent 70%),
+      radial-gradient(40% 50% at 30% 62%, rgba(255,200,120,.18), transparent 70%),
+      linear-gradient(180deg, var(--smoke), var(--night)); }
+  /* fine grain */
+  .screen::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .09; mix-blend-mode: screen;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* ---------- nav ---------- */
+  .nav { position: absolute; inset: 0 0 auto; height: 96px; padding: 0 88px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); z-index: 3; }
+  .logo { display: flex; align-items: baseline; gap: 14px; }
+  .logo b { font-family: 'Aref Ruqaa', serif; font-size: 40px; font-weight: 700; color: var(--gold); line-height: 1; }
+  .logo span { font-size: 13px; color: var(--mute); }
+  .links { display: flex; gap: 44px; font-size: 16px; color: var(--mute); }
+  .links .on { color: var(--ivory); }
+  .navcta { display: flex; align-items: center; gap: 22px; font-size: 14px; color: var(--mute); }
+  .navcta .pill { padding: 11px 22px; border: 1px solid var(--gold); border-radius: 999px; color: var(--gold); }
+
+  /* ---------- hero ---------- */
+  .copy { position: absolute; right: 88px; top: 190px; width: 640px; z-index: 2; }
+  .kicker { display: flex; align-items: center; gap: 14px; color: var(--amber); font-size: 16px; letter-spacing: .02em; }
+  .kicker::before { content: ''; width: 44px; height: 1px; background: var(--amber); }
+  h1.ruqaa { margin-top: 18px; font-size: 168px; line-height: 1.02; color: var(--ivory); font-weight: 700; }
+  .lead { margin-top: 16px; font-size: 25px; line-height: 1.75; color: #dccab0; font-weight: 300; max-width: 560px; }
+  .actions { margin-top: 44px; display: flex; align-items: center; gap: 28px; }
+  .btn { display: inline-flex; align-items: center; gap: 14px; padding: 20px 38px; border-radius: 999px; background: linear-gradient(180deg, #f0cf96, #d6a35a); color: #2a1a0c; font-weight: 600; font-size: 19px; box-shadow: 0 18px 40px -16px rgba(217,147,61,.7); }
+  .btn svg { width: 22px; height: 22px; }
+  .ghost { font-size: 18px; color: var(--gold); border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+  .release { position: absolute; right: 88px; bottom: 64px; display: flex; gap: 56px; z-index: 2; }
+  .release div { display: flex; flex-direction: column; gap: 6px; }
+  .release dt { font-size: 13px; color: var(--mute); }
+  .release dd { font-size: 19px; color: var(--ivory); }
+
+  .stage { position: absolute; left: 150px; top: 120px; width: 600px; height: 760px; }
+  .stage .halo { position: absolute; left: 50%; top: 52%; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%; border: 1px solid var(--line); }
+  .stage .halo.two { width: 680px; height: 680px; margin: -340px 0 0 -340px; opacity: .55; }
+  .stage .bottle { position: absolute; left: 50%; top: 60px; width: 360px; margin-left: -180px; filter: drop-shadow(0 50px 50px rgba(0,0,0,.55)); }
+  .stage .floor { position: absolute; left: 50%; bottom: 40px; width: 520px; height: 70px; margin-left: -260px; border-radius: 50%; background: radial-gradient(closest-side, rgba(217,147,61,.35), transparent); }
+  .smoke { position: absolute; left: 160px; top: 40px; width: 520px; height: 400px; opacity: .55; }
+  .vlabel { position: absolute; left: 64px; top: 50%; transform: translateY(-50%) rotate(-90deg); transform-origin: left center; font-size: 13px; color: var(--mute); white-space: nowrap; }
+  .vlabel.latin { font-size: 14px; }
+
+  /* ---------- detail: the notes + pre-order ---------- */
+  #detail { background: linear-gradient(180deg, #1a120d, #0f0b08); }
+  .dnav { position: absolute; inset: 0 0 auto; height: 84px; padding: 0 88px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+  .dnav .logo b { font-size: 32px; }
+  .steps { display: flex; gap: 34px; font-size: 15px; color: var(--mute); }
+  .steps .on { color: var(--gold); }
+  .notes { position: absolute; right: 88px; top: 140px; width: 840px; }
+  .notes h2 { font-family: 'Aref Ruqaa', serif; font-size: 58px; color: var(--ivory); font-weight: 700; }
+  .notes > p { margin-top: 8px; font-size: 19px; color: var(--mute); }
+  .tiers { margin-top: 44px; display: flex; flex-direction: column; gap: 18px; }
+  .tier { position: relative; display: flex; align-items: center; gap: 30px; padding: 22px 30px; border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(90deg, rgba(232,196,138,.04), rgba(232,196,138,.09)); }
+  .tier .ill { width: 110px; height: 110px; flex: none; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #3a281b, #1b130d); display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); }
+  .tier .ill svg { width: 74px; height: 74px; }
+  .tier h3 { font-size: 15px; color: var(--amber); font-weight: 500; }
+  .tier h4 { margin-top: 4px; font-size: 30px; font-weight: 600; color: var(--ivory); }
+  .tier p { margin-top: 4px; font-size: 16px; color: var(--mute); }
+  .tier .bar { margin-inline-start: auto; width: 170px; display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: var(--mute); }
+  .tier .bar i { display: block; height: 4px; border-radius: 4px; background: rgba(232,196,138,.14); }
+  .tier .bar i b { display: block; height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--amber), var(--gold)); }
+  .tier.active { border-color: rgba(232,196,138,.6); background: linear-gradient(90deg, rgba(217,147,61,.08), rgba(217,147,61,.2)); }
+
+  .order { position: absolute; left: 88px; top: 140px; width: 520px; height: 700px; border-radius: 30px; padding: 40px; background: linear-gradient(180deg, #f3e7d3, #e9d8bb); color: #2a1a0c; display: flex; flex-direction: column; }
+  .order .tag { align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: #2a1a0c; color: var(--gold); font-size: 13px; }
+  .order h3 { margin-top: 20px; font-family: 'Aref Ruqaa', serif; font-size: 44px; line-height: 1.1; }
+  .order .sub { margin-top: 6px; font-size: 16px; color: #7b6249; }
+  .mini { display: flex; align-items: center; gap: 22px; margin-top: 26px; padding: 18px; border-radius: 20px; background: #1d1510; }
+  .mini svg { width: 70px; height: 110px; flex: none; }
+  .mini div { color: var(--ivory); font-size: 15px; line-height: 1.7; }
+  .mini div b { display: block; font-family: 'Aref Ruqaa', serif; font-size: 28px; color: var(--gold); }
+  .label { margin-top: 26px; font-size: 14px; color: #7b6249; }
+  .sizes { margin-top: 10px; display: flex; gap: 12px; }
+  .sizes span { flex: 1; padding: 16px 0; text-align: center; border: 1px solid rgba(42,26,12,.25); border-radius: 16px; font-size: 18px; font-weight: 500; }
+  .sizes span.on { background: #2a1a0c; color: var(--gold); border-color: #2a1a0c; }
+  .field { margin-top: 10px; padding: 16px 20px; border-radius: 16px; background: rgba(255,255,255,.55); font-size: 17px; color: #7b6249; border: 1px solid rgba(42,26,12,.12); }
+  .order .btn { margin-top: auto; justify-content: center; background: #2a1a0c; color: var(--gold); box-shadow: none; }
+
+  /* ---------- mobile ---------- */
+  #mobile { background:
+      radial-gradient(90% 55% at 50% 52%, rgba(217,147,61,.38), transparent 70%),
+      linear-gradient(180deg, var(--smoke), var(--night)); }
+  .m-nav { position: absolute; inset: 54px 22px auto; display: flex; align-items: center; justify-content: space-between; }
+  .m-nav b { font-family: 'Aref Ruqaa', serif; font-size: 30px; color: var(--gold); }
+  .m-nav i { width: 26px; height: 12px; border-block: 1.5px solid var(--ivory); }
+  .m-kicker { position: absolute; top: 118px; inset-inline: 0; text-align: center; color: var(--amber); font-size: 13px; }
+  .m-title { position: absolute; top: 136px; inset-inline: 0; text-align: center; font-family: 'Aref Ruqaa', serif; font-size: 92px; font-weight: 700; line-height: 1.15; }
+  .m-bottle { position: absolute; left: 50%; top: 268px; width: 210px; margin-left: -105px; filter: drop-shadow(0 30px 30px rgba(0,0,0,.5)); }
+  .m-ring { position: absolute; left: 50%; top: 300px; width: 330px; height: 330px; margin-left: -165px; border-radius: 50%; border: 1px solid var(--line); }
+  .m-lead { position: absolute; top: 636px; inset-inline: 30px; text-align: center; font-size: 15px; line-height: 1.8; color: #dccab0; font-weight: 300; }
+  .m-cta { position: absolute; bottom: 40px; inset-inline: 22px; display: flex; flex-direction: column; gap: 12px; }
+  .m-cta .btn { justify-content: center; padding: 17px; font-size: 17px; }
+  .m-notes { display: flex; justify-content: center; gap: 8px; font-size: 12px; color: var(--mute); }
+  .m-notes span { padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; }
+</style>
+</head>
+<body>
+
+<!-- one bottle drawing, reused -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="glass" x1="0" x2="1">
+      <stop offset="0" stop-color="#3a2414" />
+      <stop offset=".22" stop-color="#c77a2c" />
+      <stop offset=".5" stop-color="#f0b45f" />
+      <stop offset=".78" stop-color="#b8681f" />
+      <stop offset="1" stop-color="#2e1c0f" />
+    </linearGradient>
+    <linearGradient id="liquid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6c071" stop-opacity=".95" />
+      <stop offset="1" stop-color="#8f4a14" />
+    </linearGradient>
+    <linearGradient id="capg" x1="0" x2="1">
+      <stop offset="0" stop-color="#6b4c25" />
+      <stop offset=".35" stop-color="#f4dca4" />
+      <stop offset=".6" stop-color="#c9a062" />
+      <stop offset="1" stop-color="#4f3618" />
+    </linearGradient>
+    <symbol id="bottle" viewBox="0 0 360 600">
+      <!-- cap: a faceted stopper -->
+      <path d="M135 18 L225 18 L246 92 L114 92 Z" fill="url(#capg)" />
+      <path d="M180 18 L190 92 L170 92 Z" fill="rgba(255,255,255,.35)" />
+      <rect x="146" y="92" width="68" height="34" rx="6" fill="#8a6430" />
+      <rect x="146" y="92" width="68" height="8" fill="rgba(255,240,200,.5)" />
+      <!-- glass body -->
+      <path d="M70 150 Q70 128 92 128 L268 128 Q290 128 290 150 L304 520 Q304 576 250 576 L110 576 Q56 576 56 520 Z" fill="url(#glass)" opacity=".94" />
+      <path d="M86 210 L274 210 L286 516 Q286 556 246 556 L114 556 Q74 556 74 516 Z" fill="url(#liquid)" opacity=".85" />
+      <!-- highlights -->
+      <path d="M96 150 L112 150 L104 540 L90 540 Z" fill="rgba(255,240,210,.42)" />
+      <path d="M252 160 L262 160 L270 520 L262 520 Z" fill="rgba(255,240,210,.22)" />
+      <!-- label: the name in ruqaa -->
+      <rect x="120" y="300" width="120" height="150" rx="6" fill="#1a110b" opacity=".9" />
+      <rect x="126" y="306" width="108" height="138" rx="4" fill="none" stroke="#e8c48a" stroke-width="1" opacity=".7" />
+      <text x="180" y="388" text-anchor="middle" font-family="Aref Ruqaa" font-size="54" font-weight="700" fill="#e8c48a">أثَر</text>
+      <text x="180" y="424" text-anchor="middle" font-family="Cormorant Garamond" font-size="11" letter-spacing="2.5" fill="#e8c48a" direction="ltr">ATHAR · OUD</text>
+    </symbol>
+    <!-- note illustrations -->
+    <symbol id="cardamom" viewBox="0 0 80 80"><g fill="none" stroke="#e8c48a" stroke-width="1.6"><path d="M40 8 C58 22 58 56 40 72 C22 56 22 22 40 8 Z"/><path d="M40 12 L40 70"/><path d="M40 26 C48 30 50 38 50 44 M40 26 C32 30 30 38 30 44"/></g></symbol>
+    <symbol id="rose" viewBox="0 0 80 80"><g fill="none" stroke="#e8c48a" stroke-width="1.6"><path d="M40 20 C52 20 58 30 54 40 C50 50 30 50 26 40 C22 30 28 20 40 20 Z"/><path d="M40 26 C46 28 48 34 44 38 C40 42 34 38 36 32"/><path d="M40 50 C40 60 38 66 34 74"/><path d="M38 62 C30 58 24 60 20 64 C26 68 32 66 38 62"/></g></symbol>
+    <symbol id="oudwood" viewBox="0 0 80 80"><g fill="none" stroke="#e8c48a" stroke-width="1.6"><path d="M14 52 C24 40 42 44 56 30 L66 22"/><path d="M18 58 C30 50 46 54 62 40"/><path d="M30 46 C30 38 36 34 40 26 M44 42 C48 36 54 34 58 26"/><path d="M40 26 C38 20 42 14 40 8 M58 26 C56 20 60 16 58 10" stroke-dasharray="3 3"/></g></symbol>
+  </defs>
+</svg>
+
+<!-- =================== HERO =================== -->
+<section id="hero" class="screen">
+  <nav class="nav">
+    <div class="logo"><b>أثَر</b><span>دار عطور</span></div>
+    <div class="links"><span class="on">الإصدار الجديد</span><span>الحكاية</span><span>المكوّنات</span><span>الطلب المسبق</span></div>
+    <div class="navcta"><span class="latin">AR · EN</span><span class="pill">اطلب مسبقًا</span></div>
+  </nav>
+
+  <svg class="smoke" viewBox="0 0 520 400" fill="none" stroke="#e8c48a" stroke-width="1" opacity=".5">
+    <path d="M260 400 C230 330 300 300 270 240 C240 180 300 150 280 90 C268 54 290 28 300 0" />
+    <path d="M250 400 C210 340 280 290 240 230 C200 170 250 140 230 80" opacity=".6" />
+    <path d="M272 400 C300 340 240 300 280 250 C320 200 290 150 320 110" opacity=".45" />
+  </svg>
+  <div class="stage">
+    <div class="halo two"></div><div class="halo"></div>
+    <div class="floor"></div>
+    <svg class="bottle" viewBox="0 0 360 600"><use href="#bottle" /></svg>
+  </div>
+  <span class="vlabel latin">ATHAR — EAU DE PARFUM</span>
+
+  <div class="copy">
+    <p class="kicker">إصدار العود الأول</p>
+    <h1 class="ruqaa">يبقى أثَره</h1>
+    <p class="lead">عطرٌ من العود والورد الطائفي وحبّات الهيل، يبدأ دافئًا ويبقى بعد أن تغادر المكان.</p>
+    <div class="actions">
+      <span class="btn">احجز نسختك مسبقًا
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M10 6l-6 6 6 6"/></svg></span>
+      <span class="ghost">اكتشف المكوّنات</span>
+    </div>
+  </div>
+  <dl class="release">
+    <div><dt>التركيز</dt><dd>أو دو بارفان</dd></div>
+    <div><dt>العائلة العطرية</dt><dd>شرقية خشبية</dd></div>
+    <div><dt>الأحجام</dt><dd>٥٠ مل · ١٠٠ مل</dd></div>
+  </dl>
+</section>
+
+<!-- =================== DETAIL: notes + pre-order =================== -->
+<section id="detail" class="screen">
+  <nav class="dnav">
+    <div class="logo"><b>أثَر</b><span>المكوّنات والطلب المسبق</span></div>
+    <div class="steps"><span>الحكاية</span><span class="on">المكوّنات</span><span>الطلب المسبق</span></div>
+  </nav>
+
+  <div class="notes">
+    <h2>ثلاث طبقات، رحلة واحدة</h2>
+    <p>كيف يتغيّر العطر على البشرة من أول رشّة حتى آخر النهار.</p>
+    <ul class="tiers">
+      <li class="tier">
+        <span class="ill"><svg><use href="#cardamom" /></svg></span>
+        <div><h3>الافتتاحية</h3><h4>هيل وبرغموت</h4><p>انتعاش دافئ في الدقائق الأولى</p></div>
+        <div class="bar">أول ساعة<i><b style="width:30%"></b></i></div>
+      </li>
+      <li class="tier active">
+        <span class="ill"><svg><use href="#rose" /></svg></span>
+        <div><h3>القلب</h3><h4>ورد طائفي وزعفران</h4><p>الطبقة التي تعرّف العطر</p></div>
+        <div class="bar">بعد ساعة<i><b style="width:62%"></b></i></div>
+      </li>
+      <li class="tier">
+        <span class="ill"><svg><use href="#oudwood" /></svg></span>
+        <div><h3>القاعدة</h3><h4>عود وعنبر</h4><p>الأثر الذي يبقى</p></div>
+        <div class="bar">آخر النهار<i><b style="width:100%"></b></i></div>
+      </li>
+    </ul>
+  </div>
+
+  <aside class="order">
+    <span class="tag">الطلب المسبق مفتوح</span>
+    <h3>احجز نسختك من الإصدار الأول</h3>
+    <p class="sub">نتواصل معك لتأكيد الطلب قبل الشحن.</p>
+    <div class="mini">
+      <svg viewBox="0 0 360 600"><use href="#bottle" /></svg>
+      <div><b>أثَر — عود</b>أو دو بارفان · عائلة شرقية خشبية</div>
+    </div>
+    <p class="label">الحجم</p>
+    <div class="sizes"><span>٥٠ مل</span><span class="on">١٠٠ مل</span></div>
+    <p class="label">رقم الجوال</p>
+    <div class="field">٠٥ ـ ـ ـ ـ ـ ـ ـ ـ</div>
+    <span class="btn">تأكيد الحجز المسبق</span>
+  </aside>
+</section>
+
+<!-- =================== MOBILE =================== -->
+<section id="mobile">
+  <div class="m-nav"><b>أثَر</b><i></i></div>
+  <p class="m-kicker">إصدار العود الأول</p>
+  <h1 class="m-title">يبقى أثَره</h1>
+  <div class="m-ring"></div>
+  <svg class="m-bottle" viewBox="0 0 360 600"><use href="#bottle" /></svg>
+  <p class="m-lead">عود وورد طائفي وهيل — عطرٌ يبدأ دافئًا ويبقى بعد أن تغادر.</p>
+  <div class="m-cta">
+    <div class="m-notes"><span>هيل</span><span>ورد طائفي</span><span>عود</span></div>
+    <span class="btn">احجز نسختك مسبقًا</span>
+  </div>
+</section>
+
+</body>
+</html>

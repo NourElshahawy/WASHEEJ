@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>DARB — concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Naskh+Arabic:wght@400;500;600&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<!--
+  DARB (دَرْب) — fictional heritage storytelling project. Concept: an
+  interactive journey along an old caravan route — map, chapters, scroll
+  progress. Palette: parchment, sepia ink, indigo, faded vermilion.
+  Map and scenes drawn in SVG (a stylised, not geographically exact, route).
+-->
+<style>
+  ol { list-style: none; }
+  :root { --parch: #efe2c4; --parch2: #e4d2ac; --sepia: #4a3420; --ink: #2d1f12; --indigo: #2f3e66; --verm: #b4442a; --mute: #8a7356; --rule: rgba(74,52,32,.25); }
+  body { font-family: 'Noto Naskh Arabic', serif; color: var(--ink); }
+  .amiri { font-family: 'Amiri', serif; }
+  .paper { background: radial-gradient(120% 90% at 50% 40%, #f4e8cd 0%, #e8d6b0 70%, #d9c193 100%); }
+  .paper::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .28; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='4'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .32 0 0 0 0 .18 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  /* burnt edges */
+  .paper::before { content: ''; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 140px rgba(90,55,20,.35); z-index: 1; }
+
+  .top { position: absolute; inset: 0 0 auto; height: 88px; padding: 0 70px; display: flex; align-items: center; justify-content: space-between; z-index: 4; }
+  .logo { display: flex; align-items: center; gap: 14px; }
+  .logo b { font-family: 'Amiri'; font-size: 40px; font-weight: 700; color: var(--ink); line-height: 1; }
+  .logo span { font-size: 13px; color: var(--mute); border-inline-start: 1px solid var(--rule); padding-inline-start: 14px; }
+  .chapters-nav { display: flex; gap: 30px; font-size: 15px; color: var(--mute); }
+  .chapters-nav .on { color: var(--verm); }
+  .sound { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--mute); }
+  .sound i { display: flex; gap: 3px; align-items: flex-end; height: 16px; }
+  .sound i b { width: 3px; background: var(--sepia); border-radius: 2px; }
+
+  .map { position: absolute; inset: 0; width: 1600px; height: 900px; z-index: 0; }
+  .h-title { position: absolute; right: 90px; top: 170px; width: 560px; z-index: 3; }
+  .h-title .k { font-size: 16px; color: var(--verm); letter-spacing: .02em; }
+  .h-title h1 { margin-top: 8px; font-family: 'Amiri'; font-size: 118px; font-weight: 700; line-height: 1.15; color: var(--ink); }
+  .h-title p { margin-top: 14px; font-size: 21px; line-height: 1.9; color: var(--sepia); max-width: 470px; }
+  .begin { margin-top: 34px; display: inline-flex; align-items: center; gap: 16px; font-size: 18px; color: var(--parch); background: var(--ink); padding: 17px 30px; border-radius: 4px; }
+  .begin svg { width: 20px; height: 20px; }
+  .scrollhint { position: absolute; left: 50%; bottom: 112px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 13px; color: var(--mute); z-index: 3; }
+  .scrollhint i { width: 22px; height: 36px; border: 1.5px solid var(--sepia); border-radius: 12px; position: relative; }
+  .scrollhint i::after { content: ''; position: absolute; left: 50%; top: 7px; width: 3px; height: 8px; margin-left: -1.5px; background: var(--sepia); border-radius: 2px; }
+
+  /* progress along the bottom: the chapters as stations */
+  .prog::before { content: ''; position: absolute; inset: -18px -70px -40px; background: linear-gradient(180deg, rgba(236,222,190,0), rgba(236,222,190,.92) 35%); z-index: -1; }
+  .prog { position: absolute; inset: auto 70px 40px; height: 54px; display: flex; align-items: center; z-index: 3; }
+  .prog .rail { position: absolute; inset: 26px 0 auto; height: 2px; background: var(--rule); }
+  .prog .fill { position: absolute; top: 26px; left: 0; height: 2px; width: 50%; background: var(--verm); }
+  .prog ol { direction: ltr; position: relative; display: flex; justify-content: space-between; width: 100%; }
+  .prog li { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 14px; color: var(--mute); }
+  .prog li i { width: 14px; height: 14px; border-radius: 50%; background: var(--parch); border: 2px solid var(--sepia); margin-top: 19px; }
+  .prog li.on { color: var(--verm); }
+  .prog li.on i { background: var(--verm); border-color: var(--verm); box-shadow: 0 0 0 6px rgba(180,68,42,.18); }
+  .prog li.done i { background: var(--sepia); }
+
+  /* ---------- detail: a chapter ---------- */
+  .scene { position: absolute; left: 0; top: 0; width: 900px; height: 900px; overflow: hidden; }
+  .scene svg { width: 100%; height: 100%; }
+  .ch { position: absolute; right: 120px; top: 150px; width: 470px; z-index: 3; }
+  .ch .num { font-family: 'Amiri'; font-size: 22px; color: var(--verm); }
+  .ch h2 { margin-top: 6px; font-family: 'Amiri'; font-size: 74px; line-height: 1.2; font-weight: 700; }
+  .ch p { margin-top: 18px; font-size: 19px; line-height: 2.05; color: var(--sepia); }
+  .ch p:first-letter { }
+  .quote { margin-top: 22px; padding-inline-start: 20px; border-inline-start: 3px solid var(--verm); font-family: 'Amiri'; font-style: italic; font-size: 22px; line-height: 1.8; color: var(--indigo); }
+  .minimap { position: absolute; right: 120px; bottom: 60px; width: 470px; height: 150px; border: 1px solid var(--rule); background: rgba(255,250,235,.45); z-index: 3; }
+  .minimap svg { width: 100%; height: 100%; }
+  .minimap span { position: absolute; right: 14px; top: 10px; font-size: 13px; color: var(--mute); }
+  .vprog { position: absolute; right: 52px; top: 150px; bottom: 60px; width: 30px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; z-index: 3; }
+  .vprog::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; background: var(--rule); }
+  .vprog::after { content: ''; position: absolute; top: 0; height: 38%; left: 50%; width: 2px; margin-left: -1px; background: var(--verm); }
+  .vprog i { position: relative; z-index: 1; width: 14px; height: 14px; border-radius: 50%; background: var(--parch); border: 2px solid var(--sepia); }
+  .vprog i.done { background: var(--sepia); }
+  .vprog i.on { background: var(--verm); border-color: var(--verm); box-shadow: 0 0 0 6px rgba(180,68,42,.18); }
+  .divider { position: absolute; left: 900px; top: 0; bottom: 0; width: 60px; z-index: 2; }
+
+  /* ---------- mobile ---------- */
+  .m-top { position: absolute; inset: 52px 18px auto; height: 48px; display: flex; align-items: center; justify-content: space-between; z-index: 4; }
+  .m-top .logo b { font-size: 30px; }
+  .m-bar { position: absolute; inset: 104px 18px auto; height: 3px; background: var(--rule); z-index: 4; }
+  .m-bar b { position: absolute; right: 0; top: 0; height: 3px; width: 38%; background: var(--verm); }
+  .m-bar span { position: absolute; left: 0; top: 10px; font-size: 12px; color: var(--mute); }
+  .m-scene { position: absolute; left: 0; right: 0; top: 130px; height: 330px; overflow: hidden; z-index: 1; }
+  .m-scene svg { width: 100%; height: 100%; }
+  .m-ch { position: absolute; top: 478px; inset-inline: 22px; z-index: 3; }
+  .m-ch .num { font-family: 'Amiri'; font-size: 17px; color: var(--verm); }
+  .m-ch h2 { font-family: 'Amiri'; font-size: 44px; line-height: 1.25; }
+  .m-ch p { margin-top: 8px; font-size: 15px; line-height: 1.95; color: var(--sepia); }
+  .m-nav { position: absolute; bottom: 30px; inset-inline: 18px; display: flex; gap: 10px; z-index: 3; }
+  .m-nav span { height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-size: 15px; }
+  .m-nav .map { position: static; width: 52px; height: 52px; border: 1.5px solid var(--sepia); }
+  .m-nav .nx { flex: 1; background: var(--ink); color: var(--parch); gap: 10px; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- a caravan: two camels and a walker, in silhouette -->
+    <symbol id="camel" viewBox="0 0 120 90">
+      <g fill="currentColor">
+        <path d="M20 52 C18 40 26 32 36 32 C42 18 60 14 68 26 C72 32 78 36 84 38 C88 28 92 18 98 14 C104 10 112 12 114 18 L116 22 C112 24 106 24 104 28 C100 40 96 50 88 56 C78 62 54 64 40 62 C30 61 22 58 20 52 Z"/>
+        <rect x="26" y="56" width="5" height="30" rx="2"/><rect x="38" y="58" width="5" height="28" rx="2"/><rect x="74" y="56" width="5" height="30" rx="2"/><rect x="84" y="52" width="5" height="34" rx="2"/>
+      </g>
+      <path d="M21 50 C15 54 13 60 14 66" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="compass" viewBox="0 0 120 120">
+      <g fill="none" stroke="#4a3420" stroke-width="1.2"><circle cx="60" cy="60" r="44"/><circle cx="60" cy="60" r="52" stroke-dasharray="2 4"/></g>
+      <path d="M60 6 L68 60 L60 114 L52 60 Z" fill="#4a3420"/>
+      <path d="M6 60 L60 52 L114 60 L60 68 Z" fill="#4a3420" opacity=".55"/>
+      <path d="M60 6 L68 60 L60 60 Z" fill="#b4442a"/>
+      <text x="60" y="4" text-anchor="middle" font-family="Amiri" font-size="13" fill="#4a3420">ش</text>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- =================== HERO: the map =================== -->
+<section id="hero" class="paper">
+  <svg class="map" viewBox="0 0 1600 900" fill="none">
+    <!-- stylised coast and sea -->
+    <path d="M0 640 C120 610 160 700 260 690 C360 680 380 600 470 610 C560 620 600 720 700 760 C760 784 780 900 780 900 L0 900 Z" fill="#c9b78e" opacity=".55"/>
+    <g stroke="#2f3e66" stroke-width="1" opacity=".35"><path d="M20 700 c20 -6 40 6 60 0 M120 740 c20 -6 40 6 60 0 M260 760 c20 -6 40 6 60 0 M420 700 c20-6 40 6 60 0 M520 790 c20-6 40 6 60 0 M80 820 c20-6 40 6 60 0 M330 840 c20-6 40 6 60 0"/></g>
+    <path d="M0 640 C120 610 160 700 260 690 C360 680 380 600 470 610 C560 620 600 720 700 760 C760 784 780 900 780 900" stroke="#4a3420" stroke-width="2"/>
+    <!-- mountains and dunes as map glyphs -->
+    <g stroke="#4a3420" stroke-width="1.6" fill="rgba(74,52,32,.08)">
+      <path d="M240 300 l30 -44 l30 44 Z"/><path d="M290 310 l26 -36 l26 36 Z"/><path d="M200 330 l22 -30 l22 30 Z"/>
+      <path d="M560 210 l34 -50 l34 50 Z"/><path d="M610 222 l24 -34 l24 34 Z"/>
+    </g>
+    <g stroke="#4a3420" stroke-width="1.3" opacity=".7"><path d="M380 430 c20 -14 40 -14 60 0 M420 450 c20 -14 40 -14 60 0 M700 380 c20 -14 40 -14 60 0 M760 400 c20-14 40-14 60 0 M300 520 c20-14 40-14 60 0"/></g>
+    <!-- palms at the oasis -->
+    <g stroke="#2f3e66" stroke-width="1.6"><path d="M560 470 v-34 M560 436 c-12 -4 -18 2 -22 8 M560 436 c12 -4 18 2 22 8 M560 436 c-4 -10 -12 -12 -18 -12 M560 436 c4 -10 12 -12 18 -12"/><path d="M584 478 v-26 M584 452 c-10 -3 -14 2 -18 6 M584 452 c10 -3 14 2 18 6"/></g>
+    <ellipse cx="572" cy="482" rx="34" ry="8" fill="#2f3e66" opacity=".25"/>
+    <!-- the route, dashed -->
+    <path id="route" d="M140 640 C190 560 230 460 330 420 C430 380 500 470 572 470 C660 470 700 340 800 300 C880 268 940 330 1000 300" stroke="#b4442a" stroke-width="3" stroke-dasharray="10 9" stroke-linecap="round"/>
+    <path d="M140 640 C190 560 230 460 330 420 C430 380 500 470 572 470" stroke="#b4442a" stroke-width="3"/>
+    <!-- stations -->
+    <g font-family="Amiri" font-size="22" fill="#2d1f12" text-anchor="middle">
+      <circle cx="140" cy="640" r="10" fill="#2d1f12"/><text x="140" y="680">الميناء</text>
+      <circle cx="330" cy="420" r="10" fill="#2d1f12"/><text x="330" y="396">الوادي</text>
+      <circle cx="572" cy="470" r="13" fill="#b4442a"/><circle cx="572" cy="470" r="24" fill="none" stroke="#b4442a" stroke-width="1.5"/><text x="572" y="526" font-weight="700" fill="#b4442a">الواحة</text>
+      <circle cx="800" cy="300" r="10" fill="none" stroke="#2d1f12" stroke-width="2"/><text x="800" y="276">السوق</text>
+      <circle cx="1000" cy="300" r="10" fill="none" stroke="#2d1f12" stroke-width="2"/><text x="1000" y="276">المدينة</text>
+    </g>
+    <!-- caravan on the route -->
+    <g color="#2d1f12" transform="translate(430 418)"><use href="#camel" width="60" height="45"/></g>
+    <g color="#2d1f12" transform="translate(478 430) scale(.8)"><use href="#camel" width="60" height="45"/></g>
+    <use href="#compass" x="80" y="120" width="140" height="140"/>
+    <g font-family="Amiri" font-size="17" fill="#2f3e66" font-style="italic"><text x="250" y="760">البحر</text><text x="420" y="560">رمال متحركة</text></g>
+    
+  </svg>
+
+  <header class="top">
+    <div class="logo"><b>دَرْب</b><span>رحلة تفاعلية</span></div>
+    <nav class="chapters-nav"><span class="on">الرحلة</span><span>الخريطة</span><span>الفصول</span><span>عن المشروع</span></nav>
+    <span class="sound"><i><b style="height:6px"></b><b style="height:14px"></b><b style="height:9px"></b><b style="height:12px"></b></i>الصوت</span>
+  </header>
+
+  <div class="h-title">
+    <p class="k">قصة طريق تجاري قديم</p>
+    <h1>على خُطى القوافل</h1>
+    <p>رحلة من الميناء إلى المدينة، عبر الوادي والواحة والسوق — كل محطة فصل تكتشفه وأنت تمرّر.</p>
+    <span class="begin">ابدأ الرحلة <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M10 6l-6 6 6 6"/></svg></span>
+  </div>
+
+  <div class="prog">
+    <div class="rail"></div><div class="fill"></div>
+    <ol>
+      <li class="done"><i></i>الميناء</li><li class="done"><i></i>الوادي</li><li class="on"><i></i>الواحة</li><li><i></i>السوق</li><li><i></i>المدينة</li>
+    </ol>
+  </div>
+</section>
+
+<!-- =================== DETAIL: chapter 3 =================== -->
+<section id="detail" class="paper">
+  <div class="scene">
+    <svg viewBox="0 0 900 900" preserveAspectRatio="xMidYMid slice">
+      <defs><linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9b77c"/><stop offset=".55" stop-color="#f1d3a2"/><stop offset="1" stop-color="#e8d2a8"/></linearGradient></defs>
+      <rect width="900" height="900" fill="url(#dusk)"/>
+      <circle cx="560" cy="360" r="90" fill="#f7e2b8"/>
+      <circle cx="560" cy="360" r="140" fill="#f7e2b8" opacity=".35"/>
+      <path d="M0 520 C140 470 260 500 380 480 C520 456 640 500 900 470 L900 900 L0 900 Z" fill="#d7a96d"/>
+      <path d="M0 600 C180 560 320 610 480 590 C640 570 760 620 900 590 L900 900 L0 900 Z" fill="#c48d52"/>
+      <path d="M0 700 C200 660 380 720 560 690 C700 668 800 700 900 690 L900 900 L0 900 Z" fill="#a8703d"/>
+      <!-- oasis palms -->
+      <g fill="#2f3e66"><path d="M690 600 L696 470 L702 470 L704 600 Z"/><path d="M698 470 C660 450 630 470 616 490 C650 476 676 474 698 476 Z M698 470 C736 448 770 466 782 488 C748 474 722 474 698 476 Z M698 470 C690 436 664 424 640 428 C664 440 680 452 698 474 Z M698 470 C712 436 736 426 760 430 C736 442 718 454 698 474 Z"/>
+      <path d="M760 620 L764 520 L769 520 L770 620 Z"/><path d="M766 520 C738 506 716 520 706 536 C730 526 750 524 766 526 Z M766 520 C794 504 818 518 826 534 C802 524 784 524 766 526 Z"/></g>
+      <ellipse cx="720" cy="640" rx="120" ry="16" fill="#2f3e66" opacity=".35"/>
+      <!-- caravan arriving -->
+      <g color="#2d1f12"><use href="#camel" x="150" y="560" width="150" height="112"/><use href="#camel" x="300" y="584" width="120" height="90"/><use href="#camel" x="420" y="600" width="100" height="75"/></g>
+      <g stroke="#2d1f12" stroke-width="2"><path d="M520 618 v34 M512 668 l8 -16 l8 16"/><circle cx="520" cy="612" r="6" fill="#2d1f12"/></g>
+      <!-- tents -->
+      <path d="M780 700 L830 640 L880 700 Z" fill="#b4442a"/><path d="M830 640 L830 700" stroke="#7a2d1b" stroke-width="2"/>
+      <!-- birds -->
+      <g stroke="#2d1f12" stroke-width="2" fill="none"><path d="M230 220 q10 -10 20 0 q10 -10 20 0"/><path d="M300 250 q8 -8 16 0 q8 -8 16 0"/></g>
+      
+    </svg>
+  </div>
+  <svg class="divider" viewBox="0 0 60 900" preserveAspectRatio="none"><path d="M0 0 C30 60 10 120 34 180 C56 240 14 300 30 380 C46 460 8 520 28 600 C46 680 12 760 30 900 L0 900 Z" fill="#a8703d" opacity=".0"/><path d="M0 0 C30 60 10 120 34 180 C56 240 14 300 30 380 C46 460 8 520 28 600 C46 680 12 760 30 900" stroke="#4a3420" stroke-width="1.5" fill="none"/></svg>
+
+  <header class="top" style="padding-inline-start:120px; left:960px">
+    <div class="logo"><b>دَرْب</b></div>
+    <span class="sound"><i><b style="height:6px"></b><b style="height:14px"></b><b style="height:9px"></b><b style="height:12px"></b></i>الصوت</span>
+  </header>
+  <div class="vprog"><i class="done"></i><i class="done"></i><i class="on"></i><i></i><i></i></div>
+  <article class="ch">
+    <p class="num">الفصل الثالث · من خمسة</p>
+    <h2>الواحة: استراحة القافلة</h2>
+    <p>بعد أيام من الرمال، يظهر النخيل في الأفق. هنا تُسقى الإبل، وتُبادل الأخبار، ويُعاد ترتيب الأحمال قبل الطريق إلى السوق.</p>
+    <p class="quote">«الماء أول ما يُسأل عنه، والطريق ثاني ما يُحكى.»</p>
+  </article>
+  <div class="minimap"><span>موقعك على الطريق</span>
+    <svg viewBox="0 0 470 150" fill="none"><path d="M30 110 C80 80 120 60 170 70 C220 80 250 100 290 90 C340 78 380 40 440 40" stroke="#b4442a" stroke-width="2.5" stroke-dasharray="8 7"/><path d="M30 110 C80 80 120 60 170 70 C220 80 250 100 290 90" stroke="#b4442a" stroke-width="2.5"/><g fill="#2d1f12"><circle cx="30" cy="110" r="6"/><circle cx="170" cy="70" r="6"/><circle cx="380" cy="52" r="6" fill="none" stroke="#2d1f12" stroke-width="2"/><circle cx="440" cy="40" r="6" fill="none" stroke="#2d1f12" stroke-width="2"/></g><circle cx="290" cy="90" r="9" fill="#b4442a"/><circle cx="290" cy="90" r="17" stroke="#b4442a"/></svg>
+  </div>
+</section>
+
+<!-- =================== MOBILE =================== -->
+<section id="mobile" class="paper">
+  <div class="m-top"><div class="logo"><b>دَرْب</b></div><span class="sound"><i><b style="height:6px"></b><b style="height:14px"></b><b style="height:9px"></b><b style="height:12px"></b></i></span></div>
+  <div class="m-bar"><b></b><span>٣ / ٥</span></div>
+  <div class="m-scene">
+    <svg viewBox="140 300 700 460" preserveAspectRatio="xMidYMid slice">
+      <rect x="0" y="0" width="900" height="900" fill="url(#dusk)"/>
+      <circle cx="560" cy="380" r="80" fill="#f7e2b8"/>
+      <path d="M0 520 C140 470 260 500 380 480 C520 456 640 500 900 470 L900 900 L0 900 Z" fill="#d7a96d"/>
+      <path d="M0 600 C180 560 320 610 480 590 C640 570 760 620 900 590 L900 900 L0 900 Z" fill="#c48d52"/>
+      <path d="M0 700 C200 660 380 720 560 690 C700 668 800 700 900 690 L900 900 L0 900 Z" fill="#a8703d"/>
+      <g fill="#2f3e66"><path d="M690 600 L696 470 L702 470 L704 600 Z"/><path d="M698 470 C660 450 630 470 616 490 C650 476 676 474 698 476 Z M698 470 C736 448 770 466 782 488 C748 474 722 474 698 476 Z M698 470 C690 436 664 424 640 428 C664 440 680 452 698 474 Z M698 470 C712 436 736 426 760 430 C736 442 718 454 698 474 Z"/></g>
+      <g color="#2d1f12"><use href="#camel" x="190" y="560" width="150" height="112"/><use href="#camel" x="340" y="584" width="120" height="90"/></g>
+      <path d="M760 700 L810 640 L860 700 Z" fill="#b4442a"/>
+    </svg>
+  </div>
+  <article class="m-ch">
+    <p class="num">الفصل الثالث</p>
+    <h2>الواحة: استراحة القافلة</h2>
+    <p>بعد أيام من الرمال، يظهر النخيل في الأفق. هنا تُسقى الإبل وتُبادل الأخبار قبل الطريق إلى السوق.</p>
+  </article>
+  <div class="m-nav"><span class="map"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d1f12" stroke-width="1.6"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z M9 4v14 M15 6v14"/></svg></span><span class="nx">الفصل التالي: السوق <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M10 6l-6 6 6 6"/></svg></span></div>
+</section>
+
+</body>
+</html>

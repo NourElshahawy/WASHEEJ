@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>RASD — concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Changa:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<!--
+  RASD (رَصد) — fictional logistics operations dashboard (concept).
+  Night-navy control room: fleet status, live routes on a drawn map,
+  shipment tracking. Numbers are neutral sample UI values.
+-->
+<style>
+  :root {
+    --bg: #0a1220;
+    --panel: #111c2e;
+    --panel-2: #16243a;
+    --line: #22324b;
+    --text: #e6edf7;
+    --mute: #7f90a8;
+    --cyan: #3fd2e6;
+    --lime: #9be35a;
+    --amber: #ffb547;
+    --red: #ff6b6b;
+  }
+  body { font-family: 'Changa', sans-serif; color: var(--text); }
+  .mono { font-family: 'JetBrains Mono', monospace; direction: ltr; unicode-bidi: isolate; }
+  #hero, #detail { background: var(--bg); display: flex; }
+
+  /* ---------- shared shell ---------- */
+  .side { width: 92px; flex: none; border-inline-start: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; padding: 26px 0; gap: 14px; background: #0c1626; }
+  .mark { width: 50px; height: 50px; border-radius: 14px; background: var(--cyan); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+  .mark svg { width: 30px; height: 30px; }
+  .side span { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; color: var(--mute); }
+  .side span.on { background: var(--panel-2); color: var(--cyan); box-shadow: inset 0 0 0 1px var(--line); }
+  .side svg.i { width: 24px; height: 24px; }
+  .body { flex: 1; display: flex; flex-direction: column; padding: 26px 32px; gap: 20px; min-width: 0; }
+  .top { display: flex; align-items: center; gap: 20px; }
+  .top h1 { font-size: 30px; font-weight: 600; }
+  .top h1 small { font-size: 15px; color: var(--mute); font-weight: 400; margin-inline-start: 12px; }
+  .live { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border-radius: 999px; background: rgba(155,227,90,.12); color: var(--lime); font-size: 14px; }
+  .live::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 4px rgba(155,227,90,.2); }
+  .search { margin-inline-start: auto; width: 360px; height: 46px; border-radius: 12px; background: var(--panel); box-shadow: inset 0 0 0 1px var(--line); display: flex; align-items: center; padding: 0 16px; color: var(--mute); font-size: 15px; gap: 10px; }
+  .avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #2b4a73, #1a2c46); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+
+  .kpis { display: flex; gap: 16px; }
+  .kpi { flex: 1; background: var(--panel); border-radius: 18px; padding: 18px 22px; box-shadow: inset 0 0 0 1px var(--line); display: flex; align-items: center; gap: 16px; }
+  .kpi .dot { width: 46px; height: 46px; border-radius: 14px; display: flex; align-items: center; justify-content: center; }
+  .kpi small { display: block; font-size: 14px; color: var(--mute); }
+  .kpi b { font-size: 32px; font-weight: 600; line-height: 1.1; }
+  .kpi .spark { margin-inline-start: auto; width: 90px; height: 36px; }
+
+  .grid { flex: 1; display: flex; gap: 20px; min-height: 0; }
+  .map { flex: 1; position: relative; border-radius: 22px; overflow: hidden; background: #0d1828; box-shadow: inset 0 0 0 1px var(--line); }
+  .map svg.m { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .legend { position: absolute; top: 18px; right: 18px; display: flex; gap: 8px; }
+  .legend span { padding: 7px 14px; border-radius: 999px; background: rgba(10,18,32,.85); box-shadow: inset 0 0 0 1px var(--line); font-size: 13px; color: var(--mute); display: flex; align-items: center; gap: 8px; }
+  .legend span i { width: 8px; height: 8px; border-radius: 50%; }
+  .legend span.on { color: var(--text); box-shadow: inset 0 0 0 1px var(--cyan); }
+  .pop { position: absolute; background: rgba(17,28,46,.96); border-radius: 16px; padding: 14px 16px; box-shadow: 0 20px 40px -10px rgba(0,0,0,.6), inset 0 0 0 1px #2c3f5d; font-size: 13px; color: var(--mute); width: 230px; }
+  .pop b { display: block; color: var(--text); font-size: 16px; font-weight: 600; }
+  .pop .row { display: flex; justify-content: space-between; margin-top: 6px; }
+  .pop .bar { margin-top: 10px; height: 5px; border-radius: 5px; background: var(--line); }
+  .pop .bar i { display: block; height: 100%; border-radius: 5px; background: var(--cyan); }
+  .zoom { position: absolute; bottom: 18px; left: 18px; display: flex; flex-direction: column; border-radius: 12px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line); }
+  .zoom span { width: 40px; height: 40px; background: rgba(17,28,46,.95); display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--mute); }
+
+  .list { width: 430px; flex: none; background: var(--panel); border-radius: 22px; box-shadow: inset 0 0 0 1px var(--line); padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+  .list h3 { font-size: 19px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+  .list h3 small { font-size: 13px; color: var(--mute); font-weight: 400; }
+  .tabs { display: flex; gap: 6px; background: #0d1828; padding: 5px; border-radius: 12px; font-size: 14px; color: var(--mute); }
+  .tabs span { flex: 1; text-align: center; padding: 7px 0; border-radius: 9px; }
+  .tabs span.on { background: var(--panel-2); color: var(--text); }
+  .ship { display: flex; gap: 14px; align-items: center; padding: 13px 14px; border-radius: 14px; background: #0f1a2b; box-shadow: inset 0 0 0 1px var(--line); }
+  .ship.sel { box-shadow: inset 0 0 0 1.5px var(--cyan); background: rgba(63,210,230,.06); }
+  .ship .t { flex: 1; min-width: 0; }
+  .ship b { font-size: 15px; font-weight: 600; display: block; }
+  .ship p { font-size: 13px; color: var(--mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .st { font-size: 12px; padding: 4px 11px; border-radius: 999px; white-space: nowrap; }
+  .st.go { background: rgba(63,210,230,.14); color: var(--cyan); }
+  .st.late { background: rgba(255,181,71,.14); color: var(--amber); }
+  .st.done { background: rgba(155,227,90,.14); color: var(--lime); }
+  .truck { width: 40px; height: 40px; border-radius: 12px; background: var(--panel-2); display: flex; align-items: center; justify-content: center; flex: none; color: var(--mute); }
+
+  /* ---------- detail ---------- */
+  .dgrid { flex: 1; display: flex; gap: 20px; min-height: 0; }
+  .track { width: 540px; flex: none; display: flex; flex-direction: column; gap: 18px; }
+  .card { background: var(--panel); border-radius: 22px; box-shadow: inset 0 0 0 1px var(--line); padding: 22px 24px; }
+  .shead { display: flex; justify-content: space-between; align-items: flex-start; }
+  .shead small { color: var(--mute); font-size: 14px; }
+  .shead h2 { font-size: 30px; font-weight: 600; line-height: 1.2; }
+  .route { display: flex; align-items: center; gap: 14px; margin-top: 18px; font-size: 16px; }
+  .route .ln { flex: 1; height: 2px; background: linear-gradient(90deg, var(--line) 0 40%, var(--cyan) 40%); position: relative; }
+  .route .ln i { position: absolute; top: -10px; right: 58%; width: 22px; height: 22px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 6px rgba(63,210,230,.18); }
+  .route small { display: block; color: var(--mute); font-size: 13px; }
+  .facts { display: flex; gap: 12px; margin-top: 18px; }
+  .facts div { flex: 1; background: #0d1828; border-radius: 14px; padding: 12px 14px; font-size: 13px; color: var(--mute); }
+  .facts b { display: block; font-size: 18px; color: var(--text); font-weight: 600; }
+  .steps { display: flex; flex-direction: column; margin-top: 4px; }
+  .steps li { display: flex; gap: 16px; position: relative; padding-bottom: 18px; }
+  .steps li::before { content: ''; position: absolute; right: 9px; top: 24px; bottom: 0; width: 2px; background: var(--line); }
+  .steps li:last-child { padding-bottom: 0; }
+  .steps li:last-child::before { display: none; }
+  .steps li.d::before { background: var(--cyan); }
+  .steps i { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--line); background: var(--bg); flex: none; margin-top: 3px; }
+  .steps li.d i { background: var(--cyan); border-color: var(--cyan); }
+  .steps li.n i { border-color: var(--cyan); box-shadow: 0 0 0 5px rgba(63,210,230,.18); }
+  .steps b { display: block; font-size: 16px; font-weight: 600; }
+  .steps p { font-size: 13px; color: var(--mute); }
+  .steps .tm { margin-inline-start: auto; font-size: 13px; color: var(--mute); }
+  .fleet { flex: 1; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+  .bigmap { flex: 1; position: relative; border-radius: 22px; overflow: hidden; background: #0d1828; box-shadow: inset 0 0 0 1px var(--line); }
+  .bigmap svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .fl { display: flex; gap: 16px; }
+  .fl .card { flex: 1; padding: 18px 20px; }
+  .fl h4 { font-size: 15px; color: var(--mute); font-weight: 400; }
+  .stack { display: flex; height: 12px; border-radius: 12px; overflow: hidden; margin-top: 12px; gap: 3px; }
+  .stack i { display: block; height: 100%; }
+  .lg { display: flex; gap: 16px; margin-top: 10px; font-size: 13px; color: var(--mute); }
+  .lg span { display: flex; align-items: center; gap: 6px; }
+  .lg span i { width: 8px; height: 8px; border-radius: 3px; }
+
+  /* ---------- mobile ---------- */
+  #mobile { background: var(--bg); }
+  .m-map { position: absolute; inset: 0 0 auto; height: 470px; }
+  .m-map svg { width: 100%; height: 100%; }
+  .m-bar { position: absolute; top: 54px; inset-inline: 18px; display: flex; align-items: center; justify-content: space-between; }
+  .m-bar .mark { width: 40px; height: 40px; margin: 0; border-radius: 12px; }
+  .m-bar .mark svg { width: 24px; height: 24px; }
+  .m-bar .live { background: rgba(10,18,32,.85); }
+  .m-sheet { position: absolute; bottom: 0; inset-inline: 0; height: 410px; background: var(--panel); border-radius: 28px 28px 0 0; box-shadow: 0 -20px 40px rgba(0,0,0,.4), inset 0 1px 0 #2c3f5d; padding: 14px 18px 0; }
+  .m-sheet .grab { width: 44px; height: 5px; border-radius: 5px; background: var(--line); margin: 0 auto 14px; }
+  .m-sheet .shead h2 { font-size: 24px; }
+  .m-sheet .route { font-size: 14px; margin-top: 14px; }
+  .m-sheet .facts { gap: 8px; margin-top: 14px; }
+  .m-sheet .facts div { padding: 10px; font-size: 12px; }
+  .m-sheet .facts b { font-size: 15px; }
+  .m-next { margin-top: 14px; display: flex; gap: 12px; align-items: center; padding: 14px; border-radius: 16px; background: #0d1828; box-shadow: inset 0 0 0 1px var(--line); font-size: 13px; color: var(--mute); }
+  .m-next b { display: block; font-size: 15px; color: var(--text); font-weight: 600; }
+  .m-btn { margin-top: 14px; height: 52px; border-radius: 16px; background: var(--cyan); color: #04202a; font-weight: 600; font-size: 17px; display: flex; align-items: center; justify-content: center; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="logo" viewBox="0 0 32 32"><g fill="none" stroke="#04202a" stroke-width="2.4" stroke-linecap="round"><circle cx="16" cy="16" r="4" fill="#04202a"/><path d="M16 4a12 12 0 0 1 12 12"/><path d="M16 9a7 7 0 0 1 7 7"/><path d="M4 16a12 12 0 0 0 12 12" opacity=".5"/></g></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></g></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></g></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l8 4v10l-8 4-8-4V7z"/><path d="M4 7l8 4 8-4M12 11v10"/></g></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></g></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></g></symbol>
+    <symbol id="i-set" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></g></symbol>
+    <!-- an abstract regional map: coastline, road grid, routes -->
+    <symbol id="terrain" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid slice">
+      <rect width="1000" height="620" fill="#0d1828"/>
+      <path d="M0 470 C120 440 180 520 300 500 C420 480 470 560 600 540 C720 520 800 590 1000 560 L1000 620 L0 620 Z" fill="#0b2236"/>
+      <g stroke="#17263c" stroke-width="1">
+        <path d="M0 60h1000M0 140h1000M0 220h1000M0 300h1000M0 380h1000M0 460h1000M80 0v620M200 0v620M320 0v620M440 0v620M560 0v620M680 0v620M800 0v620M920 0v620"/>
+      </g>
+      <g fill="none" stroke="#223754" stroke-width="5" stroke-linecap="round">
+        <path d="M-20 120 C200 140 300 90 520 130 S860 110 1020 160"/>
+        <path d="M140 640 C180 460 260 380 360 300 S520 140 600 -20"/>
+        <path d="M480 640 C520 520 640 420 780 380 S960 300 1020 260"/>
+        <path d="M-20 340 C160 330 300 380 460 360 S760 260 1020 300"/>
+      </g>
+      <g fill="#1a2b44"><rect x="250" y="190" width="90" height="60" rx="8"/><rect x="640" y="180" width="120" height="70" rx="8"/><rect x="560" y="400" width="80" height="50" rx="8"/><rect x="90" y="250" width="70" height="50" rx="8"/></g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- =================== HERO: fleet overview =================== -->
+<section id="hero">
+  <nav class="side">
+    <span class="mark"><svg><use href="#logo"/></svg></span>
+    <span class="on"><svg class="i"><use href="#i-grid"/></svg></span>
+    <span><svg class="i"><use href="#i-box"/></svg></span>
+    <span><svg class="i"><use href="#i-truck"/></svg></span>
+    <span><svg class="i"><use href="#i-map"/></svg></span>
+    <span><svg class="i"><use href="#i-bell"/></svg></span>
+    <span style="margin-top:auto"><svg class="i"><use href="#i-set"/></svg></span>
+  </nav>
+  <div class="body">
+    <div class="top">
+      <h1>رَصد<small>غرفة العمليات</small></h1>
+      <span class="live">مباشر</span>
+      <div class="search">ابحث برقم الشحنة أو المركبة…</div>
+      <span class="avatar">ع</span>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><span class="dot" style="background:rgba(63,210,230,.12);color:var(--cyan)"><svg width="24" height="24"><use href="#i-truck"/></svg></span><div><small>مركبات في الطريق</small><b>٤٨</b></div>
+        <svg class="spark" viewBox="0 0 90 36"><path d="M0 28 L15 22 L30 25 L45 14 L60 18 L75 8 L90 12" fill="none" stroke="#3fd2e6" stroke-width="2"/></svg></div>
+      <div class="kpi"><span class="dot" style="background:rgba(155,227,90,.12);color:var(--lime)"><svg width="24" height="24"><use href="#i-box"/></svg></span><div><small>شحنات اليوم</small><b>٣١٢</b></div>
+        <svg class="spark" viewBox="0 0 90 36"><path d="M0 24 L15 26 L30 18 L45 20 L60 12 L75 14 L90 6" fill="none" stroke="#9be35a" stroke-width="2"/></svg></div>
+      <div class="kpi"><span class="dot" style="background:rgba(255,181,71,.12);color:var(--amber)"><svg width="24" height="24"><use href="#i-bell"/></svg></span><div><small>تحتاج متابعة</small><b>٧</b></div>
+        <svg class="spark" viewBox="0 0 90 36"><path d="M0 16 L15 20 L30 14 L45 22 L60 18 L75 24 L90 20" fill="none" stroke="#ffb547" stroke-width="2"/></svg></div>
+      <div class="kpi"><span class="dot" style="background:rgba(127,144,168,.14);color:var(--mute)"><svg width="24" height="24"><use href="#i-set"/></svg></span><div><small>في الصيانة</small><b>٤</b></div></div>
+    </div>
+    <div class="grid">
+      <div class="map">
+        <svg class="m" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid slice">
+          <use href="#terrain"/>
+          <g fill="none" stroke-linecap="round">
+            <path d="M120 420 C240 360 300 250 420 230 S640 180 760 210" stroke="#3fd2e6" stroke-width="3" stroke-dasharray="1 0"/>
+            <path d="M200 120 C300 160 420 300 560 320 S760 420 880 380" stroke="#9be35a" stroke-width="3" stroke-dasharray="10 8"/>
+            <path d="M880 120 C780 160 700 260 620 300" stroke="#ffb547" stroke-width="3"/>
+          </g>
+          <g>
+            <circle cx="120" cy="420" r="9" fill="#0d1828" stroke="#3fd2e6" stroke-width="3"/>
+            <circle cx="760" cy="210" r="9" fill="#3fd2e6"/>
+            <circle cx="470" cy="222" r="16" fill="rgba(63,210,230,.2)"/><circle cx="470" cy="222" r="8" fill="#3fd2e6"/>
+            <circle cx="640" cy="350" r="16" fill="rgba(155,227,90,.2)"/><circle cx="640" cy="350" r="8" fill="#9be35a"/>
+            <circle cx="700" cy="240" r="16" fill="rgba(255,181,71,.22)"/><circle cx="700" cy="240" r="8" fill="#ffb547"/>
+            <circle cx="300" cy="200" r="7" fill="#9be35a"/><circle cx="830" cy="460" r="7" fill="#3fd2e6"/><circle cx="260" cy="470" r="7" fill="#3fd2e6"/>
+          </g>
+        </svg>
+        <div class="legend"><span class="on"><i style="background:var(--cyan)"></i>في الطريق</span><span><i style="background:var(--lime)"></i>تم التسليم</span><span><i style="background:var(--amber)"></i>متأخرة</span></div>
+        <div class="pop" style="top:96px;left:300px"><b>شاحنة ٢١٤ — مسار الشمال</b><div class="row"><span>الوصول المتوقع</span><span>٤:٣٠ م</span></div><div class="row"><span>الحمولة</span><span>١٨ شحنة</span></div><div class="bar"><i style="width:62%"></i></div></div>
+        <div class="zoom"><span>+</span><span>−</span></div>
+      </div>
+      <aside class="list">
+        <h3>الشحنات <small>اليوم</small></h3>
+        <div class="tabs"><span class="on">الكل</span><span>في الطريق</span><span>متأخرة</span><span>مُسلّمة</span></div>
+        <div class="ship sel"><span class="truck"><svg width="22" height="22"><use href="#i-box"/></svg></span><div class="t"><b class="mono">RS-20418</b><p>المستودع المركزي ← فرع الشمال</p></div><span class="st go">في الطريق</span></div>
+        <div class="ship"><span class="truck"><svg width="22" height="22"><use href="#i-box"/></svg></span><div class="t"><b class="mono">RS-20411</b><p>الميناء ← مستودع الشرق</p></div><span class="st late">متأخرة</span></div>
+        <div class="ship"><span class="truck"><svg width="22" height="22"><use href="#i-box"/></svg></span><div class="t"><b class="mono">RS-20406</b><p>مستودع الغرب ← فرع الجنوب</p></div><span class="st done">تم التسليم</span></div>
+        <div class="ship"><span class="truck"><svg width="22" height="22"><use href="#i-box"/></svg></span><div class="t"><b class="mono">RS-20402</b><p>المستودع المركزي ← فرع الوسط</p></div><span class="st go">في الطريق</span></div>
+        <div class="ship"><span class="truck"><svg width="22" height="22"><use href="#i-box"/></svg></span><div class="t"><b class="mono">RS-20399</b><p>مستودع الشرق ← فرع الساحل</p></div><span class="st done">تم التسليم</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- =================== DETAIL: shipment tracking =================== -->
+<section id="detail">
+  <nav class="side">
+    <span class="mark"><svg><use href="#logo"/></svg></span>
+    <span><svg class="i"><use href="#i-grid"/></svg></span>
+    <span class="on"><svg class="i"><use href="#i-box"/></svg></span>
+    <span><svg class="i"><use href="#i-truck"/></svg></span>
+    <span><svg class="i"><use href="#i-map"/></svg></span>
+    <span><svg class="i"><use href="#i-bell"/></svg></span>
+    <span style="margin-top:auto"><svg class="i"><use href="#i-set"/></svg></span>
+  </nav>
+  <div class="body">
+    <div class="top">
+      <h1>تتبّع الشحنة<small>الشحنات ‹ <span class="mono">RS-20418</span></small></h1>
+      <span class="live">تحديث مباشر</span>
+      <div class="search">ابحث برقم الشحنة أو المركبة…</div>
+      <span class="avatar">ع</span>
+    </div>
+    <div class="dgrid">
+      <div class="track">
+        <div class="card">
+          <div class="shead"><div><small>رقم الشحنة</small><h2 class="mono">RS-20418</h2></div><span class="st go" style="font-size:14px;padding:6px 14px">في الطريق</span></div>
+          <div class="route"><div>المستودع المركزي<small>انطلقت ١٠:١٥ ص</small></div><div class="ln"><i></i></div><div>فرع الشمال<small>متوقع ٤:٣٠ م</small></div></div>
+          <div class="facts"><div>المركبة<b>شاحنة ٢١٤</b></div><div>السائق<b>سالم</b></div><div>الطرود<b>١٨</b></div><div>الوزن<b>٢٫٤ طن</b></div></div>
+        </div>
+        <div class="card" style="flex:1">
+          <ul class="steps">
+            <li class="d"><i></i><div><b>تم إنشاء الشحنة</b><p>المستودع المركزي</p></div><span class="tm">٨:٤٠ ص</span></li>
+            <li class="d"><i></i><div><b>تم التحميل والفحص</b><p>١٨ طردًا — مطابقة</p></div><span class="tm">٩:٥٥ ص</span></li>
+            <li class="d"><i></i><div><b>انطلقت المركبة</b><p>شاحنة ٢١٤</p></div><span class="tm">١٠:١٥ ص</span></li>
+            <li class="n"><i></i><div><b>على الطريق السريع</b><p>آخر تحديث للموقع قبل دقيقتين</p></div><span class="tm">الآن</span></li>
+            <li><i></i><div><b>الوصول والتسليم</b><p>فرع الشمال</p></div><span class="tm">٤:٣٠ م</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="fleet">
+        <div class="bigmap">
+          <svg viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid slice">
+            <use href="#terrain"/>
+            <path d="M140 500 C260 440 330 330 450 300 S700 220 860 110" fill="none" stroke="#22324b" stroke-width="10" stroke-linecap="round"/>
+            <path d="M140 500 C260 440 330 330 450 300 S540 270 590 250" fill="none" stroke="#3fd2e6" stroke-width="5" stroke-linecap="round"/>
+            <path d="M590 250 C680 215 760 170 860 110" fill="none" stroke="#3fd2e6" stroke-width="3" stroke-dasharray="4 10" stroke-linecap="round"/>
+            <circle cx="140" cy="500" r="12" fill="#0d1828" stroke="#3fd2e6" stroke-width="4"/>
+            <circle cx="860" cy="110" r="12" fill="#3fd2e6"/>
+            <circle cx="590" cy="250" r="34" fill="rgba(63,210,230,.12)"/><circle cx="590" cy="250" r="20" fill="rgba(63,210,230,.25)"/><circle cx="590" cy="250" r="11" fill="#3fd2e6"/>
+          </svg>
+          <div class="pop" style="top:110px;left:330px"><b>شاحنة ٢١٤</b><div class="row"><span>المتبقي</span><span>١٤٠ كم</span></div><div class="row"><span>السرعة</span><span>٨٥ كم/س</span></div><div class="bar"><i style="width:58%"></i></div></div>
+          <div class="pop" style="bottom:28px;right:28px;width:200px"><b>فرع الشمال</b><div class="row"><span>نافذة الاستلام</span><span>٤–٥ م</span></div></div>
+          <div class="zoom"><span>+</span><span>−</span></div>
+        </div>
+        <div class="fl">
+          <div class="card"><h4>حالات الأسطول</h4>
+            <div class="stack"><i style="width:62%;background:var(--cyan)"></i><i style="width:22%;background:var(--lime)"></i><i style="width:10%;background:var(--amber)"></i><i style="width:6%;background:var(--mute)"></i></div>
+            <div class="lg"><span><i style="background:var(--cyan)"></i>في الطريق</span><span><i style="background:var(--lime)"></i>متاحة</span><span><i style="background:var(--amber)"></i>متوقفة</span><span><i style="background:var(--mute)"></i>صيانة</span></div></div>
+          <div class="card"><h4>تنبيهات المسار</h4><p style="margin-top:10px;font-size:15px;display:flex;gap:10px;align-items:center"><span class="st late">ازدحام</span>تأخير محتمل على مسار الشرق</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== MOBILE =================== -->
+<section id="mobile">
+  <div class="m-map">
+    <svg viewBox="0 0 390 470" preserveAspectRatio="xMidYMid slice">
+      <svg x="-300" y="-40" width="1000" height="620" viewBox="0 0 1000 620"><use href="#terrain"/></svg>
+      <path d="M40 420 C110 360 150 300 200 260 S300 160 350 90" fill="none" stroke="#22324b" stroke-width="9" stroke-linecap="round"/>
+      <path d="M40 420 C110 360 150 300 200 260" fill="none" stroke="#3fd2e6" stroke-width="5" stroke-linecap="round"/>
+      <path d="M200 260 C250 220 300 160 350 90" fill="none" stroke="#3fd2e6" stroke-width="3" stroke-dasharray="4 9" stroke-linecap="round"/>
+      <circle cx="350" cy="90" r="10" fill="#3fd2e6"/>
+      <circle cx="200" cy="260" r="28" fill="rgba(63,210,230,.14)"/><circle cx="200" cy="260" r="10" fill="#3fd2e6"/>
+    </svg>
+  </div>
+  <div class="m-bar"><span class="mark"><svg><use href="#logo"/></svg></span><span class="live">مباشر</span><span class="avatar" style="width:40px;height:40px">ع</span></div>
+  <div class="m-sheet">
+    <div class="grab"></div>
+    <div class="shead"><div><small>رقم الشحنة</small><h2 class="mono">RS-20418</h2></div><span class="st go">في الطريق</span></div>
+    <div class="route"><div>المركزي<small>١٠:١٥ ص</small></div><div class="ln"><i></i></div><div>الشمال<small>٤:٣٠ م</small></div></div>
+    <div class="facts"><div>المركبة<b>٢١٤</b></div><div>الطرود<b>١٨</b></div><div>المتبقي<b>١٤٠ كم</b></div></div>
+    <div class="m-next"><span class="truck"><svg width="22" height="22"><use href="#i-truck"/></svg></span><div><b>على الطريق السريع</b>آخر تحديث قبل دقيقتين</div></div>
+    <div class="m-btn">تواصل مع السائق</div>
+  </div>
+</section>
+
+</body>
+</html>

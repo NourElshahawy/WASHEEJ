@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>MADA — concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<!--
+  MADA (مَدى) — fictional resort-booking platform. Concept: discover, compare
+  and book stays by availability. Deep sea teal, coral sun, warm sand.
+  Landscapes drawn in SVG (no photos). No prices shown.
+-->
+<style>
+  :root {
+    --deep: #0b3a3f;
+    --teal: #12676b;
+    --sea: #3aa39d;
+    --foam: #d8efe9;
+    --coral: #ef7a5a;
+    --sun: #f7b267;
+    --sand: #f7f0e5;
+    --ink: #0f2b2e;
+    --mute: #5d7476;
+    --line: rgba(11, 58, 63, .12);
+  }
+  body { font-family: 'Alexandria', sans-serif; color: var(--ink); }
+
+  /* ---------- hero ---------- */
+  #hero { background: var(--sand); }
+  .scape { position: absolute; inset: 0 0 auto; height: 600px; }
+  .nav { position: absolute; inset: 0 0 auto; height: 92px; padding: 0 72px; display: flex; align-items: center; justify-content: space-between; color: #fff; z-index: 2; }
+  .logo { display: flex; align-items: center; gap: 12px; font-size: 32px; font-weight: 800; }
+  .logo svg { width: 38px; height: 38px; }
+  .links { display: flex; gap: 36px; font-size: 16px; font-weight: 400; opacity: .9; }
+  .links b { font-weight: 600; }
+  .acct { display: flex; gap: 14px; align-items: center; font-size: 15px; }
+  .acct span:last-child { padding: 10px 20px; border-radius: 999px; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35); }
+
+  .headline { position: absolute; right: 72px; top: 150px; width: 760px; color: #fff; z-index: 2; }
+  .headline p { font-size: 18px; font-weight: 400; opacity: .9; }
+  .headline h1 { margin-top: 12px; font-size: 78px; font-weight: 800; line-height: 1.2; text-shadow: 0 6px 30px rgba(0,0,0,.18); }
+
+  .search { position: absolute; right: 72px; left: 72px; top: 452px; height: 116px; border-radius: 28px; background: #fff; box-shadow: 0 30px 60px -30px rgba(11,58,63,.5); display: flex; align-items: center; padding: 0 16px 0 16px; z-index: 3; }
+  .sf { flex: 1; padding: 0 26px; border-inline-start: 1px solid var(--line); }
+  .sf:first-child { border: 0; }
+  .sf small { display: block; font-size: 13px; color: var(--mute); }
+  .sf b { display: block; margin-top: 6px; font-size: 19px; font-weight: 600; }
+  .sbtn { height: 84px; padding: 0 40px; border-radius: 22px; background: var(--coral); color: #fff; font-size: 19px; font-weight: 600; display: flex; align-items: center; gap: 12px; }
+  .sbtn svg { width: 24px; height: 24px; }
+
+  .rowhead { position: absolute; right: 72px; left: 72px; top: 608px; display: flex; justify-content: space-between; align-items: baseline; }
+  .rowhead h2 { font-size: 26px; font-weight: 700; }
+  .filters { display: flex; gap: 10px; }
+  .filters span { padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); font-size: 14px; color: var(--mute); background: #fff; }
+  .filters span.on { background: var(--deep); color: #fff; border-color: var(--deep); }
+  .cards { position: absolute; right: 72px; left: 72px; top: 662px; display: flex; gap: 20px; }
+  .card { flex: 1; height: 210px; border-radius: 24px; background: #fff; border: 1px solid var(--line); display: flex; overflow: hidden; }
+  .card .pic { width: 46%; position: relative; }
+  .card .pic svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .card .txt { flex: 1; padding: 20px 20px; display: flex; flex-direction: column; }
+  .card h3 { font-size: 19px; font-weight: 700; }
+  .card p { margin-top: 4px; font-size: 13px; color: var(--mute); }
+  .card .tags { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .card .tags span { padding: 4px 10px; border-radius: 999px; background: var(--foam); color: var(--teal); font-size: 12px; }
+  .card .av { margin-top: auto; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--teal); font-weight: 500; }
+  .card .av i { width: 8px; height: 8px; border-radius: 50%; background: var(--sea); }
+  .card .av.low { color: #b4532f; }
+  .card .av.low i { background: var(--coral); }
+  .fav { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.9); display: flex; align-items: center; justify-content: center; }
+
+  /* ---------- detail: availability + booking ---------- */
+  #detail { background: var(--sand); }
+  .dnav { position: absolute; inset: 0 0 auto; height: 80px; padding: 0 72px; display: flex; align-items: center; justify-content: space-between; background: var(--deep); color: #fff; }
+  .dnav .logo { font-size: 26px; }
+  .dnav .logo svg { width: 30px; height: 30px; }
+  .stepper { display: flex; gap: 10px; align-items: center; font-size: 14px; }
+  .stepper span { display: flex; align-items: center; gap: 8px; opacity: .6; }
+  .stepper span i { width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(255,255,255,.6); display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 12px; }
+  .stepper span.on { opacity: 1; }
+  .stepper span.on i { background: var(--coral); border-color: var(--coral); }
+  .stepper b { width: 30px; height: 1px; background: rgba(255,255,255,.35); }
+
+  .stay { position: absolute; right: 72px; top: 116px; width: 900px; }
+  .stay .head { display: flex; gap: 24px; align-items: center; }
+  .stay .head .pic { width: 170px; height: 110px; border-radius: 18px; overflow: hidden; position: relative; }
+  .stay .head .pic svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .stay h2 { font-size: 36px; font-weight: 700; }
+  .stay .head p { margin-top: 4px; font-size: 16px; color: var(--mute); }
+  .cal { margin-top: 26px; padding: 28px 32px; border-radius: 28px; background: #fff; border: 1px solid var(--line); display: flex; gap: 40px; }
+  .month { flex: 1; }
+  .month h3 { display: flex; justify-content: space-between; align-items: center; font-size: 19px; font-weight: 700; }
+  .month h3 small { font-size: 13px; color: var(--mute); font-weight: 400; }
+  .wd, .days { display: flex; flex-wrap: wrap; }
+  .wd { margin-top: 16px; }
+  .wd span, .days span { width: calc(100% / 7); text-align: center; }
+  .wd span { font-size: 12px; color: var(--mute); }
+  .days span { height: 52px; display: flex; align-items: center; justify-content: center; font-size: 16px; position: relative; }
+  .days span.x { color: #b9c4c4; text-decoration: line-through; }
+  .days span.in { background: var(--foam); }
+  .days span.s, .days span.e { color: #fff; }
+  .days span.s::before, .days span.e::before { content: ''; position: absolute; width: 46px; height: 46px; border-radius: 50%; background: var(--teal); z-index: 0; }
+  .days span.s { background: linear-gradient(90deg, var(--foam) 50%, transparent 50%); }
+  .days span.e { background: linear-gradient(270deg, var(--foam) 50%, transparent 50%); }
+  .days span b { position: relative; z-index: 1; font-weight: 500; }
+  .days span.few::after { content: ''; position: absolute; bottom: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--coral); }
+  .legend { margin-top: 16px; display: flex; gap: 26px; font-size: 13px; color: var(--mute); }
+  .legend span { display: flex; align-items: center; gap: 8px; }
+  .legend i { width: 12px; height: 12px; border-radius: 50%; }
+
+  .rooms { margin-top: 20px; display: flex; gap: 14px; }
+  .room { flex: 1; padding: 16px 18px; border-radius: 18px; border: 1px solid var(--line); background: #fff; }
+  .room.on { border: 2px solid var(--teal); }
+  .room b { font-size: 16px; font-weight: 600; }
+  .room p { font-size: 13px; color: var(--mute); margin-top: 4px; }
+
+  .summary { position: absolute; left: 72px; top: 116px; width: 470px; border-radius: 28px; background: var(--deep); color: #fff; padding: 32px; height: 736px; display: flex; flex-direction: column; }
+  .summary h3 { font-size: 22px; font-weight: 700; }
+  .srow { display: flex; justify-content: space-between; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,.14); font-size: 16px; }
+  .srow small { color: rgba(255,255,255,.65); }
+  .guests { display: flex; align-items: center; gap: 14px; }
+  .guests i { width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(255,255,255,.4); display: flex; align-items: center; justify-content: center; font-style: normal; }
+  .incl { margin-top: 22px; display: flex; flex-direction: column; gap: 12px; font-size: 15px; color: rgba(255,255,255,.85); }
+  .incl span { display: flex; gap: 10px; align-items: center; }
+  .incl span::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--sea) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M5 9l3 3 5-6' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); }
+  .book { margin-top: auto; padding: 20px; border-radius: 18px; background: var(--coral); text-align: center; font-size: 19px; font-weight: 600; }
+  .note { margin-top: 12px; text-align: center; font-size: 13px; color: rgba(255,255,255,.6); }
+
+  /* ---------- mobile ---------- */
+  #mobile, #mobile2 { background: var(--sand); }
+  .m-scape { position: absolute; inset: 0 0 auto; height: 330px; }
+  .m-top { position: absolute; inset: 56px 20px auto; display: flex; justify-content: space-between; align-items: center; color: #fff; z-index: 2; }
+  .m-top b { font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+  .m-top svg { width: 26px; height: 26px; }
+  .m-h { position: absolute; top: 120px; inset-inline: 22px; color: #fff; font-size: 34px; font-weight: 800; line-height: 1.25; z-index: 2; }
+  .m-search { position: absolute; top: 268px; inset-inline: 18px; border-radius: 22px; background: #fff; box-shadow: 0 20px 40px -20px rgba(11,58,63,.45); padding: 8px 16px; z-index: 3; }
+  .m-search div { padding: 12px 4px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 14px; }
+  .m-search div small { color: var(--mute); }
+  .m-search div:last-of-type { border: 0; }
+  .m-search span { display: block; margin: 6px 0 8px; padding: 14px; border-radius: 16px; background: var(--coral); color: #fff; text-align: center; font-weight: 600; font-size: 15px; }
+  .m-list { position: absolute; top: 540px; inset-inline: 18px; }
+  .m-list h3 { font-size: 17px; font-weight: 700; }
+  .m-card { margin-top: 12px; display: flex; gap: 12px; padding: 10px; border-radius: 20px; background: #fff; border: 1px solid var(--line); }
+  .m-card .pic { width: 104px; height: 92px; border-radius: 14px; overflow: hidden; position: relative; flex: none; }
+  .m-card .pic svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .m-card b { font-size: 15px; font-weight: 700; }
+  .m-card p { font-size: 12px; color: var(--mute); margin-top: 2px; }
+  .m-card .av { margin-top: 10px; font-size: 12px; color: var(--teal); display: flex; align-items: center; gap: 6px; }
+  .m-card .av i { width: 7px; height: 7px; border-radius: 50%; background: var(--sea); }
+
+  /* mobile2: calendar */
+  .m2-top { position: absolute; inset: 0 0 auto; height: 150px; background: var(--deep); color: #fff; padding: 60px 20px 0; }
+  .m2-top p { font-size: 13px; opacity: .7; }
+  .m2-top h2 { font-size: 22px; font-weight: 700; margin-top: 2px; }
+  .m2-cal { position: absolute; top: 170px; inset-inline: 16px; padding: 16px 12px; border-radius: 22px; background: #fff; border: 1px solid var(--line); }
+  .m2-cal h3 { font-size: 16px; font-weight: 700; padding: 0 6px; display: flex; justify-content: space-between; }
+  .m2-cal .days span { height: 44px; font-size: 14px; }
+  .m2-cal .days span.s::before, .m2-cal .days span.e::before { width: 38px; height: 38px; }
+  .m2-sum { position: absolute; top: 560px; inset-inline: 16px; padding: 14px 18px; border-radius: 20px; background: #fff; border: 1px solid var(--line); }
+  .m2-sum div { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; }
+  .m2-sum div small { color: var(--mute); }
+  .m2-book { position: absolute; bottom: 30px; inset-inline: 16px; padding: 17px; border-radius: 18px; background: var(--coral); color: #fff; text-align: center; font-weight: 600; font-size: 16px; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b3a3f" />
+      <stop offset=".55" stop-color="#2c8a86" />
+      <stop offset="1" stop-color="#f3c79a" />
+    </linearGradient>
+    <linearGradient id="seag" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2f9a93" />
+      <stop offset="1" stop-color="#0f5c60" />
+    </linearGradient>
+    <!-- a coastline at golden hour -->
+    <symbol id="coast" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMid slice">
+      <rect width="1600" height="600" fill="url(#sky)" />
+      <circle cx="420" cy="360" r="110" fill="#f7b267" opacity=".95" />
+      <circle cx="420" cy="360" r="170" fill="#f7b267" opacity=".18" />
+      <path d="M0 330 C200 300 360 320 560 300 C760 280 980 330 1200 300 C1380 280 1500 300 1600 290 L1600 600 L0 600 Z" fill="#1f6f6f" opacity=".55" />
+      <rect x="0" y="380" width="1600" height="220" fill="url(#seag)" />
+      <g stroke="#bfe6df" stroke-width="2" opacity=".5"><path d="M300 420 h120 M480 446 h80 M260 470 h60 M380 500 h140"/></g>
+      <path d="M0 520 C300 480 520 540 820 500 C1100 466 1340 520 1600 490 L1600 600 L0 600 Z" fill="#f2dcbc" />
+    </symbol>
+    <symbol id="villas" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMid slice">
+      <!-- villas on stilts -->
+      <g fill="#f7f0e5" stroke="#0b3a3f" stroke-width="2">
+        <path d="M1020 360 l40 -30 l40 30 z" /><rect x="1028" y="360" width="64" height="30" />
+        <path d="M1130 370 l34 -26 l34 26 z" /><rect x="1136" y="370" width="56" height="26" />
+      </g>
+      <g stroke="#0b3a3f" stroke-width="2"><path d="M1036 390v30 M1084 390v30 M1142 396v26 M1186 396v26 M1000 420 h220"/></g>
+      <!-- palms -->
+      <g fill="none" stroke="#0b3a3f" stroke-width="5" stroke-linecap="round">
+        <path d="M1380 540 C1370 470 1390 420 1410 380" />
+        <path d="M1410 380 C1380 360 1350 366 1330 384 M1410 380 C1430 352 1462 350 1484 362 M1410 380 C1400 350 1404 330 1420 316 M1410 380 C1446 384 1468 400 1476 424 M1410 380 C1378 394 1362 414 1360 438" stroke-width="4" />
+      </g>
+    </symbol>
+    <symbol id="desert" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+      <rect width="400" height="300" fill="#f3c79a" />
+      <circle cx="290" cy="110" r="44" fill="#ef7a5a" opacity=".85" />
+      <path d="M0 190 C90 150 170 200 250 170 C320 146 360 170 400 160 L400 300 L0 300 Z" fill="#e2a46e" />
+      <path d="M0 240 C120 210 220 260 400 220 L400 300 L0 300 Z" fill="#c9824f" />
+      <g fill="#f7f0e5" stroke="#0b3a3f" stroke-width="2"><path d="M80 214 q30 -34 60 0 z"/><path d="M150 222 q24 -28 48 0 z"/></g>
+    </symbol>
+    <symbol id="lagoon" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+      <rect width="400" height="300" fill="#d8efe9" />
+      <rect y="130" width="400" height="170" fill="#3aa39d" />
+      <path d="M0 210 C120 190 260 230 400 200 L400 300 L0 300 Z" fill="#12676b" />
+      <g fill="#f7f0e5" stroke="#0b3a3f" stroke-width="2"><path d="M120 124 l28 -22 l28 22 z"/><rect x="126" y="124" width="44" height="22"/><path d="M220 130 l24 -18 l24 18 z"/><rect x="226" y="130" width="36" height="18"/></g>
+      <path d="M100 146 h200" stroke="#0b3a3f" stroke-width="2" />
+    </symbol>
+    <symbol id="mount" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+      <rect width="400" height="300" fill="#bfe0da" />
+      <path d="M0 220 L110 90 L190 180 L270 70 L400 220 L400 300 L0 300 Z" fill="#12676b" />
+      <path d="M0 250 L140 160 L260 240 L400 190 L400 300 L0 300 Z" fill="#0b3a3f" />
+      <circle cx="320" cy="70" r="26" fill="#f7b267" />
+    </symbol>
+    <symbol id="madamark" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#ef7a5a"/><path d="M4 24 C12 18 18 28 26 22 C30 19 34 20 36 22 L36 30 C30 38 10 38 4 30 Z" fill="#fff" opacity=".9"/></symbol>
+  </defs>
+</svg>
+
+<!-- =================== HERO =================== -->
+<section id="hero">
+  <svg class="scape" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMid slice"><use href="#coast" /><g transform="translate(-760 0)"><use href="#villas" /></g></svg>
+  <nav class="nav">
+    <div class="logo"><svg viewBox="0 0 40 40"><use href="#madamark" /></svg>مَدى</div>
+    <div class="links"><b>المنتجعات</b><span>الوجهات</span><span>العروض الموسمية</span><span>كيف يعمل الحجز</span></div>
+    <div class="acct"><span>English</span><span>تسجيل الدخول</span></div>
+  </nav>
+  <div class="headline">
+    <p>اكتشف · قارن · احجز</p>
+    <h1>رحلتك القادمة<br />على مدى نظرك</h1>
+  </div>
+
+  <div class="search">
+    <div class="sf"><small>الوجهة</small><b>ساحل البحر الأحمر</b></div>
+    <div class="sf"><small>الوصول</small><b>الخميس 12</b></div>
+    <div class="sf"><small>المغادرة</small><b>الأحد 15</b></div>
+    <div class="sf"><small>الضيوف</small><b>بالغان · طفل</b></div>
+    <span class="sbtn"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>ابحث عن إقامة</span>
+  </div>
+
+  <div class="rowhead">
+    <h2>منتجعات متاحة في تواريخك</h2>
+    <div class="filters"><span class="on">الكل</span><span>على البحر</span><span>صحراء</span><span>جبال</span><span>عائلي</span></div>
+  </div>
+  <div class="cards">
+    <div class="card"><div class="pic"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><use href="#lagoon" /></svg></div>
+      <div class="txt"><h3>فلل اللاجون</h3><p>على الشاطئ · ساحل البحر الأحمر</p><div class="tags"><span>شاطئ خاص</span><span>عائلي</span></div><p class="av"><i></i>متاح في تواريخك</p></div></div>
+    <div class="card"><div class="pic"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><use href="#desert" /></svg></div>
+      <div class="txt"><h3>مخيّم الكثبان</h3><p>صحراء · خيام فاخرة</p><div class="tags"><span>سماء مفتوحة</span><span>هادئ</span></div><p class="av low"><i></i>غرف قليلة متبقية</p></div></div>
+    <div class="card"><div class="pic"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><use href="#mount" /></svg></div>
+      <div class="txt"><h3>نُزل القمم</h3><p>جبال · إطلالة على الوادي</p><div class="tags"><span>مسارات مشي</span><span>طقس معتدل</span></div><p class="av"><i></i>متاح في تواريخك</p></div></div>
+  </div>
+</section>
+
+<!-- =================== DETAIL: availability calendar + booking =================== -->
+<section id="detail">
+  <nav class="dnav">
+    <div class="logo"><svg viewBox="0 0 40 40"><use href="#madamark" /></svg>مَدى</div>
+    <div class="stepper">
+      <span><i>1</i>الإقامة</span><b></b>
+      <span class="on"><i>2</i>التواريخ والغرفة</span><b></b>
+      <span><i>3</i>بيانات الضيوف</span><b></b>
+      <span><i>4</i>التأكيد</span>
+    </div>
+  </nav>
+
+  <div class="stay">
+    <div class="head">
+      <div class="pic"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><use href="#lagoon" /></svg></div>
+      <div><h2>فلل اللاجون</h2><p>ساحل البحر الأحمر · فيلا على الماء</p></div>
+    </div>
+
+    <div class="cal">
+      <div class="month">
+        <h3>مارس <small>اختر ليلة الوصول والمغادرة</small></h3>
+        <div class="wd"><span>سبت</span><span>أحد</span><span>اثنين</span><span>ثلاثاء</span><span>أربعاء</span><span>خميس</span><span>جمعة</span></div>
+        <div class="days">
+          <span></span><span></span><span></span><span></span><span></span><span><b>1</b></span><span><b>2</b></span>
+          <span><b>3</b></span><span class="x"><b>4</b></span><span class="x"><b>5</b></span><span><b>6</b></span><span><b>7</b></span><span><b>8</b></span><span><b>9</b></span>
+          <span><b>10</b></span><span><b>11</b></span><span class="s"><b>12</b></span><span class="in"><b>13</b></span><span class="in"><b>14</b></span><span class="e"><b>15</b></span><span class="few"><b>16</b></span>
+          <span class="few"><b>17</b></span><span><b>18</b></span><span><b>19</b></span><span class="x"><b>20</b></span><span class="x"><b>21</b></span><span><b>22</b></span><span><b>23</b></span>
+          <span><b>24</b></span><span><b>25</b></span><span><b>26</b></span><span class="few"><b>27</b></span><span><b>28</b></span><span><b>29</b></span><span><b>30</b></span>
+        </div>
+      </div>
+      <div class="month">
+        <h3>أبريل <small></small></h3>
+        <div class="wd"><span>سبت</span><span>أحد</span><span>اثنين</span><span>ثلاثاء</span><span>أربعاء</span><span>خميس</span><span>جمعة</span></div>
+        <div class="days">
+          <span><b>31</b></span><span><b>1</b></span><span><b>2</b></span><span class="few"><b>3</b></span><span><b>4</b></span><span><b>5</b></span><span><b>6</b></span>
+          <span><b>7</b></span><span><b>8</b></span><span class="x"><b>9</b></span><span class="x"><b>10</b></span><span class="x"><b>11</b></span><span><b>12</b></span><span><b>13</b></span>
+          <span><b>14</b></span><span><b>15</b></span><span><b>16</b></span><span><b>17</b></span><span class="few"><b>18</b></span><span><b>19</b></span><span><b>20</b></span>
+          <span><b>21</b></span><span><b>22</b></span><span><b>23</b></span><span><b>24</b></span><span><b>25</b></span><span><b>26</b></span><span><b>27</b></span>
+          <span><b>28</b></span><span><b>29</b></span><span><b>30</b></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+    <div class="legend">
+      <span><i style="background:#12676b"></i>تواريخك</span>
+      <span><i style="background:#ef7a5a"></i>غرف قليلة</span>
+      <span><i style="background:#d9dfdf"></i>محجوز بالكامل</span>
+    </div>
+
+    <div class="rooms">
+      <div class="room on"><b>فيلا على الماء</b><p>غرفة نوم · سطح خاص</p></div>
+      <div class="room"><b>جناح الشاطئ</b><p>غرفتا نوم · حديقة</p></div>
+      <div class="room"><b>غرفة الحديقة</b><p>غرفة نوم · إطلالة خضراء</p></div>
+    </div>
+  </div>
+
+  <aside class="summary">
+    <h3>ملخّص حجزك</h3>
+    <div class="srow"><small>الوصول</small><span>الخميس 12 مارس</span></div>
+    <div class="srow"><small>المغادرة</small><span>الأحد 15 مارس</span></div>
+    <div class="srow"><small>المدة</small><span>3 ليالٍ</span></div>
+    <div class="srow"><small>الغرفة</small><span>فيلا على الماء</span></div>
+    <div class="srow"><small>الضيوف</small><span class="guests"><i>−</i>بالغان · طفل<i>+</i></span></div>
+    <div class="incl"><span>إفطار يومي</span><span>نقل من المطار وإليه</span><span>إلغاء مرن حسب سياسة المنتجع</span></div>
+    <span class="book">متابعة إلى بيانات الضيوف</span>
+    <p class="note">لن يتم الدفع قبل تأكيد التوفر.</p>
+  </aside>
+</section>
+
+<!-- =================== MOBILE 1: search + results =================== -->
+<section id="mobile">
+  <svg class="m-scape" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMid slice"><use href="#coast" /></svg>
+  <div class="m-top"><b><svg viewBox="0 0 40 40"><use href="#madamark" /></svg>مَدى</b><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
+  <h1 class="m-h">رحلتك القادمة<br />على مدى نظرك</h1>
+  <div class="m-search">
+    <div><small>الوجهة</small><b>ساحل البحر الأحمر</b></div>
+    <div><small>التواريخ</small><b>12 – 15 مارس</b></div>
+    <div><small>الضيوف</small><b>بالغان · طفل</b></div>
+    <span>ابحث عن إقامة</span>
+  </div>
+  <div class="m-list">
+    <h3>متاح في تواريخك</h3>
+    <div class="m-card"><div class="pic"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><use href="#lagoon" /></svg></div><div><b>فلل اللاجون</b><p>على الشاطئ · عائلي</p><p class="av"><i></i>متاح</p></div></div>
+    <div class="m-card"><div class="pic"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><use href="#desert" /></svg></div><div><b>مخيّم الكثبان</b><p>صحراء · خيام فاخرة</p><p class="av"><i style="background:#ef7a5a"></i>غرف قليلة</p></div></div>
+  </div>
+</section>
+
+<!-- =================== MOBILE 2: availability calendar =================== -->
+<section id="mobile2">
+  <div class="m2-top"><p>فلل اللاجون · فيلا على الماء</p><h2>اختر تواريخ إقامتك</h2></div>
+  <div class="m2-cal">
+    <h3>مارس <span style="color:#5d7476;font-weight:400;font-size:13px">‹ ›</span></h3>
+    <div class="wd"><span>س</span><span>ح</span><span>ن</span><span>ث</span><span>ر</span><span>خ</span><span>ج</span></div>
+    <div class="days">
+      <span></span><span></span><span></span><span></span><span></span><span><b>1</b></span><span><b>2</b></span>
+      <span><b>3</b></span><span class="x"><b>4</b></span><span class="x"><b>5</b></span><span><b>6</b></span><span><b>7</b></span><span><b>8</b></span><span><b>9</b></span>
+      <span><b>10</b></span><span><b>11</b></span><span class="s"><b>12</b></span><span class="in"><b>13</b></span><span class="in"><b>14</b></span><span class="e"><b>15</b></span><span class="few"><b>16</b></span>
+      <span class="few"><b>17</b></span><span><b>18</b></span><span><b>19</b></span><span class="x"><b>20</b></span><span class="x"><b>21</b></span><span><b>22</b></span><span><b>23</b></span>
+      <span><b>24</b></span><span><b>25</b></span><span><b>26</b></span><span class="few"><b>27</b></span><span><b>28</b></span><span><b>29</b></span><span><b>30</b></span>
+    </div>
+  </div>
+  <div class="m2-sum">
+    <div><small>الوصول</small><b>الخميس 12</b></div>
+    <div><small>المغادرة</small><b>الأحد 15</b></div>
+    <div><small>المدة</small><b>3 ليالٍ</b></div>
+  </div>
+  <span class="m2-book">تأكيد التواريخ</span>
+</section>
+
+</body>
+</html>

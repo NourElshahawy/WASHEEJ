@@ -1,0 +1,4 @@
+{
+  "cover": { "variant": "laptop", "desk": "{hero}", "size": 1240, "top": 120, "dx": 0, "bg": "linear-gradient(170deg,#e9e1d3 0%,#cdbb9f 100%)", "shapeAt": "1400,1050,900", "shape": "rgba(125,134,106,.22)", "light": ".4" },
+  "mobile": { "bg": "linear-gradient(170deg,#efe8dc,#cdbb9f)", "shapeAt": "450,1450,1200", "shape": "rgba(125,134,106,.2)", "light": ".35" }
+}

@@ -1,0 +1,4 @@
+{
+  "cover": { "variant": "tilt", "desk": "{hero}", "mob": "{mob}", "side": "start", "pw": 235, "px": 56, "py": 440, "size": 1220, "dx": 120, "top": 150, "bg": "linear-gradient(155deg,#55306a 0%,#2a1536 100%)", "light": ".12", "shapeAt": "1350,850,900", "shape": "rgba(127,224,192,.16)", "shape-blur": "40px" },
+  "mobile": { "bg": "linear-gradient(170deg,#55306a,#2a1536)", "light": ".12", "shapeAt": "450,1350,1100", "shape": "rgba(127,224,192,.18)", "shape-blur": "50px" }
+}

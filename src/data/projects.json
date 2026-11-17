@@ -528,9 +528,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/athar-perfume/cover.webp",
+        "hero": "/images/projects/athar-perfume/hero.webp",
+        "gallery": [
+          "/images/projects/athar-perfume/hero.webp",
+          "/images/projects/athar-perfume/detail.webp",
+          "/images/projects/athar-perfume/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور صفحة إطلاق عطر أثر",
           "en": "ATHAR perfume landing concept"
@@ -598,9 +602,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/nabd-fitness/cover.webp",
+        "hero": "/images/projects/nabd-fitness/hero.webp",
+        "gallery": [
+          "/images/projects/nabd-fitness/hero.webp",
+          "/images/projects/nabd-fitness/detail.webp",
+          "/images/projects/nabd-fitness/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور موقع تطبيق نبض",
           "en": "NABD fitness landing concept"
@@ -668,9 +676,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/mimar-architecture/cover.webp",
+        "hero": "/images/projects/mimar-architecture/hero.webp",
+        "gallery": [
+          "/images/projects/mimar-architecture/hero.webp",
+          "/images/projects/mimar-architecture/detail.webp",
+          "/images/projects/mimar-architecture/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور موقع معمار",
           "en": "MIMAR architecture website concept"
@@ -738,9 +750,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/rushd-consulting/cover.webp",
+        "hero": "/images/projects/rushd-consulting/hero.webp",
+        "gallery": [
+          "/images/projects/rushd-consulting/hero.webp",
+          "/images/projects/rushd-consulting/detail.webp",
+          "/images/projects/rushd-consulting/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور موقع رشد للاستشارات",
           "en": "RUSHD consultancy concept"
@@ -808,9 +824,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/darb-story/cover.webp",
+        "hero": "/images/projects/darb-story/hero.webp",
+        "gallery": [
+          "/images/projects/darb-story/hero.webp",
+          "/images/projects/darb-story/detail.webp",
+          "/images/projects/darb-story/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور موقع درب القصصي",
           "en": "DARB scrollytelling concept"
@@ -878,9 +898,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/jathr-coffee/cover.webp",
+        "hero": "/images/projects/jathr-coffee/hero.webp",
+        "gallery": [
+          "/images/projects/jathr-coffee/hero.webp",
+          "/images/projects/jathr-coffee/detail.webp",
+          "/images/projects/jathr-coffee/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور موقع جذر للقهوة",
           "en": "JATHR coffee story concept"
@@ -948,9 +972,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/lujain-jewelry/cover.webp",
+        "hero": "/images/projects/lujain-jewelry/hero.webp",
+        "gallery": [
+          "/images/projects/lujain-jewelry/hero.webp",
+          "/images/projects/lujain-jewelry/detail.webp",
+          "/images/projects/lujain-jewelry/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور متجر لجين للمجوهرات",
           "en": "LUJAIN jewelry store concept"
@@ -1018,9 +1046,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/kattan-textiles/cover.webp",
+        "hero": "/images/projects/kattan-textiles/hero.webp",
+        "gallery": [
+          "/images/projects/kattan-textiles/hero.webp",
+          "/images/projects/kattan-textiles/detail.webp",
+          "/images/projects/kattan-textiles/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور متجر كتان",
           "en": "KATTAN textiles store concept"
@@ -1088,9 +1120,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/mada-resorts/cover.webp",
+        "hero": "/images/projects/mada-resorts/hero.webp",
+        "gallery": [
+          "/images/projects/mada-resorts/hero.webp",
+          "/images/projects/mada-resorts/detail.webp",
+          "/images/projects/mada-resorts/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور منصة مدى للحجوزات",
           "en": "MADA booking platform concept"
@@ -1158,9 +1194,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/maqam-properties/cover.webp",
+        "hero": "/images/projects/maqam-properties/hero.webp",
+        "gallery": [
+          "/images/projects/maqam-properties/hero.webp",
+          "/images/projects/maqam-properties/detail.webp",
+          "/images/projects/maqam-properties/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور منصة مقام العقارية",
           "en": "MAQAM property platform concept"
@@ -1228,9 +1268,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/sanad-services/cover.webp",
+        "hero": "/images/projects/sanad-services/hero.webp",
+        "gallery": [
+          "/images/projects/sanad-services/hero.webp",
+          "/images/projects/sanad-services/detail.webp",
+          "/images/projects/sanad-services/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور بوابة سند للخدمات",
           "en": "SANAD service portal concept"
@@ -1298,9 +1342,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/masar-licensing/cover.webp",
+        "hero": "/images/projects/masar-licensing/hero.webp",
+        "gallery": [
+          "/images/projects/masar-licensing/hero.webp",
+          "/images/projects/masar-licensing/detail.webp",
+          "/images/projects/masar-licensing/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور بوابة مسار للتراخيص",
           "en": "MASAR licensing portal concept"
@@ -1368,9 +1416,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/rasd-logistics/cover.webp",
+        "hero": "/images/projects/rasd-logistics/hero.webp",
+        "gallery": [
+          "/images/projects/rasd-logistics/hero.webp",
+          "/images/projects/rasd-logistics/detail.webp",
+          "/images/projects/rasd-logistics/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور لوحة رصد اللوجستية",
           "en": "RASD logistics dashboard concept"
@@ -1438,9 +1490,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/mihwar-operations/cover.webp",
+        "hero": "/images/projects/mihwar-operations/hero.webp",
+        "gallery": [
+          "/images/projects/mihwar-operations/hero.webp",
+          "/images/projects/mihwar-operations/detail.webp",
+          "/images/projects/mihwar-operations/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور لوحة محور للعمليات",
           "en": "MIHWAR operations dashboard concept"
@@ -1508,9 +1564,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/baseera-ai/cover.webp",
+        "hero": "/images/projects/baseera-ai/hero.webp",
+        "gallery": [
+          "/images/projects/baseera-ai/hero.webp",
+          "/images/projects/baseera-ai/detail.webp",
+          "/images/projects/baseera-ai/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور منصة بصيرة لاستخراج الفواتير",
           "en": "BASEERA AI document concept"
@@ -1578,9 +1638,13 @@
         }
       },
       "media": {
-        "cover": null,
-        "hero": null,
-        "gallery": [],
+        "cover": "/images/projects/wasl-integrations/cover.webp",
+        "hero": "/images/projects/wasl-integrations/hero.webp",
+        "gallery": [
+          "/images/projects/wasl-integrations/hero.webp",
+          "/images/projects/wasl-integrations/detail.webp",
+          "/images/projects/wasl-integrations/mobile.webp"
+        ],
         "alt": {
           "ar": "تصور منصة وصل للتكاملات",
           "en": "WASL integrations platform concept"

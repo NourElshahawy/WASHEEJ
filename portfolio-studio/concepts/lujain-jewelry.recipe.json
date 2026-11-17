@@ -1,0 +1,4 @@
+{
+  "cover": { "variant": "browser", "desk": "{hero}", "size": 1300, "top": 110, "bg": "linear-gradient(160deg,#f3dcd5 0%,#e3b9ab 100%)", "shapeAt": "260,860,760", "shape": "rgba(184,115,94,.18)", "light": ".45" },
+  "mobile": { "bg": "linear-gradient(170deg,#f6e3dd,#dfb2a3)", "shapeAt": "450,1250,1100", "shape": "rgba(74,36,51,.08)", "light": ".4" }
+}

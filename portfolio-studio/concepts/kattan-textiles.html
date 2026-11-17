@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>KATTAN — concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200;300;400;500;600&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<!--
+  KATTAN (كَتّان) — fictional home-textiles store. Concept: a calm storefront
+  about materials, collections and detail. Linen, oat, sage and clay; woven
+  textures drawn with CSS gradients, folded linens in SVG (no photos).
+-->
+<style>
+  :root {
+    --linen: #efe8dc;
+    --oat: #e2d6c3;
+    --sand: #cdbb9f;
+    --sage: #7d866a;
+    --olive: #545b45;
+    --clay: #b06f4b;
+    --char: #2e2b26;
+    --mute: #7a7266;
+    --line: rgba(46, 43, 38, .14);
+  }
+  body { font-family: 'Readex Pro', sans-serif; color: var(--char); }
+  /* woven fabric */
+  .weave { background-color: var(--c, var(--oat));
+    background-image:
+      repeating-linear-gradient(0deg, rgba(0,0,0,.055) 0 1px, transparent 1px 5px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.16) 0 1px, transparent 1px 5px),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 2px, transparent 2px 11px); }
+
+  /* ---------- hero ---------- */
+  #hero { background: var(--linen); }
+  .nav { position: absolute; inset: 0 0 auto; height: 88px; padding: 0 72px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+  .logo { font-size: 30px; font-weight: 300; letter-spacing: .02em; display: flex; align-items: center; gap: 12px; }
+  .logo i { width: 26px; height: 26px; border-radius: 6px; }
+  .links { display: flex; gap: 38px; font-size: 16px; font-weight: 300; color: var(--mute); }
+  .links b { color: var(--char); font-weight: 400; }
+  .tools { display: flex; gap: 26px; font-size: 15px; font-weight: 300; }
+  .tools span:last-child { padding: 8px 16px; border-radius: 999px; background: var(--char); color: var(--linen); }
+
+  .copy { position: absolute; right: 72px; top: 150px; width: 520px; }
+  .eyebrow { font-size: 15px; letter-spacing: .04em; color: var(--clay); }
+  h1 { margin-top: 18px; font-size: 76px; font-weight: 200; line-height: 1.25; }
+  h1 b { font-weight: 500; }
+  .lead { margin-top: 22px; font-size: 20px; font-weight: 300; line-height: 1.9; color: var(--mute); }
+  .shop { margin-top: 34px; display: inline-flex; align-items: center; gap: 16px; padding-bottom: 8px; border-bottom: 1.5px solid var(--char); font-size: 19px; }
+  .facts { position: absolute; right: 72px; top: 716px; width: 520px; display: flex; gap: 0; border-top: 1px solid var(--line); }
+  .facts div { flex: 1; padding: 20px 0 0; font-size: 15px; font-weight: 300; color: var(--mute); }
+  .facts div b { display: block; font-size: 17px; font-weight: 500; color: var(--char); margin-bottom: 4px; }
+
+  .still { position: absolute; left: 72px; top: 128px; width: 880px; height: 520px; border-radius: 6px; overflow: hidden; background: linear-gradient(180deg, #e7dccb 0%, #d9c8ad 100%); }
+  .still .shelf { position: absolute; inset: auto 0 0; height: 120px; background: linear-gradient(180deg, #c9b493, #b9a07c); }
+  .still .window { position: absolute; top: 0; left: 60px; width: 300px; height: 330px; background: linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0)); clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%); }
+  .still svg.stack { position: absolute; left: 380px; bottom: 96px; width: 420px; }
+  .still svg.drape { position: absolute; left: 70px; bottom: 70px; width: 300px; }
+  .still .tag { position: absolute; left: 520px; top: 70px; padding: 10px 16px; background: var(--linen); border-radius: 4px; font-size: 14px; font-weight: 300; }
+  .still .tag b { font-weight: 500; display: block; }
+
+  .cols { position: absolute; left: 72px; bottom: 44px; width: 880px; display: flex; gap: 16px; }
+  .col { flex: 1; height: 168px; border-radius: 6px; position: relative; overflow: hidden; }
+  .col span { position: absolute; right: 16px; bottom: 14px; padding: 6px 12px; background: rgba(239,232,220,.92); border-radius: 4px; font-size: 15px; }
+  .col small { position: absolute; left: 16px; bottom: 18px; font-size: 13px; color: rgba(46,43,38,.7); }
+
+  /* ---------- detail: material ---------- */
+  #detail { background: #f4efe6; }
+  .dnav { position: absolute; inset: 0 0 auto; height: 76px; padding: 0 72px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); background: var(--linen); }
+  .crumbs { font-size: 14px; font-weight: 300; color: var(--mute); }
+  .gallery { position: absolute; right: 72px; top: 112px; width: 760px; height: 744px; display: flex; gap: 14px; }
+  .thumbs { width: 96px; display: flex; flex-direction: column; gap: 12px; }
+  .thumbs i { height: 110px; border-radius: 4px; border: 1px solid var(--line); }
+  .thumbs i.on { outline: 2px solid var(--char); outline-offset: 2px; }
+  .main { flex: 1; position: relative; border-radius: 6px; overflow: hidden; background: linear-gradient(180deg, #e9dfcf, #d6c4a7); }
+  .main svg.stack { position: absolute; left: 50%; bottom: 80px; width: 520px; margin-left: -260px; }
+  .lens { position: absolute; top: 70px; left: 70px; width: 250px; height: 250px; border-radius: 50%; border: 6px solid #fff; box-shadow: 0 20px 40px -18px rgba(46,43,38,.5); --c: #d8c6a8;
+    background-size: auto; }
+  .lens.weave { background-image:
+      repeating-linear-gradient(0deg, rgba(0,0,0,.12) 0 3px, transparent 3px 14px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 3px, transparent 3px 14px),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.06) 0 6px, transparent 6px 28px); }
+  .lens-cap { position: absolute; top: 330px; left: 96px; font-size: 14px; color: var(--char); background: var(--linen); padding: 6px 12px; border-radius: 4px; }
+  .lens-line { position: absolute; top: 300px; left: 290px; width: 120px; height: 120px; border-top: 1px dashed var(--char); transform: rotate(38deg); transform-origin: left top; }
+
+  .info { position: absolute; left: 72px; top: 112px; width: 660px; }
+  .info .eyebrow { font-size: 14px; }
+  .info h2 { margin-top: 8px; font-size: 46px; font-weight: 300; line-height: 1.25; }
+  .info h2 b { font-weight: 500; }
+  .info .desc { margin-top: 10px; font-size: 17px; font-weight: 300; line-height: 1.85; color: var(--mute); }
+  .lbl { margin-top: 24px; font-size: 14px; color: var(--mute); display: flex; justify-content: space-between; }
+  .lbl b { color: var(--char); font-weight: 400; }
+  .colors { margin-top: 10px; display: flex; gap: 12px; }
+  .colors i { width: 54px; height: 54px; border-radius: 50%; border: 1px solid var(--line); }
+  .colors i.on { outline: 2px solid var(--char); outline-offset: 3px; }
+  .opts { margin-top: 10px; display: flex; gap: 10px; }
+  .opts span { padding: 12px 20px; border: 1px solid var(--line); border-radius: 4px; font-size: 15px; font-weight: 300; }
+  .opts span.on { border-color: var(--char); background: var(--char); color: var(--linen); }
+  .spec { margin-top: 24px; border-top: 1px solid var(--line); }
+  .spec div { display: flex; justify-content: space-between; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 15px; font-weight: 300; }
+  .spec div b { font-weight: 400; }
+  .care { margin-top: 18px; display: flex; gap: 22px; font-size: 13px; font-weight: 300; color: var(--mute); }
+  .care span { display: flex; align-items: center; gap: 8px; }
+  .care svg { width: 26px; height: 26px; }
+  .cart { margin-top: 26px; display: flex; gap: 12px; }
+  .qty { display: flex; align-items: center; gap: 22px; padding: 0 20px; border: 1px solid var(--char); border-radius: 4px; font-size: 18px; }
+  .add { flex: 1; text-align: center; padding: 18px; border-radius: 4px; background: var(--olive); color: var(--linen); font-size: 18px; }
+
+  /* ---------- mobile ---------- */
+  #mobile { background: var(--linen); }
+  .m-top { position: absolute; inset: 54px 22px auto; display: flex; justify-content: space-between; align-items: center; }
+  .m-top b { font-size: 24px; font-weight: 300; }
+  .m-top svg { width: 24px; height: 24px; }
+  .m-hero { position: absolute; top: 100px; inset-inline: 0; height: 380px; background: linear-gradient(180deg, #e7dccb, #d6c4a7); overflow: hidden; }
+  .m-hero svg { position: absolute; left: 50%; bottom: 30px; width: 320px; margin-left: -160px; }
+  .m-hero .shelf { position: absolute; inset: auto 0 0; height: 70px; background: linear-gradient(180deg, #c9b493, #b9a07c); }
+  .m-dots { position: absolute; top: 450px; inset-inline: 0; display: flex; justify-content: center; gap: 6px; }
+  .m-dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(46,43,38,.25); }
+  .m-dots i.on { width: 18px; border-radius: 3px; background: var(--char); }
+  .m-body { position: absolute; top: 500px; inset-inline: 22px; }
+  .m-body .eyebrow { font-size: 12px; }
+  .m-body h2 { margin-top: 6px; font-size: 26px; font-weight: 300; }
+  .m-body h2 b { font-weight: 500; }
+  .m-body p { margin-top: 6px; font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--mute); }
+  .m-colors { margin-top: 14px; display: flex; gap: 10px; }
+  .m-colors i { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); }
+  .m-colors i.on { outline: 2px solid var(--char); outline-offset: 2px; }
+  .m-cart { position: absolute; bottom: 26px; inset-inline: 22px; display: flex; gap: 10px; }
+  .m-cart .add { padding: 16px; font-size: 16px; }
+  .m-cart .sv { width: 54px; border: 1px solid var(--char); border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <pattern id="tw" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="none"/><path d="M0 3H6" stroke="rgba(0,0,0,.07)" stroke-width="1"/><path d="M3 0V6" stroke="rgba(255,255,255,.18)" stroke-width="1"/></pattern>
+    <!-- a stack of folded linens -->
+    <symbol id="stack" viewBox="0 0 420 300">
+      <ellipse cx="210" cy="292" rx="200" ry="10" fill="rgba(46,43,38,.18)" />
+      <!-- bottom: clay -->
+      <path d="M30 210 Q30 196 46 196 L374 196 Q392 196 392 212 L392 270 Q392 286 374 286 L46 286 Q30 286 30 270 Z" fill="#b06f4b" />
+      <path d="M30 210 Q30 196 46 196 L374 196 Q392 196 392 212 L392 270 Q392 286 374 286 L46 286 Q30 286 30 270 Z" fill="url(#tw)" />
+      <path d="M34 240 L388 240" stroke="rgba(0,0,0,.12)" />
+      <!-- middle: sage -->
+      <path d="M44 128 Q44 114 60 114 L362 114 Q378 114 378 130 L378 186 Q378 200 362 200 L60 200 Q44 200 44 186 Z" fill="#7d866a" />
+      <path d="M44 128 Q44 114 60 114 L362 114 Q378 114 378 130 L378 186 Q378 200 362 200 L60 200 Q44 200 44 186 Z" fill="url(#tw)" />
+      <path d="M48 158 L374 158" stroke="rgba(0,0,0,.12)" />
+      <!-- top: natural linen with a soft fold -->
+      <path d="M58 48 Q58 34 74 34 L350 34 Q366 34 366 50 L366 104 Q366 118 350 118 L74 118 Q58 118 58 104 Z" fill="#e6dccb" />
+      <path d="M58 48 Q58 34 74 34 L350 34 Q366 34 366 50 L366 104 Q366 118 350 118 L74 118 Q58 118 58 104 Z" fill="url(#tw)" />
+      <path d="M62 76 C140 70 260 82 362 74" stroke="rgba(0,0,0,.1)" fill="none" />
+      <!-- paper band label -->
+      <rect x="236" y="30" width="58" height="92" fill="#f6f1e8" />
+      <text x="265" y="86" text-anchor="middle" font-family="Readex Pro" font-size="15" font-weight="500" fill="#2e2b26">كتّان</text>
+    </symbol>
+    <!-- a draped throw -->
+    <symbol id="drape" viewBox="0 0 300 360">
+      <path d="M40 0 L260 0 C250 120 290 220 280 340 L20 340 C10 240 50 140 40 0 Z" fill="#cdbb9f" />
+      <path d="M40 0 L260 0 C250 120 290 220 280 340 L20 340 C10 240 50 140 40 0 Z" fill="url(#tw)" />
+      <path d="M100 0 C96 120 120 220 110 340 M180 0 C186 110 170 230 190 340" stroke="rgba(0,0,0,.1)" fill="none" stroke-width="2" />
+      <path d="M20 330 L280 330" stroke="#a88f6e" stroke-width="6" stroke-dasharray="2 6" />
+    </symbol>
+  </defs>
+</svg>
+
+<!-- =================== HERO =================== -->
+<section id="hero">
+  <nav class="nav">
+    <div class="logo"><i class="weave" style="--c:#7d866a"></i>كَتّان</div>
+    <div class="links"><b>المجموعات</b><span>غرفة النوم</span><span>الحمّام</span><span>المائدة</span><span>عن الخامات</span></div>
+    <div class="tools"><span>بحث</span><span>حسابي</span><span>السلة (1)</span></div>
+  </nav>
+
+  <div class="still">
+    <div class="window"></div>
+    <div class="shelf"></div>
+    <svg class="drape" viewBox="0 0 300 360"><use href="#drape" /></svg>
+    <svg class="stack" viewBox="0 0 420 300"><use href="#stack" /></svg>
+    <span class="tag"><b>مجموعة «سكون»</b>كتّان مغسول بلمسة ناعمة</span>
+  </div>
+
+  <div class="copy">
+    <p class="eyebrow">منسوجات طبيعية للبيت</p>
+    <h1>خامات تتنفّس<br /><b>وبيت أهدأ</b></h1>
+    <p class="lead">أغطية ومفارش ومناشف من الكتّان والقطن الطبيعي، نعرض لكِ خامة كل قطعة وتفاصيلها قبل أن تختاريها.</p>
+    <span class="shop">تسوّقي المجموعات ←</span>
+  </div>
+  <div class="facts">
+    <div><b>خامات طبيعية</b>كتّان وقطن</div>
+    <div><b>تفاصيل كل قطعة</b>النسيج والعناية</div>
+    <div><b>ألوان هادئة</b>من الأرض</div>
+  </div>
+
+  <div class="cols">
+    <div class="col weave" style="--c:#e6dccb"><span>غرفة النوم</span><small>٢٤ قطعة</small></div>
+    <div class="col weave" style="--c:#7d866a"><span>الحمّام</span><small>١٨ قطعة</small></div>
+    <div class="col weave" style="--c:#b06f4b"><span>المائدة</span><small>١٢ قطعة</small></div>
+  </div>
+</section>
+
+<!-- =================== DETAIL: material details =================== -->
+<section id="detail">
+  <nav class="dnav">
+    <div class="logo"><i class="weave" style="--c:#7d866a"></i>كَتّان</div>
+    <p class="crumbs">المجموعات / غرفة النوم / طقم «سكون»</p>
+    <div class="tools"><span>السلة (1)</span></div>
+  </nav>
+
+  <div class="gallery">
+    <div class="thumbs">
+      <i class="weave on" style="--c:#e6dccb"></i><i class="weave" style="--c:#cdbb9f"></i><i class="weave" style="--c:#7d866a"></i><i class="weave" style="--c:#b06f4b"></i><i class="weave" style="--c:#2e2b26"></i><i class="weave" style="--c:#efe8dc"></i>
+    </div>
+    <div class="main">
+      <svg class="stack" viewBox="0 0 420 300"><use href="#stack" /></svg>
+      <div class="lens weave"></div>
+      <span class="lens-line"></span>
+      <span class="lens-cap">قرّبي لرؤية النسيج</span>
+    </div>
+  </div>
+
+  <div class="info">
+    <p class="eyebrow">مجموعة «سكون» · غرفة النوم</p>
+    <h2>طقم مفارش <b>كتّان مغسول</b></h2>
+    <p class="desc">نسيج كتّان مغسول يزداد نعومةً مع كل غسلة، بملمس طبيعي وألوان مستوحاة من الأرض.</p>
+
+    <p class="lbl">اللون <b>كتّان طبيعي</b></p>
+    <div class="colors"><i class="weave on" style="--c:#e6dccb"></i><i class="weave" style="--c:#cdbb9f"></i><i class="weave" style="--c:#7d866a"></i><i class="weave" style="--c:#b06f4b"></i><i class="weave" style="--c:#2e2b26"></i></div>
+
+    <p class="lbl">المقاس <b>سرير مزدوج</b></p>
+    <div class="opts"><span>مفرد</span><span class="on">مزدوج</span><span>كبير</span></div>
+
+    <div class="spec">
+      <div><span>الخامة</span><b>كتّان مغسول</b></div>
+      <div><span>الملمس</span><b>ناعم وخفيف</b></div>
+      <div><span>يشمل الطقم</span><b>شرشف · غطاء لحاف · كيسا وسادة</b></div>
+    </div>
+    <div class="care">
+      <span><svg viewBox="0 0 26 26" fill="none" stroke="#2e2b26" stroke-width="1.3"><path d="M3 8h20l-2 13H5z"/><path d="M3 8c3 2 5-2 8 0s5-2 8 0 4-2 4 0"/></svg>غسيل بارد</span>
+      <span><svg viewBox="0 0 26 26" fill="none" stroke="#2e2b26" stroke-width="1.3"><rect x="4" y="4" width="18" height="18" rx="2"/><circle cx="13" cy="13" r="5"/></svg>تجفيف هادئ</span>
+      <span><svg viewBox="0 0 26 26" fill="none" stroke="#2e2b26" stroke-width="1.3"><path d="M4 19h18l-3-9H9c-3 0-5 4-5 9z"/><circle cx="13" cy="15" r="1"/></svg>كيّ متوسط</span>
+    </div>
+    <div class="cart"><span class="qty">− 1 +</span><span class="add">أضيفي إلى السلة</span></div>
+  </div>
+</section>
+
+<!-- =================== MOBILE =================== -->
+<section id="mobile">
+  <div class="m-top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+    <b>كَتّان</b>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+  </div>
+  <div class="m-hero"><div class="shelf"></div><svg viewBox="0 0 420 300"><use href="#stack" /></svg></div>
+  <div class="m-dots"><i class="on"></i><i></i><i></i><i></i></div>
+  <div class="m-body">
+    <p class="eyebrow">مجموعة «سكون»</p>
+    <h2>طقم مفارش <b>كتّان مغسول</b></h2>
+    <p>نسيج يزداد نعومةً مع كل غسلة، بألوان مستوحاة من الأرض.</p>
+    <div class="m-colors"><i class="weave on" style="--c:#e6dccb"></i><i class="weave" style="--c:#cdbb9f"></i><i class="weave" style="--c:#7d866a"></i><i class="weave" style="--c:#b06f4b"></i></div>
+    <div class="spec" style="margin-top:16px">
+      <div><span>الخامة</span><b>كتّان مغسول</b></div>
+      <div><span>المقاس</span><b>سرير مزدوج</b></div>
+    </div>
+  </div>
+  <div class="m-cart"><span class="add">أضيفي إلى السلة</span><span class="sv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2e2b26" stroke-width="1.4"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg></span></div>
+</section>
+
+</body>
+</html>

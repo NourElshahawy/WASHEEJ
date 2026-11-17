@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>MAQAM — concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<!--
+  MAQAM (مَقام) — fictional real-estate discovery platform. Concept: map
+  search, filters and side-by-side comparison. Slate and emerald on a pale
+  map. Map, buildings and floor plans drawn in SVG. No prices.
+-->
+<style>
+  :root {
+    --slate: #1d2a31;
+    --slate2: #2c3b44;
+    --stone: #f2f4f3;
+    --mist: #e3e9e7;
+    --emerald: #0e8a68;
+    --mint: #d3efe4;
+    --gold: #d9a441;
+    --ink: #17232a;
+    --mute: #64747b;
+    --line: rgba(23, 35, 42, .1);
+  }
+  body { font-family: 'Noto Kufi Arabic', sans-serif; color: var(--ink); }
+
+  /* ---------- hero: map search ---------- */
+  #hero { background: var(--stone); }
+  .nav { position: absolute; inset: 0 0 auto; height: 76px; padding: 0 40px; display: flex; align-items: center; gap: 40px; background: var(--slate); color: #fff; z-index: 3; }
+  .logo { display: flex; align-items: center; gap: 10px; font-size: 26px; font-weight: 800; }
+  .logo svg { width: 30px; height: 30px; }
+  .tabs { display: flex; gap: 6px; padding: 5px; border-radius: 12px; background: rgba(255,255,255,.08); font-size: 14px; }
+  .tabs span { padding: 7px 16px; border-radius: 8px; color: rgba(255,255,255,.7); }
+  .tabs span.on { background: #fff; color: var(--slate); font-weight: 600; }
+  .q { flex: 1; height: 46px; border-radius: 12px; background: rgba(255,255,255,.1); display: flex; align-items: center; gap: 10px; padding: 0 16px; font-size: 14px; color: rgba(255,255,255,.75); }
+  .q svg { width: 18px; height: 18px; }
+  .nav .me { display: flex; align-items: center; gap: 16px; font-size: 14px; }
+  .nav .me span:last-child { width: 38px; height: 38px; border-radius: 50%; background: var(--emerald); display: flex; align-items: center; justify-content: center; font-weight: 700; }
+
+  .filters { position: absolute; top: 76px; inset-inline: 0; height: 66px; padding: 0 40px; display: flex; align-items: center; gap: 10px; background: #fff; border-bottom: 1px solid var(--line); z-index: 2; }
+  .f { display: flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 10px; border: 1px solid var(--line); font-size: 14px; }
+  .f.on { background: var(--mint); border-color: var(--emerald); color: #0b6b51; font-weight: 600; }
+  .f::after { content: '⌄'; font-size: 12px; color: var(--mute); }
+  .f.plain::after { content: none; }
+  .filters .save { margin-inline-start: auto; font-size: 14px; color: var(--emerald); font-weight: 600; }
+
+  .list { position: absolute; right: 0; top: 142px; bottom: 0; width: 640px; padding: 26px 40px; background: var(--stone); }
+  .list h1 { font-size: 30px; font-weight: 800; line-height: 1.4; }
+  .list .sub { margin-top: 4px; font-size: 14px; color: var(--mute); display: flex; justify-content: space-between; }
+  .list .sub b { color: var(--ink); font-weight: 600; }
+  .prop { margin-top: 16px; display: flex; gap: 16px; padding: 14px; border-radius: 18px; background: #fff; border: 1px solid var(--line); }
+  .prop.sel { border: 2px solid var(--emerald); box-shadow: 0 16px 30px -20px rgba(14,138,104,.6); }
+  .prop .pic { width: 190px; height: 150px; border-radius: 12px; position: relative; overflow: hidden; flex: none; }
+  .prop .pic svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .prop .t { flex: 1; display: flex; flex-direction: column; }
+  .prop .type { font-size: 12px; color: var(--emerald); font-weight: 600; }
+  .prop h3 { margin-top: 2px; font-size: 19px; font-weight: 700; }
+  .prop .loc { font-size: 13px; color: var(--mute); }
+  .specs { margin-top: auto; display: flex; gap: 16px; font-size: 13px; color: var(--slate2); }
+  .specs span { display: flex; align-items: center; gap: 6px; }
+  .specs svg { width: 16px; height: 16px; }
+  .cmp { margin-top: 10px; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--mute); }
+  .cmp i { width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid var(--mute); }
+  .cmp.on { color: var(--emerald); font-weight: 600; }
+  .cmp.on i { background: var(--emerald); border-color: var(--emerald); }
+
+  .map { position: absolute; left: 0; top: 142px; bottom: 0; width: 960px; overflow: hidden; }
+  .map > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .pin { position: absolute; transform: translate(-50%, -100%); padding: 7px 13px; border-radius: 10px; background: #fff; font-size: 13px; font-weight: 700; box-shadow: 0 8px 18px -8px rgba(23,35,42,.45); white-space: nowrap; }
+  .pin::after { content: ''; position: absolute; left: 50%; bottom: -6px; width: 12px; height: 12px; margin-left: -6px; background: inherit; transform: rotate(45deg); border-radius: 2px; }
+  .pin.on { background: var(--emerald); color: #fff; font-size: 14px; padding: 9px 16px; }
+  .pin.seen { background: var(--slate); color: #fff; }
+  .pop { position: absolute; left: 470px; top: 120px; width: 280px; border-radius: 16px; background: #fff; box-shadow: 0 24px 50px -20px rgba(23,35,42,.55); overflow: hidden; }
+  .pop .pic { height: 130px; position: relative; }
+  .pop .pic svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .pop div.t { padding: 12px 14px 14px; }
+  .pop b { font-size: 15px; }
+  .pop p { font-size: 12px; color: var(--mute); }
+  .mapctl { position: absolute; left: 24px; top: 24px; display: flex; flex-direction: column; gap: 8px; }
+  .mapctl span { width: 42px; height: 42px; border-radius: 10px; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 6px 14px -8px rgba(23,35,42,.4); }
+  .draw { position: absolute; left: 24px; bottom: 24px; padding: 12px 18px; border-radius: 12px; background: var(--slate); color: #fff; font-size: 14px; display: flex; gap: 10px; align-items: center; }
+
+  /* ---------- detail: comparison ---------- */
+  #detail { background: var(--stone); }
+  .dhead { position: absolute; top: 76px; inset-inline: 0; height: 120px; padding: 0 56px; display: flex; align-items: center; justify-content: space-between; }
+  .dhead h2 { font-size: 34px; font-weight: 800; }
+  .dhead p { font-size: 15px; color: var(--mute); margin-top: 2px; }
+  .dhead .acts { display: flex; gap: 10px; }
+  .dhead .acts span { padding: 11px 18px; border-radius: 10px; border: 1px solid var(--line); background: #fff; font-size: 14px; }
+  .dhead .acts span.p { background: var(--emerald); color: #fff; border-color: var(--emerald); }
+  .table { position: absolute; top: 200px; inset-inline: 56px; bottom: 40px; display: flex; gap: 14px; }
+  .rowlabels { width: 210px; padding-top: 243px; display: flex; flex-direction: column; }
+  .rowlabels span, .colx .cell { height: 50px; display: flex; align-items: center; font-size: 15px; border-bottom: 1px solid var(--line); }
+  .rowlabels span { color: var(--mute); }
+  .colx { flex: 1; border-radius: 22px; background: #fff; border: 1px solid var(--line); padding: 16px 20px 0; position: relative; }
+  .colx.best { border: 2px solid var(--emerald); }
+  .colx .badge { position: absolute; top: -14px; right: 20px; padding: 4px 12px; border-radius: 999px; background: var(--emerald); color: #fff; font-size: 12px; font-weight: 600; }
+  .colx .plan { height: 150px; border-radius: 14px; background: var(--stone); display: flex; align-items: center; justify-content: center; }
+  .colx .plan svg { height: 130px; }
+  .colx h3 { margin-top: 12px; font-size: 18px; font-weight: 700; }
+  .colx .loc { font-size: 13px; color: var(--mute); height: 36px; }
+  .colx .cell { font-weight: 600; justify-content: space-between; }
+  .colx .cell.win { color: var(--emerald); }
+  .colx .cell.win::after { content: '●'; font-size: 9px; }
+  .yes { color: var(--emerald); }
+  .no { color: #b7c0c3; font-weight: 400; }
+
+  /* ---------- mobile ---------- */
+  #mobile { background: var(--mist); }
+  .m-map { position: absolute; inset: 0; }
+  .m-map > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .m-search { position: absolute; top: 56px; inset-inline: 16px; height: 50px; border-radius: 14px; background: #fff; box-shadow: 0 10px 24px -14px rgba(23,35,42,.5); display: flex; align-items: center; gap: 10px; padding: 0 14px; font-size: 14px; color: var(--mute); }
+  .m-search b { margin-inline-start: auto; width: 34px; height: 34px; border-radius: 10px; background: var(--slate); display: flex; align-items: center; justify-content: center; }
+  .m-chips { position: absolute; top: 118px; inset-inline: 16px; display: flex; gap: 8px; }
+  .m-chips span { padding: 7px 12px; border-radius: 10px; background: #fff; font-size: 12px; box-shadow: 0 6px 14px -10px rgba(23,35,42,.5); }
+  .m-chips span.on { background: var(--emerald); color: #fff; }
+  .m-sheet { position: absolute; bottom: 0; inset-inline: 0; height: 330px; border-radius: 26px 26px 0 0; background: #fff; padding: 12px 18px; box-shadow: 0 -16px 40px -20px rgba(23,35,42,.5); }
+  .m-sheet .grab { width: 44px; height: 5px; border-radius: 3px; background: #d4dadc; margin: 0 auto 12px; }
+  .m-sheet h3 { font-size: 16px; font-weight: 800; display: flex; justify-content: space-between; }
+  .m-sheet h3 small { font-size: 12px; color: var(--mute); font-weight: 400; }
+  .m-card { margin-top: 12px; border-radius: 16px; border: 1px solid var(--line); overflow: hidden; }
+  .m-card .pic { height: 140px; position: relative; }
+  .m-card .pic svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .m-card .t { padding: 10px 12px; }
+  .m-card b { font-size: 15px; }
+  .m-card .specs { margin-top: 6px; font-size: 12px; }
+  .m-card .tag { position: absolute; top: 10px; right: 10px; padding: 4px 10px; border-radius: 8px; background: rgba(255,255,255,.92); font-size: 11px; color: var(--emerald); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- the city map -->
+    <symbol id="city" viewBox="0 0 960 760" preserveAspectRatio="xMidYMid slice">
+      <rect width="960" height="760" fill="#e3e9e7" />
+      <!-- creek -->
+      <path d="M-20 600 C160 560 260 640 420 610 C580 580 640 660 980 620 L980 700 C640 730 560 650 420 680 C260 710 160 630 -20 680 Z" fill="#bfd9e2" />
+      <!-- park -->
+      <path d="M600 90 h200 q20 0 20 20 v150 q0 20 -20 20 h-200 q-20 0 -20 -20 v-150 q0 -20 20 -20 z" fill="#cfe5d6" />
+      <g fill="#b3d6bf"><circle cx="650" cy="150" r="16"/><circle cx="700" cy="200" r="20"/><circle cx="760" cy="140" r="14"/><circle cx="740" cy="240" r="12"/></g>
+      <!-- blocks -->
+      <g fill="#f4f6f5" stroke="#d5dddb" stroke-width="1">
+        <rect x="40" y="40" width="200" height="140" rx="10"/><rect x="270" y="40" width="140" height="140" rx="10"/><rect x="440" y="40" width="120" height="220" rx="10"/>
+        <rect x="40" y="210" width="140" height="160" rx="10"/><rect x="210" y="210" width="200" height="160" rx="10"/>
+        <rect x="440" y="290" width="200" height="120" rx="10"/><rect x="670" y="310" width="250" height="100" rx="10"/>
+        <rect x="40" y="400" width="240" height="140" rx="10"/><rect x="310" y="400" width="100" height="140" rx="10"/><rect x="440" y="440" width="180" height="110" rx="10"/><rect x="650" y="440" width="270" height="110" rx="10"/>
+        <rect x="850" y="90" width="90" height="190" rx="10"/>
+      </g>
+      <!-- roads -->
+      <g stroke="#ffffff" stroke-width="16" fill="none" stroke-linecap="round">
+        <path d="M0 195 H960" /><path d="M425 0 V760" /><path d="M0 385 H960" />
+      </g>
+      <g stroke="#ffffff" stroke-width="8" fill="none"><path d="M255 0 V560"/><path d="M655 290 V560"/><path d="M835 0 V420"/><path d="M0 555 H960"/></g>
+      <path d="M0 195 H960 M425 0 V760" stroke="#f3d79a" stroke-width="3" fill="none" stroke-dasharray="20 14" />
+      <!-- metro line -->
+      <path d="M60 720 C200 520 340 420 540 330 S880 120 940 60" stroke="#0e8a68" stroke-width="4" fill="none" stroke-dasharray="2 0" opacity=".55"/>
+      <g fill="#fff" stroke="#0e8a68" stroke-width="3"><circle cx="300" cy="460" r="7"/><circle cx="545" cy="330" r="7"/><circle cx="800" cy="170" r="7"/></g>
+      <!-- street names -->
+      <g font-family="Noto Kufi Arabic" font-size="12" fill="#8a989d"><text x="120" y="190">طريق الريحان</text><text x="760" y="380">شارع السدرة</text><text x="432" y="740" transform="rotate(-90 432 740)">طريق الوادي</text></g>
+      <!-- search area drawn by the user -->
+      <path d="M210 150 C330 110 560 120 640 210 C700 280 650 420 520 450 C390 480 250 450 200 360 C160 280 150 180 210 150 Z" fill="rgba(14,138,104,.08)" stroke="#0e8a68" stroke-width="2.5" stroke-dasharray="10 7" />
+    </symbol>
+
+    <!-- small building illustrations -->
+    <symbol id="b1" viewBox="0 0 300 220" preserveAspectRatio="xMidYMid slice">
+      <rect width="300" height="220" fill="#d7e4e6" /><circle cx="240" cy="50" r="22" fill="#f2d39b" />
+      <rect x="60" y="60" width="130" height="160" fill="#2c3b44" /><rect x="190" y="110" width="70" height="110" fill="#405360" />
+      <g fill="#cfe9df"><rect x="74" y="76" width="22" height="16"/><rect x="108" y="76" width="22" height="16"/><rect x="142" y="76" width="22" height="16"/><rect x="74" y="106" width="22" height="16"/><rect x="108" y="106" width="22" height="16" fill="#f2d39b"/><rect x="142" y="106" width="22" height="16"/><rect x="74" y="136" width="22" height="16"/><rect x="108" y="136" width="22" height="16"/><rect x="142" y="136" width="22" height="16"/><rect x="204" y="126" width="16" height="14"/><rect x="230" y="126" width="16" height="14"/><rect x="204" y="152" width="16" height="14"/></g>
+      <rect y="200" width="300" height="20" fill="#9fb7a8" />
+    </symbol>
+    <symbol id="b2" viewBox="0 0 300 220" preserveAspectRatio="xMidYMid slice">
+      <rect width="300" height="220" fill="#e9e3d6" />
+      <rect x="40" y="96" width="220" height="124" fill="#f6f3ec" /><rect x="40" y="86" width="220" height="14" fill="#2c3b44" />
+      <rect x="70" y="120" width="60" height="60" fill="#0e8a68" opacity=".85" /><rect x="150" y="120" width="80" height="40" fill="#b9d3d8" /><rect x="150" y="170" width="30" height="50" fill="#2c3b44" />
+      <g fill="#7fae8c"><circle cx="28" cy="190" r="22"/><circle cx="280" cy="186" r="26"/></g>
+      <rect y="206" width="300" height="14" fill="#c9bfa9" />
+    </symbol>
+    <symbol id="b3" viewBox="0 0 300 220" preserveAspectRatio="xMidYMid slice">
+      <rect width="300" height="220" fill="#cfe1e4" />
+      <rect x="100" y="20" width="100" height="200" fill="#1d2a31" />
+      <g fill="#7ec3ad" opacity=".9"><rect x="112" y="34" width="76" height="8"/><rect x="112" y="54" width="76" height="8"/><rect x="112" y="74" width="76" height="8"/><rect x="112" y="94" width="76" height="8"/><rect x="112" y="114" width="76" height="8"/><rect x="112" y="134" width="76" height="8"/><rect x="112" y="154" width="76" height="8"/></g>
+      <rect x="40" y="120" width="60" height="100" fill="#405360" /><rect x="200" y="140" width="64" height="80" fill="#566c78" />
+      <rect y="206" width="300" height="14" fill="#9fb7a8" />
+    </symbol>
+
+    <!-- floor plans -->
+    <symbol id="plan1" viewBox="0 0 200 150"><g fill="none" stroke="#1d2a31" stroke-width="3"><rect x="6" y="6" width="188" height="138"/><path d="M90 6 V80 M6 80 H130 M130 80 V144 M150 6 V50 H194"/></g><g stroke="#1d2a31" stroke-width="1" fill="none"><path d="M90 60 a20 20 0 0 1 20 20"/><path d="M60 80 a20 20 0 0 0 -20 20"/></g><g font-family="Noto Kufi Arabic" font-size="11" fill="#64747b" text-anchor="middle"><text x="48" y="46">نوم</text><text x="120" y="46">معيشة</text><text x="172" y="30">حمّام</text><text x="66" y="118">نوم</text><text x="162" y="118">مطبخ</text></g></symbol>
+    <symbol id="plan2" viewBox="0 0 200 150"><g fill="none" stroke="#1d2a31" stroke-width="3"><rect x="6" y="6" width="188" height="138"/><path d="M70 6 V144 M70 70 H194 M140 70 V144"/></g><g font-family="Noto Kufi Arabic" font-size="11" fill="#64747b" text-anchor="middle"><text x="38" y="80">معيشة</text><text x="130" y="42">نوم</text><text x="104" y="112">نوم</text><text x="168" y="112">حمّام</text></g></symbol>
+    <symbol id="plan3" viewBox="0 0 200 150"><g fill="none" stroke="#1d2a31" stroke-width="3"><rect x="6" y="6" width="188" height="138"/><path d="M6 60 H110 M110 6 V144 M110 100 H194 M60 60 V144"/></g><g font-family="Noto Kufi Arabic" font-size="11" fill="#64747b" text-anchor="middle"><text x="58" y="38">معيشة</text><text x="152" y="56">نوم</text><text x="34" y="106">نوم</text><text x="86" y="106">حمّام</text><text x="152" y="128">مطبخ</text></g></symbol>
+
+    <symbol id="mk" viewBox="0 0 30 30"><path d="M4 26 V12 L15 4 L26 12 V26 Z" fill="#0e8a68"/><path d="M11 26 V17 H19 V26" fill="#1d2a31"/></symbol>
+  </defs>
+</svg>
+
+<!-- =================== HERO: map search =================== -->
+<section id="hero">
+  <nav class="nav">
+    <div class="logo"><svg viewBox="0 0 30 30"><use href="#mk" /></svg>مَقام</div>
+    <div class="tabs"><span class="on">شراء</span><span>إيجار</span><span>مشاريع جديدة</span></div>
+    <div class="q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>حي الريحان، شمال المدينة</div>
+    <div class="me"><span>المفضّلة</span><span>م</span></div>
+  </nav>
+  <div class="filters">
+    <span class="f on">شقة</span><span class="f">٣ غرف فأكثر</span><span class="f">المساحة</span><span class="f">قريب من المترو</span><span class="f">جاهز للسكن</span><span class="f plain">فلاتر أخرى</span>
+    <span class="save">حفظ البحث ونبّهني</span>
+  </div>
+
+  <div class="map">
+    <svg viewBox="0 0 960 760" preserveAspectRatio="xMidYMid slice"><use href="#city" /></svg>
+    <div class="mapctl"><span>+</span><span>−</span><span>◎</span></div>
+    <span class="pin" style="left:140px;top:120px">٣ غرف</span>
+    <span class="pin seen" style="left:330px;top:300px">٢ غرف</span>
+    <span class="pin on" style="left:540px;top:250px">شقة الريحان</span>
+    <span class="pin" style="left:610px;top:400px">٤ غرف</span>
+    <span class="pin" style="left:780px;top:360px">فيلا</span>
+    <span class="pin" style="left:200px;top:500px">٣ غرف</span>
+    <span class="pin" style="left:880px;top:520px">دوبلكس</span>
+    <div class="pop" style="left:620px;top:150px">
+      <div class="pic"><svg viewBox="0 0 300 220" preserveAspectRatio="xMidYMid slice"><use href="#b1" /></svg></div>
+      <div class="t"><b>شقة الريحان</b><p>٣ غرف · ١٤٠ م² · ٤ دقائق للمترو</p></div>
+    </div>
+    <span class="draw">✎ ارسم منطقة البحث</span>
+  </div>
+
+  <div class="list">
+    <h1>شقق في حي الريحان</h1>
+    <p class="sub"><span><b>٢٤ عقارًا</b> داخل المنطقة المرسومة</span><span>الأقرب للمترو ⌄</span></p>
+    <div class="prop sel">
+      <div class="pic"><svg viewBox="0 0 300 220" preserveAspectRatio="xMidYMid slice"><use href="#b1" /></svg></div>
+      <div class="t"><span class="type">شقة · جاهزة للسكن</span><h3>شقة الريحان</h3><span class="loc">حي الريحان · الدور الرابع</span>
+        <div class="specs"><span>٣ غرف</span><span>٢ حمّام</span><span>١٤٠ م²</span></div>
+        <span class="cmp on"><i></i>في المقارنة</span></div>
+    </div>
+    <div class="prop">
+      <div class="pic"><svg viewBox="0 0 300 220" preserveAspectRatio="xMidYMid slice"><use href="#b2" /></svg></div>
+      <div class="t"><span class="type">شقة أرضية · حديقة</span><h3>دار السدرة</h3><span class="loc">شارع السدرة · الدور الأرضي</span>
+        <div class="specs"><span>٣ غرف</span><span>٣ حمّام</span><span>١٦٥ م²</span></div>
+        <span class="cmp on"><i></i>في المقارنة</span></div>
+    </div>
+    <div class="prop">
+      <div class="pic"><svg viewBox="0 0 300 220" preserveAspectRatio="xMidYMid slice"><use href="#b3" /></svg></div>
+      <div class="t"><span class="type">شقة · برج سكني</span><h3>برج الوادي</h3><span class="loc">طريق الوادي · الدور الحادي عشر</span>
+        <div class="specs"><span>٢ غرفة</span><span>٢ حمّام</span><span>١١٠ م²</span></div>
+        <span class="cmp"><i></i>أضف للمقارنة</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== DETAIL: comparison =================== -->
+<section id="detail">
+  <nav class="nav">
+    <div class="logo"><svg viewBox="0 0 30 30"><use href="#mk" /></svg>مَقام</div>
+    <div class="tabs"><span class="on">شراء</span><span>إيجار</span><span>مشاريع جديدة</span></div>
+    <div class="q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>حي الريحان، شمال المدينة</div>
+    <div class="me"><span>المفضّلة</span><span>م</span></div>
+  </nav>
+  <div class="dhead">
+    <div><h2>قارن بين العقارات</h2><p>ثلاثة عقارات اخترتها، جنبًا إلى جنب.</p></div>
+    <div class="acts"><span>مشاركة المقارنة</span><span>إضافة عقار</span><span class="p">طلب زيارة</span></div>
+  </div>
+  <div class="table">
+    <div class="rowlabels">
+      <span>المساحة</span><span>الغرف</span><span>الحمّامات</span><span>الدور</span><span>المسافة إلى المترو</span><span>موقف سيارات</span><span>حديقة أو شرفة</span><span>الحالة</span>
+    </div>
+    <div class="colx best">
+      <span class="badge">الأقرب للمترو</span>
+      <div class="plan"><svg viewBox="0 0 200 150"><use href="#plan1" /></svg></div>
+      <h3>شقة الريحان</h3><p class="loc">حي الريحان · شمال المدينة</p>
+      <div class="cell">١٤٠ م²</div><div class="cell">٣</div><div class="cell">٢</div><div class="cell">الرابع</div><div class="cell win">٤ دقائق مشيًا</div><div class="cell yes">✓ موقفان</div><div class="cell">شرفة</div><div class="cell">جاهزة للسكن</div>
+    </div>
+    <div class="colx">
+      <div class="plan"><svg viewBox="0 0 200 150"><use href="#plan3" /></svg></div>
+      <h3>دار السدرة</h3><p class="loc">شارع السدرة · شمال المدينة</p>
+      <div class="cell win">١٦٥ م²</div><div class="cell">٣</div><div class="cell win">٣</div><div class="cell">الأرضي</div><div class="cell">١٢ دقيقة مشيًا</div><div class="cell yes">✓ موقف</div><div class="cell win">حديقة خاصة</div><div class="cell">جاهزة للسكن</div>
+    </div>
+    <div class="colx">
+      <div class="plan"><svg viewBox="0 0 200 150"><use href="#plan2" /></svg></div>
+      <h3>برج الوادي</h3><p class="loc">طريق الوادي · وسط المدينة</p>
+      <div class="cell">١١٠ م²</div><div class="cell">٢</div><div class="cell">٢</div><div class="cell">الحادي عشر</div><div class="cell">٧ دقائق مشيًا</div><div class="cell no">— لا يوجد</div><div class="cell">شرفة</div><div class="cell">تسليم قريب</div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== MOBILE: map + bottom sheet =================== -->
+<section id="mobile">
+  <div class="m-map">
+    <svg viewBox="200 0 520 760" preserveAspectRatio="xMidYMid slice"><use href="#city" /></svg>
+    <span class="pin" style="left:90px;top:260px">٣ غرف</span>
+    <span class="pin on" style="left:220px;top:300px">شقة الريحان</span>
+    <span class="pin seen" style="left:300px;top:200px">٢ غرف</span>
+    <span class="pin" style="left:120px;top:420px">فيلا</span>
+  </div>
+  <div class="m-search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64747b" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>حي الريحان، شمال المدينة<b><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg></b></div>
+  <div class="m-chips"><span class="on">شقة</span><span>٣ غرف+</span><span>قريب من المترو</span></div>
+  <div class="m-sheet">
+    <div class="grab"></div>
+    <h3>٢٤ عقارًا <small>داخل المنطقة المرسومة</small></h3>
+    <div class="m-card">
+      <div class="pic"><svg viewBox="0 0 300 220" preserveAspectRatio="xMidYMid slice"><use href="#b1" /></svg><span class="tag">٤ دقائق للمترو</span></div>
+      <div class="t"><b>شقة الريحان</b><div class="specs"><span>٣ غرف</span><span>٢ حمّام</span><span>١٤٠ م²</span></div></div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

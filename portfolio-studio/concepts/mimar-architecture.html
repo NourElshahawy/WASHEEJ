@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>MIMAR — concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<!--
+  MIMAR (مِعمار) — fictional architecture practice. Concept: editorial studio
+  website — projects, case studies, services. Palette: board-formed concrete,
+  charcoal, one oxide accent. Buildings drawn in SVG.
+-->
+<style>
+  ol { list-style: none; }
+  :root { --conc: #d9d5ce; --conc2: #c9c4bb; --conc3: #b3ada3; --char: #232321; --soft: #6f6c66; --oxide: #a5502e; --rule: rgba(35,35,33,.18); }
+  body { font-family: 'Noto Kufi Arabic', sans-serif; color: var(--char); }
+  .kufi { font-family: 'Reem Kufi', sans-serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; direction: ltr; letter-spacing: .04em; }
+
+  #hero, #detail { background: var(--conc); }
+  /* board-formed concrete texture: faint horizontal boards + grain */
+  .tex::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(180deg, transparent 0 58px, rgba(35,35,33,.045) 58px 59px); }
+  .tex::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .18; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .2 0 0 0 0 .2 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  .top { position: absolute; inset: 0 0 auto; height: 84px; padding: 0 64px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--rule); z-index: 3; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand .mark { width: 34px; height: 34px; display: flex; flex-wrap: wrap; gap: 3px; }
+  .brand .mark i { width: 15px; height: 15px; background: var(--char); }
+  .brand .mark i:nth-child(2) { background: var(--oxide); }
+  .brand b { font-family: 'Reem Kufi'; font-size: 30px; font-weight: 700; letter-spacing: .02em; }
+  .menu { display: flex; gap: 0; font-size: 15px; }
+  .menu span { padding: 0 26px; border-inline-start: 1px solid var(--rule); color: var(--soft); }
+  .menu span:first-child { border: 0; }
+  .menu .on { color: var(--char); }
+  .lang { font-size: 13px; color: var(--soft); }
+
+  /* hero: an editorial split — the big drawing, the statement, an index of works */
+  .h-art { position: absolute; left: 0; top: 84px; width: 940px; height: 816px; overflow: hidden; background: linear-gradient(180deg, #e6e2db 0%, #d2cdc5 100%); }
+  .h-art svg { position: absolute; left: 0; bottom: 0; width: 940px; height: 816px; }
+  .h-cap { position: absolute; left: 32px; bottom: 28px; display: flex; gap: 22px; font-size: 13px; color: var(--soft); z-index: 2; }
+  .h-cap b { color: var(--char); font-weight: 500; }
+  .h-copy { position: absolute; right: 64px; top: 140px; width: 560px; z-index: 2; }
+  .idx { font-size: 13px; color: var(--soft); display: flex; gap: 14px; align-items: center; }
+  .idx i { width: 60px; height: 1px; background: var(--char); }
+  .h-copy h1 { margin-top: 26px; font-family: 'Reem Kufi'; font-weight: 600; font-size: 92px; line-height: 1.18; }
+  .h-copy h1 span { color: var(--oxide); }
+  .h-copy p { margin-top: 22px; font-size: 18px; line-height: 1.95; color: #4a4843; font-weight: 300; max-width: 480px; }
+  .works { position: absolute; right: 64px; bottom: 56px; width: 560px; border-top: 1px solid var(--char); z-index: 2; }
+  .works li { display: flex; align-items: center; gap: 18px; padding: 15px 0; border-bottom: 1px solid var(--rule); font-size: 17px; }
+  .works li .mono { font-size: 13px; color: var(--soft); width: 34px; }
+  .works li em { font-style: normal; color: var(--soft); font-size: 14px; margin-inline-start: auto; }
+  .works li.on { color: var(--oxide); }
+  .works li svg { width: 22px; height: 22px; }
+
+  /* detail: a case study page */
+  .cs-head { position: absolute; right: 64px; top: 124px; width: 1472px; display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 26px; border-bottom: 1px solid var(--char); z-index: 2; }
+  .cs-head h2 { font-family: 'Reem Kufi'; font-size: 74px; font-weight: 600; line-height: 1.1; }
+  .cs-head p { font-size: 14px; color: var(--soft); margin-bottom: 8px; }
+  .facts { display: flex; gap: 46px; }
+  .facts div { display: flex; flex-direction: column; gap: 6px; }
+  .facts dt { font-size: 12px; color: var(--soft); }
+  .facts dd { font-size: 17px; font-weight: 500; }
+  .cs-body { position: absolute; right: 64px; top: 320px; width: 1472px; height: 520px; display: flex; gap: 26px; z-index: 2; }
+  .cs-text { width: 380px; flex: none; display: flex; flex-direction: column; }
+  .cs-text h3 { font-size: 13px; color: var(--oxide); font-weight: 500; }
+  .cs-text p { margin-top: 12px; font-size: 17px; line-height: 2; color: #3e3c38; font-weight: 300; }
+  .cs-text .plan { margin-top: auto; height: 210px; border: 1px solid var(--rule); background: #e4e0d9; position: relative; }
+  .cs-text .plan svg { width: 100%; height: 100%; }
+  .cs-text .plan span { position: absolute; right: 12px; top: 10px; font-size: 12px; color: var(--soft); }
+  .shot { position: relative; overflow: hidden; background: #cfcac2; }
+  .shot svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .shot .lbl { position: absolute; right: 14px; bottom: 12px; font-size: 12px; color: #f1eee9; background: rgba(35,35,33,.6); padding: 4px 10px; z-index: 2; }
+  .shot.big { flex: 1; }
+  .col { width: 330px; display: flex; flex-direction: column; gap: 26px; flex: none; }
+  .col .shot { flex: 1; }
+  .pager { position: absolute; left: 64px; top: 140px; display: flex; gap: 10px; z-index: 3; }
+  .pager span { width: 46px; height: 46px; border: 1px solid var(--char); display: flex; align-items: center; justify-content: center; }
+  .pager span.f { background: var(--char); }
+
+  /* mobile: the portfolio list */
+  #mobile { background: var(--conc); }
+  .m-top { position: absolute; inset: 52px 20px auto; height: 52px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--rule); z-index: 3; }
+  .m-top .brand b { font-size: 24px; }
+  .m-top .brand .mark { width: 26px; height: 26px; gap: 2px; }
+  .m-top .brand .mark i { width: 12px; height: 12px; }
+  .m-top .burger { display: flex; flex-direction: column; gap: 6px; }
+  .m-top .burger i { width: 24px; height: 1.5px; background: var(--char); }
+  .m-h { position: absolute; top: 124px; inset-inline: 20px; z-index: 2; }
+  .m-h h1 { font-family: 'Reem Kufi'; font-weight: 600; font-size: 44px; line-height: 1.2; }
+  .m-h h1 span { color: var(--oxide); }
+  .m-h .tabs { margin-top: 18px; display: flex; gap: 8px; font-size: 13px; }
+  .m-h .tabs span { padding: 7px 14px; border: 1px solid var(--rule); }
+  .m-h .tabs .on { background: var(--char); color: var(--conc); border-color: var(--char); }
+  .m-card { position: absolute; inset-inline: 20px; height: 250px; z-index: 2; }
+  .m-card .shot { height: 178px; }
+  .m-card .meta { display: flex; justify-content: space-between; align-items: baseline; margin-top: 12px; }
+  .m-card .meta b { font-size: 18px; font-weight: 500; }
+  .m-card .meta span { font-size: 12px; color: var(--soft); }
+</style>
+</head>
+<body class="">
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- a cantilevered concrete house, in light and shadow -->
+    <symbol id="house" viewBox="0 0 940 816" preserveAspectRatio="xMidYMax slice">
+      <rect width="940" height="816" fill="url(#sky)"/>
+      <path d="M0 640 L940 600 L940 816 L0 816 Z" fill="#bdb7ad"/>
+      <path d="M0 660 L940 626" stroke="#a49d92" stroke-width="1"/>
+      <!-- rear volume -->
+      <path d="M220 300 L640 270 L640 600 L220 618 Z" fill="#cbc6be"/>
+      <path d="M640 270 L760 300 L760 594 L640 600 Z" fill="#a39c91"/>
+      <!-- cantilevered slab -->
+      <path d="M120 250 L700 214 L860 250 L860 290 L700 254 L120 292 Z" fill="#e7e3dc"/>
+      <path d="M120 292 L700 254 L860 290 L860 304 L700 268 L120 306 Z" fill="#8f887d"/>
+      <!-- glass band -->
+      <path d="M260 330 L620 306 L620 470 L260 488 Z" fill="#3a3c3b"/>
+      <path d="M260 330 L620 306 L620 330 L260 352 Z" fill="#5b5e5c"/>
+      <path d="M350 324 L350 482 M440 318 L440 478 M530 312 L530 474" stroke="#22231f" stroke-width="3"/>
+      <path d="M268 470 L612 452" stroke="#b9b3a9" stroke-width="2" opacity=".6"/>
+      <!-- reflected light in glass -->
+      <path d="M380 330 L420 328 L360 480 L330 482 Z" fill="rgba(255,255,255,.08)"/>
+      <!-- lower volume, solid -->
+      <path d="M180 488 L520 474 L520 620 L180 630 Z" fill="#d6d1c9"/>
+      <path d="M520 474 L600 490 L600 612 L520 620 Z" fill="#9e978c"/>
+      <rect x="230" y="540" width="70" height="86" fill="#2b2c2a"/>
+      <!-- oxide screen -->
+      <path d="M660 320 L740 336 L740 560 L660 560 Z" fill="#a5502e" opacity=".9"/>
+      <path d="M672 330 L672 560 M686 333 L686 560 M700 336 L700 560 M714 339 L714 560 M728 342 L728 560" stroke="#7f3b20" stroke-width="3"/>
+      <!-- shadow under the slab -->
+      <path d="M120 306 L700 268 L700 300 L120 360 Z" fill="rgba(35,35,33,.18)"/>
+      <!-- a tree, drawn in line -->
+      <g stroke="#55524c" stroke-width="1.4" fill="none" opacity=".75">
+        <path d="M830 640 L830 470"/><path d="M830 560 L800 520 M830 530 L862 488 M830 500 L812 470"/>
+        <circle cx="830" cy="450" r="62" fill="rgba(85,82,76,.12)"/>
+      </g>
+      <!-- figure for scale -->
+      <g fill="#2b2c2a"><circle cx="560" cy="566" r="6"/><rect x="555" y="573" width="10" height="34" rx="4"/></g>
+      <!-- construction lines -->
+      <g stroke="#232321" stroke-width=".8" opacity=".35" stroke-dasharray="4 6">
+        <path d="M120 250 L120 700"/><path d="M860 250 L860 700"/><path d="M60 214 L900 214"/>
+      </g>
+    </symbol>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ece8e2"/><stop offset="1" stop-color="#d4cfc7"/></linearGradient>
+
+    <!-- interior: a stair hall in light -->
+    <symbol id="interior" viewBox="0 0 600 520" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="520" fill="#d9d4cc"/>
+      <path d="M0 0 L600 0 L600 80 L0 120 Z" fill="#c4bfb6"/>
+      <path d="M380 0 L600 0 L600 520 L380 520 Z" fill="#b8b2a8"/>
+      <path d="M420 40 L560 30 L560 300 L420 310 Z" fill="#f4f1ea"/>
+      <path d="M420 310 L560 300 L600 520 L300 520 Z" fill="rgba(244,241,234,.55)"/>
+      <g fill="#8d867b"><path d="M60 520 L60 470 L120 470 L120 430 L180 430 L180 390 L240 390 L240 350 L300 350 L300 310 L360 310 L360 520 Z"/></g>
+      <g fill="#a49d92"><path d="M60 470 L120 470 L120 476 L60 476 Z M120 430 L180 430 L180 436 L120 436 Z M180 390 L240 390 L240 396 L180 396 Z M240 350 L300 350 L300 356 L240 356 Z M300 310 L360 310 L360 316 L300 316 Z"/></g>
+      <path d="M40 300 L360 220" stroke="#232321" stroke-width="2"/>
+      <g fill="#232321"><circle cx="470" cy="400" r="7"/><rect x="464" y="408" width="12" height="44" rx="5"/></g>
+    </symbol>
+
+    <!-- facade detail: concrete fins -->
+    <symbol id="fins" viewBox="0 0 330 250" preserveAspectRatio="xMidYMid slice">
+      <rect width="330" height="250" fill="#a5502e"/>
+      <g fill="#c0663e"><rect x="10" y="0" width="22" height="250"/><rect x="62" y="0" width="22" height="250"/><rect x="114" y="0" width="22" height="250"/><rect x="166" y="0" width="22" height="250"/><rect x="218" y="0" width="22" height="250"/><rect x="270" y="0" width="22" height="250"/></g>
+      <g fill="#7a3a20"><rect x="32" y="0" width="8" height="250"/><rect x="84" y="0" width="8" height="250"/><rect x="136" y="0" width="8" height="250"/><rect x="188" y="0" width="8" height="250"/><rect x="240" y="0" width="8" height="250"/><rect x="292" y="0" width="8" height="250"/></g>
+    </symbol>
+    <!-- courtyard in plan-shadow -->
+    <symbol id="court" viewBox="0 0 330 250" preserveAspectRatio="xMidYMid slice">
+      <rect width="330" height="250" fill="#e3dfd8"/>
+      <path d="M0 0 H330 V60 H0 Z" fill="#c9c4bb"/>
+      <path d="M0 60 L120 60 L60 250 L0 250 Z" fill="#bab4aa"/>
+      <rect x="150" y="120" width="120" height="80" fill="#cfd3cc"/>
+      <circle cx="210" cy="160" r="28" fill="#7c8d78" opacity=".8"/>
+      <path d="M0 60 H330" stroke="#232321" stroke-width="1" opacity=".3"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- =================== HERO =================== -->
+<section id="hero" class="tex">
+  <header class="top">
+    <div class="brand"><span class="mark"><i></i><i></i><i></i><i></i></span><b>مِعمار</b></div>
+    <nav class="menu"><span class="on">المشاريع</span><span>الاستوديو</span><span>الخدمات</span><span>الفريق</span><span>تواصل</span></nav>
+    <span class="lang mono">AR / EN</span>
+  </header>
+  <div class="h-art"><svg viewBox="0 0 940 816" preserveAspectRatio="xMidYMax slice"><use href="#house"/></svg>
+    <div class="h-cap"><span><b>بيت الفناء المعلّق</b></span><span>سكني · قيد التصميم</span></div>
+  </div>
+  <div class="h-copy">
+    <p class="idx"><i></i>مكتب عمارة وتصميم داخلي</p>
+    <h1>نصمّم المساحة <span>حول</span> من يعيشها</h1>
+    <p>عمارة هادئة من الضوء والظل والمادة: مشاريع سكنية وثقافية ومساحات عمل، من الفكرة الأولى إلى تفاصيل التنفيذ.</p>
+  </div>
+  <ol class="works">
+    <li class="on"><span class="mono">01</span>بيت الفناء المعلّق<em>سكني</em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 12H5M10 6l-6 6 6 6"/></svg></li>
+    <li><span class="mono">02</span>مكتبة الحيّ<em>ثقافي</em></li>
+    <li><span class="mono">03</span>مقرّ استوديو الأثاث<em>مساحات عمل</em></li>
+  </ol>
+</section>
+
+<!-- =================== DETAIL: a case study =================== -->
+<section id="detail" class="tex">
+  <header class="top">
+    <div class="brand"><span class="mark"><i></i><i></i><i></i><i></i></span><b>مِعمار</b></div>
+    <nav class="menu"><span class="on">المشاريع</span><span>الاستوديو</span><span>الخدمات</span><span>الفريق</span><span>تواصل</span></nav>
+    <span class="lang mono">AR / EN</span>
+  </header>
+  <div class="cs-head">
+    <div><p>دراسة حالة · ٠١</p><h2>بيت الفناء المعلّق</h2></div>
+    <dl class="facts">
+      <div><dt>النوع</dt><dd>سكني خاص</dd></div>
+      <div><dt>النطاق</dt><dd>عمارة وتصميم داخلي</dd></div>
+      <div><dt>المرحلة</dt><dd>التصميم التفصيلي</dd></div>
+    </dl>
+  </div>
+  <div class="pager"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#232321" stroke-width="1.6"><path d="M9 6l6 6-6 6"/></svg></span><span class="f"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d9d5ce" stroke-width="1.6"><path d="M15 6l-6 6 6 6"/></svg></span></div>
+  <div class="cs-body">
+    <div class="cs-text">
+      <h3>الفكرة</h3>
+      <p>كتلة علوية ممتدة تظلّل الفناء والمدخل، وواجهة من الزعانف تكسر الشمس الغربية، وفناء داخلي يجمع غرف البيت حوله.</p>
+      <div class="plan"><span>المسقط الأرضي</span>
+        <svg viewBox="0 0 380 210"><g fill="none" stroke="#232321" stroke-width="2.4"><rect x="30" y="30" width="320" height="150"/><path d="M150 30 V110 M150 140 V180 M240 30 V80 M240 110 V180 M30 100 H110 M150 110 H240"/></g><rect x="160" y="40" width="70" height="60" fill="#7c8d78" opacity=".45"/><path d="M290 180 v-30" stroke="#a5502e" stroke-width="3"/><g fill="#232321" font-family="Noto Kufi Arabic" font-size="11"><text x="80" y="70">المعيشة</text><text x="185" y="150">المطبخ</text><text x="300" y="70">النوم</text><text x="195" y="76" fill="#fff">الفناء</text></g></svg>
+      </div>
+    </div>
+    <div class="shot big"><svg viewBox="0 0 600 520" preserveAspectRatio="xMidYMid slice"><use href="#interior"/></svg><span class="lbl">بيت الدرج والضوء العلوي</span></div>
+    <div class="col">
+      <div class="shot"><svg viewBox="0 0 330 250" preserveAspectRatio="xMidYMid slice"><use href="#fins"/></svg><span class="lbl">زعانف الواجهة الغربية</span></div>
+      <div class="shot"><svg viewBox="0 0 330 250" preserveAspectRatio="xMidYMid slice"><use href="#court"/></svg><span class="lbl">الفناء الداخلي</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== MOBILE =================== -->
+<section id="mobile" class="tex">
+  <div class="m-top"><div class="brand"><span class="mark"><i></i><i></i><i></i><i></i></span><b>مِعمار</b></div><span class="burger"><i></i><i></i></span></div>
+  <div class="m-h">
+    <h1>نصمّم المساحة <span>حول</span> من يعيشها</h1>
+    <div class="tabs"><span class="on">الكل</span><span>سكني</span><span>ثقافي</span><span>عمل</span></div>
+  </div>
+  <div class="m-card" style="top:300px"><div class="shot"><svg viewBox="0 0 940 816" preserveAspectRatio="xMidYMid slice"><use href="#house"/></svg></div><div class="meta"><b>بيت الفناء المعلّق</b><span class="mono">01 · سكني</span></div></div>
+  <div class="m-card" style="top:548px"><div class="shot"><svg viewBox="0 0 330 250" preserveAspectRatio="xMidYMid slice"><use href="#fins"/></svg></div><div class="meta"><b>مكتبة الحيّ</b><span class="mono">02 · ثقافي</span></div></div>
+</section>
+
+</body>
+</html>

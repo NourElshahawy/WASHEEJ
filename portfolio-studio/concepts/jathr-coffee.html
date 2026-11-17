@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>JATHR — concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<!--
+  JATHR (جَذْر) — fictional specialty coffee roaster. Concept: scrollytelling
+  from soil to cup — growing, picking, roasting, brewing. Palette: roasted
+  brown, crema, coffee-cherry red, leaf green. All drawn in SVG/CSS.
+-->
+<style>
+  ol { list-style: none; }
+  :root { --roast: #2a1912; --roast2: #3b2419; --crema: #f4e7d4; --crema2: #e9d5b8; --cherry: #c2412d; --leaf: #4d6a3a; --soil: #6b4530; --mute: #8e7461; }
+  body { font-family: 'Tajawal', sans-serif; color: var(--roast); }
+  .lem { font-family: 'Lemonada', cursive; }
+
+  #hero { background: var(--crema); }
+  .nav { position: absolute; inset: 0 0 auto; height: 92px; padding: 0 72px; display: flex; align-items: center; gap: 56px; z-index: 4; }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo b { font-family: 'Lemonada'; font-weight: 700; font-size: 30px; color: var(--roast); line-height: 1; }
+  .logo svg { width: 34px; height: 34px; }
+  .links { display: flex; gap: 34px; font-size: 17px; color: var(--mute); }
+  .links .on { color: var(--roast); font-weight: 700; }
+  .shop { margin-inline-start: auto; display: flex; align-items: center; gap: 10px; padding: 12px 22px; border-radius: 999px; background: var(--roast); color: var(--crema); font-size: 15px; font-weight: 500; }
+
+  /* the cross-section: soil, roots, plant, cherries — one round window */
+  .window { position: absolute; left: 120px; top: 116px; width: 640px; height: 640px; border-radius: 50%; overflow: hidden; background: linear-gradient(180deg, #f9eedd 0%, #f2dfc2 52%, var(--soil) 52%, #4f3222 100%); box-shadow: 0 50px 80px -50px rgba(42,25,18,.6); }
+  .window svg { width: 100%; height: 100%; }
+  .ring2 { position: absolute; left: 92px; top: 88px; width: 696px; height: 696px; border-radius: 50%; border: 1.5px dashed rgba(42,25,18,.25); }
+  .depth { position: absolute; left: 70px; top: 420px; display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: var(--mute); }
+  .badge { position: absolute; left: 640px; top: 150px; width: 150px; height: 150px; border-radius: 50%; background: var(--cherry); color: var(--crema); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: 14px; line-height: 1.5; transform: rotate(-10deg); z-index: 2; }
+  .badge b { font-family: 'Lemonada'; font-size: 22px; font-weight: 700; }
+
+  .copy { position: absolute; right: 72px; top: 196px; width: 600px; }
+  .copy .k { font-size: 17px; color: var(--cherry); font-weight: 700; }
+  .copy h1 { margin-top: 14px; font-family: 'Lemonada'; font-weight: 700; font-size: 72px; line-height: 1.5; }
+  .copy p { margin-top: 8px; font-size: 22px; line-height: 1.85; color: #5d4637; font-weight: 300; max-width: 520px; }
+  .copy .go { margin-top: 30px; display: inline-flex; align-items: center; gap: 14px; font-size: 18px; font-weight: 700; }
+  .copy .go i { width: 54px; height: 54px; border-radius: 50%; background: var(--cherry); display: flex; align-items: center; justify-content: center; }
+  .copy .go i svg { width: 22px; height: 22px; }
+
+  .chapters { position: absolute; right: 72px; left: 860px; bottom: 56px; display: flex; gap: 12px; }
+  .chapters li { flex: 1; padding: 16px 16px 14px; border-radius: 18px; background: #fbf4ea; border: 1px solid var(--crema2); }
+  .chapters li .n { font-family: 'Tajawal'; font-weight: 700; font-size: 14px; color: var(--mute); }
+  .chapters li b { display: block; margin-top: 2px; font-size: 18px; }
+  .chapters li i { display: block; margin-top: 10px; height: 4px; border-radius: 4px; background: var(--crema2); }
+  .chapters li i u { display: block; height: 100%; border-radius: 4px; background: var(--cherry); text-decoration: none; }
+  .chapters li.on { background: var(--roast); color: var(--crema); border-color: var(--roast); }
+  .chapters li.on .n { color: #c9a98f; }
+  .chapters li.on i { background: #5a3d2e; }
+
+  /* ---------- detail: the roasting chapter ---------- */
+  #detail { background: var(--roast); color: var(--crema); }
+  #detail .nav .logo b { color: var(--crema); }
+  #detail .links { color: #a88d78; }
+  #detail .links .on { color: var(--crema); }
+  #detail .shop { background: var(--crema); color: var(--roast); }
+  .side { position: absolute; right: 30px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 14px; z-index: 3; }
+  .side i { width: 10px; height: 10px; border-radius: 50%; background: #5a3d2e; }
+  .side i.on { height: 34px; border-radius: 6px; background: var(--cherry); }
+  .r-copy { position: absolute; right: 84px; top: 150px; width: 470px; }
+  .r-copy .k { font-size: 16px; color: #e3907d; font-weight: 700; }
+  .r-copy h2 { margin-top: 8px; font-family: 'Lemonada'; font-size: 52px; line-height: 1.55; font-weight: 700; }
+  .r-copy p { margin-top: 10px; font-size: 19px; line-height: 1.9; color: #d8c3ad; font-weight: 300; }
+  .levels { position: absolute; right: 84px; bottom: 70px; width: 470px; }
+  .levels h4 { font-size: 15px; color: #a88d78; font-weight: 500; }
+  .levels ul { margin-top: 14px; display: flex; gap: 10px; }
+  .levels li { flex: 1; padding: 14px 8px; border-radius: 16px; border: 1px solid #4b3125; text-align: center; font-size: 15px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .levels li svg { width: 46px; height: 46px; }
+  .levels li.on { background: var(--crema); color: var(--roast); border-color: var(--crema); font-weight: 700; }
+
+  .curve { position: absolute; left: 90px; top: 150px; width: 880px; height: 470px; border-radius: 28px; background: var(--roast2); padding: 28px 32px; }
+  .curve .hd { display: flex; justify-content: space-between; align-items: center; }
+  .curve .hd b { font-size: 20px; }
+  .curve .hd span { font-size: 14px; color: #a88d78; }
+  .curve svg { margin-top: 10px; width: 816px; height: 370px; }
+  .stages { position: absolute; left: 90px; bottom: 70px; width: 880px; display: flex; gap: 16px; }
+  .stage { flex: 1; height: 150px; border-radius: 22px; background: var(--roast2); padding: 20px; display: flex; gap: 16px; align-items: center; }
+  .stage svg { width: 90px; height: 110px; flex: none; }
+  .stage b { font-size: 18px; display: block; }
+  .stage small { font-size: 14px; color: #a88d78; line-height: 1.6; display: block; margin-top: 4px; }
+  .stage.on { background: var(--cherry); }
+  .stage.on small { color: #f7d7cc; }
+
+  /* ---------- mobile ---------- */
+  #mobile { background: var(--crema); }
+  .m-nav { position: absolute; inset: 54px 20px auto; display: flex; align-items: center; justify-content: space-between; z-index: 3; }
+  .m-nav .logo b { font-size: 24px; }
+  .m-nav .logo svg { width: 28px; height: 28px; }
+  .m-nav .cart { width: 42px; height: 42px; border-radius: 50%; background: var(--roast); display: flex; align-items: center; justify-content: center; }
+  .m-prog { position: absolute; top: 114px; inset-inline: 20px; display: flex; gap: 6px; }
+  .m-prog i { flex: 1; height: 4px; border-radius: 4px; background: var(--crema2); }
+  .m-prog i.d { background: var(--cherry); }
+  .m-k { position: absolute; top: 134px; inset-inline: 20px; font-size: 13px; color: var(--cherry); font-weight: 700; }
+  .m-win { position: absolute; top: 168px; left: 50%; width: 340px; height: 340px; margin-left: -170px; border-radius: 50%; overflow: hidden; background: linear-gradient(180deg, #f9eedd 0%, #f2dfc2 52%, var(--soil) 52%, #4f3222 100%); }
+  .m-win svg { width: 100%; height: 100%; }
+  .m-copy { position: absolute; top: 530px; inset-inline: 22px; }
+  .m-copy h1 { font-family: 'Lemonada'; font-weight: 700; font-size: 27px; line-height: 1.55; }
+  .m-copy p { margin-top: 6px; font-size: 15px; line-height: 1.8; color: #5d4637; }
+  .m-next { position: absolute; bottom: 30px; inset-inline: 20px; padding: 14px 16px; border-radius: 20px; background: var(--roast); color: var(--crema); display: flex; align-items: center; gap: 14px; }
+  .m-next svg { width: 44px; height: 44px; flex: none; }
+  .m-next small { display: block; font-size: 12px; color: #a88d78; }
+  .m-next b { font-size: 16px; }
+  .m-next i { margin-inline-start: auto; width: 40px; height: 40px; border-radius: 50%; background: var(--cherry); display: flex; align-items: center; justify-content: center; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="mark" viewBox="0 0 34 34"><path d="M17 3 C26 6 28 16 22 22 C18 26 17 30 17 31 C17 30 16 26 12 22 C6 16 8 6 17 3 Z" fill="#c2412d"/><path d="M17 6 C14 12 20 16 17 28" stroke="#f4e7d4" stroke-width="1.8" fill="none"/></symbol>
+    <symbol id="bean" viewBox="0 0 46 46"><ellipse cx="23" cy="23" rx="14" ry="19" transform="rotate(25 23 23)" fill="currentColor"/><path d="M17 8 C26 16 20 30 29 38" stroke="rgba(0,0,0,.35)" stroke-width="2.4" fill="none" stroke-linecap="round"/></symbol>
+    <!-- the plant in its soil, used in two windows -->
+    <symbol id="plant" viewBox="0 0 640 640">
+      <!-- sun -->
+      <circle cx="470" cy="120" r="54" fill="#f6c983" opacity=".7"/>
+      <!-- hills -->
+      <path d="M0 300 C120 250 220 290 320 270 C440 246 540 290 640 270 L640 333 L0 333 Z" fill="#cfd8b4"/>
+      <!-- soil strata -->
+      <path d="M0 333 H640 V420 C520 410 420 440 300 425 C180 410 90 436 0 420 Z" fill="#7a5038"/>
+      <path d="M0 420 C90 436 180 410 300 425 C420 440 520 410 640 420 V520 C520 506 400 532 280 518 C160 504 80 530 0 516 Z" fill="#5f3d2a"/>
+      <g fill="#a8826a" opacity=".55"><circle cx="80" cy="380" r="5"/><circle cx="210" cy="460" r="4"/><circle cx="520" cy="372" r="6"/><circle cx="440" cy="480" r="4"/><circle cx="130" cy="560" r="5"/><circle cx="560" cy="560" r="4"/></g>
+      <!-- roots -->
+      <g stroke="#e8c9a6" stroke-width="3" fill="none" stroke-linecap="round" opacity=".9">
+        <path d="M320 333 C318 380 300 420 270 470 C250 505 240 540 236 590"/>
+        <path d="M320 340 C330 390 360 420 380 470 C396 512 420 540 450 580"/>
+        <path d="M300 410 C270 420 230 420 190 450"/><path d="M350 420 C390 430 420 420 470 440"/>
+        <path d="M280 470 C250 490 210 500 170 530" stroke-width="2"/><path d="M380 470 C410 500 450 505 500 520" stroke-width="2"/>
+        <path d="M320 333 C322 400 324 470 320 560" stroke-width="2"/>
+      </g>
+      <!-- trunk and leaves -->
+      <path d="M318 333 C316 280 322 220 318 150" stroke="#5a3d2e" stroke-width="9" fill="none" stroke-linecap="round"/>
+      <g fill="#4d6a3a">
+        <path d="M318 180 C270 150 220 160 196 190 C240 196 286 196 318 186 Z"/>
+        <path d="M318 180 C366 150 416 160 440 190 C396 196 350 196 318 186 Z"/>
+        <path d="M318 240 C262 216 206 230 180 266 C230 270 284 264 318 248 Z"/>
+        <path d="M318 240 C374 216 430 230 456 266 C406 270 352 264 318 248 Z"/>
+        <path d="M318 150 C300 112 304 86 320 66 C336 88 336 116 318 150 Z"/>
+        <path d="M318 296 C278 282 240 290 222 312 C258 316 292 312 318 302 Z" fill="#5f7f49"/>
+        <path d="M318 296 C358 282 396 290 414 312 C378 316 344 312 318 302 Z" fill="#5f7f49"/>
+      </g>
+      <g stroke="#3b5229" stroke-width="2" fill="none" opacity=".6"><path d="M318 184 L210 190 M318 184 L426 190 M318 246 L196 264 M318 246 L440 264"/></g>
+      <!-- cherries -->
+      <g fill="#c2412d"><circle cx="300" cy="206" r="11"/><circle cx="318" cy="212" r="12"/><circle cx="336" cy="204" r="11"/><circle cx="296" cy="270" r="11"/><circle cx="314" cy="276" r="12"/><circle cx="340" cy="268" r="11"/></g>
+      <g fill="#e0705a"><circle cx="314" cy="208" r="3"/><circle cx="310" cy="272" r="3"/></g>
+      <g fill="#8db05f"><circle cx="352" cy="214" r="9"/><circle cx="284" cy="280" r="9"/></g>
+      <!-- labels -->
+      <g font-family="Tajawal" font-size="17" fill="#f4e7d4" font-weight="500"><text x="96" y="400">تربة بركانية</text><text x="470" y="500">جذور عميقة</text></g>
+    </symbol>
+    <!-- a roast bag -->
+    <symbol id="bag" viewBox="0 0 90 110"><path d="M14 18 L76 18 L82 104 L8 104 Z" fill="#f4e7d4"/><path d="M14 18 L22 6 L68 6 L76 18 Z" fill="#e9d5b8"/><path d="M22 6 L68 6" stroke="#2a1912" stroke-width="2"/><rect x="24" y="44" width="42" height="40" rx="6" fill="#c2412d"/><text x="45" y="70" text-anchor="middle" font-family="Lemonada" font-size="15" font-weight="700" fill="#f4e7d4">جَذْر</text></symbol>
+    <symbol id="cup" viewBox="0 0 90 110"><path d="M14 40 H70 L64 96 Q62 104 54 104 H30 Q22 104 20 96 Z" fill="#f4e7d4"/><path d="M70 50 C86 50 86 76 68 76" stroke="#f4e7d4" stroke-width="6" fill="none"/><ellipse cx="42" cy="40" rx="28" ry="6" fill="#6b4530"/><path d="M34 30 C30 22 38 18 34 8 M48 30 C44 22 52 18 48 8" stroke="#e9d5b8" stroke-width="2.5" fill="none" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- =================== HERO: soil to cup =================== -->
+<section id="hero">
+  <nav class="nav">
+    <div class="logo"><svg><use href="#mark"/></svg><b>جَذْر</b></div>
+    <div class="links"><span class="on">الحكاية</span><span>المحاصيل</span><span>التحميص</span><span>طرق التحضير</span></div>
+    <span class="shop">المتجر</span>
+  </nav>
+
+  <div class="ring2"></div>
+  <div class="window"><svg viewBox="0 0 640 640"><use href="#plant"/></svg></div>
+  <div class="badge"><b>الفصل ١</b>من التربة</div>
+
+  <div class="copy">
+    <p class="k">حكاية القهوة، فصلًا بعد فصل</p>
+    <h1>من الجذر<br/>إلى الفنجان</h1>
+    <p>مرّر لتتبع حبّة القهوة: كيف تنمو في المرتفعات، وكيف تُقطف وتُحمّص، حتى تصل إلى فنجانك.</p>
+    <span class="go"><i><svg viewBox="0 0 24 24" fill="none" stroke="#f4e7d4" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></i>ابدأ الحكاية</span>
+  </div>
+
+  <ol class="chapters">
+    <li class="on"><span class="n">٠١</span><b>الزراعة</b><i><u style="width:60%"></u></i></li>
+    <li><span class="n">٠٢</span><b>القطف</b><i></i></li>
+    <li><span class="n">٠٣</span><b>التحميص</b><i></i></li>
+    <li><span class="n">٠٤</span><b>التحضير</b><i></i></li>
+  </ol>
+</section>
+
+<!-- =================== DETAIL: roasting chapter =================== -->
+<section id="detail">
+  <nav class="nav">
+    <div class="logo"><svg><use href="#mark"/></svg><b>جَذْر</b></div>
+    <div class="links"><span>الحكاية</span><span>المحاصيل</span><span class="on">التحميص</span><span>طرق التحضير</span></div>
+    <span class="shop">المتجر</span>
+  </nav>
+  <div class="side"><i></i><i></i><i class="on"></i><i></i></div>
+
+  <div class="r-copy">
+    <p class="k">الفصل ٣ — التحميص</p>
+    <h2>النار تكشف ما خبّأته الأرض</h2>
+    <p>في الحمّاصة تتغيّر الحبّة: يتبخّر الماء، يتشقّق القشر، وتظهر النكهات. درجة التحميص تحدّد ما ستتذوقه في الفنجان.</p>
+  </div>
+  <div class="levels">
+    <h4>اختر درجة التحميص لترى الفرق</h4>
+    <ul>
+      <li><svg style="color:#b98a5a"><use href="#bean"/></svg>فاتحة</li>
+      <li class="on"><svg style="color:#8a5a36"><use href="#bean"/></svg>متوسطة</li>
+      <li><svg style="color:#5c3a24"><use href="#bean"/></svg>متوسطة داكنة</li>
+      <li><svg style="color:#33201a"><use href="#bean"/></svg>داكنة</li>
+    </ul>
+  </div>
+
+  <div class="curve">
+    <div class="hd"><b>منحنى التحميص</b><span>مراحل الحبّة داخل الحمّاصة</span></div>
+    <svg viewBox="0 0 816 370" fill="none">
+      <g stroke="#4b3125" stroke-width="1"><path d="M0 90 H816 M0 180 H816 M0 270 H816"/></g>
+      <path d="M20 320 C120 330 160 240 260 200 C380 150 520 120 640 96 C700 84 760 78 800 74" stroke="#c2412d" stroke-width="4" stroke-linecap="round"/>
+      <path d="M20 320 C120 330 160 240 260 200 C380 150 520 120 640 96 C700 84 760 78 800 74 L800 350 L20 350 Z" fill="url(#heat)" opacity=".35"/>
+      <defs><linearGradient id="heat" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c2412d"/><stop offset="1" stop-color="#c2412d" stop-opacity="0"/></linearGradient></defs>
+      <g stroke="#f4e7d4" stroke-dasharray="4 6" opacity=".5"><path d="M260 40 V350 M520 40 V350 M700 40 V350"/></g>
+      <g fill="#f4e7d4" font-family="Tajawal" font-size="17" font-weight="500" text-anchor="middle"><text x="140" y="40">التجفيف</text><text x="390" y="40">التحمّر</text><text x="610" y="40">التشقّق الأول</text><text x="760" y="40">التطوير</text></g>
+      <circle cx="520" cy="124" r="10" fill="#f4e7d4"/><circle cx="520" cy="124" r="20" stroke="#f4e7d4" stroke-width="1.5" opacity=".5"/>
+    </svg>
+  </div>
+  <div class="stages">
+    <div class="stage"><svg viewBox="0 0 90 110"><use href="#bag"/></svg><div><b>محصول المرتفعات</b><small>حبوب محمّصة بدرجة متوسطة</small></div></div>
+    <div class="stage on"><svg viewBox="0 0 90 110"><use href="#cup"/></svg><div><b>جرّبها في فنجانك</b><small>الفصل التالي: طرق التحضير</small></div></div>
+  </div>
+</section>
+
+<!-- =================== MOBILE =================== -->
+<section id="mobile">
+  <div class="m-nav"><div class="logo"><svg><use href="#mark"/></svg><b>جَذْر</b></div><span class="cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f4e7d4" stroke-width="1.8"><path d="M5 8h14l-1 12H6z M9 8V6a3 3 0 0 1 6 0v2"/></svg></span></div>
+  <div class="m-prog"><i class="d"></i><i></i><i></i><i></i></div>
+  <p class="m-k">الفصل ١ — الزراعة</p>
+  <div class="m-win"><svg viewBox="0 0 640 640"><use href="#plant"/></svg></div>
+  <div class="m-copy">
+    <h1>من الجذر إلى الفنجان</h1>
+    <p>كل حبّة تبدأ في تربة المرتفعات، تحت الظل، قبل أن تنضج ثمارها الحمراء.</p>
+  </div>
+  <div class="m-next"><svg viewBox="0 0 46 46" style="color:#c2412d"><use href="#bean"/></svg><div><small>الفصل التالي</small><b>القطف باليد</b></div><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f4e7d4" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></i></div>
+</section>
+
+</body>
+</html>

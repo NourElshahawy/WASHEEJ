@@ -1,0 +1,4 @@
+{
+  "cover": { "variant": "bleed", "desk": "{hero}", "size": 1340, "bg": "linear-gradient(170deg,#b9b3a9 0%,#8f897f 100%)", "light": ".22", "grain": ".14", "shapeAt": "1450,860,700", "shape": "rgba(165,80,46,.55)" },
+  "mobile": { "bg": "linear-gradient(175deg,#cfcac2 0%,#9d978c 100%)", "light": ".25", "grain": ".14", "shapeAt": "760,1380,620", "shape": "rgba(165,80,46,.5)" }
+}

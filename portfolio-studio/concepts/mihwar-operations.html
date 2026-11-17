@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>MIHWAR — concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<!--
+  MIHWAR (مِحور) — fictional team-operations workspace (concept).
+  Bold, outlined, paper-and-ink kanban: cobalt, tomato and sunflower on
+  warm paper, black 2px outlines and hard offset shadows.
+-->
+<style>
+  :root {
+    --paper: #f4f0e6;
+    --card: #fffdf7;
+    --ink: #161616;
+    --mute: #6b675e;
+    --cobalt: #2f4bff;
+    --tomato: #ff5a36;
+    --sun: #ffc93c;
+    --leaf: #2fbf71;
+    --lilac: #c9b6ff;
+  }
+  body { font-family: 'Vazirmatn', sans-serif; color: var(--ink); }
+  .box { background: var(--card); border: 2px solid var(--ink); border-radius: 16px; box-shadow: 4px 4px 0 var(--ink); }
+  #hero, #detail { background: var(--paper); }
+  #hero::before, #detail::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(#d9d2c2 1.2px, transparent 1.2px); background-size: 26px 26px; opacity: .8; }
+
+  /* ---------- top bar ---------- */
+  .bar { position: absolute; inset: 24px 32px auto; height: 72px; display: flex; align-items: center; gap: 22px; padding: 0 22px; z-index: 2; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 27px; }
+  .logo i { width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--ink); background: var(--sun); position: relative; }
+  .logo i::before { content: ''; position: absolute; inset: 8px; border-radius: 50%; border: 2px solid var(--ink); background: var(--tomato); }
+  .ws { display: flex; align-items: center; gap: 8px; padding: 7px 14px; border: 2px solid var(--ink); border-radius: 999px; font-weight: 600; font-size: 15px; }
+  .ws::after { content: ''; width: 7px; height: 7px; border: 2px solid var(--ink); border-top: 0; border-right: 0; transform: rotate(-45deg) translateY(-2px); }
+  .views { display: flex; gap: 4px; padding: 4px; border: 2px solid var(--ink); border-radius: 12px; margin-inline-start: 16px; font-size: 15px; font-weight: 600; }
+  .views span { padding: 6px 14px; border-radius: 8px; }
+  .views span.on { background: var(--ink); color: var(--paper); }
+  .faces { display: flex; margin-inline-start: auto; }
+  .face { width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--ink); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; margin-inline-start: -8px; }
+  .new { padding: 10px 18px; border-radius: 12px; background: var(--cobalt); color: #fff; font-weight: 700; font-size: 16px; border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+
+  /* ---------- board ---------- */
+  .board { position: absolute; top: 128px; inset-inline: 32px; bottom: 0; display: flex; gap: 20px; z-index: 1; }
+  .col { flex: 1; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .colh { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; padding: 0 4px; }
+  .colh .n { min-width: 28px; height: 28px; padding: 0 8px; border-radius: 999px; border: 2px solid var(--ink); font-size: 14px; display: flex; align-items: center; justify-content: center; }
+  .colh .plus { margin-inline-start: auto; font-size: 24px; font-weight: 500; color: var(--mute); }
+  .colh i { width: 14px; height: 14px; border-radius: 4px; border: 2px solid var(--ink); }
+  .task { padding: 18px 20px; display: flex; flex-direction: column; gap: 11px; }
+  .task .desc { font-size: 14px; color: var(--mute); line-height: 1.7; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { font-size: 12.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px; border: 1.5px solid var(--ink); }
+  .task h4 { font-size: 17px; font-weight: 700; line-height: 1.55; }
+  .tf { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--mute); font-weight: 500; }
+  .tf .face { width: 30px; height: 30px; font-size: 12px; margin: 0; margin-inline-start: auto; }
+  .tf .face + .face { margin-inline-start: -10px; }
+  .prog { height: 8px; border-radius: 8px; border: 1.5px solid var(--ink); overflow: hidden; background: #fff; }
+  .prog b { display: block; height: 100%; background: var(--leaf); border-inline-end: 1.5px solid var(--ink); }
+  .task.lift { transform: rotate(-2.5deg) translate(-10px, -4px); box-shadow: 10px 12px 0 var(--ink); background: #fff8dc; }
+  .drop { height: 96px; border: 2px dashed #a8a194; border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--mute); font-size: 14px; font-weight: 600; }
+  .appr { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px; background: #fff3c4; border: 1.5px solid var(--ink); font-size: 13px; font-weight: 700; }
+  .appr i { width: 10px; height: 10px; border-radius: 50%; background: var(--sun); border: 1.5px solid var(--ink); }
+  .done h4 { text-decoration: line-through; text-decoration-thickness: 2px; color: var(--mute); }
+
+  /* ---------- detail ---------- */
+  .dwrap { position: absolute; top: 128px; inset-inline: 32px; bottom: 32px; display: flex; gap: 22px; z-index: 1; }
+  .req { flex: 1.35; padding: 30px 34px; display: flex; flex-direction: column; }
+  .req .crumb { font-size: 14px; color: var(--mute); font-weight: 500; }
+  .req h2 { margin-top: 6px; font-size: 36px; font-weight: 900; line-height: 1.3; }
+  .kv { display: flex; gap: 14px; margin-top: 20px; }
+  .kv div { flex: 1; padding: 14px 16px; border: 2px solid var(--ink); border-radius: 14px; font-size: 13px; color: var(--mute); font-weight: 500; }
+  .kv b { display: block; font-size: 18px; color: var(--ink); font-weight: 800; margin-top: 2px; }
+  .chain { margin-top: 26px; display: flex; align-items: center; }
+  .step { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; font-size: 14px; font-weight: 700; width: 150px; }
+  .step small { font-weight: 500; color: var(--mute); font-size: 12.5px; }
+  .step .face { width: 58px; height: 58px; font-size: 20px; margin: 0; position: relative; }
+  .step .face::after { content: ''; position: absolute; bottom: -4px; left: -4px; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--ink); }
+  .step.ok .face::after { background: var(--leaf); }
+  .step.wait .face::after { background: var(--sun); }
+  .step.later .face { background: #ebe6da !important; color: var(--mute); border-style: dashed; }
+  .link { flex: 1; height: 0; border-top: 3px solid var(--ink); margin-bottom: 52px; }
+  .link.dash { border-top-style: dashed; border-top-color: #a8a194; }
+  .thread { margin-top: 26px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .msg { display: flex; gap: 12px; }
+  .msg .face { width: 38px; height: 38px; margin: 0; flex: none; }
+  .msg p { flex: 1; padding: 12px 16px; border: 2px solid var(--ink); border-radius: 4px 14px 14px 14px; font-size: 15px; line-height: 1.7; background: #fff; }
+  .msg p b { display: block; font-size: 13px; color: var(--mute); }
+  .files { display: flex; gap: 10px; margin-top: 6px; margin-inline-start: 50px; }
+  .files span { padding: 10px 14px 10px 16px; border: 2px solid var(--ink); border-radius: 12px; background: #eef1ff; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .files span::before { content: ''; width: 14px; height: 18px; border: 2px solid var(--ink); border-radius: 3px; background: #fff; }
+  .acts { display: flex; gap: 12px; margin-top: 16px; }
+  .btn { padding: 15px 26px; border-radius: 14px; border: 2px solid var(--ink); font-weight: 800; font-size: 17px; box-shadow: 3px 3px 0 var(--ink); }
+  .btn.ok { background: var(--leaf); flex: 1; text-align: center; }
+  .btn.no { background: var(--card); }
+  .btn.ask { background: var(--card); }
+
+  .roles { flex: 1; padding: 26px 28px; display: flex; flex-direction: column; gap: 16px; }
+  .roles h3 { font-size: 22px; font-weight: 900; display: flex; justify-content: space-between; align-items: center; }
+  .roles h3 small { font-size: 13px; color: var(--mute); font-weight: 600; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; }
+  th { text-align: center; font-weight: 700; color: var(--mute); padding: 0 4px 10px; font-size: 13px; }
+  th:first-child { text-align: right; }
+  td { padding: 11px 4px; border-top: 2px solid #e4ddcc; text-align: center; }
+  td:first-child { text-align: right; font-weight: 700; }
+  td:first-child span { display: inline-flex; align-items: center; gap: 10px; }
+  td .face { width: 30px; height: 30px; font-size: 12px; margin: 0; }
+  .ck { display: inline-block; width: 24px; height: 24px; border-radius: 7px; border: 2px solid var(--ink); vertical-align: middle; position: relative; }
+  .ck.on { background: var(--cobalt); }
+  .ck.on::after { content: ''; position: absolute; left: 6px; top: 3px; width: 6px; height: 11px; border: solid #fff; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
+  .rolepill { display: inline-block; padding: 2px 10px; border-radius: 999px; border: 1.5px solid var(--ink); font-size: 12px; font-weight: 700; }
+  .log { display: flex; flex-direction: column; gap: 12px; margin-top: 6px; }
+  .log h4 { font-size: 16px; font-weight: 900; }
+  .log li { display: flex; gap: 12px; align-items: center; font-size: 14px; }
+  .log li i { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--ink); flex: none; }
+  .log li small { margin-inline-start: auto; color: var(--mute); font-size: 12.5px; }
+  .invite { margin-top: auto; padding: 14px 18px; border: 2px dashed var(--ink); border-radius: 14px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+  .invite span { color: var(--cobalt); }
+
+  /* ---------- mobile ---------- */
+  #mobile { background: var(--paper); }
+  #mobile::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(#d9d2c2 1.2px, transparent 1.2px); background-size: 22px 22px; }
+  .m { position: absolute; inset: 0; padding: 56px 18px 0; display: flex; flex-direction: column; gap: 14px; }
+  .m-h { display: flex; align-items: center; justify-content: space-between; }
+  .m-h .logo { font-size: 22px; }
+  .m-h .logo i { width: 32px; height: 32px; }
+  .m-h .logo i::before { inset: 7px; }
+  .m h2 { font-size: 30px; font-weight: 900; line-height: 1.3; }
+  .m h2 em { font-style: normal; background: var(--sun); padding: 0 8px; border: 2px solid var(--ink); border-radius: 10px; }
+  .m-tabs { display: flex; gap: 8px; font-size: 14px; font-weight: 700; }
+  .m-tabs span { padding: 7px 14px; border: 2px solid var(--ink); border-radius: 999px; background: var(--card); }
+  .m-tabs span.on { background: var(--ink); color: var(--paper); }
+  .m .task { padding: 14px 15px; gap: 8px; }
+  .m .task h4 { font-size: 16px; }
+  .m-acts { display: flex; gap: 8px; }
+  .m-acts span { flex: 1; text-align: center; padding: 10px; border: 2px solid var(--ink); border-radius: 12px; font-weight: 800; font-size: 14px; }
+  .m-acts span.ok { background: var(--leaf); box-shadow: 2px 2px 0 var(--ink); }
+  .m-sec { font-size: 17px; font-weight: 900; margin-top: 4px; }
+  .m-row { display: flex; align-items: center; gap: 12px; padding: 13px 15px; font-weight: 700; font-size: 15px; box-shadow: 2px 2px 0 var(--ink); }
+  .m-row small { margin-inline-start: auto; color: var(--mute); font-weight: 600; }
+  .m-row .done-t { text-decoration: line-through; color: var(--mute); }
+  .m-nav { position: absolute; bottom: 18px; inset-inline: 18px; height: 64px; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; }
+  .m-nav span { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+  .m-nav span i { width: 20px; height: 20px; border: 2px solid var(--ink); border-radius: 6px; }
+  .m-nav span.on { background: var(--cobalt); }
+  .m-nav span.on i { border-color: #fff; }
+  .m-nav span.add { background: var(--sun); border: 2px solid var(--ink); font-size: 26px; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- =================== HERO: task board =================== -->
+<section id="hero">
+  <header class="bar box">
+    <div class="logo"><i></i>مِحور</div>
+    <span class="ws">فريق العمليات</span>
+    <div class="views"><span class="on">اللوحة</span><span>القائمة</span><span>الجدول الزمني</span><span>الموافقات</span></div>
+    <div class="faces"><span class="face" style="background:var(--lilac)">ر</span><span class="face" style="background:var(--sun)">م</span><span class="face" style="background:#9fe3c0">س</span><span class="face" style="background:#ffb4a2">ل</span></div>
+    <span class="new">+ مهمة جديدة</span>
+  </header>
+
+  <div class="board">
+    <div class="col">
+      <div class="colh"><i style="background:#fff"></i>جديدة<span class="n">٤</span><span class="plus">+</span></div>
+      <div class="task box"><div class="tags"><span class="tag" style="background:var(--lilac)">مشتريات</span></div><h4>تجهيز قائمة موردي التغليف للربع القادم</h4><p class="desc">جمع العروض ومقارنة مدد التوريد.</p><div class="tf">٢ مرفقات<span class="face" style="background:var(--lilac)">ر</span></div></div>
+      <div class="task box"><div class="tags"><span class="tag" style="background:#9fe3c0">تشغيل</span></div><h4>تحديث دليل استلام الطلبات</h4><p class="desc">إضافة خطوات الفحص الجديدة.</p><div class="tf">٣ تعليقات<span class="face" style="background:#9fe3c0">س</span></div></div>
+      <div class="task box"><div class="tags"><span class="tag" style="background:#ffb4a2">موارد بشرية</span></div><h4>خطة تأهيل الموظفين الجدد</h4><div class="tf">الأحد<span class="face" style="background:#ffb4a2">ل</span></div></div>
+    </div>
+    <div class="col">
+      <div class="colh"><i style="background:var(--cobalt)"></i>قيد العمل<span class="n">٤</span><span class="plus">+</span></div>
+      <div class="task box"><div class="tags"><span class="tag" style="background:#9fe3c0">تشغيل</span><span class="tag" style="background:#fff">عاجل</span></div><h4>إعادة ترتيب مناطق التخزين في المستودع</h4><div class="prog"><b style="width:65%"></b></div><div class="tf">٤ من ٦ مهام فرعية<span class="face" style="background:var(--sun)">م</span><span class="face" style="background:#9fe3c0">س</span></div></div>
+      <div class="task box lift"><div class="tags"><span class="tag" style="background:var(--lilac)">مشتريات</span></div><h4>مقارنة عروض صيانة المعدات</h4><p class="desc">ثلاثة عروض — جدول مقارنة مرفق.</p><div class="tf">اليوم<span class="face" style="background:var(--lilac)">ر</span></div></div>
+      <div class="drop">أفلت هنا</div>
+      <div class="task box"><div class="tags"><span class="tag" style="background:#ffb4a2">موارد بشرية</span></div><h4>مراجعة مهام الأسبوع مع الفريق</h4><div class="tf">الثلاثاء<span class="face" style="background:#ffb4a2">ل</span></div></div>
+    </div>
+    <div class="col">
+      <div class="colh"><i style="background:var(--sun)"></i>بانتظار الموافقة<span class="n">٣</span><span class="plus">+</span></div>
+      <div class="task box"><div class="tags"><span class="tag" style="background:var(--lilac)">مشتريات</span></div><h4>طلب شراء معدات تغليف جديدة</h4><div class="appr"><i></i>بانتظار: مدير المالية</div><div class="tf">١ من ٢ موافقات<span class="face" style="background:var(--sun)">م</span></div></div>
+      <div class="task box"><div class="tags"><span class="tag" style="background:#ffb4a2">موارد بشرية</span></div><h4>اعتماد جدول المناوبات لشهر ديسمبر</h4><div class="appr"><i></i>بانتظار: قائد الفريق</div><div class="tf">الخميس<span class="face" style="background:#ffb4a2">ل</span></div></div>
+      <div class="task box"><div class="tags"><span class="tag" style="background:#9fe3c0">تشغيل</span></div><h4>تعديل مسار الاستلام في الفرع الجديد</h4><div class="appr"><i></i>بانتظار: مدير العمليات</div><div class="tf">الأسبوع القادم<span class="face" style="background:#9fe3c0">س</span></div></div>
+    </div>
+    <div class="col">
+      <div class="colh"><i style="background:var(--leaf)"></i>منجزة<span class="n">٦</span><span class="plus">+</span></div>
+      <div class="task box done"><div class="tags"><span class="tag" style="background:#9fe3c0">تشغيل</span></div><h4>جرد المخزون الشهري</h4><div class="tf">أُنجزت أمس<span class="face" style="background:#9fe3c0">س</span></div></div>
+      <div class="task box done"><div class="tags"><span class="tag" style="background:var(--lilac)">مشتريات</span></div><h4>تجديد عقد خدمة النقل</h4><div class="tf">أُنجزت الإثنين<span class="face" style="background:var(--lilac)">ر</span></div></div>
+      <div class="task box done"><div class="tags"><span class="tag" style="background:#ffb4a2">موارد بشرية</span></div><h4>تحديث صلاحيات الفريق الجديد</h4><div class="tf">أُنجزت الأحد<span class="face" style="background:#ffb4a2">ل</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== DETAIL: approvals + team roles =================== -->
+<section id="detail">
+  <header class="bar box">
+    <div class="logo"><i></i>مِحور</div>
+    <span class="ws">فريق العمليات</span>
+    <div class="views"><span>اللوحة</span><span>القائمة</span><span>الجدول الزمني</span><span class="on">الموافقات</span></div>
+    <div class="faces"><span class="face" style="background:var(--lilac)">ر</span><span class="face" style="background:var(--sun)">م</span><span class="face" style="background:#9fe3c0">س</span><span class="face" style="background:#ffb4a2">ل</span></div>
+    <span class="new">+ طلب موافقة</span>
+  </header>
+  <div class="dwrap">
+    <div class="req box">
+      <p class="crumb">الموافقات ‹ مشتريات</p>
+      <h2>طلب شراء معدات تغليف جديدة</h2>
+      <div class="kv"><div>مقدّم الطلب<b>ريم</b></div><div>القسم<b>المشتريات</b></div><div>تاريخ الطلب<b>١٢ نوفمبر</b></div><div>المرفقات<b>٣ ملفات</b></div></div>
+      <div class="chain">
+        <div class="step ok"><span class="face" style="background:var(--lilac)">ر</span>تقديم الطلب<small>ريم · مكتمل</small></div>
+        <div class="link"></div>
+        <div class="step ok"><span class="face" style="background:#9fe3c0">س</span>قائد الفريق<small>سامي · وافق</small></div>
+        <div class="link dash"></div>
+        <div class="step wait"><span class="face" style="background:var(--sun)">م</span>مدير المالية<small>منى · قيد المراجعة</small></div>
+        <div class="link dash"></div>
+        <div class="step later"><span class="face">✓</span>التنفيذ<small>بعد الاعتماد</small></div>
+      </div>
+      <div class="thread">
+        <div class="msg"><span class="face" style="background:#9fe3c0">س</span><p><b>سامي · قائد الفريق</b>وافقت. العرض الثاني أنسب من حيث مدة التوريد.</p></div>
+        <div class="msg"><span class="face" style="background:var(--lilac)">ر</span><p><b>ريم · المشتريات</b>أرفقت مقارنة العروض الثلاثة وجدول التسليم.</p></div>
+        <div class="files"><span>مقارنة العروض</span><span>جدول التسليم</span><span>مواصفات المعدات</span></div>
+      </div>
+      <div class="acts"><span class="btn ok">اعتماد الطلب</span><span class="btn ask">طلب تعديل</span><span class="btn no">رفض</span></div>
+    </div>
+
+    <div class="roles box">
+      <h3>صلاحيات الفريق <small>٤ أعضاء</small></h3>
+      <table>
+        <tr><th>العضو</th><th>عرض</th><th>تعديل</th><th>اعتماد</th><th>إدارة</th></tr>
+        <tr><td><span><span class="face" style="background:#9fe3c0">س</span>سامي <span class="rolepill" style="background:var(--sun)">قائد</span></span></td><td><i class="ck on"></i></td><td><i class="ck on"></i></td><td><i class="ck on"></i></td><td><i class="ck on"></i></td></tr>
+        <tr><td><span><span class="face" style="background:var(--sun)">م</span>منى <span class="rolepill" style="background:var(--lilac)">مالية</span></span></td><td><i class="ck on"></i></td><td><i class="ck"></i></td><td><i class="ck on"></i></td><td><i class="ck"></i></td></tr>
+        <tr><td><span><span class="face" style="background:var(--lilac)">ر</span>ريم <span class="rolepill" style="background:#fff">عضو</span></span></td><td><i class="ck on"></i></td><td><i class="ck on"></i></td><td><i class="ck"></i></td><td><i class="ck"></i></td></tr>
+        <tr><td><span><span class="face" style="background:#ffb4a2">ل</span>ليلى <span class="rolepill" style="background:#fff">عضو</span></span></td><td><i class="ck on"></i></td><td><i class="ck on"></i></td><td><i class="ck"></i></td><td><i class="ck"></i></td></tr>
+      </table>
+      <ul class="log"><h4>سجل النشاط</h4>
+        <li><i style="background:var(--leaf)"></i>سامي وافق على طلب شراء المعدات<small>قبل ساعة</small></li>
+        <li><i style="background:var(--cobalt)"></i>مُنحت منى صلاحية الاعتماد<small>أمس</small></li>
+        <li><i style="background:var(--sun)"></i>ريم أرفقت مقارنة العروض<small>أمس</small></li>
+      </ul>
+      <div class="invite">دعوة عضو جديد<span>+ إضافة</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== MOBILE =================== -->
+<section id="mobile">
+  <div class="m">
+    <div class="m-h"><div class="logo"><i></i>مِحور</div><span class="face" style="background:var(--sun);margin:0">م</span></div>
+    <h2>لديك <em>٢</em> طلبات بانتظار موافقتك</h2>
+    <div class="m-tabs"><span class="on">الموافقات</span><span>مهامي</span><span>الفريق</span></div>
+    <div class="task box"><div class="tags"><span class="tag" style="background:var(--lilac)">مشتريات</span></div><h4>طلب شراء معدات تغليف جديدة</h4><div class="tf">من ريم · ٣ مرفقات</div><div class="m-acts"><span class="ok">اعتماد</span><span>تعديل</span><span>رفض</span></div></div>
+    <div class="task box"><div class="tags"><span class="tag" style="background:#ffb4a2">موارد بشرية</span></div><h4>اعتماد جدول المناوبات لشهر ديسمبر</h4><div class="tf">من ليلى · الخميس</div><div class="m-acts"><span class="ok">اعتماد</span><span>تعديل</span><span>رفض</span></div></div>
+    <p class="m-sec">مهامي اليوم</p>
+    <div class="m-row box"><i class="ck"></i><span>مراجعة مهام الأسبوع</span><small>٤ م</small></div>
+  </div>
+  <nav class="m-nav box"><span class="on"><i></i></span><span><i></i></span><span class="add">+</span><span><i></i></span><span><i></i></span></nav>
+</section>
+
+</body>
+</html>

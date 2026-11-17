@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>RUSHD — concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Inter:wght@500;600&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<!--
+  RUSHD (رُشد) — fictional management consultancy. Concept: structured
+  corporate site — services, experts, consultation booking.
+  Palette: deep navy, warm sand, brass. All drawn in SVG/CSS.
+-->
+<style>
+  ol { list-style: none; }
+  :root { --navy: #12233f; --navy2: #1b3157; --navy3: #2a4573; --sand: #efe5d3; --sand2: #e4d6bd; --brass: #b8925a; --ink: #12233f; --mute: #6b7487; --line: rgba(18,35,63,.14); }
+  body { font-family: 'Almarai', sans-serif; color: var(--ink); }
+  .lat { font-family: 'Inter', sans-serif; direction: ltr; }
+
+  #hero { background: var(--sand); }
+  .nav { position: absolute; inset: 0 0 auto; height: 96px; padding: 0 72px; display: flex; align-items: center; gap: 64px; z-index: 3; }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo svg { width: 40px; height: 40px; }
+  .logo b { font-size: 30px; font-weight: 800; letter-spacing: -.01em; }
+  .logo span { font-size: 12px; color: var(--mute); font-weight: 400; display: block; margin-top: 2px; }
+  .menu { display: flex; gap: 36px; font-size: 16px; color: var(--mute); }
+  .menu .on { color: var(--navy); font-weight: 700; }
+  .nav .cta { margin-inline-start: auto; padding: 14px 26px; border-radius: 10px; background: var(--navy); color: var(--sand); font-size: 15px; font-weight: 700; }
+
+  .copy { position: absolute; right: 72px; top: 178px; width: 650px; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; color: var(--brass); font-weight: 700; }
+  .eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--brass); }
+  h1 { margin-top: 20px; font-size: 76px; font-weight: 800; line-height: 1.28; letter-spacing: -.01em; }
+  h1 span { color: var(--brass); }
+  .lead { margin-top: 20px; font-size: 21px; line-height: 1.85; color: #46506a; max-width: 560px; font-weight: 300; }
+  .actions { margin-top: 38px; display: flex; gap: 16px; }
+  .btn { display: inline-flex; align-items: center; gap: 12px; padding: 19px 32px; border-radius: 12px; background: var(--navy); color: var(--sand); font-weight: 700; font-size: 18px; }
+  .btn.o { background: transparent; color: var(--navy); box-shadow: inset 0 0 0 1.5px var(--navy); }
+  .btn svg { width: 20px; height: 20px; }
+
+  .svc { position: absolute; right: 72px; bottom: 56px; width: 650px; display: flex; gap: 0; border-top: 1px solid var(--line); }
+  .svc li { flex: 1; padding: 20px 0 0; font-size: 15px; font-weight: 700; display: flex; flex-direction: column; gap: 8px; }
+  .svc li .lat { font-size: 12px; color: var(--brass); direction: rtl; }
+  .svc li small { font-size: 13px; color: var(--mute); font-weight: 400; }
+
+  .panel { position: absolute; left: 72px; top: 120px; width: 700px; height: 724px; border-radius: 28px; background: var(--navy); overflow: hidden; }
+  .panel .grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(239,229,211,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(239,229,211,.06) 1px, transparent 1px); background-size: 48px 48px; }
+  .panel .chart { position: absolute; left: 60px; top: 70px; width: 580px; height: 440px; }
+  .card { position: absolute; background: #fff; border-radius: 18px; box-shadow: 0 30px 50px -24px rgba(5,12,25,.6); padding: 22px; }
+  .booking { left: 40px; bottom: 40px; width: 380px; }
+  .booking h4 { font-size: 17px; font-weight: 700; }
+  .booking p { font-size: 13px; color: var(--mute); margin-top: 4px; }
+  .slots { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .slots span { padding: 9px 13px; border-radius: 9px; border: 1px solid var(--line); font-size: 13px; }
+  .slots span.on { background: var(--navy); color: var(--sand); border-color: var(--navy); }
+  .expert { right: 40px; bottom: 268px; width: 270px; display: flex; gap: 14px; align-items: center; }
+  .av { width: 58px; height: 58px; border-radius: 16px; flex: none; overflow: hidden; }
+  .expert b { font-size: 16px; display: block; }
+  .expert span { font-size: 12px; color: var(--mute); }
+  .tag { position: absolute; right: 40px; top: 40px; padding: 10px 16px; border-radius: 999px; background: rgba(239,229,211,.1); color: var(--sand2); font-size: 14px; border: 1px solid rgba(239,229,211,.18); }
+
+  /* ---------- detail: consultation booking ---------- */
+  #detail { background: #f6f1e7; }
+  .d-side { position: absolute; right: 0; top: 0; bottom: 0; width: 420px; background: var(--navy); color: var(--sand); padding: 56px 52px; }
+  .d-side .logo b { color: var(--sand); }
+  .d-side h2 { margin-top: 74px; font-size: 44px; font-weight: 800; line-height: 1.35; }
+  .d-side p { margin-top: 14px; font-size: 17px; line-height: 1.8; color: #b9c2d3; font-weight: 300; }
+  .steps { margin-top: 48px; display: flex; flex-direction: column; gap: 0; }
+  .steps li { position: relative; display: flex; gap: 18px; align-items: flex-start; padding-bottom: 30px; }
+  .steps li::before { content: ''; position: absolute; right: 17px; top: 38px; bottom: 0; width: 1px; background: rgba(239,229,211,.2); }
+  .steps li:last-child::before { display: none; }
+  .steps .n { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(239,229,211,.35); display: flex; align-items: center; justify-content: center; font-size: 14px; flex: none; }
+  .steps li.done .n { background: var(--brass); border-color: var(--brass); color: var(--navy); }
+  .steps li.on .n { background: var(--sand); color: var(--navy); border-color: var(--sand); }
+  .steps b { display: block; font-size: 17px; }
+  .steps small { font-size: 13px; color: #9aa6bd; }
+
+  .d-main { position: absolute; right: 484px; top: 56px; left: 64px; bottom: 56px; display: flex; flex-direction: column; }
+  .d-main h3 { font-size: 30px; font-weight: 800; }
+  .d-main > p { font-size: 15px; color: var(--mute); margin-top: 6px; }
+  .experts { margin-top: 28px; display: flex; gap: 18px; }
+  .ex { flex: 1; border-radius: 20px; background: #fff; padding: 22px; border: 1px solid var(--line); }
+  .ex.on { box-shadow: 0 0 0 2px var(--navy); }
+  .ex .av { width: 72px; height: 72px; border-radius: 18px; }
+  .ex b { display: block; margin-top: 16px; font-size: 18px; }
+  .ex .role { font-size: 13px; color: var(--mute); margin-top: 4px; }
+  .ex .chips { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .ex .chips span { font-size: 12px; padding: 5px 10px; border-radius: 999px; background: var(--sand); }
+  .ex .sel { margin-top: 16px; font-size: 14px; font-weight: 700; color: var(--navy3); }
+  .ex.on .sel { color: var(--brass); }
+  .when { margin-top: 22px; display: flex; gap: 18px; flex: 1; }
+  .cal { flex: 1.25; border-radius: 20px; background: #fff; border: 1px solid var(--line); padding: 22px 26px; }
+  .cal .hd { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 17px; }
+  .cal .days { margin-top: 14px; display: flex; flex-wrap: wrap; }
+  .cal .days span { width: 14.28%; height: 46px; display: flex; align-items: center; justify-content: center; font-size: 15px; border-radius: 10px; }
+  .cal .days .h { font-size: 12px; color: var(--mute); height: 28px; }
+  .cal .days .x { color: #b9bdc6; }
+  .cal .days .on { background: var(--navy); color: var(--sand); font-weight: 700; }
+  .cal .days .av2 { box-shadow: inset 0 -3px 0 var(--brass); }
+  .times { flex: 1; border-radius: 20px; background: #fff; border: 1px solid var(--line); padding: 22px 24px; display: flex; flex-direction: column; }
+  .times h5 { font-size: 17px; }
+  .times .slots span { padding: 12px 16px; font-size: 15px; }
+  .times .slots { margin-top: 18px; }
+  .times .note { margin-top: 16px; padding: 14px; border-radius: 12px; background: var(--sand); font-size: 14px; line-height: 1.7; color: #46506a; }
+  .times .btn { margin-top: auto; justify-content: center; }
+
+  /* ---------- mobile ---------- */
+  #mobile { background: var(--sand); }
+  .m-nav { position: absolute; inset: 56px 20px auto; display: flex; align-items: center; justify-content: space-between; }
+  .m-nav .logo b { font-size: 24px; }
+  .m-nav .logo svg { width: 32px; height: 32px; }
+  .m-nav .bg { width: 42px; height: 42px; border-radius: 12px; background: var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; }
+  .m-nav .bg i { width: 16px; height: 2px; background: var(--sand); }
+  .m-copy { position: absolute; top: 128px; inset-inline: 20px; }
+  .m-copy h1 { font-size: 36px; margin-top: 12px; }
+  .m-copy .lead { font-size: 15px; margin-top: 10px; }
+  .m-panel { position: absolute; top: 300px; inset-inline: 20px; height: 270px; border-radius: 22px; background: var(--navy); overflow: hidden; }
+  .m-panel .grid { background-size: 30px 30px; }
+  .m-list { position: absolute; top: 320px; inset-inline: 36px; display: flex; flex-direction: column; gap: 10px; }
+  .m-list li { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 14px; background: rgba(239,229,211,.08); border: 1px solid rgba(239,229,211,.14); color: var(--sand); font-size: 15px; font-weight: 700; }
+  .m-list li .lat { color: var(--brass); font-size: 12px; }
+  .m-list li svg { margin-inline-start: auto; width: 16px; height: 16px; }
+  .m-book { position: absolute; top: 606px; inset-inline: 20px; padding: 16px 18px; border-radius: 18px; background: #fff; box-shadow: 0 14px 30px -18px rgba(18,35,63,.4); }
+  .m-book h4 { font-size: 15px; }
+  .m-book .slots { margin-top: 10px; gap: 6px; }
+  .m-book .slots span { padding: 7px 9px; font-size: 12px; }
+  .m-btn { position: absolute; bottom: 34px; inset-inline: 20px; justify-content: center; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="mark" viewBox="0 0 40 40"><rect width="40" height="40" rx="11" fill="#12233f"/><path d="M11 28 L20 12 L29 28" fill="none" stroke="#b8925a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3" fill="#efe5d3"/></symbol>
+    <symbol id="markl" viewBox="0 0 40 40"><rect width="40" height="40" rx="11" fill="#efe5d3"/><path d="M11 28 L20 12 L29 28" fill="none" stroke="#b8925a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3" fill="#12233f"/></symbol>
+    <!-- geometric portraits (no faces — abstract) -->
+    <symbol id="p1" viewBox="0 0 60 60"><rect width="60" height="60" fill="#e4d6bd"/><circle cx="30" cy="24" r="11" fill="#12233f"/><path d="M8 60 C10 42 50 42 52 60 Z" fill="#2a4573"/><path d="M22 48 L30 60 L38 48" fill="#b8925a"/></symbol>
+    <symbol id="p2" viewBox="0 0 60 60"><rect width="60" height="60" fill="#2a4573"/><path d="M17 26 C17 12 43 12 43 26 L43 34 L17 34 Z" fill="#12233f"/><circle cx="30" cy="25" r="10" fill="#e4d6bd"/><path d="M8 60 C10 44 50 44 52 60 Z" fill="#efe5d3"/></symbol>
+    <symbol id="p3" viewBox="0 0 60 60"><rect width="60" height="60" fill="#b8925a"/><circle cx="30" cy="24" r="11" fill="#efe5d3"/><path d="M19 22 C20 13 40 13 41 22" fill="none" stroke="#12233f" stroke-width="4"/><path d="M8 60 C10 42 50 42 52 60 Z" fill="#12233f"/></symbol>
+  </defs>
+</svg>
+
+<!-- =================== HERO =================== -->
+<section id="hero">
+  <nav class="nav">
+    <div class="logo"><svg><use href="#mark"/></svg><div><b>رُشد</b><span>للاستشارات الإدارية</span></div></div>
+    <div class="menu"><span class="on">الرئيسية</span><span>خدماتنا</span><span>الخبراء</span><span>القطاعات</span><span>المعرفة</span></div>
+    <span class="cta">اطلب استشارة</span>
+  </nav>
+
+  <div class="panel">
+    <div class="grid"></div>
+    <span class="tag">من التشخيص إلى خطة التنفيذ</span>
+    <!-- a strategy map: from the current state to the plan -->
+    <svg class="chart" viewBox="0 0 580 440" fill="none">
+      <g stroke="rgba(239,229,211,.16)"><circle cx="290" cy="220" r="80"/><circle cx="290" cy="220" r="150"/><circle cx="290" cy="220" r="210"/></g>
+      <path d="M80 330 C170 320 200 230 290 220 S430 110 510 90" stroke="#b8925a" stroke-width="3" stroke-linecap="round"/>
+      <path d="M80 330 C170 320 200 230 290 220 S430 110 510 90" stroke="#b8925a" stroke-width="14" stroke-linecap="round" opacity=".12"/>
+      <g fill="#12233f" stroke="#efe5d3" stroke-width="2.5"><circle cx="80" cy="330" r="9"/><circle cx="196" cy="268" r="9"/><circle cx="290" cy="220" r="9"/><circle cx="400" cy="152" r="9"/></g>
+      <circle cx="510" cy="90" r="13" fill="#b8925a"/>
+      <g fill="#efe5d3" font-family="Almarai" font-size="15" font-weight="700" text-anchor="middle">
+        <text x="80" y="366">التشخيص</text><text x="196" y="304">الأولويات</text><text x="290" y="256">الهيكلة</text><text x="400" y="188">التنفيذ</text><text x="510" y="60" fill="#b8925a">المتابعة</text>
+      </g>
+    </svg>
+    <div class="card expert"><span class="av"><svg width="58" height="58"><use href="#p2"/></svg></span><div><b>م. سارة العتيبي</b><span>شريك — التحول المؤسسي</span></div></div>
+    <div class="card booking">
+      <h4>جلسة استشارية أولى</h4>
+      <p>اختر الموعد المناسب — ٤٥ دقيقة عبر الاتصال المرئي</p>
+      <div class="slots"><span>الأحد ١٠:٠٠</span><span class="on">الأحد ١٢:٣٠</span><span>الاثنين ٩:٣٠</span><span>الثلاثاء ٢:٠٠</span></div>
+    </div>
+  </div>
+
+  <div class="copy">
+    <span class="eyebrow">استشارات إدارية واستراتيجية</span>
+    <h1>قرارات أوضح، <span>وخطة</span> يمكن تنفيذها</h1>
+    <p class="lead">نعمل مع الإدارات العليا على الاستراتيجية والهيكلة وتحسين العمليات، بخبراء يعرفون السوق المحلي.</p>
+    <div class="actions">
+      <span class="btn">احجز جلسة استشارية <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M10 6l-6 6 6 6"/></svg></span>
+      <span class="btn o">تعرّف على خدماتنا</span>
+    </div>
+  </div>
+  <ul class="svc">
+    <li><span class="lat">01</span>الاستراتيجية<small>رؤية وأهداف قابلة للقياس</small></li>
+    <li><span class="lat">02</span>الهيكلة التنظيمية<small>أدوار وصلاحيات واضحة</small></li>
+    <li><span class="lat">03</span>تحسين العمليات<small>إجراءات أبسط وأسرع</small></li>
+  </ul>
+</section>
+
+<!-- =================== DETAIL: consultation booking =================== -->
+<section id="detail">
+  <aside class="d-side">
+    <div class="logo"><svg><use href="#markl"/></svg><div><b>رُشد</b></div></div>
+    <h2>طلب استشارة</h2>
+    <p>ثلاث خطوات قصيرة، ونتواصل معك لتأكيد الجلسة.</p>
+    <ol class="steps">
+      <li class="done"><span class="n">✓</span><div><b>مجال الاستشارة</b><small>الهيكلة التنظيمية</small></div></li>
+      <li class="on"><span class="n lat">2</span><div><b>الخبير والموعد</b><small>اختر من يناسب احتياجك</small></div></li>
+      <li><span class="n lat">3</span><div><b>بيانات التواصل</b><small>الاسم والجهة ورقم الجوال</small></div></li>
+    </ol>
+  </aside>
+
+  <div class="d-main">
+    <h3>اختر الخبير</h3>
+    <p>خبراء متخصصون في الهيكلة التنظيمية</p>
+    <div class="experts">
+      <div class="ex on"><span class="av" style="display:block"><svg width="72" height="72"><use href="#p2"/></svg></span><b>م. سارة العتيبي</b><div class="role">شريك — التحول المؤسسي</div><div class="chips"><span>الهيكلة</span><span>الحوكمة</span></div><div class="sel">✓ تم الاختيار</div></div>
+      <div class="ex"><span class="av" style="display:block"><svg width="72" height="72"><use href="#p1"/></svg></span><b>أ. خالد المنصور</b><div class="role">مستشار أول — العمليات</div><div class="chips"><span>العمليات</span><span>الجودة</span></div><div class="sel">اختيار</div></div>
+      <div class="ex"><span class="av" style="display:block"><svg width="72" height="72"><use href="#p3"/></svg></span><b>د. ريم الحربي</b><div class="role">مستشارة — الموارد البشرية</div><div class="chips"><span>الأداء</span><span>المواهب</span></div><div class="sel">اختيار</div></div>
+    </div>
+    <div class="when">
+      <div class="cal">
+        <div class="hd"><span>مارس</span><span style="display:flex;gap:14px;color:#6b7487">‹ ›</span></div>
+        <div class="days">
+          <span class="h">أحد</span><span class="h">اثنين</span><span class="h">ثلاثاء</span><span class="h">أربعاء</span><span class="h">خميس</span><span class="h">جمعة</span><span class="h">سبت</span>
+          <span class="x">٢٦</span><span class="x">٢٧</span><span class="x">٢٨</span><span>١</span><span>٢</span><span class="x">٣</span><span class="x">٤</span>
+          <span class="av2">٥</span><span class="av2">٦</span><span>٧</span><span class="av2">٨</span><span>٩</span><span class="x">١٠</span><span class="x">١١</span>
+          <span class="on">١٢</span><span class="av2">١٣</span><span>١٤</span><span class="av2">١٥</span><span>١٦</span><span class="x">١٧</span><span class="x">١٨</span>
+          <span class="av2">١٩</span><span>٢٠</span><span class="av2">٢١</span><span>٢٢</span><span class="av2">٢٣</span><span class="x">٢٤</span><span class="x">٢٥</span>
+        </div>
+      </div>
+      <div class="times">
+        <h5>الأوقات المتاحة — الأحد ١٢ مارس</h5>
+        <div class="slots"><span>٩:٣٠ ص</span><span class="on">١٢:٣٠ م</span><span>٢:٠٠ م</span><span>٤:٣٠ م</span></div>
+        <div class="note" style="margin-top:14px;background:#fff;border:1px solid var(--line)">المدة: ٤٥ دقيقة · الطريقة: اتصال مرئي</div>
+        <div class="note">جلسة أولى لمدة ٤٥ دقيقة عبر الاتصال المرئي، لفهم احتياجك واقتراح الخطوة التالية.</div>
+        <span class="btn">متابعة إلى بيانات التواصل</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== MOBILE =================== -->
+<section id="mobile">
+  <div class="m-nav"><div class="logo"><svg><use href="#mark"/></svg><b>رُشد</b></div><span class="bg"><i></i><i></i></span></div>
+  <div class="m-copy">
+    <span class="eyebrow">استشارات إدارية واستراتيجية</span>
+    <h1>قرارات أوضح، <span>وخطة</span> يمكن تنفيذها</h1>
+    <p class="lead">استراتيجية وهيكلة وتحسين عمليات.</p>
+  </div>
+  <div class="m-panel"><div class="grid"></div></div>
+  <ul class="m-list">
+    <li><span class="lat">01</span>الاستراتيجية<svg viewBox="0 0 24 24" fill="none" stroke="#efe5d3" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></li>
+    <li><span class="lat">02</span>الهيكلة التنظيمية<svg viewBox="0 0 24 24" fill="none" stroke="#efe5d3" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></li>
+    <li><span class="lat">03</span>تحسين العمليات<svg viewBox="0 0 24 24" fill="none" stroke="#efe5d3" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></li>
+    <li><span class="lat">04</span>الموارد البشرية<svg viewBox="0 0 24 24" fill="none" stroke="#efe5d3" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></li>
+  </ul>
+  <div class="m-book"><h4>جلسة استشارية أولى — ٤٥ دقيقة</h4><div class="slots"><span>الأحد ١٠:٠٠</span><span class="on">الأحد ١٢:٣٠</span><span>الاثنين ٩:٣٠</span></div></div>
+  <span class="btn m-btn">احجز جلسة استشارية</span>
+</section>
+
+</body>
+</html>

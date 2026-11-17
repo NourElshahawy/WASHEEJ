@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>SANAD — concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700;800&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<!--
+  SANAD (سَنَد) — a hypothetical digital service portal (fictional; not an
+  official or government service, no emblems). Concept: multi-step requests,
+  attachments and status tracking. Deep teal with an amber stepper.
+-->
+<style>
+  :root {
+    --teal: #0d5b63;
+    --teal2: #12808a;
+    --aqua: #e3f1f1;
+    --amber: #f0a536;
+    --amberl: #fdf0d9;
+    --paper: #f7f9f8;
+    --ink: #142629;
+    --mute: #5f7174;
+    --line: rgba(20, 38, 41, .11);
+    --ok: #1f9d6b;
+  }
+  body { font-family: 'Noto Sans Arabic', sans-serif; color: var(--ink); }
+
+  /* ---------- shared top bar ---------- */
+  .top { position: absolute; inset: 0 0 auto; height: 78px; padding: 0 64px; display: flex; align-items: center; gap: 44px; background: #fff; border-bottom: 1px solid var(--line); z-index: 2; }
+  .logo { display: flex; align-items: center; gap: 12px; font-size: 26px; font-weight: 800; color: var(--teal); }
+  .logo svg { width: 34px; height: 34px; }
+  .logo small { font-size: 12px; font-weight: 400; color: var(--mute); border-inline-start: 1px solid var(--line); padding-inline-start: 12px; }
+  .menu { display: flex; gap: 30px; font-size: 15px; color: var(--mute); }
+  .menu b { color: var(--teal); font-weight: 600; }
+  .user { margin-inline-start: auto; display: flex; align-items: center; gap: 16px; font-size: 14px; }
+  .bell { position: relative; width: 40px; height: 40px; border-radius: 12px; background: var(--aqua); display: flex; align-items: center; justify-content: center; }
+  .bell i { position: absolute; top: 8px; left: 9px; width: 8px; height: 8px; border-radius: 50%; background: var(--amber); }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--teal); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+
+  /* ---------- hero: portal home ---------- */
+  #hero { background: var(--paper); }
+  .band { position: absolute; top: 78px; inset-inline: 0; height: 400px; background: var(--teal); overflow: hidden; }
+  .band svg { position: absolute; left: 0; top: 0; width: 900px; height: 400px; opacity: .9; }
+  .welcome { position: absolute; right: 64px; top: 128px; width: 760px; color: #fff; }
+  .welcome p { font-size: 17px; opacity: .8; }
+  .welcome h1 { margin-top: 10px; font-size: 56px; font-weight: 800; line-height: 1.35; }
+  .welcome .find { margin-top: 26px; height: 66px; width: 700px; border-radius: 18px; background: #fff; display: flex; align-items: center; gap: 14px; padding: 0 10px 0 22px; color: var(--mute); font-size: 17px; }
+  .welcome .find svg { width: 22px; height: 22px; margin-inline-start: 12px; }
+  .welcome .find span { margin-inline-start: auto; padding: 12px 24px; border-radius: 12px; background: var(--amber); color: #3a2500; font-weight: 700; font-size: 16px; }
+
+  .track { position: absolute; left: 64px; top: 128px; width: 470px; border-radius: 24px; background: #fff; padding: 26px 28px; box-shadow: 0 30px 60px -30px rgba(0,0,0,.45); }
+  .track h2 { font-size: 20px; font-weight: 700; }
+  .track .ref { margin-top: 6px; font-size: 13px; color: var(--mute); }
+  .track .ref b { color: var(--ink); direction: ltr; display: inline-block; }
+  .track .state { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: var(--amberl); color: #8a5a10; font-size: 13px; font-weight: 600; }
+  .track .state::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--amber); }
+  .hbar { margin-top: 22px; display: flex; align-items: center; }
+  .hbar span { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--line); background: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; flex: none; }
+  .hbar span.d { background: var(--teal2); border-color: var(--teal2); color: #fff; }
+  .hbar span.c { border-color: var(--amber); box-shadow: 0 0 0 5px var(--amberl); }
+  .hbar i { flex: 1; height: 3px; background: var(--line); }
+  .hbar i.d { background: var(--teal2); }
+  .hlabels { margin-top: 10px; display: flex; justify-content: space-between; font-size: 12px; color: var(--mute); }
+  .hlabels b { color: var(--ink); font-weight: 600; }
+  .track .open { margin-top: 20px; display: block; text-align: center; padding: 13px; border-radius: 14px; border: 1.5px solid var(--teal); color: var(--teal); font-weight: 600; font-size: 15px; }
+
+  .svc-head { position: absolute; top: 512px; inset-inline: 64px; display: flex; justify-content: space-between; align-items: baseline; }
+  .svc-head h2 { font-size: 24px; font-weight: 800; }
+  .svc-head span { font-size: 14px; color: var(--teal2); font-weight: 600; }
+  .svcs { position: absolute; top: 562px; inset-inline: 64px; display: flex; gap: 18px; }
+  .svc { flex: 1; height: 290px; border-radius: 22px; background: #fff; border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; }
+  .svc .ic { width: 58px; height: 58px; border-radius: 16px; background: var(--aqua); display: flex; align-items: center; justify-content: center; }
+  .svc .ic svg { width: 30px; height: 30px; }
+  .svc h3 { margin-top: 18px; font-size: 19px; font-weight: 700; }
+  .svc p { margin-top: 6px; font-size: 14px; color: var(--mute); line-height: 1.75; }
+  .svc .meta { margin-top: auto; display: flex; justify-content: space-between; font-size: 13px; color: var(--mute); padding-top: 14px; border-top: 1px solid var(--line); }
+  .svc .meta b { color: var(--teal); font-weight: 600; }
+  .svc.hot { border: 2px solid var(--teal2); }
+
+  /* ---------- detail: multi-step request with attachments ---------- */
+  #detail { background: var(--paper); }
+  .rail { position: absolute; right: 64px; top: 118px; width: 330px; height: 740px; border-radius: 24px; background: var(--teal); color: #fff; padding: 30px 28px; }
+  .rail p { font-size: 13px; opacity: .7; }
+  .rail h2 { margin-top: 4px; font-size: 22px; font-weight: 700; line-height: 1.5; }
+  .vsteps { margin-top: 30px; position: relative; }
+  .vsteps::before { content: ''; position: absolute; right: 17px; top: 18px; bottom: 30px; width: 2px; background: rgba(255,255,255,.2); }
+  .vs { position: relative; display: flex; gap: 16px; padding-bottom: 34px; }
+  .vs i { width: 36px; height: 36px; border-radius: 50%; flex: none; background: var(--teal); border: 2px solid rgba(255,255,255,.35); display: flex; align-items: center; justify-content: center; font-style: normal; font-weight: 700; font-size: 14px; z-index: 1; }
+  .vs.d i { background: #fff; color: var(--teal); border-color: #fff; }
+  .vs.c i { background: var(--amber); border-color: var(--amber); color: #3a2500; box-shadow: 0 0 0 6px rgba(240,165,54,.25); }
+  .vs b { display: block; font-size: 16px; font-weight: 600; }
+  .vs small { font-size: 13px; opacity: .7; }
+  .vs.n { opacity: .6; }
+  .rail .save { position: absolute; bottom: 28px; inset-inline: 28px; padding: 13px; border-radius: 14px; background: rgba(255,255,255,.1); text-align: center; font-size: 14px; }
+
+  .form { position: absolute; right: 420px; left: 64px; top: 118px; height: 740px; border-radius: 24px; background: #fff; border: 1px solid var(--line); padding: 34px 40px; display: flex; flex-direction: column; }
+  .form .step { font-size: 14px; color: var(--amber); font-weight: 700; }
+  .form h3 { margin-top: 4px; font-size: 30px; font-weight: 800; }
+  .form .hint { margin-top: 4px; font-size: 15px; color: var(--mute); }
+  .drop { margin-top: 24px; height: 160px; border-radius: 20px; border: 2px dashed rgba(18,128,138,.45); background: var(--aqua); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--teal); }
+  .drop svg { width: 42px; height: 42px; }
+  .drop b { font-size: 17px; }
+  .drop small { font-size: 13px; color: var(--mute); }
+  .files { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
+  .file { display: flex; align-items: center; gap: 16px; padding: 14px 18px; border-radius: 16px; border: 1px solid var(--line); }
+  .file .doc { width: 44px; height: 52px; border-radius: 8px; background: var(--aqua); position: relative; flex: none; }
+  .file .doc::after { content: attr(data-t); position: absolute; bottom: 6px; inset-inline: 0; text-align: center; font-size: 10px; font-weight: 700; color: var(--teal); direction: ltr; }
+  .file .nm { flex: 1; }
+  .file .nm b { font-size: 15px; font-weight: 600; }
+  .file .nm p { font-size: 12px; color: var(--mute); }
+  .file .pb { margin-top: 8px; height: 5px; border-radius: 3px; background: var(--aqua); }
+  .file .pb i { display: block; height: 100%; border-radius: 3px; background: var(--teal2); }
+  .ok { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ok); font-weight: 600; }
+  .ok::before { content: ''; width: 20px; height: 20px; border-radius: 50%; background: var(--ok) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10l3 3 5-6' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); }
+  .req { font-size: 13px; color: #b06a00; background: var(--amberl); padding: 5px 12px; border-radius: 999px; font-weight: 600; }
+  .file.need { border-style: dashed; border-color: var(--amber); background: #fffaf1; }
+  .actions { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid var(--line); }
+  .actions .back { font-size: 15px; color: var(--mute); }
+  .actions .next { padding: 15px 36px; border-radius: 14px; background: var(--teal); color: #fff; font-weight: 700; font-size: 16px; }
+
+  /* ---------- mobile: status tracking ---------- */
+  #mobile { background: var(--paper); }
+  .m-head { position: absolute; inset: 0 0 auto; height: 250px; background: var(--teal); color: #fff; padding: 60px 20px 0; border-radius: 0 0 28px 28px; }
+  .m-head .row { display: flex; justify-content: space-between; align-items: center; }
+  .m-head .row b { font-size: 22px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+  .m-head .row svg { width: 26px; height: 26px; }
+  .m-head p { margin-top: 22px; font-size: 13px; opacity: .75; }
+  .m-head h2 { font-size: 22px; font-weight: 700; margin-top: 2px; }
+  .m-head .refn { margin-top: 10px; font-size: 13px; opacity: .85; direction: ltr; text-align: right; }
+  .m-card { position: absolute; top: 210px; inset-inline: 16px; border-radius: 22px; background: #fff; padding: 18px; box-shadow: 0 20px 40px -24px rgba(13,91,99,.5); }
+  .m-card .state { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 999px; background: var(--amberl); color: #8a5a10; font-size: 12px; font-weight: 700; }
+  .m-card .state::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--amber); }
+  .m-card p { margin-top: 10px; font-size: 14px; line-height: 1.7; color: var(--mute); }
+  .tl { position: absolute; top: 418px; inset-inline: 22px; }
+  .tl::before { content: ''; position: absolute; right: 13px; top: 10px; bottom: 30px; width: 2px; background: var(--line); }
+  .tli { position: relative; display: flex; gap: 14px; padding-bottom: 22px; }
+  .tli i { width: 28px; height: 28px; border-radius: 50%; flex: none; border: 2px solid var(--line); background: #fff; z-index: 1; }
+  .tli.d i { background: var(--teal2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Cpath d='M9 14l3.5 3.5L19 10' fill='none' stroke='white' stroke-width='2.4'/%3E%3C/svg%3E"); border-color: var(--teal2); }
+  .tli.c i { border-color: var(--amber); box-shadow: 0 0 0 5px var(--amberl); }
+  .tli b { font-size: 15px; font-weight: 700; }
+  .tli small { display: block; font-size: 12px; color: var(--mute); margin-top: 2px; }
+  .tli.n { opacity: .55; }
+  .m-btn { position: absolute; bottom: 28px; inset-inline: 16px; display: flex; gap: 10px; }
+  .m-btn span { flex: 1; padding: 15px; border-radius: 14px; text-align: center; font-weight: 700; font-size: 15px; }
+  .m-btn .p { background: var(--teal); color: #fff; }
+  .m-btn .s { border: 1.5px solid var(--teal); color: var(--teal); }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- SANAD mark: two interlocking supports (abstract, not an emblem) -->
+    <symbol id="mark" viewBox="0 0 34 34"><rect x="2" y="2" width="30" height="30" rx="9" fill="#0d5b63"/><path d="M10 24 V14 a7 7 0 0 1 14 0" fill="none" stroke="#f0a536" stroke-width="3" stroke-linecap="round"/><path d="M17 24 V17" stroke="#fff" stroke-width="3" stroke-linecap="round"/></symbol>
+    <symbol id="markw" viewBox="0 0 34 34"><rect x="2" y="2" width="30" height="30" rx="9" fill="#fff" opacity=".15"/><path d="M10 24 V14 a7 7 0 0 1 14 0" fill="none" stroke="#f0a536" stroke-width="3" stroke-linecap="round"/><path d="M17 24 V17" stroke="#fff" stroke-width="3" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- =================== HERO: portal home =================== -->
+<section id="hero">
+  <header class="top">
+    <div class="logo"><svg viewBox="0 0 34 34"><use href="#mark" /></svg>سَنَد<small>بوابة خدمات رقمية · تصوّر تصميمي</small></div>
+    <nav class="menu"><b>الرئيسية</b><span>الخدمات</span><span>طلباتي</span><span>المساعدة</span></nav>
+    <div class="user"><span>English</span><span class="bell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d5b63" stroke-width="1.8"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><i></i></span><span class="avatar">س</span></div>
+  </header>
+
+  <div class="band">
+    <svg viewBox="0 0 900 400" fill="none">
+      <g stroke="#12808a" stroke-width="2"><circle cx="160" cy="330" r="120"/><circle cx="160" cy="330" r="190"/><circle cx="160" cy="330" r="260"/><circle cx="160" cy="330" r="330"/></g>
+      <path d="M0 380 C200 300 380 360 560 300 S820 240 900 260" stroke="#f0a536" stroke-width="3" opacity=".6"/>
+    </svg>
+  </div>
+
+  <div class="welcome">
+    <p>مرحبًا سارة</p>
+    <h1>قدّم طلبك في خطوات واضحة<br />وتابعه حتى يكتمل</h1>
+    <div class="find"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>ابحث عن خدمة، مثل: تجديد تصريح<span>ابدأ طلبًا</span></div>
+  </div>
+
+  <aside class="track">
+    <h2>آخر طلباتك</h2>
+    <p class="ref">طلب تجديد تصريح · رقم المرجع <b>SN-2048-117</b></p>
+    <span class="state">قيد المراجعة</span>
+    <div class="hbar"><span class="d">✓</span><i class="d"></i><span class="d">✓</span><i class="d"></i><span class="c"></span><i></i><span></span></div>
+    <div class="hlabels"><span>التقديم</span><span>التحقق</span><b>المراجعة</b><span>القرار</span></div>
+    <span class="open">عرض تفاصيل الطلب</span>
+  </aside>
+
+  <div class="svc-head"><h2>الخدمات الأكثر طلبًا</h2><span>كل الخدمات ←</span></div>
+  <div class="svcs">
+    <div class="svc hot"><span class="ic"><svg viewBox="0 0 30 30" fill="none" stroke="#0d5b63" stroke-width="1.8"><rect x="6" y="4" width="18" height="22" rx="3"/><path d="M10 10h10M10 15h10M10 20h6"/></svg></span>
+      <h3>تجديد تصريح</h3><p>جدّد التصريح قبل انتهائه، مع إرفاق المستندات المطلوبة.</p><div class="meta"><span>٤ خطوات</span><b>ابدأ ←</b></div></div>
+    <div class="svc"><span class="ic"><svg viewBox="0 0 30 30" fill="none" stroke="#0d5b63" stroke-width="1.8"><path d="M5 14l10-8 10 8v11H5z"/><path d="M12 25v-7h6v7"/></svg></span>
+      <h3>تحديث عنوان السكن</h3><p>حدّث عنوانك وأرفق ما يثبته في طلب واحد.</p><div class="meta"><span>٣ خطوات</span><b>ابدأ ←</b></div></div>
+    <div class="svc"><span class="ic"><svg viewBox="0 0 30 30" fill="none" stroke="#0d5b63" stroke-width="1.8"><rect x="4" y="7" width="22" height="16" rx="3"/><circle cx="11" cy="15" r="3"/><path d="M17 13h6M17 17h4"/></svg></span>
+      <h3>بدل فاقد لبطاقة</h3><p>اطلب بطاقة بديلة واختر طريقة الاستلام.</p><div class="meta"><span>٣ خطوات</span><b>ابدأ ←</b></div></div>
+    <div class="svc"><span class="ic"><svg viewBox="0 0 30 30" fill="none" stroke="#0d5b63" stroke-width="1.8"><circle cx="15" cy="15" r="10"/><path d="M15 9v6l4 3"/></svg></span>
+      <h3>حجز موعد</h3><p>احجز موعدًا لزيارة مركز الخدمة في الوقت المناسب لك.</p><div class="meta"><span>خطوتان</span><b>ابدأ ←</b></div></div>
+  </div>
+</section>
+
+<!-- =================== DETAIL: step 3 — attachments =================== -->
+<section id="detail">
+  <header class="top">
+    <div class="logo"><svg viewBox="0 0 34 34"><use href="#mark" /></svg>سَنَد<small>بوابة خدمات رقمية · تصوّر تصميمي</small></div>
+    <nav class="menu"><span>الرئيسية</span><span>الخدمات</span><b>طلباتي</b><span>المساعدة</span></nav>
+    <div class="user"><span class="bell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d5b63" stroke-width="1.8"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><i></i></span><span class="avatar">س</span></div>
+  </header>
+
+  <aside class="rail">
+    <p>طلب جديد</p>
+    <h2>تجديد تصريح</h2>
+    <div class="vsteps">
+      <div class="vs d"><i>✓</i><div><b>بيانات مقدّم الطلب</b><small>مكتملة</small></div></div>
+      <div class="vs d"><i>✓</i><div><b>تفاصيل التصريح</b><small>مكتملة</small></div></div>
+      <div class="vs c"><i>٣</i><div><b>المستندات</b><small>٢ من ٣ مرفقة</small></div></div>
+      <div class="vs n"><i>٤</i><div><b>المراجعة والإرسال</b><small>راجع طلبك قبل الإرسال</small></div></div>
+    </div>
+    <span class="save">حُفظت المسودة تلقائيًا</span>
+  </aside>
+
+  <div class="form">
+    <span class="step">الخطوة ٣ من ٤</span>
+    <h3>أرفق المستندات المطلوبة</h3>
+    <p class="hint">صيغ PDF أو صور واضحة. يمكنك العودة لإكمال الطلب لاحقًا.</p>
+    <div class="drop">
+      <svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 28V10M14 17l7-7 7 7"/><path d="M8 26v6a3 3 0 0 0 3 3h20a3 3 0 0 0 3-3v-6"/></svg>
+      <b>اسحب الملفات إلى هنا أو اخترها من جهازك</b>
+      <small>الحد الأقصى ١٠ ميجابايت لكل ملف</small>
+    </div>
+    <div class="files">
+      <div class="file"><span class="doc" data-t="PDF"></span><div class="nm"><b>صورة التصريح الحالي</b><p>tasreeh.pdf</p></div><span class="ok">تم الرفع</span></div>
+      <div class="file"><span class="doc" data-t="JPG"></span><div class="nm"><b>صورة شخصية حديثة</b><p>photo.jpg · جارٍ الرفع</p><div class="pb"><i style="width:68%"></i></div></div><span style="font-size:13px;color:#5f7174">٦٨٪</span></div>
+      <div class="file need"><span class="doc" data-t="PDF" style="background:#fdf0d9"></span><div class="nm"><b>إثبات العنوان</b><p>فاتورة خدمات أو عقد سكن</p></div><span class="req">مطلوب</span></div>
+    </div>
+    <div class="actions"><span class="back">→ الخطوة السابقة</span><span class="next">متابعة إلى المراجعة</span></div>
+  </div>
+</section>
+
+<!-- =================== MOBILE: status tracking =================== -->
+<section id="mobile">
+  <div class="m-head">
+    <div class="row"><b><svg viewBox="0 0 34 34"><use href="#markw" /></svg>سَنَد</b><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></div>
+    <p>تتبّع الطلب</p>
+    <h2>تجديد تصريح</h2>
+  </div>
+  <div class="m-card">
+    <span class="state">قيد المراجعة</span>
+    <p>يراجع الفريق المختص طلبك الآن، وسنرسل لك إشعارًا عند أي تحديث.</p>
+    <p style="margin-top:6px;font-size:12px">رقم المرجع <b style="direction:ltr;display:inline-block;color:#142629">SN-2048-117</b></p>
+  </div>
+  <div class="tl">
+    <div class="tli d"><i></i><div><b>تم تقديم الطلب</b><small>الأحد · ٩:٤٠ ص</small></div></div>
+    <div class="tli d"><i></i><div><b>التحقق من المستندات</b><small>الأحد · ١٢:١٥ م</small></div></div>
+    <div class="tli c"><i></i><div><b>المراجعة</b><small>جارية الآن</small></div></div>
+    <div class="tli n"><i></i><div><b>القرار والإشعار</b><small>بعد اكتمال المراجعة</small></div></div>
+  </div>
+  <div class="m-btn"><span class="s">المرفقات</span><span class="p">تواصل مع الدعم</span></div>
+</section>
+
+</body>
+</html>

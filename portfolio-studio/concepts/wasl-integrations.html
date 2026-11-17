@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>WASL — concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Mada:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<!--
+  WASL (وَصل) — fictional commerce integration hub (concept).
+  Off-white workbench, signal orange, graphite lines: every sales channel
+  is a node wired to one hub. Channels are generic, not real platforms.
+-->
+<style>
+  :root {
+    --bg: #f6f3ee;
+    --card: #ffffff;
+    --graphite: #23211f;
+    --mute: #8a847b;
+    --line: #e4ded4;
+    --wire: #cfc7ba;
+    --orange: #ff6a1a;
+    --orange-soft: #ffe6d6;
+    --green: #1f9e6a;
+    --green-soft: #ddf3e9;
+    --red: #e0443a;
+    --red-soft: #fde4e1;
+  }
+  body { font-family: 'Mada', sans-serif; color: var(--graphite); }
+  .mono { font-family: 'Space Mono', monospace; direction: ltr; unicode-bidi: isolate; }
+  #hero, #detail { background: var(--bg); }
+  .grid-bg { position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 40px 40px; opacity: .55; }
+
+  .nav { position: absolute; inset: 0 0 auto; height: 88px; padding: 0 72px; display: flex; align-items: center; gap: 44px; z-index: 3; }
+  .logo { display: flex; align-items: center; gap: 10px; font-size: 30px; font-weight: 900; }
+  .logo i { width: 40px; height: 26px; position: relative; }
+  .logo i::before, .logo i::after { content: ''; position: absolute; top: 0; width: 26px; height: 26px; border-radius: 50%; border: 3.5px solid var(--graphite); }
+  .logo i::before { right: 0; }
+  .logo i::after { left: 0; border-color: var(--orange); }
+  .nav .links { display: flex; gap: 32px; font-size: 17px; color: var(--mute); }
+  .nav .links b { color: var(--graphite); font-weight: 600; }
+  .nav .st { margin-inline-start: auto; display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--green); font-weight: 600; }
+  .nav .st::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px var(--green-soft); }
+  .nav .btn { padding: 11px 22px; border-radius: 999px; background: var(--graphite); color: #fff; font-weight: 600; font-size: 16px; }
+
+  /* ---------- hero ---------- */
+  .h-copy { position: absolute; right: 72px; top: 170px; width: 520px; z-index: 2; }
+  .h-copy .k { font-size: 15px; font-weight: 700; color: var(--orange); letter-spacing: .02em; }
+  .h-copy h1 { margin-top: 12px; font-size: 70px; line-height: 1.2; font-weight: 900; }
+  .h-copy h1 em { font-style: normal; color: var(--orange); }
+  .h-copy p { margin-top: 18px; font-size: 21px; line-height: 1.8; color: #5b5650; font-weight: 400; }
+  .h-act { margin-top: 32px; display: flex; gap: 14px; }
+  .h-act span { padding: 16px 28px; border-radius: 999px; font-weight: 700; font-size: 18px; }
+  .h-act .o { background: var(--orange); color: #fff; box-shadow: 0 14px 30px -12px rgba(255,106,26,.7); }
+  .h-act .g { border: 1.5px solid var(--graphite); }
+  .h-stats { position: absolute; right: 72px; bottom: 60px; width: 520px; display: flex; gap: 12px; z-index: 2; }
+  .h-stats div { flex: 1; padding: 14px 16px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); font-size: 13px; color: var(--mute); }
+  .h-stats b { display: block; font-size: 17px; color: var(--graphite); font-weight: 700; }
+
+  .net { position: absolute; left: 0; top: 0; width: 1000px; height: 900px; }
+  .net svg.w { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hub { position: absolute; left: 500px; top: 470px; width: 180px; height: 180px; margin: -90px 0 0 -90px; border-radius: 50%; background: var(--graphite); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 0 0 16px rgba(255,106,26,.12), 0 0 0 34px rgba(255,106,26,.06), 0 30px 60px -20px rgba(0,0,0,.5); }
+  .hub b { font-size: 38px; font-weight: 900; line-height: 1; }
+  .hub small { font-size: 13px; color: #c9c2b6; margin-top: 6px; }
+  .node { position: absolute; width: 210px; padding: 14px 16px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); box-shadow: 0 16px 34px -20px rgba(35,33,31,.35); display: flex; gap: 12px; align-items: center; }
+  .node .ic { width: 44px; height: 44px; border-radius: 13px; flex: none; display: flex; align-items: center; justify-content: center; background: var(--orange-soft); color: var(--orange); }
+  .node .ic svg { width: 24px; height: 24px; }
+  .node b { display: block; font-size: 16px; font-weight: 700; }
+  .node span { font-size: 13px; color: var(--green); font-weight: 600; }
+  .node span.e { color: var(--red); }
+  .node.err { border-color: #f4b8b2; }
+  .node.err .ic { background: var(--red-soft); color: var(--red); }
+  .packet { position: absolute; padding: 5px 11px; border-radius: 999px; background: var(--orange); color: #fff; font-size: 12px; font-weight: 700; box-shadow: 0 8px 16px -6px rgba(255,106,26,.7); }
+
+  /* ---------- detail ---------- */
+  .d-main { position: absolute; top: 112px; inset-inline: 56px; bottom: 40px; display: flex; gap: 24px; }
+  .inv { flex: 1.7; background: var(--card); border: 1px solid var(--line); border-radius: 26px; padding: 26px 28px; display: flex; flex-direction: column; }
+  .inv-h { display: flex; align-items: center; gap: 16px; }
+  .inv-h h2 { font-size: 30px; font-weight: 900; }
+  .inv-h .sy { margin-inline-start: auto; display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--mute); }
+  .inv-h .sy b { padding: 9px 16px; border-radius: 999px; background: var(--orange); color: #fff; font-size: 15px; }
+  .chips { display: flex; gap: 8px; margin-top: 14px; }
+  .chips span { padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); font-size: 14px; color: var(--mute); }
+  .chips span.on { background: var(--graphite); color: #fff; border-color: var(--graphite); }
+  table { width: 100%; border-collapse: collapse; margin-top: 18px; font-size: 15px; }
+  th { text-align: right; font-size: 13px; color: var(--mute); font-weight: 600; padding: 0 10px 12px; border-bottom: 1px solid var(--line); }
+  th.c, td.c { text-align: center; }
+  td { padding: 13px 10px; border-bottom: 1px solid #f0ebe3; }
+  td .p { display: flex; align-items: center; gap: 12px; font-weight: 700; }
+  td .p i { width: 42px; height: 42px; border-radius: 12px; flex: none; }
+  td .p small { display: block; font-weight: 400; font-size: 12px; color: var(--mute); }
+  .n { font-family: 'Space Mono', monospace; font-size: 15px; }
+  .n.diff { color: var(--red); font-weight: 700; position: relative; }
+  .tagx { font-size: 12.5px; padding: 4px 11px; border-radius: 999px; font-weight: 700; white-space: nowrap; }
+  .tagx.ok { background: var(--green-soft); color: var(--green); }
+  .tagx.w { background: var(--orange-soft); color: #c14b0c; }
+  .tagx.e { background: var(--red-soft); color: var(--red); }
+  tr.hl td { background: #fff7f1; }
+
+  .log { flex: 1; background: var(--graphite); color: #eee8de; border-radius: 26px; padding: 26px 26px; display: flex; flex-direction: column; gap: 12px; }
+  .log h3 { font-size: 22px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
+  .log h3 small { font-size: 13px; color: #a39b8f; font-weight: 500; }
+  .ev { padding: 14px 16px; border-radius: 16px; background: #2e2b28; border: 1px solid #3a3632; font-size: 14px; line-height: 1.65; }
+  .ev .t { display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; color: #a39b8f; }
+  .ev b { display: block; font-size: 15.5px; font-weight: 700; color: #fff; margin-top: 4px; }
+  .ev p { color: #c9c2b6; }
+  .ev.e { border-color: rgba(224,68,58,.55); }
+  .ev .acts { display: flex; gap: 8px; margin-top: 10px; }
+  .ev .acts span { padding: 7px 14px; border-radius: 10px; font-size: 13.5px; font-weight: 700; }
+  .ev .acts .o { background: var(--orange); color: #fff; }
+  .ev .acts .g { border: 1px solid #4a4540; color: #eee8de; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-inline-end: 6px; }
+
+  /* ---------- mobile ---------- */
+  #mobile { background: var(--bg); }
+  #mobile .grid-bg { background-size: 30px 30px; }
+  .m { position: absolute; inset: 0; padding: 56px 18px 0; display: flex; flex-direction: column; gap: 14px; }
+  .m-h { display: flex; justify-content: space-between; align-items: center; }
+  .m-h .logo { font-size: 24px; }
+  .m-h .logo i { width: 34px; height: 22px; }
+  .m-h .logo i::before, .m-h .logo i::after { width: 22px; height: 22px; border-width: 3px; }
+  .m-h .st { font-size: 13px; color: var(--green); font-weight: 700; display: flex; align-items: center; gap: 6px; }
+  .m-h .st::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+  .m-net { position: relative; height: 290px; background: var(--card); border: 1px solid var(--line); border-radius: 24px; overflow: hidden; }
+  .m-net svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .m-net .hub { left: 50%; top: 50%; width: 92px; height: 92px; margin: -46px 0 0 -46px; box-shadow: 0 0 0 10px rgba(255,106,26,.12); }
+  .m-net .hub b { font-size: 22px; }
+  .m-net .hub small { font-size: 10px; margin-top: 3px; }
+  .mn { position: absolute; padding: 7px 11px; border-radius: 12px; background: var(--bg); border: 1px solid var(--line); font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+  .mn i { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+  .mn.e i { background: var(--red); }
+  .m-sec { font-size: 17px; font-weight: 800; display: flex; justify-content: space-between; }
+  .m-sec small { font-size: 13px; color: var(--mute); font-weight: 500; }
+  .m-ev { display: flex; gap: 12px; align-items: center; padding: 13px 14px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); }
+  .m-ev .ic { width: 38px; height: 38px; border-radius: 11px; flex: none; display: flex; align-items: center; justify-content: center; }
+  .m-ev b { display: block; font-size: 14.5px; font-weight: 700; }
+  .m-ev span { font-size: 12px; color: var(--mute); }
+  .m-ev.e { border-color: #f4b8b2; background: #fff9f8; }
+  .m-ev .r { margin-inline-start: auto; padding: 7px 12px; border-radius: 10px; background: var(--orange); color: #fff; font-size: 12.5px; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="i-store" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 9l1.5-5h13L20 9M4 9h16v11H4zM9 20v-6h6v6"/></g></symbol>
+    <symbol id="i-pos" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2M16 12v4"/></g></symbol>
+    <symbol id="i-app" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></g></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l8 4v10l-8 4-8-4V7z"/><path d="M4 7l8 4 8-4M12 11v10"/></g></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M9 9h6M9 13h6"/></g></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></g></symbol>
+    <symbol id="i-sync" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></g></symbol>
+    <symbol id="i-warn" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.5"/></g></symbol>
+  </defs>
+</svg>
+
+<!-- =================== HERO: the hub =================== -->
+<section id="hero">
+  <div class="grid-bg"></div>
+  <nav class="nav">
+    <div class="logo"><i></i>وَصل</div>
+    <div class="links"><b>القنوات</b><span>المخزون</span><span>الطلبات</span><span>السجل</span></div>
+    <span class="st">كل القنوات متصلة عدا واحدة</span>
+    <span class="btn">أضف قناة</span>
+  </nav>
+
+  <div class="net">
+    <svg class="w" viewBox="0 0 1000 900" fill="none" stroke-linecap="round">
+      <g stroke="#cfc7ba" stroke-width="2">
+        <path d="M500 470 C430 380 330 300 255 222" />
+        <path d="M500 470 C600 380 690 300 760 222" />
+        <path d="M500 470 C380 470 300 470 230 470" />
+        <path d="M500 470 C620 470 700 470 780 470" />
+        <path d="M500 470 C430 560 330 640 255 718" />
+      </g>
+      <path d="M500 470 C600 560 690 640 760 718" stroke="#e0443a" stroke-width="2" stroke-dasharray="6 8" />
+      <g stroke="#ff6a1a" stroke-width="3.5">
+        <path d="M500 470 C430 380 330 300 255 222" stroke-dasharray="40 600" stroke-dashoffset="-60" />
+        <path d="M500 470 C600 380 690 300 760 222" stroke-dasharray="40 600" stroke-dashoffset="-120" />
+        <path d="M500 470 C380 470 300 470 230 470" stroke-dasharray="40 600" stroke-dashoffset="-140" />
+        <path d="M500 470 C620 470 700 470 780 470" stroke-dasharray="40 600" stroke-dashoffset="-40" />
+        <path d="M500 470 C430 560 330 640 255 718" stroke-dasharray="40 600" stroke-dashoffset="-100" />
+      </g>
+    </svg>
+    <div class="hub"><b>وَصل</b><small>مزامنة كل دقيقة</small></div>
+    <div class="node" style="left:80px;top:180px"><span class="ic"><svg><use href="#i-store"/></svg></span><div><b>المتجر الإلكتروني</b><span>متصل · طلبات ومخزون</span></div></div>
+    <div class="node" style="left:700px;top:180px"><span class="ic"><svg><use href="#i-pos"/></svg></span><div><b>نقطة البيع</b><span>متصل · مبيعات الفروع</span></div></div>
+    <div class="node" style="left:40px;top:432px"><span class="ic"><svg><use href="#i-app"/></svg></span><div><b>تطبيق الجوال</b><span>متصل · طلبات</span></div></div>
+    <div class="node" style="left:760px;top:432px"><span class="ic"><svg><use href="#i-box"/></svg></span><div><b>المستودع</b><span>متصل · كميات المخزون</span></div></div>
+    <div class="node" style="left:80px;top:680px"><span class="ic"><svg><use href="#i-book"/></svg></span><div><b>نظام المحاسبة</b><span>متصل · فواتير</span></div></div>
+    <div class="node err" style="left:700px;top:680px"><span class="ic"><svg><use href="#i-truck"/></svg></span><div><b>شركة الشحن</b><span class="e">انقطع الاتصال · أعد الربط</span></div></div>
+    <span class="packet" style="left:352px;top:300px">طلب جديد</span>
+    <span class="packet" style="left:610px;top:444px">تحديث مخزون</span>
+  </div>
+
+  <div class="h-copy">
+    <p class="k">منصة تكامل للتجارة — نموذج مفاهيمي</p>
+    <h1>كل قنواتك <em>موصولة</em> بمخزون واحد</h1>
+    <p>طلبات المتجر والفروع والتطبيق تصل إلى مكان واحد، والمخزون يتحدّث في كل القنوات — وأي خطأ يظهر في السجل مع طريقة إصلاحه.</p>
+    <div class="h-act"><span class="o">اربط قناتك الأولى</span><span class="g">شاهد السجل</span></div>
+  </div>
+  <div class="h-stats">
+    <div>القنوات المتصلة<b>٥ من ٦</b></div>
+    <div>آخر مزامنة<b>قبل دقيقة</b></div>
+    <div>تحتاج انتباهك<b style="color:var(--red)">قناة واحدة</b></div>
+  </div>
+</section>
+
+<!-- =================== DETAIL: inventory sync + error log =================== -->
+<section id="detail">
+  <div class="grid-bg"></div>
+  <nav class="nav">
+    <div class="logo"><i></i>وَصل</div>
+    <div class="links"><span>القنوات</span><b>المخزون</b><span>الطلبات</span><span>السجل</span></div>
+    <span class="st">آخر مزامنة قبل دقيقة</span>
+    <span class="btn">أضف قناة</span>
+  </nav>
+  <div class="d-main">
+    <div class="inv">
+      <div class="inv-h"><h2>مزامنة المخزون</h2><div class="sy">الكمية المعتمدة من المستودع<b>مزامنة الآن</b></div></div>
+      <div class="chips"><span class="on">كل المنتجات</span><span>فروقات</span><span>نفدت الكمية</span><span>بانتظار المزامنة</span></div>
+      <table>
+        <tr><th>المنتج</th><th class="c">المستودع</th><th class="c">المتجر</th><th class="c">نقطة البيع</th><th class="c">التطبيق</th><th>الحالة</th></tr>
+        <tr><td><span class="p"><i style="background:#f3d9c6"></i><span>كوب سيراميك<small class="mono">SKU-1042</small></span></span></td><td class="c n">٤٨</td><td class="c n">٤٨</td><td class="c n">٤٨</td><td class="c n">٤٨</td><td><span class="tagx ok">متطابق</span></td></tr>
+        <tr class="hl"><td><span class="p"><i style="background:#d8e4ef"></i><span>إبريق زجاجي<small class="mono">SKU-1077</small></span></span></td><td class="c n">١٢</td><td class="c n">١٢</td><td class="c n diff">١٥</td><td class="c n">١٢</td><td><span class="tagx w">جارٍ التصحيح</span></td></tr>
+        <tr><td><span class="p"><i style="background:#e6e0d4"></i><span>طقم أطباق<small class="mono">SKU-1103</small></span></span></td><td class="c n">٠</td><td class="c n">٠</td><td class="c n">٠</td><td class="c n">٠</td><td><span class="tagx e">نفدت الكمية</span></td></tr>
+        <tr><td><span class="p"><i style="background:#dfe9dc"></i><span>مفرش كتان<small class="mono">SKU-1121</small></span></span></td><td class="c n">٣٦</td><td class="c n">٣٦</td><td class="c n">٣٦</td><td class="c n">٣٦</td><td><span class="tagx ok">متطابق</span></td></tr>
+        <tr><td><span class="p"><i style="background:#f0e2c4"></i><span>سلة خوص<small class="mono">SKU-1150</small></span></span></td><td class="c n">٩</td><td class="c n">٩</td><td class="c n">٩</td><td class="c n">٩</td><td><span class="tagx ok">متطابق</span></td></tr>
+        <tr><td><span class="p"><i style="background:#ecd7dc"></i><span>شمعة معطّرة<small class="mono">SKU-1168</small></span></span></td><td class="c n">٢٤</td><td class="c n">٢٤</td><td class="c n">٢٤</td><td class="c n" style="color:var(--mute)">—</td><td><span class="tagx w">بانتظار المزامنة</span></td></tr>
+        <tr><td><span class="p"><i style="background:#e3d6c6"></i><span>صينية خشب<small class="mono">SKU-1182</small></span></span></td><td class="c n">١٧</td><td class="c n">١٧</td><td class="c n">١٧</td><td class="c n">١٧</td><td><span class="tagx ok">متطابق</span></td></tr>
+      </table>
+    </div>
+    <aside class="log">
+      <h3>سجل الأخطاء <small>اليوم</small></h3>
+      <div class="ev e"><div class="t"><span><i class="dot" style="background:var(--red)"></i>شركة الشحن</span><span class="mono">10:42</span></div><b>تعذّر إرسال ٣ طلبات للشحن</b><p>انتهت صلاحية مفتاح الربط. أعد الربط ثم أعد المحاولة.</p><div class="acts"><span class="o">إعادة الربط</span><span class="g">عرض الطلبات</span></div></div>
+      <div class="ev"><div class="t"><span><i class="dot" style="background:var(--orange)"></i>نقطة البيع</span><span class="mono">10:31</span></div><b>فرق في كمية «إبريق زجاجي»</b><p>صُحّحت الكمية تلقائيًا من المستودع.</p></div>
+      <div class="ev"><div class="t"><span><i class="dot" style="background:var(--green)"></i>المتجر الإلكتروني</span><span class="mono">10:05</span></div><b>اكتملت مزامنة الطلبات</b><p>لا توجد أخطاء.</p></div>
+      <div class="ev"><div class="t"><span><i class="dot" style="background:var(--green)"></i>المستودع</span><span class="mono">09:48</span></div><b>استُلمت شحنة توريد</b><p>حُدّثت الكميات في كل القنوات.</p></div>
+      <div class="ev"><div class="t"><span><i class="dot" style="background:var(--orange)"></i>تطبيق الجوال</span><span class="mono">09:20</span></div><b>منتج جديد بانتظار المزامنة</b><p>«شمعة معطّرة» ستظهر في التطبيق بعد المراجعة.</p></div>
+    </aside>
+  </div>
+</section>
+
+<!-- =================== MOBILE =================== -->
+<section id="mobile">
+  <div class="grid-bg"></div>
+  <div class="m">
+    <div class="m-h"><div class="logo"><i></i>وَصل</div><span class="st">٥ من ٦ متصلة</span></div>
+    <div class="m-net">
+      <svg viewBox="0 0 354 290" fill="none" stroke-linecap="round">
+        <g stroke="#cfc7ba" stroke-width="1.6"><path d="M177 145 L70 50"/><path d="M177 145 L284 50"/><path d="M177 145 L60 145"/><path d="M177 145 L294 145"/><path d="M177 145 L70 240"/></g>
+        <path d="M177 145 L284 240" stroke="#e0443a" stroke-width="1.6" stroke-dasharray="4 6"/>
+        <g stroke="#ff6a1a" stroke-width="3"><path d="M177 145 L70 50" stroke-dasharray="22 400" stroke-dashoffset="-40"/><path d="M177 145 L294 145" stroke-dasharray="22 400" stroke-dashoffset="-30"/><path d="M177 145 L70 240" stroke-dasharray="22 400" stroke-dashoffset="-50"/></g>
+      </svg>
+      <div class="hub"><b>وَصل</b><small>مزامنة</small></div>
+      <span class="mn" style="right:12px;top:30px"><i></i>المتجر</span>
+      <span class="mn" style="left:12px;top:30px"><i></i>نقطة البيع</span>
+      <span class="mn" style="right:8px;top:130px"><i></i>التطبيق</span>
+      <span class="mn" style="left:8px;top:130px"><i></i>المستودع</span>
+      <span class="mn" style="right:12px;top:228px"><i></i>المحاسبة</span>
+      <span class="mn e" style="left:12px;top:228px"><i></i>الشحن</span>
+    </div>
+    <p class="m-sec">آخر الأحداث <small>عرض السجل</small></p>
+    <div class="m-ev e"><span class="ic" style="background:var(--red-soft);color:var(--red)"><svg width="20" height="20"><use href="#i-warn"/></svg></span><div><b>انقطع ربط شركة الشحن</b><span>٣ طلبات بانتظار الإرسال</span></div><span class="r">إصلاح</span></div>
+    <div class="m-ev"><span class="ic" style="background:var(--orange-soft);color:var(--orange)"><svg width="20" height="20"><use href="#i-sync"/></svg></span><div><b>صُحّحت كمية «إبريق زجاجي»</b><span>نقطة البيع · قبل ١١ دقيقة</span></div></div>
+    <div class="m-ev"><span class="ic" style="background:var(--green-soft);color:var(--green)"><svg width="20" height="20"><use href="#i-store"/></svg></span><div><b>اكتملت مزامنة الطلبات</b><span>المتجر الإلكتروني · قبل ٣٧ دقيقة</span></div></div>
+    <div class="m-ev"><span class="ic" style="background:var(--green-soft);color:var(--green)"><svg width="20" height="20"><use href="#i-box"/></svg></span><div><b>استُلمت شحنة توريد</b><span>المستودع · قبل ساعة</span></div></div>
+  </div>
+</section>
+
+</body>
+</html>

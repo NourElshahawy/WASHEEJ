@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>BASEERA — concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Kufam:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500&family=IBM+Plex+Mono:wght@500&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="_base.css" />
+<!--
+  BASEERA (بَصيرة) — fictional AI document-extraction tool (concept).
+  Ink and highlighter: the receipt is read, fields are marked in yellow,
+  and a person checks every field before anything is approved.
+  No accuracy claims: confidence is shown only as a review hint.
+-->
+<style>
+  :root {
+    --ink: #15171f;
+    --ink-2: #1f222d;
+    --ink-3: #2a2e3b;
+    --line: #333849;
+    --text: #f1efe6;
+    --mute: #9196a6;
+    --hl: #f7e34b;
+    --hl-soft: rgba(247,227,75,.16);
+    --paper: #fbf8ef;
+    --pink: #ff8fab;
+    --ok: #6ee7a8;
+  }
+  body { font-family: 'Kufam', sans-serif; color: var(--text); }
+  .mono { font-family: 'IBM Plex Mono', monospace; direction: ltr; unicode-bidi: isolate; }
+  #hero, #detail { background: var(--ink); }
+
+  /* the receipt (drawn) */
+  .receipt { position: absolute; background: var(--paper); color: #2b2a26; font-family: 'IBM Plex Sans Arabic', sans-serif; padding: 34px 32px 44px; box-shadow: 0 40px 70px -20px rgba(0,0,0,.7); }
+  .receipt::after { content: ''; position: absolute; bottom: -12px; inset-inline: 0; height: 12px; background: linear-gradient(-45deg, transparent 8px, var(--paper) 0) 0 0/16px 12px, linear-gradient(45deg, transparent 8px, var(--paper) 0) 0 0/16px 12px; }
+  .receipt h5 { text-align: center; font-size: 22px; font-weight: 500; letter-spacing: .02em; }
+  .receipt .c { text-align: center; font-size: 13px; color: #6e6a60; margin-top: 2px; }
+  .receipt hr { border: 0; border-top: 1.5px dashed #b9b3a3; margin: 16px 0; }
+  .receipt .r { display: flex; justify-content: space-between; align-items: center; font-size: 15px; padding: 7px 0; }
+  .receipt .r.tot { font-size: 19px; font-weight: 500; }
+  .mark { position: relative; z-index: 0; }
+  .mark::before { content: ''; position: absolute; inset: -1px -6px; background: var(--hl); opacity: .85; z-index: -1; border-radius: 3px; transform: skewX(-6deg); }
+  .mark.pink::before { background: var(--pink); opacity: .7; }
+  .tagno { position: absolute; top: -13px; inset-inline-end: -16px; width: 21px; height: 21px; border-radius: 50%; background: var(--ink); color: var(--hl); font-size: 11px; font-family: 'Kufam'; display: flex; align-items: center; justify-content: center; z-index: 2; }
+
+  /* ---------- hero ---------- */
+  .nav { position: absolute; inset: 0 0 auto; height: 92px; padding: 0 80px; display: flex; align-items: center; gap: 46px; }
+  .logo { display: flex; align-items: center; gap: 12px; font-size: 29px; font-weight: 800; }
+  .logo i { width: 38px; height: 38px; border-radius: 50%; background: var(--hl); position: relative; }
+  .logo i::before { content: ''; position: absolute; inset: 11px 8px; border-radius: 50%; background: var(--ink); }
+  .logo i::after { content: ''; position: absolute; top: 15px; left: 15px; width: 8px; height: 8px; border-radius: 50%; background: var(--hl); }
+  .nav .links { display: flex; gap: 34px; color: var(--mute); font-size: 16px; }
+  .nav .cta { margin-inline-start: auto; padding: 11px 22px; border-radius: 12px; background: var(--hl); color: var(--ink); font-weight: 700; font-size: 16px; }
+  .h-copy { position: absolute; right: 80px; top: 214px; width: 600px; }
+  .pill { display: inline-flex; gap: 10px; align-items: center; padding: 7px 16px; border-radius: 999px; border: 1px solid var(--line); color: var(--mute); font-size: 15px; }
+  .pill b { color: var(--hl); font-weight: 600; }
+  .h-copy h1 { margin-top: 22px; font-size: 64px; line-height: 1.38; font-weight: 800; }
+  .h-copy h1 span { position: relative; z-index: 0; color: var(--ink); padding: 0 6px; }
+  .h-copy h1 span::before { content: ''; position: absolute; inset: 8% -4px 4%; background: var(--hl); z-index: -1; transform: skewX(-8deg) rotate(-1deg); border-radius: 4px; }
+  .h-copy p { margin-top: 18px; font-size: 20px; line-height: 1.9; color: #c9cad2; max-width: 540px; }
+  .flow { margin-top: 34px; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--mute); }
+  .flow span { white-space: nowrap; display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 12px; background: var(--ink-2); border: 1px solid var(--line); }
+  .flow span b { width: 22px; height: 22px; border-radius: 50%; background: var(--ink-3); color: var(--hl); font-size: 12px; display: flex; align-items: center; justify-content: center; }
+  .flow i { width: 22px; height: 1.5px; background: var(--line); }
+  .flow span.me { border-color: var(--hl); color: var(--text); }
+
+  .h-receipt { left: 466px; top: 200px; width: 370px; transform: rotate(-4deg); }
+  .h-fields { position: absolute; left: 96px; top: 250px; width: 300px; display: flex; flex-direction: column; gap: 12px; }
+  .fcard { background: var(--ink-2); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; box-shadow: 0 20px 40px -20px rgba(0,0,0,.7); }
+  .fcard small { display: flex; justify-content: space-between; font-size: 13px; color: var(--mute); }
+  .fcard b { display: block; margin-top: 4px; font-size: 19px; font-weight: 700; }
+  .fcard.warn { border-color: var(--pink); }
+  .hint { font-size: 12px; padding: 2px 9px; border-radius: 999px; }
+  .hint.ok { background: rgba(110,231,168,.14); color: var(--ok); }
+  .hint.chk { background: rgba(255,143,171,.16); color: var(--pink); }
+  .wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+  /* ---------- detail: review before saving ---------- */
+  .d-top { position: absolute; inset: 0 0 auto; height: 82px; padding: 0 44px; display: flex; align-items: center; gap: 22px; border-bottom: 1px solid var(--line); }
+  .d-top .logo { font-size: 25px; }
+  .d-top .crumb { color: var(--mute); font-size: 15px; }
+  .d-top .crumb b { color: var(--text); font-weight: 600; }
+  .d-top .q { margin-inline-start: auto; display: flex; gap: 8px; align-items: center; color: var(--mute); font-size: 14px; }
+  .d-top .q span { padding: 6px 12px; border-radius: 10px; background: var(--ink-2); border: 1px solid var(--line); }
+  .viewer { position: absolute; left: 0; top: 82px; bottom: 0; width: 640px; background: #0f1117; border-inline-start: 1px solid var(--line); }
+  .viewer .receipt { left: 120px; top: 60px; width: 400px; }
+  .vtools { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; padding: 6px; border-radius: 14px; background: var(--ink-2); border: 1px solid var(--line); }
+  .vtools span { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--mute); font-size: 18px; }
+  .vtools span.on { background: var(--ink-3); color: var(--hl); }
+  .review { position: absolute; right: 44px; top: 112px; width: 860px; bottom: 32px; display: flex; flex-direction: column; }
+  .review h2 { font-size: 32px; font-weight: 800; }
+  .review .sub { margin-top: 4px; font-size: 16px; color: var(--mute); }
+  .banner { margin-top: 18px; display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 14px; background: rgba(255,143,171,.1); border: 1px solid rgba(255,143,171,.35); font-size: 15px; }
+  .banner i { width: 26px; height: 26px; border-radius: 50%; background: var(--pink); color: var(--ink); font-style: normal; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .rows { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .row { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border-radius: 14px; background: var(--ink-2); border: 1px solid var(--line); }
+  .row .k { width: 150px; flex: none; font-size: 14px; color: var(--mute); display: flex; align-items: center; gap: 10px; }
+  .row .k em { font-style: normal; width: 22px; height: 22px; border-radius: 50%; background: var(--ink-3); color: var(--hl); font-size: 12px; display: flex; align-items: center; justify-content: center; }
+  .row .v { flex: 1; padding: 9px 14px; border-radius: 10px; background: var(--ink); border: 1px solid var(--line); font-size: 17px; font-weight: 600; }
+  .row.warn { border-color: rgba(255,143,171,.55); background: rgba(255,143,171,.06); }
+  .row.warn .v { border-color: var(--pink); }
+  .row .v small { display: block; font-size: 12.5px; color: var(--pink); font-weight: 500; margin-top: 2px; }
+  .row .ckb { width: 30px; height: 30px; border-radius: 9px; border: 2px solid var(--line); flex: none; position: relative; }
+  .row .ckb.on { background: var(--ok); border-color: var(--ok); }
+  .row .ckb.on::after { content: ''; position: absolute; left: 9px; top: 4px; width: 7px; height: 13px; border: solid var(--ink); border-width: 0 3px 3px 0; transform: rotate(45deg); }
+  .d-acts { margin-top: auto; display: flex; align-items: center; gap: 14px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .d-acts .note { flex: 1; font-size: 14px; color: var(--mute); }
+  .btn { padding: 15px 28px; border-radius: 14px; font-weight: 700; font-size: 17px; }
+  .btn.hl { background: var(--hl); color: var(--ink); }
+  .btn.gh { border: 1px solid var(--line); color: var(--text); }
+
+  /* ---------- mobile: capture ---------- */
+  #mobile, #mobile2 { background: var(--ink); }
+  .m-top { position: absolute; top: 56px; inset-inline: 20px; display: flex; justify-content: space-between; align-items: center; }
+  .m-top .logo { font-size: 22px; }
+  .m-top .logo i { width: 30px; height: 30px; }
+  .m-top .logo i::before { inset: 9px 6px; }
+  .m-top .logo i::after { top: 11px; left: 11px; width: 8px; height: 8px; }
+  .m-top .x { width: 36px; height: 36px; border-radius: 50%; background: var(--ink-2); border: 1px solid var(--line); }
+  .m-cam { position: absolute; top: 112px; inset-inline: 20px; height: 500px; border-radius: 26px; background: radial-gradient(80% 70% at 50% 45%, #3a3d4a, #14161e); overflow: hidden; }
+  .m-cam .receipt { left: 62px; top: 46px; width: 228px; padding: 20px 18px 26px; transform: rotate(-3deg) scale(1); }
+  .m-cam .receipt h5 { font-size: 15px; }
+  .m-cam .receipt .c { font-size: 10px; }
+  .m-cam .receipt .r { font-size: 11px; padding: 2px 0; }
+  .m-cam .receipt .r.tot { font-size: 13px; }
+  .m-cam .receipt hr { margin: 9px 0; }
+  .corner { position: absolute; width: 38px; height: 38px; border: 4px solid var(--hl); }
+  .corner.a { top: 26px; right: 26px; border-left: 0; border-bottom: 0; border-radius: 0 14px 0 0; }
+  .corner.b { top: 26px; left: 26px; border-right: 0; border-bottom: 0; border-radius: 14px 0 0 0; }
+  .corner.c { bottom: 26px; right: 26px; border-left: 0; border-top: 0; border-radius: 0 0 14px 0; }
+  .corner.d { bottom: 26px; left: 26px; border-right: 0; border-top: 0; border-radius: 0 0 0 14px; }
+  .m-cam .scan { position: absolute; inset-inline: 30px; top: 230px; height: 3px; background: var(--hl); box-shadow: 0 0 24px 6px rgba(247,227,75,.45); border-radius: 3px; }
+  .m-hint { position: absolute; top: 630px; inset-inline: 20px; text-align: center; font-size: 15px; color: #c9cad2; line-height: 1.7; }
+  .m-hint b { color: var(--hl); font-weight: 600; }
+  .m-shoot { position: absolute; bottom: 44px; inset-inline: 0; display: flex; align-items: center; justify-content: space-around; padding: 0 40px; }
+  .m-shoot .s { width: 78px; height: 78px; border-radius: 50%; border: 4px solid var(--text); display: flex; align-items: center; justify-content: center; }
+  .m-shoot .s::before { content: ''; width: 60px; height: 60px; border-radius: 50%; background: var(--hl); }
+  .m-shoot .g { width: 50px; height: 50px; border-radius: 14px; background: var(--ink-2); border: 1px solid var(--line); font-size: 11px; color: var(--mute); display: flex; align-items: center; justify-content: center; }
+
+  /* ---------- mobile2: review ---------- */
+  .m2 { position: absolute; top: 112px; inset-inline: 18px; bottom: 0; display: flex; flex-direction: column; gap: 10px; }
+  .m2 h3 { font-size: 24px; font-weight: 800; }
+  .m2 .sub { font-size: 13px; color: var(--mute); margin-top: -6px; }
+  .m2 .thumb { height: 96px; border-radius: 16px; background: #0f1117; border: 1px solid var(--line); display: flex; align-items: center; gap: 14px; padding: 0 14px; font-size: 13px; color: var(--mute); }
+  .m2 .thumb i { width: 54px; height: 72px; background: var(--paper); border-radius: 4px; transform: rotate(-4deg); position: relative; }
+  .m2 .thumb i::before { content: ''; position: absolute; inset: 22px 8px auto; height: 6px; background: var(--hl); }
+  .m2 .thumb i::after { content: ''; position: absolute; inset: auto 8px 12px; height: 6px; background: var(--pink); }
+  .m2 .thumb b { display: block; color: var(--text); font-size: 15px; }
+  .m2 .row { padding: 10px 12px; gap: 10px; border-radius: 12px; }
+  .m2 .row .k { width: auto; flex: 1; flex-direction: column; align-items: flex-start; gap: 2px; font-size: 12px; }
+  .m2 .row .k b { color: var(--text); font-size: 16px; font-weight: 700; }
+  .m2 .row .k small { color: var(--pink); font-size: 11.5px; }
+  .m2 .row .ckb { width: 26px; height: 26px; }
+  .m2 .row .ckb.on::after { left: 7px; top: 3px; width: 6px; height: 11px; }
+  .m2 .btn { margin-top: 4px; text-align: center; padding: 15px; font-size: 16px; }
+</style>
+</head>
+<body>
+
+<!-- =================== HERO =================== -->
+<section id="hero">
+  <nav class="nav">
+    <div class="logo"><i></i>بَصيرة</div>
+    <div class="links"><span>كيف تعمل</span><span>المراجعة</span><span>التكامل</span><span>الأسئلة</span></div>
+    <span class="cta">جرّب برفع فاتورة</span>
+  </nav>
+
+  <div class="receipt h-receipt">
+    <h5><span class="mark" style="position:relative">مطبعة الواحة<span class="tagno">١</span></span></h5>
+    <p class="c">فاتورة ضريبية مبسّطة</p>
+    <hr />
+    <div class="r"><span>رقم الفاتورة</span><span class="mono mark" style="position:relative">INV-4471<span class="tagno">٢</span></span></div>
+    <div class="r"><span>التاريخ</span><span class="mark" style="position:relative">١٤ نوفمبر<span class="tagno">٣</span></span></div>
+    <hr />
+    <div class="r"><span>كروت أعمال × ٥٠٠</span><span>٤٢٠٫٠٠</span></div>
+    <div class="r"><span>مطبوعات تعريفية × ٢٠٠</span><span>٦٨٠٫٠٠</span></div>
+    <div class="r"><span>تصميم</span><span>٧٨٫٢٦</span></div>
+    <hr />
+    <div class="r"><span>الضريبة</span><span class="mark pink" style="position:relative">١٧٦٫٧٤<span class="tagno">٤</span></span></div>
+    <div class="r tot"><span>الإجمالي</span><span class="mark" style="position:relative">١٬٣٥٥٫٠٠<span class="tagno">٥</span></span></div>
+  </div>
+
+  <svg class="wires" viewBox="0 0 1600 900" fill="none" stroke="#f7e34b" stroke-opacity=".45" stroke-width="1.5" stroke-dasharray="3 6">
+    <path d="M398 290 C460 290 510 254 564 252" />
+    <path d="M398 380 C440 380 450 350 476 348" />
+    <path d="M398 470 C440 470 450 392 478 388" />
+    <path d="M398 560 C440 560 460 594 490 594" stroke="#ff8fab" />
+  </svg>
+
+  <div class="h-fields">
+    <div class="fcard"><small>المورّد <span class="hint ok">واضح</span></small><b>مطبعة الواحة</b></div>
+    <div class="fcard"><small>رقم الفاتورة <span class="hint ok">واضح</span></small><b class="mono">INV-4471</b></div>
+    <div class="fcard"><small>التاريخ <span class="hint ok">واضح</span></small><b>١٤ نوفمبر</b></div>
+    <div class="fcard warn"><small>الضريبة <span class="hint chk">تحتاج مراجعتك</span></small><b>١٧٦٫٧٤</b></div>
+  </div>
+
+  <div class="h-copy">
+    <span class="pill"><b>نموذج مفاهيمي</b>استخراج بيانات المستندات</span>
+    <h1>من <span>صورة الفاتورة</span> إلى بيانات تراجعها قبل الحفظ</h1>
+    <p>ارفع صورة الإيصال أو الفاتورة، فتُستخرج الحقول وتُعلَّم على المستند نفسه — ثم يراجعها شخص من فريقك ويعتمدها.</p>
+    <div class="flow"><span><b>١</b>رفع</span><i></i><span><b>٢</b>استخراج</span><i></i><span class="me"><b>٣</b>مراجعة بشرية</span><i></i><span><b>٤</b>اعتماد</span></div>
+  </div>
+</section>
+
+<!-- =================== DETAIL: human review =================== -->
+<section id="detail">
+  <div class="d-top">
+    <div class="logo"><i></i>بَصيرة</div>
+    <span class="crumb">المستندات ‹ <b>مطبعة الواحة — INV-4471</b></span>
+    <div class="q">قائمة المراجعة<span>٣ من ١٢</span></div>
+  </div>
+
+  <div class="viewer">
+    <div class="receipt">
+      <h5><span class="mark" style="position:relative">مطبعة الواحة<span class="tagno">١</span></span></h5>
+      <p class="c">فاتورة ضريبية مبسّطة</p>
+      <hr />
+      <div class="r"><span>رقم الفاتورة</span><span class="mono mark" style="position:relative">INV-4471<span class="tagno">٢</span></span></div>
+      <div class="r"><span>التاريخ</span><span class="mark" style="position:relative">١٤ نوفمبر<span class="tagno">٣</span></span></div>
+      <hr />
+      <div class="r"><span>كروت أعمال × ٥٠٠</span><span>٤٢٠٫٠٠</span></div>
+      <div class="r"><span>مطبوعات تعريفية × ٢٠٠</span><span>٦٨٠٫٠٠</span></div>
+      <div class="r"><span>تصميم</span><span>٧٨٫٢٦</span></div>
+      <hr />
+      <div class="r"><span>الضريبة</span><span class="mark pink" style="position:relative">١٧٦٫٧٤<span class="tagno">٤</span></span></div>
+      <div class="r tot"><span>الإجمالي</span><span class="mark" style="position:relative">١٬٣٥٥٫٠٠<span class="tagno">٥</span></span></div>
+    </div>
+    <div class="vtools"><span class="on">⌖</span><span>+</span><span>−</span><span>↻</span></div>
+  </div>
+
+  <div class="review">
+    <h2>راجِع الحقول قبل الحفظ</h2>
+    <p class="sub">كل حقل مرتبط بموضعه في المستند. علّم الحقل بعد التأكد منه.</p>
+    <div class="banner"><i>!</i>حقل واحد يحتاج مراجعتك — القيمة غير واضحة في الصورة.</div>
+    <div class="rows">
+      <div class="row"><span class="k"><em>١</em>المورّد</span><span class="v">مطبعة الواحة</span><span class="hint ok">واضح</span><span class="ckb on"></span></div>
+      <div class="row"><span class="k"><em>٢</em>رقم الفاتورة</span><span class="v mono" style="text-align:right">INV-4471</span><span class="hint ok">واضح</span><span class="ckb on"></span></div>
+      <div class="row"><span class="k"><em>٣</em>التاريخ</span><span class="v">١٤ نوفمبر</span><span class="hint ok">واضح</span><span class="ckb on"></span></div>
+      <div class="row warn"><span class="k"><em>٤</em>الضريبة</span><span class="v">١٧٦٫٧٤<small>الرقم الأخير غير واضح — قارنه بالصورة</small></span><span class="hint chk">راجِع</span><span class="ckb"></span></div>
+      <div class="row"><span class="k"><em>٥</em>الإجمالي</span><span class="v">١٬٣٥٥٫٠٠</span><span class="hint ok">واضح</span><span class="ckb"></span></div>
+      <div class="row"><span class="k">مركز التكلفة</span><span class="v" style="color:var(--mute);font-weight:500">التسويق</span><span class="hint" style="color:var(--mute)">يدوي</span><span class="ckb on"></span></div>
+    </div>
+    <div class="d-acts"><p class="note">لن يُحفظ المستند حتى تُراجَع كل الحقول.</p><span class="btn gh">إعادة للمرسِل</span><span class="btn hl">اعتماد وحفظ</span></div>
+  </div>
+</section>
+
+<!-- =================== MOBILE: capture =================== -->
+<section id="mobile">
+  <div class="m-top"><div class="logo"><i></i>بَصيرة</div><span class="x"></span></div>
+  <div class="m-cam">
+    <span class="corner a"></span><span class="corner b"></span><span class="corner c"></span><span class="corner d"></span>
+    <div class="receipt">
+      <h5><span class="mark">مطبعة الواحة</span></h5>
+      <p class="c">فاتورة ضريبية مبسّطة</p>
+      <hr />
+      <div class="r"><span>رقم الفاتورة</span><span class="mono">INV-4471</span></div>
+      <div class="r"><span>التاريخ</span><span>١٤ نوفمبر</span></div>
+      <hr />
+      <div class="r"><span>كروت أعمال</span><span>٤٢٠٫٠٠</span></div>
+      <div class="r"><span>مطبوعات تعريفية</span><span>٦٨٠٫٠٠</span></div>
+      <div class="r"><span>تصميم</span><span>٧٨٫٢٦</span></div>
+      <hr />
+      <div class="r"><span>الضريبة</span><span>١٧٦٫٧٤</span></div>
+      <div class="r tot"><span>الإجمالي</span><span>١٬٣٥٥٫٠٠</span></div>
+    </div>
+    <span class="scan"></span>
+  </div>
+  <p class="m-hint">ضع الفاتورة داخل الإطار<br /><b>جارٍ قراءة الحقول…</b></p>
+  <div class="m-shoot"><span class="g">ملف</span><span class="s"></span><span class="g">الصور</span></div>
+</section>
+
+<!-- =================== MOBILE 2: review =================== -->
+<section id="mobile2">
+  <div class="m-top"><div class="logo"><i></i>بَصيرة</div><span class="x"></span></div>
+  <div class="m2">
+    <h3>راجِع قبل الحفظ</h3>
+    <p class="sub">حقل واحد يحتاج مراجعتك</p>
+    <div class="thumb"><i></i><div><b>مطبعة الواحة</b>فاتورة · ١٤ نوفمبر</div></div>
+    <div class="row"><span class="k">المورّد<b>مطبعة الواحة</b></span><span class="ckb on"></span></div>
+    <div class="row"><span class="k">رقم الفاتورة<b class="mono" style="text-align:right">INV-4471</b></span><span class="ckb on"></span></div>
+    <div class="row warn"><span class="k">الضريبة<b>١٧٦٫٧٤</b><small>الرقم الأخير غير واضح</small></span><span class="ckb"></span></div>
+    <div class="row"><span class="k">الإجمالي<b>١٬٣٥٥٫٠٠</b></span><span class="ckb"></span></div>
+    <span class="btn hl">اعتماد وحفظ</span>
+  </div>
+</section>
+
+</body>
+</html>

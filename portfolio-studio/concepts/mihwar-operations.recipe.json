@@ -1,0 +1,4 @@
+{
+  "cover": { "variant": "browser", "desk": "{hero}", "size": 1300, "top": 130, "bg": "#2f4bff", "light": ".18", "grain": ".08", "shapeAt": "180,880,560", "shape": "#ffc93c" },
+  "mobile": { "bg": "#ffc93c", "light": ".2", "shapeAt": "760,1380,760", "shape": "#2f4bff" }
+}

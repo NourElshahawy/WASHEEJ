@@ -1,3 +1,7 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { STUDIO } from './lib.mjs';
+
 /**
  * How each project's images are made.
  *
@@ -46,3 +50,14 @@ export const RECIPES = {
 };
 
 export const conceptRecipe = concept;
+
+// Concepts keep their composition next to their page:
+// portfolio-studio/concepts/<slug>.recipe.json → { "cover": {…}, "mobile": {…} }
+const conceptDir = path.join(STUDIO, 'concepts');
+if (fs.existsSync(conceptDir)) {
+  for (const file of fs.readdirSync(conceptDir)) {
+    if (!file.endsWith('.recipe.json')) continue;
+    const slug = file.replace('.recipe.json', '');
+    RECIPES[slug] = concept(JSON.parse(fs.readFileSync(path.join(conceptDir, file), 'utf8')));
+  }
+}

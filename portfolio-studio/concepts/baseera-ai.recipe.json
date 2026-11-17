@@ -1,0 +1,4 @@
+{
+  "cover": { "variant": "phones", "mob": "{mob2}", "mob2": "{mob}", "pw": 340, "gap": 70, "rot": 5, "bg": "linear-gradient(160deg,#f7e34b 0%,#e9cf2a 100%)", "light": ".3", "grain": ".07", "shapeAt": "800,520,820", "shape": "#15171f" },
+  "mobile": { "mob": "{mob2}", "bg": "linear-gradient(170deg,#f7e34b,#e5c923)", "light": ".3", "shapeAt": "450,820,760", "shape": "#15171f" }
+}

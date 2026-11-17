@@ -1,0 +1,28 @@
+{
+  "cover": {
+    "variant": "browser",
+    "desk": "{hero}",
+    "mob": "{mob}",
+    "side": "start",
+    "size": 1220,
+    "dx": 110,
+    "top": 130,
+    "pw": 240,
+    "px": 56,
+    "py": 430,
+    "bg": "linear-gradient(160deg,#c2412d 0%,#8f2c1e 100%)",
+    "light": ".18",
+    "grain": ".08",
+    "shapeAt": "1400,900,700",
+    "shape": "rgba(42,25,18,.35)",
+    "shape-blur": "10px"
+  },
+  "mobile": {
+    "bg": "linear-gradient(170deg,#3b2419 0%,#2a1912 100%)",
+    "light": ".12",
+    "grain": ".08",
+    "shapeAt": "450,1380,820",
+    "shape": "rgba(194,65,45,.55)",
+    "shape-blur": "20px"
+  }
+}

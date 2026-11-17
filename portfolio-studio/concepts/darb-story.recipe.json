@@ -1,0 +1,4 @@
+{
+  "cover": { "variant": "tilt", "desk": "{hero}", "size": 1280, "top": 160, "bg": "linear-gradient(160deg,#2f3e66 0%,#1c2643 100%)", "light": ".16", "grain": ".1", "shapeAt": "1380,880,760", "shape": "rgba(180,68,42,.45)", "shape-blur": "20px" },
+  "mobile": { "bg": "linear-gradient(170deg,#2f3e66 0%,#1c2643 100%)", "light": ".14", "grain": ".1", "shapeAt": "450,1500,900", "shape": "rgba(180,68,42,.4)", "shape-blur": "30px" }
+}
