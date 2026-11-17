@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
-import { navLinks, siteConfig, whatsappUrl, emailUrl } from '@/config/site';
+import { navLinks, siteConfig, whatsappUrl, whatsappDisplay, emailUrl } from '@/config/site';
 import FooterBackdrop from '@/components/FooterBackdrop/FooterBackdrop';
 import FooterMark from '@/components/FooterMark/FooterMark';
 import Icon from '@/components/Icon/Icon';
@@ -37,18 +37,20 @@ export default async function Footer() {
         </nav>
 
         <ul className={styles.footerContact}>
+          {whatsappUrl ? (
           <li>
             <a
               href={whatsappUrl}
               className={styles.footerContactLink}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${t('ui.whatsapp')}: ${siteConfig.contact.whatsappDisplay}`}
+              aria-label={`${t('ui.whatsapp')}: ${whatsappDisplay}`}
             >
               <Icon name="whatsapp" size={20} />
-              <span dir="ltr">{siteConfig.contact.whatsappDisplay}</span>
+              <span dir="ltr">{whatsappDisplay}</span>
             </a>
           </li>
+          ) : null}
           <li>
             <a
               href={emailUrl}

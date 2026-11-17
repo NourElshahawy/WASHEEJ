@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { submitProjectRequest } from '@/lib/submitProjectRequest';
 import styles from './ContactForm.module.css';
@@ -10,8 +10,11 @@ import styles from './ContactForm.module.css';
  * message. It validates on submit, then hands the payload to
  * submitProjectRequest() — the single function to connect to a backend later —
  * and shows a "request received" state with a knot tying itself.
+ *
+ * Arriving from a project (/contact?project=<slug>), the service and a first
+ * message are filled in from `prefills` (built from projects.json).
  */
-export default function ContactForm({ services }) {
+export default function ContactForm({ services, prefills = {} }) {
   const t = useTranslations('pages.contact');
   const locale = useLocale();
   const formRef = useRef(null);
@@ -19,6 +22,18 @@ export default function ContactForm({ services }) {
   const [service, setService] = useState('');
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | sending | sent | failed
+  const [project, setProject] = useState('');
+
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get('project');
+    const prefill = slug ? prefills[slug] : null;
+    if (!prefill) return;
+    setProject(slug);
+    if (prefill.service) setService(prefill.service);
+    const message = formRef.current?.querySelector('textarea[name="message"]');
+    if (message && !message.value) message.value = prefill.message;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -28,6 +43,7 @@ export default function ContactForm({ services }) {
       company: String(data.get('company') || '').trim(),
       country: String(data.get('country') || '').trim(),
       service,
+      ...(project ? { project } : {}),
       message: String(data.get('message') || '').trim(),
       locale,
       sentAt: new Date().toISOString(),

@@ -112,9 +112,56 @@ export function getProjectCta(project, locale, englishTemplate) {
   return { kind: 'contact', href: `/contact?project=${encodeURIComponent(project.slug)}`, label, newTab: false };
 }
 
-/** Gallery images, without repeating the hero right under it. */
-export function getGallery(project) {
-  const gallery = project.media.gallery ?? [];
-  const withoutHero = gallery.filter((image) => image !== project.media.hero);
-  return withoutHero.length >= 2 ? withoutHero : gallery;
+/** Gallery images: the main screen, a detail and the phone (the page header shows the cover). */
+export const getGallery = (project) => project.media.gallery ?? [];
+
+/**
+ * What a project card needs, already in the visitor's language. Plain data,
+ * so it can be handed from a server page to a client component.
+ */
+export function toCard(project, locale) {
+  const category = getCategory(project.categoryId);
+  return {
+    slug: project.slug,
+    number: project.order,
+    brand: loc(project.brand, locale),
+    title: loc(project.title, locale),
+    categoryId: project.categoryId,
+    category: loc(category?.name, locale),
+    type: project.type,
+    cover: project.media.cover,
+    alt: loc(project.media.alt, locale),
+  };
+}
+
+// ---- Services ↔ categories ----
+// The service sections (messages: services.items[].icon) and the portfolio
+// categories describe the same eight services under different keys.
+const SERVICE_CATEGORY = {
+  landing: 'landing-pages',
+  company: 'corporate',
+  story: 'storytelling',
+  store: 'ecommerce',
+  booking: 'booking-real-estate',
+  portal: 'service-portals',
+  systems: 'dashboards',
+  ai: 'ai-integrations',
+};
+
+export const categoryForService = (serviceKey) => SERVICE_CATEGORY[serviceKey] ?? null;
+
+export const serviceForCategory = (categoryId) =>
+  Object.keys(SERVICE_CATEGORY).find((key) => SERVICE_CATEGORY[key] === categoryId) ?? null;
+
+/**
+ * What the contact form fills in when a visitor arrives from a project
+ * (/contact?project=<slug>): the service and a first message.
+ */
+export function getContactPrefills(locale, englishTemplate) {
+  return Object.fromEntries(
+    getPublishedProjects().map((project) => [
+      project.slug,
+      { service: serviceForCategory(project.categoryId), message: projectMessage(project, locale, englishTemplate) },
+    ]),
+  );
 }

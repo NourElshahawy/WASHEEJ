@@ -51,8 +51,20 @@
   flex: 0 1 calc((100% - var(--card-gap) * 3) / 4);
 }
 
+/* In the grid, the foot only carries the link to all projects. */
 .workFoot {
+  display: flex;
+  justify-content: center;
+  margin-block-start: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+}
+
+.workPin[data-mode='grid'] .workCounter,
+.workPin[data-mode='grid'] .workProgress {
   display: none;
+}
+
+.allWork {
+  flex: none;
 }
 
 @media (max-width: 1080px) {

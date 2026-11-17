@@ -19,10 +19,13 @@ export default async function FinalCta() {
             {t('title')}
           </h2>
           <div className={styles.ctaActions}>
-            <Button href={whatsappUrl} variant="primary" tone="dark" brand="whatsapp" size="large" newTab>
-              {t('whatsapp')}
-            </Button>
-            <Button href="/contact" variant="secondary" tone="dark" size="large">
+            {/* WhatsApp only once a number is configured (settings.whatsappNumber in projects.json). */}
+            {whatsappUrl ? (
+              <Button href={whatsappUrl} variant="primary" tone="dark" brand="whatsapp" size="large" newTab>
+                {t('whatsapp')}
+              </Button>
+            ) : null}
+            <Button href="/contact" variant={whatsappUrl ? 'secondary' : 'primary'} tone="dark" size="large">
               {t('request')}
             </Button>
           </div>

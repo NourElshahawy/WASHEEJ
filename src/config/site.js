@@ -1,21 +1,32 @@
+import { projectSettings } from '@/lib/projects';
+
 /**
  * Single place for contact details and site-wide constants.
- * WhatsApp number and email are PLACEHOLDERS — replace before launch.
+ *
+ * The WhatsApp number lives in ONE place: `settings.whatsappNumber` in
+ * src/data/projects.json (international digits only, e.g. "9665XXXXXXXX").
+ * While it is null, every WhatsApp button is hidden or falls back to the
+ * contact page — no placeholder number is ever shown.
  */
 export const siteConfig = {
   // Public URL of the site (used for metadata, canonical and Open Graph URLs).
-  url: 'https://washeej.com',
+  url: 'https://washeej.site',
 
   contact: {
-    // International format, digits only (no "+", spaces or dashes) — used in wa.me links.
-    whatsappNumber: '201000000000',
-    // How the number is shown to visitors.
-    whatsappDisplay: '+20 100 000 0000',
+    whatsappNumber: projectSettings.whatsappNumber,
+    // Placeholder — replace with the studio's real address before relying on it.
     email: 'hello@washeej.com',
   },
 };
 
-export const whatsappUrl = `https://wa.me/${siteConfig.contact.whatsappNumber}`;
+/** "+966 5X XXX XXXX"-style display of the configured number (or null). */
+function displayNumber(number) {
+  if (!number) return null;
+  return `+${number}`;
+}
+
+export const whatsappDisplay = displayNumber(siteConfig.contact.whatsappNumber);
+export const whatsappUrl = siteConfig.contact.whatsappNumber ? `https://wa.me/${siteConfig.contact.whatsappNumber}` : null;
 export const emailUrl = `mailto:${siteConfig.contact.email}`;
 
 /** Main navigation (header, menu, footer). Labels are in the messages under `nav`. */

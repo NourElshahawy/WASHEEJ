@@ -3,204 +3,290 @@ import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
-import { findProject, workItems } from '@/data/work';
+import {
+  getAdjacentProjects,
+  getCategory,
+  getGallery,
+  getProject,
+  getProjectCta,
+  getPublishedProjects,
+  getRelatedProjects,
+  loc,
+  toCard,
+} from '@/lib/projects';
 import { pageMetadata } from '@/lib/seo';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon/Icon';
-import ToFill from '@/components/ToFill/ToFill';
+import ProjectCard from '@/components/ProjectCard/ProjectCard';
 import FinalCta from '@/components/FinalCta/FinalCta';
 import StructuredData from '@/components/StructuredData/StructuredData';
 import styles from './page.module.css';
 
 /**
- * Project page — one template for all projects.
- * Copy comes only from site-content.md (the Work card text). Anything that is
- * not there yet is shown as a visible [TO FILL] placeholder.
+ * Project page — one template, filled from projects.json.
+ * Anything the JSON leaves empty (country, languages, technologies, images)
+ * is simply left out; nothing is shown as a placeholder.
  */
 
 export function generateStaticParams() {
-  return routing.locales.flatMap((locale) => workItems.map(({ slug }) => ({ locale, slug })));
+  return routing.locales.flatMap((locale) => getPublishedProjects().map(({ slug }) => ({ locale, slug })));
 }
 
 export async function generateMetadata({ params }) {
   const { locale, slug } = await params;
-  const project = findProject(slug);
+  const project = getProject(slug);
   if (!project) return {};
-  const t = await getTranslations({ locale, namespace: 'work' });
-  return pageMetadata({
+  const brand = loc(project.brand, locale);
+  const metadata = pageMetadata({
     locale,
     path: `/work/${slug}`,
-    title: t(`items.${project.id}.title`),
-    description: t(`items.${project.id}.text`),
+    title: `${brand} — ${loc(project.title, locale)}`,
+    description: loc(project.summary, locale),
   });
+  // The project's own cover is the better preview when it is shared.
+  if (project.media.cover) {
+    metadata.openGraph.images = [{ url: project.media.cover, width: 1600, height: 1000, alt: loc(project.media.alt, locale) }];
+    metadata.twitter.images = [project.media.cover];
+  }
+  return metadata;
 }
+
+/** The image's role, from its file name (hero / detail / mobile). */
+const roleOf = (src) => src.split('/').pop().replace(/\.\w+$/, '');
 
 export default async function ProjectPage({ params }) {
   const { locale, slug } = await params;
-  const project = findProject(slug);
+  const project = getProject(slug);
   if (!project) notFound();
   setRequestLocale(locale);
 
-  const t = await getTranslations();
-  const p = (key) => t(`pages.project.${key}`);
-  const title = t(`work.items.${project.id}.title`);
-  const text = t(`work.items.${project.id}.text`);
-  const features = t.has(`work.features.${project.id}`) ? t.raw(`work.features.${project.id}`) : null;
-  const serviceTitle = t.raw('services.items').find((service) => service.icon === project.service)?.title;
-  const index = workItems.indexOf(project);
-  const next = workItems[(index + 1) % workItems.length];
-  const nextTitle = t(`work.items.${next.id}.title`);
+  const t = await getTranslations('portfolio');
+  const tw = await getTranslations('pages.work');
+  const brand = loc(project.brand, locale);
+  const title = loc(project.title, locale);
+  const summary = loc(project.summary, locale);
+  const cta = getProjectCta(project, locale, t('whatsappMessageEn'));
+  const { previous, next } = getAdjacentProjects(slug);
+  const related = getRelatedProjects(slug, 3).map((other) => toCard(other, locale));
+  const gallery = getGallery(project);
+  const technologies = project.technologies ?? [];
 
-  const tags = [
-    { label: p('tags.service'), value: serviceTitle },
-    { label: p('tags.sector'), value: null, what: `${slug}: sector` },
-    { label: p('tags.country'), value: null, what: `${slug}: country` },
-    {
-      label: p('tags.languages'),
-      value: project.languages?.map((code) => p(`languageNames.${code}`)).join(' · ') ?? null,
-      what: `${slug}: languages`,
-    },
-  ];
+  const galleryFigure = (src) => {
+    const role = roleOf(src);
+    const known = ['hero', 'detail', 'mobile'].includes(role);
+    return (
+      <figure key={src} className={`${styles.galleryItem} ${role === 'mobile' ? styles.galleryPhone : styles.galleryWide}`}>
+        <Image
+          src={src}
+          alt={known ? t(`galleryAlt.${role}`, { brand }) : loc(project.media.alt, locale)}
+          fill
+          sizes={role === 'mobile' ? '(max-width: 760px) 72vw, 36vw' : '(max-width: 760px) 94vw, 60vw'}
+          className={styles.coverImage}
+        />
+      </figure>
+    );
+  };
+
+  // Only facts the JSON actually has.
+  const facts = [
+    { label: t('category'), value: loc(getCategory(project.categoryId)?.name, locale) },
+    { label: t('sector'), value: loc(project.sector, locale) },
+    { label: t('languages'), value: project.languages.map((code) => t(`languageNames.${code}`)).join(' · ') },
+    { label: t('country'), value: project.country ? loc(project.country, locale) : '' },
+  ].filter((fact) => fact.value);
+
+  const typeNote = project.type === 'independent_redesign' ? t('redesignNote') : project.type === 'concept' ? t('conceptNote') : null;
 
   return (
     <>
-      <article className={styles.project}>
+      <article className={styles.project} data-type={project.type}>
         {/* ---- Hero ---- */}
         <header className={styles.projectHero}>
-          <div className={`page-container ${styles.heroLayout}`}>
-            <div className={styles.heroCopy}>
-              <Link href="/work" className={styles.backLink}>
-                <Icon name="arrow" size={18} className={styles.backIcon} />
-                {p('back')}
-              </Link>
-              <p className={styles.projectNumber} aria-hidden="true">
-                ({String(index + 1).padStart(2, '0')})
-              </p>
-              <h1 className={styles.projectTitle}>{title}</h1>
+          <div className="page-container">
+            <Link href="/work" className={styles.backLink}>
+              <Icon name="arrow" size={18} className={styles.backIcon} />
+              {t('back')}
+            </Link>
 
-              <dl className={styles.tagList}>
-                {tags.map((tag) => (
-                  <div key={tag.label} className={styles.tag}>
-                    <dt>{tag.label}</dt>
-                    <dd>{tag.value ?? <ToFill what={tag.what} />}</dd>
+            <div className={styles.heroLayout}>
+              <div className={styles.heroCopy}>
+                <p className={styles.projectKicker}>
+                  <span className={styles.projectNumber} aria-hidden="true">
+                    {String(project.order).padStart(2, '0')}
+                  </span>
+                  {project.type !== 'live' ? <span className={styles.typeBadge}>{t(`types.${project.type}`)}</span> : null}
+                </p>
+                <h1 className={styles.projectTitle}>
+                  <span className={styles.projectBrand}>{brand}</span>
+                  <span className={styles.projectLine}>{title}</span>
+                </h1>
+                <p className={styles.projectSummary}>{summary}</p>
+
+                <div className={styles.heroAction}>
+                  <Button
+                    href={cta.href}
+                    variant="primary"
+                    size="large"
+                    newTab={cta.newTab}
+                    {...(cta.kind === 'whatsapp' ? { brand: 'whatsapp' } : {})}
+                  >
+                    {cta.label}
+                  </Button>
+                </div>
+                {typeNote ? <p className={styles.typeNote}>{typeNote}</p> : null}
+              </div>
+
+              <dl className={styles.factList}>
+                {facts.map((fact) => (
+                  <div key={fact.label} className={styles.fact}>
+                    <dt>{fact.label}</dt>
+                    <dd>{fact.value}</dd>
                   </div>
                 ))}
               </dl>
-
-              <div className={styles.heroAction}>
-                {project.url ? (
-                  <Button href={project.url} variant="primary" size="large" newTab>
-                    {t('work.visit')}
-                  </Button>
-                ) : (
-                  <span className={styles.comingSoon}>
-                    {t('work.demo')} — {t('work.comingSoon')}
-                  </span>
-                )}
-              </div>
             </div>
+          </div>
 
+          <div className={`page-container ${styles.heroMedia}`}>
             <div className={styles.heroCover}>
-              <Image
-                src={project.image}
-                alt={t('work.coverAlt', { title })}
-                fill
-                preload
-                fetchPriority="high"
-                sizes="(max-width: 860px) 92vw, 48vw"
-                className={styles.coverImage}
-              />
+              {project.media.cover ? (
+                <Image
+                  src={project.media.cover}
+                  alt={loc(project.media.alt, locale)}
+                  fill
+                  preload
+                  fetchPriority="high"
+                  sizes="(max-width: 1400px) 94vw, 1320px"
+                  className={styles.coverImage}
+                />
+              ) : (
+                // Images not produced yet: the brand name on paper, never an empty frame.
+                <span className={styles.fallbackCover} aria-hidden="true">
+                  <span className={styles.fallbackName}>{brand}</span>
+                </span>
+              )}
             </div>
           </div>
         </header>
 
+        {/* ---- The brief ---- */}
         <div className={`page-container ${styles.projectBody}`}>
-          {/* ---- The idea / the challenge ---- */}
-          <section className={styles.block} aria-labelledby="project-idea">
-            <h2 id="project-idea" className={styles.blockTitle}>
-              {p('idea')}
+          <section className={styles.block} aria-labelledby="project-challenge">
+            <h2 id="project-challenge" className={styles.blockTitle}>
+              {t('challenge')}
             </h2>
-            <p className={styles.blockText}>
-              <ToFill what={`${slug}: the idea and the challenge`} />
-            </p>
+            <p className={styles.blockText}>{loc(project.challenge, locale)}</p>
           </section>
 
-          {/* ---- What we built ---- */}
-          <section className={styles.block} aria-labelledby="project-built">
-            <h2 id="project-built" className={styles.blockTitle}>
-              {p('built')}
+          <section className={styles.block} aria-labelledby="project-solution">
+            <h2 id="project-solution" className={styles.blockTitle}>
+              {t('solution')}
             </h2>
-            {features ? (
+            <p className={styles.blockText}>{loc(project.solution, locale)}</p>
+          </section>
+
+          {project.features.length ? (
+            <section className={styles.block} aria-labelledby="project-features">
+              <h2 id="project-features" className={styles.blockTitle}>
+                {t('features')}
+              </h2>
               <ul className={styles.featureList}>
-                {features.map((feature) => (
-                  <li key={feature} className={styles.feature}>
-                    {feature}
+                {project.features.map((feature) => (
+                  <li key={feature.en} className={styles.feature}>
+                    {loc(feature, locale)}
                   </li>
                 ))}
               </ul>
-            ) : (
-              <p className={styles.blockText}>
-                <ToFill what={`${slug}: list of features`} />
-              </p>
-            )}
-          </section>
+            </section>
+          ) : null}
 
-          {/* ---- Highlights: the card text is all we have so far ---- */}
-          <section className={styles.block} aria-labelledby="project-highlights">
-            <h2 id="project-highlights" className={styles.blockTitle}>
-              {p('highlights')}
-            </h2>
-            <p className={`${styles.blockText} ${styles.highlight}`}>{text}</p>
-          </section>
-
-          {/* ---- Tech ---- */}
-          <section className={styles.block} aria-labelledby="project-tech">
-            <h2 id="project-tech" className={styles.blockTitle}>
-              {p('tech')}
-            </h2>
-            <p className={styles.blockText}>
-              <ToFill what={`${slug}: tech used`} />
-            </p>
-          </section>
+          {technologies.length ? (
+            <section className={styles.block} aria-labelledby="project-tech">
+              <h2 id="project-tech" className={styles.blockTitle}>
+                {t('technologies')}
+              </h2>
+              <ul className={styles.featureList}>
+                {technologies.map((tech) => (
+                  <li key={typeof tech === 'string' ? tech : tech.en} className={styles.feature} dir="ltr">
+                    {typeof tech === 'string' ? tech : loc(tech, locale)}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
         </div>
 
-        {/* ---- Gallery: the cover for now, with room for screenshots ---- */}
-        <section className={`page-container ${styles.gallery}`} aria-labelledby="project-gallery">
-          <h2 id="project-gallery" className={styles.blockTitle}>
-            {p('gallery')}
-          </h2>
-          <ul className={styles.galleryGrid}>
-            <li className={`${styles.galleryItem} ${styles.galleryMain}`}>
-              <Image src={project.image} alt="" fill sizes="(max-width: 860px) 92vw, 60vw" className={styles.coverImage} />
-            </li>
-            {[1, 2].map((slot) => (
-              <li key={slot} className={`${styles.galleryItem} ${styles.gallerySlot}`}>
-                <ToFill what={`${slug}: screenshot ${slot}`} />
-                <span>{p('gallerySlot')}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {/* ---- Gallery: the main screen, a detail, and the phone ---- */}
+        {gallery.length ? (
+          <section className={`page-container ${styles.gallery}`} aria-labelledby="project-gallery">
+            <h2 id="project-gallery" className={styles.blockTitle}>
+              {t('gallery')}
+            </h2>
+            <div className={styles.galleryGrid}>
+              {/* Wide screens stacked in one column; the phone stands beside them. */}
+              <div className={styles.galleryStack}>{gallery.filter((src) => roleOf(src) !== 'mobile').map(galleryFigure)}</div>
+              {gallery.filter((src) => roleOf(src) === 'mobile').map(galleryFigure)}
+            </div>
+          </section>
+        ) : null}
 
-        {/* ---- Next project: the thread carries you into it ---- */}
-        <nav className={styles.nextProject} aria-label={p('next')}>
-          <Link href={`/work/${next.slug}`} className={`page-container ${styles.nextLink}`}>
-            <span className={styles.nextLabel}>{p('next')}</span>
-            <span className={styles.nextTitle}>{nextTitle}</span>
-            <svg className={styles.nextThread} viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-              <path pathLength="1" d="M0,22 C160,6 320,36 500,20 S840,6 1000,22" />
-              <path pathLength="1" d="M0,26 C170,12 330,38 510,24 S850,12 1000,18" />
-              <path pathLength="1" d="M0,18 C150,2 310,32 490,16 S830,2 1000,26" />
-            </svg>
-            <Icon name="arrow" size={28} className={styles.nextArrow} />
-          </Link>
+        {/* ---- Related projects ---- */}
+        {related.length ? (
+          <section className={`page-container ${styles.related}`} aria-labelledby="project-related">
+            <h2 id="project-related" className={styles.blockTitle}>
+              {t('related')}
+            </h2>
+            <ul className={styles.relatedList}>
+              {related.map((card) => (
+                <li key={card.slug} className={styles.relatedItem}>
+                  <ProjectCard project={card} sizes="(max-width: 640px) 92vw, (max-width: 1080px) 46vw, 30vw" />
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
+        {/* ---- Previous / next: the thread carries you into the next one ---- */}
+        <nav className={styles.nextProject} aria-label={t('next')}>
+          {next ? (
+            <Link href={`/work/${next.slug}`} className={`page-container ${styles.nextLink}`}>
+              <span className={styles.nextLabel}>{t('next')}</span>
+              <span className={styles.nextTitle}>{loc(next.brand, locale)}</span>
+              <span className={styles.nextLine}>{loc(next.title, locale)}</span>
+              <svg className={styles.nextThread} viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path pathLength="1" d="M0,22 C160,6 320,36 500,20 S840,6 1000,22" />
+                <path pathLength="1" d="M0,26 C170,12 330,38 510,24 S850,12 1000,18" />
+                <path pathLength="1" d="M0,18 C150,2 310,32 490,16 S830,2 1000,26" />
+              </svg>
+              <Icon name="arrow" size={28} className={styles.nextArrow} />
+            </Link>
+          ) : null}
+          {previous && previous.slug !== next?.slug ? (
+            <div className={`page-container ${styles.previousRow}`}>
+              <Link href={`/work/${previous.slug}`} className={styles.previousLink}>
+                <Icon name="arrow" size={16} className={styles.backIcon} />
+                {t('previous')}: {loc(previous.brand, locale)}
+              </Link>
+            </div>
+          ) : null}
         </nav>
       </article>
 
       <FinalCta />
       <StructuredData
-        page={{ type: 'WebPage', path: `/work/${slug}`, name: title, description: text, parent: { path: '/work', name: t('pages.work.label') } }}
-        creativeWork={{ name: title, description: text, image: project.image, url: project.url }}
+        page={{
+          type: 'WebPage',
+          path: `/work/${slug}`,
+          name: `${brand} — ${title}`,
+          description: summary,
+          parent: { path: '/work', name: tw('label') },
+        }}
+        creativeWork={{
+          name: brand,
+          description: summary,
+          image: project.media.cover,
+          url: project.type === 'live' ? project.externalUrl : null,
+        }}
       />
     </>
   );

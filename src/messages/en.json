@@ -87,80 +87,7 @@
   },
   "work": {
     "label": "Work",
-    "title": "Real work for diverse brands.",
-    "visit": "Visit site",
-    "demo": "Demo",
-    "comingSoon": "Coming soon",
-    "coverAlt": "Website preview: {title}",
-    "items": {
-      "tableware": {
-        "title": "Tableware store",
-        "text": "A bilingual store with catalogue, search, wishlist, cart and a wholesale quote flow."
-      },
-      "kids": {
-        "title": "Interactive kids' store",
-        "text": "A storefront drawn as a scene: clothes hang on a washing line and drop into the basket with a tap."
-      },
-      "bakery": {
-        "title": "Bakery one-page shop",
-        "text": "Menu with prices; customers fill a bag and send the order straight to WhatsApp."
-      },
-      "hara": {
-        "title": "Hara Oven — pizza builder",
-        "text": "Dough, sauce and toppings assemble on screen, then straight to ordering."
-      },
-      "waraqa": {
-        "title": "Waraqa — tea brand story",
-        "text": "A chaptered scroll story following one tea leaf from the hills to the cup."
-      },
-      "rakaez": {
-        "title": "Rakaez — engineering company site",
-        "text": "The building rises as you scroll; each stage reveals a section."
-      },
-      "wasan": {
-        "title": "Wasan Suites — booking dashboard",
-        "text": "Occupancy calendar, bookings, payments, reports and a smart assistant."
-      }
-    },
-    "types": {
-      "all": "All",
-      "store": "Stores",
-      "story": "Story sites",
-      "company": "Company sites",
-      "platform": "Platforms"
-    },
-    "category": {
-      "store": "Online store",
-      "story": "Story website",
-      "company": "Company website",
-      "platform": "Booking platform"
-    },
-    "viewProject": "View project",
-    "features": {
-      "tableware": [
-        "Catalogue",
-        "Search",
-        "Wishlist",
-        "Cart",
-        "Wholesale quote flow"
-      ],
-      "bakery": [
-        "Menu with prices",
-        "A bag customers fill",
-        "Orders sent straight to WhatsApp"
-      ],
-      "hara": [
-        "Dough, sauce and toppings assemble on screen",
-        "Straight to ordering"
-      ],
-      "wasan": [
-        "Occupancy calendar",
-        "Bookings",
-        "Payments",
-        "Reports",
-        "Smart assistant"
-      ]
-    }
+    "title": "Real work for diverse brands."
   },
   "why": {
     "label": "Why Washeej",
@@ -341,36 +268,12 @@
   "pages": {
     "work": {
       "label": "Work",
-      "title": "Real work for diverse brands.",
-      "filter": "Filter by type",
-      "count": "{count, plural, one {# project} other {# projects}}"
-    },
-    "project": {
-      "back": "All work",
-      "tags": {
-        "service": "Service type",
-        "sector": "Sector",
-        "country": "Country",
-        "languages": "Languages"
-      },
-      "languageNames": {
-        "ar": "Arabic",
-        "en": "English"
-      },
-      "idea": "The idea and the challenge",
-      "built": "What we built",
-      "highlights": "What makes it different",
-      "tech": "Tech used",
-      "gallery": "Gallery",
-      "gallerySlot": "Screenshot — to be added",
-      "next": "Next project"
+      "title": "Real work for diverse brands."
     },
     "services": {
       "label": "Services",
       "title": "Digital solutions that build your brand's presence and grow its impact.",
       "what": "What it is",
-      "who": "Who it's for",
-      "included": "What's included",
       "related": "A project from our work"
     },
     "about": {
@@ -402,6 +305,43 @@
     "faq": {
       "label": "FAQ",
       "title": "Answers to the questions we hear most."
+    }
+  },
+  "portfolio": {
+    "all": "All projects",
+    "filterLabel": "Filter by service",
+    "count": "{count, plural, =0 {No projects} one {# project} other {# projects}}",
+    "types": {
+      "live": "Live site",
+      "independent_redesign": "Independent redesign",
+      "concept": "Concept"
+    },
+    "redesignNote": "An independent redesign by Washeej — not an official commission from the brand.",
+    "conceptNote": "A concept project for a fictional brand, designed by Washeej to show this kind of website.",
+    "category": "Service",
+    "sector": "Sector",
+    "languages": "Languages",
+    "country": "Country",
+    "challenge": "The challenge",
+    "solution": "The solution",
+    "features": "What's included",
+    "technologies": "Technologies",
+    "gallery": "Inside the design",
+    "related": "Related projects",
+    "next": "Next project",
+    "previous": "Previous project",
+    "back": "All work",
+    "viewProject": "View project",
+    "imageSoon": "Images coming soon",
+    "languageNames": {
+      "ar": "Arabic",
+      "en": "English"
+    },
+    "whatsappMessageEn": "Hi Washeej, I saw the «{project}» project on your site and I'd like to talk about a similar project.",
+    "galleryAlt": {
+      "hero": "{brand}: main screen",
+      "detail": "{brand}: a detail of the experience",
+      "mobile": "{brand}: the design on mobile"
     }
   }
 }

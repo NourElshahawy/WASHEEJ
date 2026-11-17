@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getCategories, getPublishedProjects, loc, toCard } from '@/lib/projects';
 import { pageMetadata } from '@/lib/seo';
 import PageHero from '@/components/PageHero/PageHero';
 import WorkIndex from '@/components/WorkIndex/WorkIndex';
@@ -15,11 +16,13 @@ export default async function WorkPage({ params }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('pages.work');
+  const projects = getPublishedProjects().map((project) => toCard(project, locale));
+  const categories = getCategories().map((category) => ({ id: category.id, name: loc(category.name, locale) }));
 
   return (
     <>
       <PageHero label={t('label')} title={t('title')} />
-      <WorkIndex />
+      <WorkIndex projects={projects} categories={categories} />
       <FinalCta />
       <StructuredData page={{ type: 'CollectionPage', path: '/work', name: t('label'), description: t('title') }} />
     </>

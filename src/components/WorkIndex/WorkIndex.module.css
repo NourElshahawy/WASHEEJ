@@ -46,25 +46,59 @@
   font-size: var(--text-small);
 }
 
+/* ---- The grid: a wide card, a pair, a row of three — then again ---- */
 .projectGrid {
+  --gap: var(--card-gap);
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(1.25rem, 0.8rem + 1.6vw, 2.25rem) var(--card-gap);
+  gap: clamp(1.25rem, 0.8rem + 1.6vw, 2.25rem) var(--gap);
 }
 
 .projectItem {
-  flex: 0 1 calc((100% - var(--card-gap) * 2) / 3);
   min-width: 0;
+  display: flex;
+}
+
+.projectItem > * {
+  flex: 1;
+}
+
+.large {
+  flex: 0 0 100%;
+}
+
+.half {
+  flex: 0 0 calc((100% - var(--gap)) / 2);
+}
+
+.third {
+  flex: 0 0 calc((100% - var(--gap) * 2) / 3);
+}
+
+/* Staggered entrance when the list (re)appears: a short rise, one after another. */
+@media (prefers-reduced-motion: no-preference) {
+  .projectItem {
+    animation: cardIn 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(min(var(--i), 8) * 60ms);
+  }
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
 }
 
 @media (max-width: 1080px) {
-  .projectItem {
-    flex-basis: calc((100% - var(--card-gap)) / 2);
+  .third {
+    flex-basis: calc((100% - var(--gap)) / 2);
   }
 }
 
 @media (max-width: 640px) {
-  .projectItem {
+  .half,
+  .third {
     flex-basis: 100%;
   }
 }

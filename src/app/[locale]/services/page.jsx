@@ -1,18 +1,17 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { projectForService } from '@/data/work';
+import { categoryForService, getExampleProject, toCard } from '@/lib/projects';
 import { pageMetadata } from '@/lib/seo';
 import PageHero from '@/components/PageHero/PageHero';
 import LinePreview from '@/components/LinePreview/LinePreview';
 import ProjectCard from '@/components/ProjectCard/ProjectCard';
-import ToFill from '@/components/ToFill/ToFill';
 import FinalCta from '@/components/FinalCta/FinalCta';
 import StructuredData from '@/components/StructuredData/StructuredData';
 import styles from './page.module.css';
 
 /**
  * Services page: the eight services as full sections, each with its preview
- * drawing large. "What it is" is the service text from site-content.md;
- * "who it's for" and "what's included" are not written yet → [TO FILL].
+ * drawing large, the service text, and an example project from
+ * projects.json (the category the service maps to).
  */
 
 export async function generateMetadata({ params }) {
@@ -34,7 +33,8 @@ export default async function ServicesPage({ params }) {
 
       <div className={styles.serviceSections}>
         {services.map((service, index) => {
-          const project = projectForService(service.icon);
+          const example = getExampleProject(categoryForService(service.icon));
+          const project = example ? toCard(example, locale) : null;
           const number = String(index + 1).padStart(2, '0');
 
           return (
@@ -63,30 +63,16 @@ export default async function ServicesPage({ params }) {
                       <dt>{p('what')}</dt>
                       <dd>{service.text}</dd>
                     </div>
-                    <div className={styles.fact}>
-                      <dt>{p('who')}</dt>
-                      <dd>
-                        <ToFill what={`service ${service.icon}: who it's for`} />
-                      </dd>
-                    </div>
-                    <div className={styles.fact}>
-                      <dt>{p('included')}</dt>
-                      <dd>
-                        <ToFill what={`service ${service.icon}: what's included`} />
-                      </dd>
-                    </div>
                   </dl>
 
+                  {project ? (
                   <div className={styles.related}>
                     <h3 className={styles.relatedTitle}>{p('related')}</h3>
-                    {project ? (
-                      <div className={styles.relatedCard}>
-                        <ProjectCard project={project} number={index + 1} headingLevel="h4" sizes="(max-width: 860px) 92vw, 24rem" />
-                      </div>
-                    ) : (
-                      <ToFill what={`service ${service.icon}: related project`} />
-                    )}
+                    <div className={styles.relatedCard}>
+                      <ProjectCard project={project} headingLevel="h4" sizes="(max-width: 860px) 92vw, 24rem" />
+                    </div>
                   </div>
+                  ) : null}
                 </div>
               </div>
             </section>

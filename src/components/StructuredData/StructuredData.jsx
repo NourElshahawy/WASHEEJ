@@ -67,7 +67,7 @@ export default async function StructuredData({ page, creativeWork, services, faq
         '@type': 'CreativeWork',
         name: creativeWork.name,
         description: creativeWork.description,
-        image: `${siteConfig.url}${creativeWork.image}`,
+        ...(creativeWork.image ? { image: `${siteConfig.url}${creativeWork.image}` } : {}),
         ...(creativeWork.url ? { url: creativeWork.url } : {}),
         creator: { '@id': organizationId },
       };
