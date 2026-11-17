@@ -1,0 +1,1591 @@
+{
+  "schemaVersion": 1,
+  "lastUpdated": "2026-11-17",
+  "settings": {
+    "defaultLocale": "ar",
+    "supportedLocales": [
+      "ar",
+      "en"
+    ],
+    "whatsappNumber": null,
+    "whatsappMessageAr": "أهلًا وشيج، شفت مشروع «{project}» على موقعكم وحابب أتكلم معاكم عن مشروع مشابه.",
+    "assetsBasePath": "/images/projects"
+  },
+  "categories": [
+    {
+      "id": "landing-pages",
+      "name": {
+        "ar": "صفحات الهبوط",
+        "en": "Landing Pages"
+      },
+      "description": {
+        "ar": "صفحة واحدة تحوّل زوار حملتك إلى عملاء.",
+        "en": "Focused pages that turn campaign visitors into customers."
+      }
+    },
+    {
+      "id": "corporate",
+      "name": {
+        "ar": "المواقع التعريفية",
+        "en": "Corporate Websites"
+      },
+      "description": {
+        "ar": "حضور رسمي تديره بنفسك من لوحة تحكم.",
+        "en": "A professional digital presence you can manage."
+      }
+    },
+    {
+      "id": "storytelling",
+      "name": {
+        "ar": "المواقع القصصية",
+        "en": "Storytelling Websites"
+      },
+      "description": {
+        "ar": "قصة علامتك بالحركة والتفاعل.",
+        "en": "Tell your brand story through motion and interaction."
+      }
+    },
+    {
+      "id": "ecommerce",
+      "name": {
+        "ar": "المتاجر الإلكترونية",
+        "en": "E-commerce"
+      },
+      "description": {
+        "ar": "كتالوج وسلة ودفع ولوحة لطلباتك.",
+        "en": "Product catalogs, carts, checkout, and order management."
+      }
+    },
+    {
+      "id": "booking-real-estate",
+      "name": {
+        "ar": "منصات الحجز والعقارات",
+        "en": "Booking & Real Estate"
+      },
+      "description": {
+        "ar": "عرض وحجز ودفع آمن في مكان واحد.",
+        "en": "Discover, book, and pay in one place."
+      }
+    },
+    {
+      "id": "service-portals",
+      "name": {
+        "ar": "بوابات الخدمات الإلكترونية",
+        "en": "Service Portals"
+      },
+      "description": {
+        "ar": "طلبات بخطوات واضحة ورقم للمتابعة.",
+        "en": "Clear request flows with trackable progress."
+      }
+    },
+    {
+      "id": "dashboards",
+      "name": {
+        "ar": "الأنظمة المخصصة ولوحات التحكم",
+        "en": "Custom Systems & Dashboards"
+      },
+      "description": {
+        "ar": "نظام على مقاس طريقة عملك.",
+        "en": "Software tailored to your workflow."
+      }
+    },
+    {
+      "id": "ai-integrations",
+      "name": {
+        "ar": "التكاملات والذكاء الاصطناعي",
+        "en": "AI & Integrations"
+      },
+      "description": {
+        "ar": "نربط موقعك بأنظمتك ونضيف له ذكاءً.",
+        "en": "Connect your systems and add useful intelligence."
+      }
+    }
+  ],
+  "projects": [
+    {
+      "id": "gd-tableware",
+      "slug": "gd-tableware",
+      "brand": {
+        "ar": "GD Tableware",
+        "en": "GD Tableware"
+      },
+      "title": {
+        "ar": "تجربة تجارة إلكترونية لأدوات المائدة",
+        "en": "A Tableware E-commerce Experience"
+      },
+      "categoryId": "ecommerce",
+      "sector": {
+        "ar": "الأدوات المنزلية والضيافة",
+        "en": "Homeware & Hospitality"
+      },
+      "type": "live",
+      "featured": true,
+      "published": true,
+      "order": 1,
+      "summary": {
+        "ar": "واجهة تجارة إلكترونية تعرض مجموعات أدوات المائدة بوضوح، وتسهّل التنقل بين المنتجات واستكشاف التفاصيل.",
+        "en": "An e-commerce experience presenting tableware collections with clear product discovery."
+      },
+      "challenge": {
+        "ar": "تقديم مجموعة واسعة من المنتجات بشكل منظم مع إبراز تفاصيل كل قطعة.",
+        "en": "Organize a diverse catalog while highlighting product details."
+      },
+      "solution": {
+        "ar": "تنظيم بصري للمجموعات والمنتجات، ومسارات واضحة للاستكشاف والتواصل؛ تُراجع التفاصيل الوظيفية مع لقطات الموقع قبل نشر دراسة الحالة.",
+        "en": "A clear collection and product hierarchy, with interaction details to be verified against the live site."
+      },
+      "features": [
+        {
+          "ar": "عرض مجموعات المنتجات",
+          "en": "Product collections"
+        },
+        {
+          "ar": "صفحات تفاصيل المنتجات",
+          "en": "Product detail pages"
+        },
+        {
+          "ar": "تجربة متجاوبة",
+          "en": "Responsive layout"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": "https://gd-tableware.com/ar",
+      "cta": {
+        "type": "external",
+        "label": {
+          "ar": "زيارة الموقع",
+          "en": "Visit Website"
+        }
+      },
+      "media": {
+        "cover": "/images/projects/gd-tableware/cover.webp",
+        "hero": "/images/projects/gd-tableware/hero.webp",
+        "gallery": [
+          "/images/projects/gd-tableware/hero.webp",
+          "/images/projects/gd-tableware/detail.webp",
+          "/images/projects/gd-tableware/mobile.webp"
+        ],
+        "alt": {
+          "ar": "عرض واجهة متجر GD Tableware العربية ومجموعات أدوات المائدة",
+          "en": "GD Tableware Arabic storefront and tableware collection presentation"
+        }
+      },
+      "verification": "Review site screenshots before adding detailed technical claims."
+    },
+    {
+      "id": "dudu-kids",
+      "slug": "dudu-kids",
+      "brand": {
+        "ar": "DUDU Kids",
+        "en": "DUDU Kids"
+      },
+      "title": {
+        "ar": "متجر ملابس أطفال بتجربة مرحة",
+        "en": "A Playful Kidswear Store"
+      },
+      "categoryId": "ecommerce",
+      "sector": {
+        "ar": "أزياء الأطفال",
+        "en": "Kidswear"
+      },
+      "type": "live",
+      "featured": true,
+      "published": true,
+      "order": 2,
+      "summary": {
+        "ar": "متجر لملابس الأطفال يجمع بين روح بصرية مرحة وتنقل واضح لاستكشاف القطع والمجموعات.",
+        "en": "A kidswear storefront pairing playful visuals with clear browsing."
+      },
+      "challenge": {
+        "ar": "الجمع بين شخصية محببة للأطفال وتجربة استخدام واضحة للآباء.",
+        "en": "Balance a playful identity with an easy shopping experience for parents."
+      },
+      "solution": {
+        "ar": "عرض بصري للمنتجات وتصنيف يسهل استكشاف التشكيلات على الشاشات المختلفة.",
+        "en": "Visual merchandising and accessible collection browsing across screens."
+      },
+      "features": [
+        {
+          "ar": "استعراض التشكيلات",
+          "en": "Collection browsing"
+        },
+        {
+          "ar": "عرض منتجات بصري",
+          "en": "Visual product presentation"
+        },
+        {
+          "ar": "تصميم متجاوب",
+          "en": "Responsive design"
+        }
+      ],
+      "languages": [],
+      "country": null,
+      "technologies": [],
+      "externalUrl": "https://dudu-kids.vercel.app/",
+      "cta": {
+        "type": "external",
+        "label": {
+          "ar": "زيارة الموقع",
+          "en": "Visit Website"
+        }
+      },
+      "media": {
+        "cover": "/images/projects/dudu-kids/cover.webp",
+        "hero": "/images/projects/dudu-kids/hero.webp",
+        "gallery": [
+          "/images/projects/dudu-kids/hero.webp",
+          "/images/projects/dudu-kids/detail.webp",
+          "/images/projects/dudu-kids/mobile.webp"
+        ],
+        "alt": {
+          "ar": "واجهة متجر DUDU Kids",
+          "en": "DUDU Kids storefront"
+        }
+      },
+      "verification": "Verify specific interactions against the live site."
+    },
+    {
+      "id": "lovan",
+      "slug": "lovan",
+      "brand": {
+        "ar": "Lovan",
+        "en": "Lovan"
+      },
+      "title": {
+        "ar": "مخبز يحكي قصته في صفحة واحدة",
+        "en": "A One-page Bakery Experience"
+      },
+      "categoryId": "landing-pages",
+      "sector": {
+        "ar": "المخابز والأغذية",
+        "en": "Bakery & Food"
+      },
+      "type": "live",
+      "featured": true,
+      "published": true,
+      "order": 3,
+      "summary": {
+        "ar": "صفحة مخبز تمزج صور المخبوزات مع عرض واضح للمنتجات والمنيو، وتضيف لمسات حركة أثناء التصفح.",
+        "en": "A bakery landing page combining appetizing products, a clear menu, and motion."
+      },
+      "challenge": {
+        "ar": "إظهار شهية المنتجات دون تعطيل الزائر الذي يريد الوصول إلى المنيو بسرعة.",
+        "en": "Show appetizing products without slowing access to the menu."
+      },
+      "solution": {
+        "ar": "رحلة صفحة واحدة تضع المنتجات والمنيو في المقدمة وتستخدم الحركة لدعم السرد.",
+        "en": "A single-page journey prioritizing product browsing and menu accessibility."
+      },
+      "features": [
+        {
+          "ar": "واجهة بصرية",
+          "en": "Visual hero"
+        },
+        {
+          "ar": "منيو واضح",
+          "en": "Clear menu"
+        },
+        {
+          "ar": "حركة مرتبطة بالمحتوى",
+          "en": "Content-led motion"
+        }
+      ],
+      "languages": [],
+      "country": null,
+      "technologies": [],
+      "externalUrl": "https://lovan.vercel.app/",
+      "cta": {
+        "type": "external",
+        "label": {
+          "ar": "زيارة الموقع",
+          "en": "Visit Website"
+        }
+      },
+      "media": {
+        "cover": "/images/projects/lovan/cover.webp",
+        "hero": "/images/projects/lovan/hero.webp",
+        "gallery": [
+          "/images/projects/lovan/hero.webp",
+          "/images/projects/lovan/detail.webp",
+          "/images/projects/lovan/mobile.webp"
+        ],
+        "alt": {
+          "ar": "واجهة موقع مخبز Lovan",
+          "en": "Lovan bakery homepage"
+        }
+      },
+      "verification": "Current published prototype may differ from planned redesign."
+    },
+    {
+      "id": "papajohns-redesign",
+      "slug": "papajohns-redesign",
+      "brand": {
+        "ar": "Papa John's",
+        "en": "Papa John's"
+      },
+      "title": {
+        "ar": "إعادة تصور تفاعلية لتجربة طلب البيتزا",
+        "en": "An Interactive Pizza-ordering Redesign"
+      },
+      "categoryId": "ecommerce",
+      "sector": {
+        "ar": "المطاعم",
+        "en": "Restaurants"
+      },
+      "type": "independent_redesign",
+      "featured": true,
+      "published": true,
+      "order": 4,
+      "summary": {
+        "ar": "إعادة تصور مستقلة لرحلة طلب البيتزا، تركّز على جعل الاختيارات والتخصيص أكثر وضوحًا وتفاعلًا.",
+        "en": "An independent exploration of a more interactive, customizable pizza-ordering journey."
+      },
+      "challenge": {
+        "ar": "تحويل اختيار البيتزا وإضافاتها إلى تجربة مفهومة وممتعة.",
+        "en": "Make pizza customization easy to understand and engaging."
+      },
+      "solution": {
+        "ar": "تصور لواجهة طلب تفاعلية مع بناء البيتزا ومراجعة الاختيارات قبل الانتقال للطلب.",
+        "en": "A concept interface for building a pizza and reviewing choices before ordering."
+      },
+      "features": [
+        {
+          "ar": "مُكوّن بيتزا",
+          "en": "Pizza builder"
+        },
+        {
+          "ar": "اختيارات تفاعلية",
+          "en": "Interactive selections"
+        },
+        {
+          "ar": "ملخص الطلب",
+          "en": "Order summary"
+        }
+      ],
+      "languages": [],
+      "country": null,
+      "technologies": [],
+      "externalUrl": "https://papajohns-rebrand.vercel.app/#branches",
+      "cta": {
+        "type": "external",
+        "label": {
+          "ar": "استكشف التجربة",
+          "en": "Explore Concept"
+        }
+      },
+      "media": {
+        "cover": "/images/projects/papajohns-redesign/cover.webp",
+        "hero": "/images/projects/papajohns-redesign/hero.webp",
+        "gallery": [
+          "/images/projects/papajohns-redesign/hero.webp",
+          "/images/projects/papajohns-redesign/detail.webp",
+          "/images/projects/papajohns-redesign/mobile.webp"
+        ],
+        "alt": {
+          "ar": "تصور مستقل لتجربة طلب Papa John's",
+          "en": "Independent Papa John's redesign concept"
+        }
+      },
+      "verification": "Independent concept, not an official brand commission."
+    },
+    {
+      "id": "ahmed-tea-redesign",
+      "slug": "ahmed-tea-redesign",
+      "brand": {
+        "ar": "Ahmed Tea",
+        "en": "Ahmed Tea"
+      },
+      "title": {
+        "ar": "رحلة قصصية تفاعلية في عالم الشاي",
+        "en": "An Interactive Tea Story"
+      },
+      "categoryId": "storytelling",
+      "sector": {
+        "ar": "المشروبات",
+        "en": "Beverages"
+      },
+      "type": "independent_redesign",
+      "featured": true,
+      "published": true,
+      "order": 5,
+      "summary": {
+        "ar": "تصور مستقل لتجربة رقمية تحكي عالم الشاي بالصور والانتقالات والحركة أثناء التصفح.",
+        "en": "An independent digital storytelling exploration around tea."
+      },
+      "challenge": {
+        "ar": "تقديم منتج يومي من خلال قصة رقمية هادئة بدل عرض تقليدي للمنتجات.",
+        "en": "Turn an everyday product into a memorable digital story."
+      },
+      "solution": {
+        "ar": "مشاهد متتابعة تبرز الشاي وتستخدم التمرير كجزء من الحكاية.",
+        "en": "A sequence of visual chapters that uses scrolling to support storytelling."
+      },
+      "features": [
+        {
+          "ar": "سرد بالتمرير",
+          "en": "Scrollytelling"
+        },
+        {
+          "ar": "انتقالات بصرية",
+          "en": "Visual transitions"
+        },
+        {
+          "ar": "عرض تحريري",
+          "en": "Editorial presentation"
+        }
+      ],
+      "languages": [
+        "ar"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": "https://ahmed-tea.vercel.app/ar",
+      "cta": {
+        "type": "external",
+        "label": {
+          "ar": "استكشف التجربة",
+          "en": "Explore Concept"
+        }
+      },
+      "media": {
+        "cover": "/images/projects/ahmed-tea-redesign/cover.webp",
+        "hero": "/images/projects/ahmed-tea-redesign/hero.webp",
+        "gallery": [
+          "/images/projects/ahmed-tea-redesign/hero.webp",
+          "/images/projects/ahmed-tea-redesign/detail.webp",
+          "/images/projects/ahmed-tea-redesign/mobile.webp"
+        ],
+        "alt": {
+          "ar": "إعادة تصور مستقلة لموقع Ahmed Tea",
+          "en": "Independent Ahmed Tea web concept"
+        }
+      },
+      "verification": "Independent concept, not an official brand commission."
+    },
+    {
+      "id": "athar-perfume",
+      "slug": "athar-perfume",
+      "brand": {
+        "ar": "أثَر",
+        "en": "ATHAR"
+      },
+      "title": {
+        "ar": "إطلاق عطر يحمل أثره",
+        "en": "A Fragrance Launch Experience"
+      },
+      "categoryId": "landing-pages",
+      "sector": {
+        "ar": "العطور",
+        "en": "Fragrance"
+      },
+      "type": "concept",
+      "featured": true,
+      "published": true,
+      "order": 6,
+      "summary": {
+        "ar": "صفحة إطلاق لعطر شرقي، تربط بين تصوير المنتج والحكاية وزر الطلب المسبق في تجربة واحدة.",
+        "en": "An editorial perfume launch page with a focused pre-order journey."
+      },
+      "challenge": {
+        "ar": "ترجمة شخصية العطر إلى حضور رقمي مميز.",
+        "en": "Translate fragrance character into a compelling digital launch."
+      },
+      "solution": {
+        "ar": "مشاهد منتج سينمائية وميزات العطر ودعوة واضحة للطلب المسبق.",
+        "en": "Cinematic product storytelling with a focused pre-order CTA."
+      },
+      "features": [
+        {
+          "ar": "سرد إطلاق",
+          "en": "Launch storytelling"
+        },
+        {
+          "ar": "عرض مكونات العطر",
+          "en": "Fragrance notes"
+        },
+        {
+          "ar": "طلب مسبق",
+          "en": "Pre-order CTA"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "عايز تجربة مشابهة؟",
+          "en": "Build Something Similar"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور صفحة إطلاق عطر أثر",
+          "en": "ATHAR perfume landing concept"
+        }
+      }
+    },
+    {
+      "id": "nabd-fitness",
+      "slug": "nabd-fitness",
+      "brand": {
+        "ar": "نَبض",
+        "en": "NABD"
+      },
+      "title": {
+        "ar": "صفحة إطلاق لتطبيق لياقة",
+        "en": "A Fitness App Launch Page"
+      },
+      "categoryId": "landing-pages",
+      "sector": {
+        "ar": "اللياقة",
+        "en": "Fitness"
+      },
+      "type": "concept",
+      "featured": false,
+      "published": true,
+      "order": 7,
+      "summary": {
+        "ar": "صفحة حملة حيوية تشرح التطبيق عبر لقطات هاتف ومزاياه، وتقود الزائر إلى التحميل.",
+        "en": "An energetic campaign page communicating an app's benefits and download flow."
+      },
+      "challenge": {
+        "ar": "شرح قيمة التطبيق بسرعة لزوار الحملات.",
+        "en": "Explain app value quickly to campaign visitors."
+      },
+      "solution": {
+        "ar": "عرض واجهات التطبيق والمميزات بخطوات قصيرة ودعوات تحميل واضحة.",
+        "en": "Clear feature sections, phone previews, and download calls to action."
+      },
+      "features": [
+        {
+          "ar": "استعراض التطبيق",
+          "en": "App preview"
+        },
+        {
+          "ar": "مزايا مختصرة",
+          "en": "Feature highlights"
+        },
+        {
+          "ar": "دعوة للتحميل",
+          "en": "Download CTA"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "اطلب صفحة مشابهة",
+          "en": "Request Similar Page"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور موقع تطبيق نبض",
+          "en": "NABD fitness landing concept"
+        }
+      }
+    },
+    {
+      "id": "mimar-architecture",
+      "slug": "mimar-architecture",
+      "brand": {
+        "ar": "مِعمار",
+        "en": "MIMAR"
+      },
+      "title": {
+        "ar": "هوية رقمية لمكتب معماري",
+        "en": "Digital Presence for Architects"
+      },
+      "categoryId": "corporate",
+      "sector": {
+        "ar": "العمارة",
+        "en": "Architecture"
+      },
+      "type": "concept",
+      "featured": true,
+      "published": true,
+      "order": 8,
+      "summary": {
+        "ar": "موقع تعريفي بمشاريع معمارية مصوّرة، وصفحات خدمات وفريق وتجربة استعراض تشبه المجلات.",
+        "en": "An editorial architecture website featuring projects, expertise, and team profiles."
+      },
+      "challenge": {
+        "ar": "عرض المشروعات بتسلسل يوضح شخصية المكتب وخبرته.",
+        "en": "Present architectural projects with clarity and character."
+      },
+      "solution": {
+        "ar": "دراسات حالة مصوّرة وتصنيفات للمشروعات ومسارات تواصل مباشرة.",
+        "en": "Image-led case studies, project categories, and clear contact paths."
+      },
+      "features": [
+        {
+          "ar": "معرض أعمال",
+          "en": "Portfolio gallery"
+        },
+        {
+          "ar": "دراسات حالة",
+          "en": "Case studies"
+        },
+        {
+          "ar": "صفحات خدمات",
+          "en": "Service pages"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "اطلب موقعًا مشابهًا",
+          "en": "Request Similar Website"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور موقع معمار",
+          "en": "MIMAR architecture website concept"
+        }
+      }
+    },
+    {
+      "id": "rushd-consulting",
+      "slug": "rushd-consulting",
+      "brand": {
+        "ar": "رُشد",
+        "en": "RUSHD"
+      },
+      "title": {
+        "ar": "موقع استشارات يبني الثقة",
+        "en": "A Credible Consulting Website"
+      },
+      "categoryId": "corporate",
+      "sector": {
+        "ar": "الاستشارات",
+        "en": "Consulting"
+      },
+      "type": "concept",
+      "featured": false,
+      "published": true,
+      "order": 9,
+      "summary": {
+        "ar": "حضور مؤسسي واضح لمكتب استشارات، يعرض الخدمات والخبرات وطريقة العمل ويبسّط طلب الاستشارة.",
+        "en": "A structured corporate website with services, expertise, and consultation booking."
+      },
+      "challenge": {
+        "ar": "تحويل الخدمات المعقدة إلى محتوى مفهوم للعملاء.",
+        "en": "Make complex consulting offers easy to understand."
+      },
+      "solution": {
+        "ar": "هيكل معلومات واضح مع صفحات خبرات وأسئلة شائعة ونموذج استشارة.",
+        "en": "Clear information architecture and consultation enquiry flow."
+      },
+      "features": [
+        {
+          "ar": "صفحات خدمات",
+          "en": "Service pages"
+        },
+        {
+          "ar": "ملفات الخبراء",
+          "en": "Expert profiles"
+        },
+        {
+          "ar": "طلب استشارة",
+          "en": "Consultation form"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "اطلب موقعًا مشابهًا",
+          "en": "Request Similar Website"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور موقع رشد للاستشارات",
+          "en": "RUSHD consultancy concept"
+        }
+      }
+    },
+    {
+      "id": "darb-story",
+      "slug": "darb-story",
+      "brand": {
+        "ar": "دَرْب",
+        "en": "DARB"
+      },
+      "title": {
+        "ar": "رحلة عبر طرق التجارة القديمة",
+        "en": "An Interactive Trade-route Journey"
+      },
+      "categoryId": "storytelling",
+      "sector": {
+        "ar": "التراث والثقافة",
+        "en": "Heritage & Culture"
+      },
+      "type": "concept",
+      "featured": true,
+      "published": true,
+      "order": 10,
+      "summary": {
+        "ar": "قصة تفاعلية تستكشف طرق التجارة العربية عبر خرائط ومشاهد وانتقالات مرتبطة بالتمرير.",
+        "en": "An interactive cultural journey through maps, chapters, and scroll-linked scenes."
+      },
+      "challenge": {
+        "ar": "جعل المحتوى التاريخي ممتعًا وسهل المتابعة.",
+        "en": "Make historical content engaging and accessible."
+      },
+      "solution": {
+        "ar": "فصول مرئية وخرائط توضيحية ونقاط توقف مع تقدم القصة.",
+        "en": "Visual chapters, illustrative maps, and guided narrative progression."
+      },
+      "features": [
+        {
+          "ar": "خريطة تفاعلية",
+          "en": "Interactive map"
+        },
+        {
+          "ar": "فصول قصصية",
+          "en": "Narrative chapters"
+        },
+        {
+          "ar": "مؤشر تقدم",
+          "en": "Progress indicator"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "احكِ قصتك معنا",
+          "en": "Tell Your Story"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور موقع درب القصصي",
+          "en": "DARB scrollytelling concept"
+        }
+      }
+    },
+    {
+      "id": "jathr-coffee",
+      "slug": "jathr-coffee",
+      "brand": {
+        "ar": "جَذْر",
+        "en": "JATHR"
+      },
+      "title": {
+        "ar": "حكاية القهوة من الأرض للفنجان",
+        "en": "Coffee from Soil to Cup"
+      },
+      "categoryId": "storytelling",
+      "sector": {
+        "ar": "القهوة",
+        "en": "Coffee"
+      },
+      "type": "concept",
+      "featured": false,
+      "published": true,
+      "order": 11,
+      "summary": {
+        "ar": "تجربة قصصية تتتبع رحلة حبوب القهوة من المزارع والتحميص وحتى التحضير.",
+        "en": "A scrollytelling experience tracing coffee from growing and roasting to brewing."
+      },
+      "challenge": {
+        "ar": "تحويل مراحل إنتاج القهوة إلى تجربة ممتعة لا مجرد معلومات.",
+        "en": "Make coffee production stages immersive rather than purely informational."
+      },
+      "solution": {
+        "ar": "مشاهد تصويرية وانتقالات مرافقة للتمرير وتفاصيل لكل مرحلة.",
+        "en": "Photographic chapters with subtle scroll-linked transitions."
+      },
+      "features": [
+        {
+          "ar": "سرد تفاعلي",
+          "en": "Interactive storytelling"
+        },
+        {
+          "ar": "مراحل التحميص",
+          "en": "Roasting chapters"
+        },
+        {
+          "ar": "مشاهد منتجات",
+          "en": "Product scenes"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "احكِ قصتك معنا",
+          "en": "Tell Your Story"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور موقع جذر للقهوة",
+          "en": "JATHR coffee story concept"
+        }
+      }
+    },
+    {
+      "id": "lujain-jewelry",
+      "slug": "lujain-jewelry",
+      "brand": {
+        "ar": "لُجين",
+        "en": "LUJAIN"
+      },
+      "title": {
+        "ar": "تسوق مجوهرات بطابع شخصي",
+        "en": "Personalized Jewelry Shopping"
+      },
+      "categoryId": "ecommerce",
+      "sector": {
+        "ar": "المجوهرات",
+        "en": "Jewelry"
+      },
+      "type": "concept",
+      "featured": true,
+      "published": true,
+      "order": 12,
+      "summary": {
+        "ar": "متجر مجوهرات يتيح استكشاف القطع واختيار التشطيبات والتخصيص في واجهة أنيقة.",
+        "en": "A refined jewelry store with product exploration and personalization options."
+      },
+      "challenge": {
+        "ar": "إظهار تفاصيل القطع وخيارات تخصيصها دون تشتيت.",
+        "en": "Show jewelry craftsmanship and customization clearly."
+      },
+      "solution": {
+        "ar": "تصوير قريب للمنتجات ومحدد خيارات ومراجعة للاختيارات قبل الطلب.",
+        "en": "Macro product photography and a focused product configurator."
+      },
+      "features": [
+        {
+          "ar": "كتالوج",
+          "en": "Catalog"
+        },
+        {
+          "ar": "تخصيص القطعة",
+          "en": "Customization"
+        },
+        {
+          "ar": "سلة طلبات",
+          "en": "Shopping cart"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "اطلب متجرًا مشابهًا",
+          "en": "Request Similar Store"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور متجر لجين للمجوهرات",
+          "en": "LUJAIN jewelry store concept"
+        }
+      }
+    },
+    {
+      "id": "kattan-textiles",
+      "slug": "kattan-textiles",
+      "brand": {
+        "ar": "كَتّان",
+        "en": "KATTAN"
+      },
+      "title": {
+        "ar": "متجر للمنسوجات الطبيعية",
+        "en": "A Natural Textiles Store"
+      },
+      "categoryId": "ecommerce",
+      "sector": {
+        "ar": "المنسوجات والمنزل",
+        "en": "Textiles & Home"
+      },
+      "type": "concept",
+      "featured": false,
+      "published": true,
+      "order": 13,
+      "summary": {
+        "ar": "متجر هادئ للمنسوجات والمفروشات الطبيعية، يركز على الملمس والمجموعات والتفاصيل.",
+        "en": "A calm home textiles storefront emphasizing materials, collections, and detail."
+      },
+      "challenge": {
+        "ar": "نقل إحساس الخامة للمتسوق على الشاشة.",
+        "en": "Communicate tactile material quality through a screen."
+      },
+      "solution": {
+        "ar": "صور ملمس عالية الدقة ومجموعات واضحة وتفاصيل للمواد والمقاسات.",
+        "en": "Texture-led photography with clear materials and sizing information."
+      },
+      "features": [
+        {
+          "ar": "مجموعات منتجات",
+          "en": "Collections"
+        },
+        {
+          "ar": "تفاصيل الخامات",
+          "en": "Material details"
+        },
+        {
+          "ar": "سلة شراء",
+          "en": "Shopping cart"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "اطلب متجرًا مشابهًا",
+          "en": "Request Similar Store"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور متجر كتان",
+          "en": "KATTAN textiles store concept"
+        }
+      }
+    },
+    {
+      "id": "mada-resorts",
+      "slug": "mada-resorts",
+      "brand": {
+        "ar": "مَدى",
+        "en": "MADA"
+      },
+      "title": {
+        "ar": "اكتشف إقامتك القادمة واحجزها",
+        "en": "Discover and Book Your Next Escape"
+      },
+      "categoryId": "booking-real-estate",
+      "sector": {
+        "ar": "السياحة والضيافة",
+        "en": "Travel & Hospitality"
+      },
+      "type": "concept",
+      "featured": true,
+      "published": true,
+      "order": 14,
+      "summary": {
+        "ar": "منصة لاكتشاف الاستراحات والمنتجعات ومقارنة المرافق والتواريخ المتاحة قبل الحجز.",
+        "en": "A platform for discovering and comparing resort stays with availability-based booking."
+      },
+      "challenge": {
+        "ar": "تسهيل اختيار إقامة تناسب المجموعة والميزانية والتاريخ.",
+        "en": "Simplify choosing a stay by dates, group size, and amenities."
+      },
+      "solution": {
+        "ar": "بحث وفلاتر ونتائج ببطاقات غنية وتقويم تواريخ وحجز متعدد الخطوات.",
+        "en": "Search filters, informative listings, availability calendar, and booking flow."
+      },
+      "features": [
+        {
+          "ar": "بحث وفلاتر",
+          "en": "Search & filters"
+        },
+        {
+          "ar": "تقويم توفر",
+          "en": "Availability calendar"
+        },
+        {
+          "ar": "حجز",
+          "en": "Booking flow"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "اطلب منصة مشابهة",
+          "en": "Request Similar Platform"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور منصة مدى للحجوزات",
+          "en": "MADA booking platform concept"
+        }
+      }
+    },
+    {
+      "id": "maqam-properties",
+      "slug": "maqam-properties",
+      "brand": {
+        "ar": "مَقام",
+        "en": "MAQAM"
+      },
+      "title": {
+        "ar": "عقارات أوضح وقرارات أسهل",
+        "en": "Smarter Property Discovery"
+      },
+      "categoryId": "booking-real-estate",
+      "sector": {
+        "ar": "العقارات",
+        "en": "Real Estate"
+      },
+      "type": "concept",
+      "featured": false,
+      "published": true,
+      "order": 15,
+      "summary": {
+        "ar": "منصة عقارية بخرائط وفلاتر ومقارنة وحدات، تساعد الزائر على تقييم خياراته قبل التواصل.",
+        "en": "A real-estate discovery platform with map search, filters, and property comparison."
+      },
+      "challenge": {
+        "ar": "تجميع تفاصيل الوحدات ومواقعها في تجربة بحث واحدة.",
+        "en": "Unify property details and location context in one search journey."
+      },
+      "solution": {
+        "ar": "قائمة نتائج متزامنة مع خريطة وصفحات تفاصيل ومقارنة جانبية.",
+        "en": "A synchronized map/list interface with details and comparison."
+      },
+      "features": [
+        {
+          "ar": "خريطة عقارية",
+          "en": "Property map"
+        },
+        {
+          "ar": "فلاتر",
+          "en": "Filters"
+        },
+        {
+          "ar": "مقارنة",
+          "en": "Comparison"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "اطلب منصة مشابهة",
+          "en": "Request Similar Platform"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور منصة مقام العقارية",
+          "en": "MAQAM property platform concept"
+        }
+      }
+    },
+    {
+      "id": "sanad-services",
+      "slug": "sanad-services",
+      "brand": {
+        "ar": "سَنَد",
+        "en": "SANAD"
+      },
+      "title": {
+        "ar": "بوابة خدمات بخطوات واضحة",
+        "en": "Clear Digital Service Requests"
+      },
+      "categoryId": "service-portals",
+      "sector": {
+        "ar": "الخدمات العامة",
+        "en": "Public Services"
+      },
+      "type": "concept",
+      "featured": false,
+      "published": true,
+      "order": 16,
+      "summary": {
+        "ar": "بوابة افتراضية لتنظيم طلبات الخدمات ومتابعة حالة كل طلب عبر خطوات واضحة.",
+        "en": "A hypothetical digital portal for service applications and status tracking."
+      },
+      "challenge": {
+        "ar": "تبسيط نموذج طلب طويل إلى مراحل مفهومة.",
+        "en": "Make multi-step service applications easy to follow."
+      },
+      "solution": {
+        "ar": "نموذج مقسم إلى خطوات، ومرفقات، ورقم مرجعي لتتبع الحالة.",
+        "en": "A guided form, attachments, and reference-based tracking."
+      },
+      "features": [
+        {
+          "ar": "طلب متعدد الخطوات",
+          "en": "Multi-step requests"
+        },
+        {
+          "ar": "إرفاق ملفات",
+          "en": "File attachments"
+        },
+        {
+          "ar": "تتبع الطلب",
+          "en": "Status tracking"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "اطلب بوابة مشابهة",
+          "en": "Request Similar Portal"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور بوابة سند للخدمات",
+          "en": "SANAD service portal concept"
+        }
+      }
+    },
+    {
+      "id": "masar-licensing",
+      "slug": "masar-licensing",
+      "brand": {
+        "ar": "مَسار",
+        "en": "MASAR"
+      },
+      "title": {
+        "ar": "إدارة التراخيص من التقديم للقرار",
+        "en": "A Licensing Journey Portal"
+      },
+      "categoryId": "service-portals",
+      "sector": {
+        "ar": "التراخيص والخدمات",
+        "en": "Licensing Services"
+      },
+      "type": "concept",
+      "featured": false,
+      "published": true,
+      "order": 17,
+      "summary": {
+        "ar": "تصور لبوابة تراخيص تجمع متطلبات الطلب والمرفقات والمراجعة ومراحل الموافقة.",
+        "en": "A concept licensing portal connecting submissions, documents, and approval stages."
+      },
+      "challenge": {
+        "ar": "توضيح ما المطلوب في كل مرحلة من رحلة الترخيص.",
+        "en": "Clarify requirements at every licensing step."
+      },
+      "solution": {
+        "ar": "قائمة مستندات وخطوات متابعة وتنبيهات داخل الواجهة.",
+        "en": "Document checklists, stage tracking, and in-app notifications."
+      },
+      "features": [
+        {
+          "ar": "إدارة المرفقات",
+          "en": "Document management"
+        },
+        {
+          "ar": "مراحل الموافقة",
+          "en": "Approval stages"
+        },
+        {
+          "ar": "إشعارات",
+          "en": "Notifications"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "اطلب بوابة مشابهة",
+          "en": "Request Similar Portal"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور بوابة مسار للتراخيص",
+          "en": "MASAR licensing portal concept"
+        }
+      }
+    },
+    {
+      "id": "rasd-logistics",
+      "slug": "rasd-logistics",
+      "brand": {
+        "ar": "رَصد",
+        "en": "RASD"
+      },
+      "title": {
+        "ar": "الأسطول والشحنات في لوحة واحدة",
+        "en": "Fleet and Shipments in One Dashboard"
+      },
+      "categoryId": "dashboards",
+      "sector": {
+        "ar": "النقل واللوجستيات",
+        "en": "Logistics"
+      },
+      "type": "concept",
+      "featured": true,
+      "published": true,
+      "order": 18,
+      "summary": {
+        "ar": "لوحة تشغيل للأسطول والشحنات، تعرض الحالات والمسارات والتنبيهات بصورة تساعد فرق العمليات.",
+        "en": "A logistics operations dashboard with fleet status, routes, and shipment tracking."
+      },
+      "challenge": {
+        "ar": "جعل بيانات الحركة والشحن قابلة للمراجعة بسرعة.",
+        "en": "Make fleet and shipment signals easy to scan."
+      },
+      "solution": {
+        "ar": "خريطة وقائمة شحنات وفلاتر للحالات وتنبيهات تشغيلية في واجهة واحدة.",
+        "en": "A unified map, shipment list, filters, and operational alerts."
+      },
+      "features": [
+        {
+          "ar": "تتبع الشحنات",
+          "en": "Shipment tracking"
+        },
+        {
+          "ar": "خريطة",
+          "en": "Map view"
+        },
+        {
+          "ar": "حالات الأسطول",
+          "en": "Fleet status"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "اطلب نظامًا مشابهًا",
+          "en": "Request Similar System"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور لوحة رصد اللوجستية",
+          "en": "RASD logistics dashboard concept"
+        }
+      }
+    },
+    {
+      "id": "mihwar-operations",
+      "slug": "mihwar-operations",
+      "brand": {
+        "ar": "مِحور",
+        "en": "MIHWAR"
+      },
+      "title": {
+        "ar": "مساحة واحدة لإدارة عمل الفريق",
+        "en": "One Workspace for Team Operations"
+      },
+      "categoryId": "dashboards",
+      "sector": {
+        "ar": "إدارة الأعمال",
+        "en": "Business Operations"
+      },
+      "type": "concept",
+      "featured": false,
+      "published": true,
+      "order": 19,
+      "summary": {
+        "ar": "نظام لإدارة المهام والعمليات والموافقات اليومية للفرق، مع نظرة شاملة على سير العمل.",
+        "en": "A team operations platform for tasks, approvals, and workflow visibility."
+      },
+      "challenge": {
+        "ar": "تقليل تشتت المهام والمتابعات بين الأدوات.",
+        "en": "Reduce fragmented task and approval workflows."
+      },
+      "solution": {
+        "ar": "لوحات مهام ومسؤوليات وحالات وإشعارات مبنية حول عمل الفريق.",
+        "en": "Unified task boards, assignments, statuses, and notifications."
+      },
+      "features": [
+        {
+          "ar": "لوحات مهام",
+          "en": "Task boards"
+        },
+        {
+          "ar": "موافقات",
+          "en": "Approvals"
+        },
+        {
+          "ar": "صلاحيات فرق",
+          "en": "Team roles"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "اطلب نظامًا مشابهًا",
+          "en": "Request Similar System"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور لوحة محور للعمليات",
+          "en": "MIHWAR operations dashboard concept"
+        }
+      }
+    },
+    {
+      "id": "baseera-ai",
+      "slug": "baseera-ai",
+      "brand": {
+        "ar": "بَصيرة",
+        "en": "BASEERA"
+      },
+      "title": {
+        "ar": "من صورة الفاتورة إلى بيانات قابلة للمراجعة",
+        "en": "From Receipt Image to Reviewable Data"
+      },
+      "categoryId": "ai-integrations",
+      "sector": {
+        "ar": "المحاسبة والعمليات",
+        "en": "Finance Operations"
+      },
+      "type": "concept",
+      "featured": true,
+      "published": true,
+      "order": 20,
+      "summary": {
+        "ar": "تصور لنظام يستخرج بيانات الفواتير والمستندات بالذكاء الاصطناعي ويعرضها للمراجعة قبل اعتمادها.",
+        "en": "An AI document-extraction concept with human verification before approval."
+      },
+      "challenge": {
+        "ar": "تقليل الإدخال اليدوي مع الحفاظ على تدقيق البيانات.",
+        "en": "Reduce manual entry without removing human oversight."
+      },
+      "solution": {
+        "ar": "رفع المستند ثم استخراج الحقول وعرض مستوى الثقة والتعديل قبل الحفظ.",
+        "en": "Upload, extract, flag uncertain fields, review, and approve."
+      },
+      "features": [
+        {
+          "ar": "رفع مستندات",
+          "en": "Document upload"
+        },
+        {
+          "ar": "استخراج حقول",
+          "en": "Field extraction"
+        },
+        {
+          "ar": "مراجعة قبل الحفظ",
+          "en": "Human approval"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "ناقش فكرة ذكاء اصطناعي",
+          "en": "Discuss an AI Project"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور منصة بصيرة لاستخراج الفواتير",
+          "en": "BASEERA AI document concept"
+        }
+      }
+    },
+    {
+      "id": "wasl-integrations",
+      "slug": "wasl-integrations",
+      "brand": {
+        "ar": "وَصل",
+        "en": "WASL"
+      },
+      "title": {
+        "ar": "اربط قنوات البيع في مكان واحد",
+        "en": "Connect Commerce Channels"
+      },
+      "categoryId": "ai-integrations",
+      "sector": {
+        "ar": "التجارة والعمليات",
+        "en": "Commerce Operations"
+      },
+      "type": "concept",
+      "featured": false,
+      "published": true,
+      "order": 21,
+      "summary": {
+        "ar": "منصة تكامل تربط الطلبات والمخزون بين قنوات البيع وتوضح حالة المزامنة والأخطاء.",
+        "en": "An integration hub synchronizing orders and inventory across sales channels."
+      },
+      "challenge": {
+        "ar": "الحد من تكرار تحديث المخزون والطلبات يدويًا.",
+        "en": "Reduce duplicated inventory and order updates."
+      },
+      "solution": {
+        "ar": "لوحة قنوات متصلة وسجل مزامنة وتنبيهات للأخطاء والإجراءات المطلوبة.",
+        "en": "Connection status, sync history, error alerts, and action queues."
+      },
+      "features": [
+        {
+          "ar": "قنوات متصلة",
+          "en": "Connected channels"
+        },
+        {
+          "ar": "مزامنة مخزون",
+          "en": "Inventory sync"
+        },
+        {
+          "ar": "سجل أخطاء",
+          "en": "Error log"
+        }
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "country": null,
+      "technologies": [],
+      "externalUrl": null,
+      "cta": {
+        "type": "whatsapp",
+        "label": {
+          "ar": "اطلب تكاملًا مشابهًا",
+          "en": "Request Similar Integration"
+        }
+      },
+      "media": {
+        "cover": null,
+        "hero": null,
+        "gallery": [],
+        "alt": {
+          "ar": "تصور منصة وصل للتكاملات",
+          "en": "WASL integrations platform concept"
+        }
+      }
+    }
+  ]
+}

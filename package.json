@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/validate-projects.mjs",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "validate:projects": "node scripts/validate-projects.mjs --images"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -16,5 +18,8 @@
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "simplex-noise": "^4.0.3"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^24.43.1"
   }
 }

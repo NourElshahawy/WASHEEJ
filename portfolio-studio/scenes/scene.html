@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Washeej portfolio scene</title>
+<!--
+  Composition page for portfolio images (cover 1600×1000, mobile 900×1600).
+  Everything is set through the query string, e.g.
+    scene.html?variant=laptop&w=1600&h=1000&desk=../captures/x.png&mob=../captures/y.png&bg=%23f3eee8&shadow=40,30,20
+  Variants: laptop · browser · bleed · phones · tilt · phone (single phone, for the mobile image)
+  The screenshots inside the devices are real captures or rendered concept pages;
+  only the device frames and the backdrop are drawn here.
+-->
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: var(--w); height: var(--h); overflow: hidden; }
+  body {
+    position: relative;
+    background: var(--bg);
+    font-family: system-ui, sans-serif;
+  }
+  /* Soft paper-grain over the backdrop, and a pool of light. */
+  body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(120% 90% at var(--light-x, 50%) var(--light-y, 38%), rgba(255,255,255,var(--light, .35)), transparent 62%);
+    pointer-events: none;
+  }
+  body::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: var(--grain, .06);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .stage { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+
+  /* Large decorative shape in the backdrop (a project-coloured disc or band). */
+  .shape { position: absolute; border-radius: 50%; background: var(--shape, transparent); filter: blur(var(--shape-blur, 0px)); }
+
+  /* ---------- Laptop ---------- */
+  .laptop { position: absolute; width: var(--laptop-w, 1180px); }
+  .laptop .lid {
+    position: relative; padding: 2.1% 2.1% 3.1%;
+    background: linear-gradient(180deg, #2b2c30, #17181b);
+    border-radius: 26px 26px 6px 6px;
+    box-shadow: inset 0 0 0 2px #3a3b40, 0 2px 0 #0d0e10;
+  }
+  .laptop .lid::before { content: ''; position: absolute; top: 1%; left: 50%; width: 9px; height: 9px; margin-left: -4px; border-radius: 50%; background: #0c0d0f; box-shadow: inset 0 0 0 2px #22242a; }
+  .laptop .screen { aspect-ratio: 16 / 9; overflow: hidden; border-radius: 4px; background: #000; }
+  .laptop .base {
+    position: relative; height: 26px; margin: 0 -7%;
+    background: linear-gradient(180deg, #d7d8dc 0%, #b9bbc0 45%, #8e9095 100%);
+    border-radius: 2px 2px 22px 22px / 2px 2px 26px 26px;
+    box-shadow: 0 30px 50px -18px rgba(0,0,0,.55), 0 60px 90px -40px rgba(0,0,0,.45);
+  }
+  .laptop .base::before { content: ''; position: absolute; top: 0; left: 50%; width: 14%; height: 9px; margin-left: -7%; background: #9fa1a6; border-radius: 0 0 12px 12px; }
+
+  /* ---------- Browser window ---------- */
+  .browser {
+    position: absolute; width: var(--browser-w, 1240px);
+    border-radius: 16px; overflow: hidden; background: #fff;
+    box-shadow: 0 2px 0 rgba(255,255,255,.4) inset, 0 50px 90px -40px rgba(0,0,0,.55), 0 18px 34px -18px rgba(0,0,0,.35);
+  }
+  .browser .bar { height: 42px; display: flex; align-items: center; gap: 8px; padding: 0 18px; background: var(--chrome, #f1f0ee); border-bottom: 1px solid rgba(0,0,0,.07); }
+  .browser .bar i { width: 12px; height: 12px; border-radius: 50%; background: #e0dcd6; }
+  .browser .bar i:nth-child(1) { background: #ff6159; } .browser .bar i:nth-child(2) { background: #ffbd2e; } .browser .bar i:nth-child(3) { background: #28c941; }
+  .browser .bar b { flex: 1; height: 24px; margin: 0 22% 0 12%; border-radius: 8px; background: rgba(0,0,0,.06); }
+  .dark .browser .bar { background: #1d1f24; border-color: rgba(255,255,255,.06); }
+  .dark .browser .bar b { background: rgba(255,255,255,.07); }
+  .browser .screen { aspect-ratio: 16 / 9; overflow: hidden; }
+
+  /* ---------- Phone ---------- */
+  .phone {
+    position: absolute; width: var(--phone-w, 300px); aspect-ratio: 390 / 844;
+    padding: 3.2%; border-radius: 15% / 7%;
+    background: linear-gradient(140deg, #3a3b40, #121316 60%);
+    box-shadow: inset 0 0 0 2px #4a4b52, inset 0 0 0 5px #0c0c0e, 0 40px 70px -28px rgba(0,0,0,.6), 0 16px 30px -14px rgba(0,0,0,.4);
+  }
+  .phone .screen { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 12.5% / 5.9%; background: #000; }
+  .phone .screen::after { content: ''; position: absolute; top: 1.5%; left: 50%; width: 31%; height: 3.6%; transform: translateX(-50%); border-radius: 999px; background: #050506; }
+  .phone::before, .phone::after { content: ''; position: absolute; width: 4px; border-radius: 2px; background: #2a2b30; }
+  .phone::before { left: -3px; top: 20%; height: 7%; box-shadow: 0 9cqh 0 #2a2b30; }
+  .phone::after { right: -3px; top: 26%; height: 11%; }
+
+  /* ---------- Tilted dashboard ---------- */
+  .tilt { position: absolute; width: var(--tilt-w, 1300px); perspective: 2600px; }
+  .tilt .plane {
+    transform: rotateX(16deg) rotateZ(var(--tilt-z, -7deg)) rotateY(var(--tilt-y, 0deg));
+    transform-origin: 50% 60%;
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 60px 110px -40px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .tilt .screen { aspect-ratio: 16 / 9; }
+
+  /* ---------- Bleed: big borderless screenshot running off the bottom ---------- */
+  .bleed {
+    position: absolute; left: 50%; bottom: -2px; width: var(--bleed-w, 1360px); transform: translateX(-50%);
+    border-radius: 18px 18px 0 0; overflow: hidden;
+    box-shadow: 0 -2px 0 rgba(255,255,255,.35) inset, 0 40px 90px -30px rgba(0,0,0,.6);
+  }
+  .bleed .screen { aspect-ratio: 16 / 9; }
+
+  .caption { position: absolute; font: 600 15px/1 system-ui; letter-spacing: .32em; text-transform: uppercase; color: var(--fg, rgba(0,0,0,.45)); }
+</style>
+</head>
+<body>
+<div class="stage" id="stage"></div>
+<script>
+  const q = new URLSearchParams(location.search);
+  const get = (k, d) => (q.has(k) ? q.get(k) : d);
+  const root = document.documentElement;
+  const W = +get('w', 1600), H = +get('h', 1000);
+  root.style.setProperty('--w', W + 'px');
+  root.style.setProperty('--h', H + 'px');
+  root.style.setProperty('--bg', get('bg', '#efe9e2'));
+  for (const k of ['fg', 'shape', 'chrome', 'light', 'grain', 'light-x', 'light-y', 'tilt-z', 'tilt-y', 'shape-blur']) if (q.has(k)) root.style.setProperty('--' + k, q.get(k));
+  if (get('dark', '0') === '1') document.body.classList.add('dark');
+
+  const stage = document.getElementById('stage');
+  const img = (src) => `<img src="${src}" alt="">`;
+  const add = (html) => { const t = document.createElement('template'); t.innerHTML = html.trim(); const el = t.content.firstElementChild; stage.appendChild(el); return el; };
+  const place = (el, css) => Object.assign(el.style, css);
+  const desk = get('desk'), mob = get('mob'), mob2 = get('mob2');
+  const side = get('side', 'end'); // where the phone sits: start | end
+  const sx = (px) => (side === 'start' ? { left: px + 'px' } : { right: px + 'px' });
+
+  // Optional backdrop disc (project colour), e.g. shapeAt=1180,380,760 (x,y,diameter)
+  if (q.has('shapeAt')) { const [x, y, d] = get('shapeAt').split(',').map(Number); place(add('<div class="shape"></div>'), { left: x - d / 2 + 'px', top: y - d / 2 + 'px', width: d + 'px', height: d + 'px' }); }
+
+  const variant = get('variant', 'laptop');
+  if (variant === 'laptop') {
+    const lw = +get('size', 1180);
+    root.style.setProperty('--laptop-w', lw + 'px');
+    const l = add(`<div class="laptop"><div class="lid"><div class="screen">${img(desk)}</div></div><div class="base"></div></div>`);
+    place(l, { left: (W - lw) / 2 + +get('dx', mob ? -80 : 0) + 'px', top: +get('top', 150) + 'px' });
+    if (mob) { const pw = +get('pw', 250); root.style.setProperty('--phone-w', pw + 'px'); place(add(`<div class="phone"><div class="screen">${img(mob)}</div></div>`), { ...sx(+get('px', 150)), top: +get('py', 380) + 'px' }); }
+  }
+  if (variant === 'browser') {
+    const bw = +get('size', 1240);
+    root.style.setProperty('--browser-w', bw + 'px');
+    const b = add(`<div class="browser"><div class="bar"><i></i><i></i><i></i><b></b></div><div class="screen">${img(desk)}</div></div>`);
+    place(b, { left: (W - bw) / 2 + +get('dx', mob ? -70 : 0) + 'px', top: +get('top', 120) + 'px' });
+    if (mob) { const pw = +get('pw', 260); root.style.setProperty('--phone-w', pw + 'px'); place(add(`<div class="phone"><div class="screen">${img(mob)}</div></div>`), { ...sx(+get('px', 110)), top: +get('py', 400) + 'px' }); }
+  }
+  if (variant === 'bleed') {
+    const bw = +get('size', 1360);
+    root.style.setProperty('--bleed-w', bw + 'px');
+    add(`<div class="bleed"><div class="screen">${img(desk)}</div></div>`);
+    if (mob) { const pw = +get('pw', 240); root.style.setProperty('--phone-w', pw + 'px'); place(add(`<div class="phone"><div class="screen">${img(mob)}</div></div>`), { ...sx(+get('px', 90)), top: +get('py', 330) + 'px' }); }
+  }
+  if (variant === 'tilt') {
+    const tw = +get('size', 1300);
+    root.style.setProperty('--tilt-w', tw + 'px');
+    place(add(`<div class="tilt"><div class="plane"><div class="screen">${img(desk)}</div></div></div>`), { left: (W - tw) / 2 + +get('dx', 0) + 'px', top: +get('top', 150) + 'px' });
+    if (mob) { const pw = +get('pw', 240); root.style.setProperty('--phone-w', pw + 'px'); place(add(`<div class="phone"><div class="screen">${img(mob)}</div></div>`), { ...sx(+get('px', 120)), top: +get('py', 420) + 'px' }); }
+  }
+  if (variant === 'phones') {
+    // Two (or three) phones side by side, slightly staggered.
+    const pw = +get('pw', 330);
+    root.style.setProperty('--phone-w', pw + 'px');
+    const shots = [mob2 || mob, mob, get('mob3')].filter(Boolean);
+    const gap = +get('gap', 60);
+    const total = shots.length * pw + (shots.length - 1) * gap;
+    shots.forEach((s, i) => {
+      const p = add(`<div class="phone"><div class="screen">${img(s)}</div></div>`);
+      const lift = shots.length === 1 ? 0 : (i === Math.floor(shots.length / 2) ? -50 : 40);
+      place(p, { left: (W - total) / 2 + i * (pw + gap) + 'px', top: (H - pw * 844 / 390) / 2 + lift + +get('dy', 0) + 'px', transform: `rotate(${(+get('rot', 0)) * (i - (shots.length - 1) / 2)}deg)` });
+    });
+  }
+  if (variant === 'phone') {
+    const pw = +get('pw', 560);
+    root.style.setProperty('--phone-w', pw + 'px');
+    place(add(`<div class="phone"><div class="screen">${img(mob)}</div></div>`), { left: (W - pw) / 2 + 'px', top: (H - pw * 844 / 390) / 2 + +get('dy', 0) + 'px', transform: `rotate(${get('rot', 0)}deg)` });
+  }
+  if (q.has('caption')) place(add(`<div class="caption">${get('caption')}</div>`), { left: '60px', bottom: '48px' });
+
+  // Tell the renderer when every image has loaded.
+  Promise.all([...document.images].map((i) => (i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; })))).then(() => { document.body.dataset.ready = '1'; });
+</script>
+</body>
+</html>

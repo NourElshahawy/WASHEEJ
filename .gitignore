@@ -12,3 +12,6 @@ out
 
 # Review screenshots and recordings (too heavy for the repo)
 review/
+
+# Raw screenshot sources for the portfolio images (regenerable)
+portfolio-studio/captures/

@@ -1,0 +1,77 @@
+{
+  "updated": "2026-11-17",
+  "projects": {
+    "gd-tableware": {
+      "images": {
+        "cover": "done",
+        "hero": "done",
+        "detail": "done",
+        "mobile": "done"
+      },
+      "validation": "passed",
+      "sourceType": "generated (supplied, approved)",
+      "sourceNote": "Four approved render references supplied by the client. Generative compositions, not literal screenshots of gd-tableware.com.",
+      "lastStep": "registered in projects.json",
+      "issues": [
+        "Replace with composites of real captured screenshots when available (see prompt.md brief)."
+      ],
+      "updated": "2026-11-17"
+    },
+    "dudu-kids": {
+      "images": {
+        "cover": "done",
+        "hero": "done",
+        "detail": "done",
+        "mobile": "done"
+      },
+      "validation": "passed",
+      "sourceType": "screenshot",
+      "sourceNote": "Screenshots of https://dudu-kids.vercel.app/ (desktop first view, the week-set scene, phone first view).",
+      "lastStep": "registered in projects.json",
+      "issues": [],
+      "updated": "2026-11-17"
+    },
+    "lovan": {
+      "images": {
+        "cover": "done",
+        "hero": "done",
+        "detail": "done",
+        "mobile": "done"
+      },
+      "validation": "passed",
+      "sourceType": "screenshot",
+      "sourceNote": "Screenshots of https://lovan.vercel.app/ (desktop first view, the priced shelf, phone first view).",
+      "lastStep": "registered in projects.json",
+      "issues": [],
+      "updated": "2026-11-17"
+    },
+    "papajohns-redesign": {
+      "images": {
+        "cover": "done",
+        "hero": "done",
+        "detail": "done",
+        "mobile": "done"
+      },
+      "validation": "passed",
+      "sourceType": "screenshot",
+      "sourceNote": "Screenshots of the independent redesign at https://papajohns-rebrand.vercel.app/ (first view, the pizza builder in use, phone first view). Not an official brand commission.",
+      "lastStep": "registered in projects.json",
+      "issues": [],
+      "updated": "2026-11-17"
+    },
+    "ahmed-tea-redesign": {
+      "images": {
+        "cover": "done",
+        "hero": "done",
+        "detail": "done",
+        "mobile": "done"
+      },
+      "validation": "passed",
+      "sourceType": "screenshot",
+      "sourceNote": "Screenshots of the independent redesign at https://ahmed-tea.vercel.app/ar (first view, a scroll chapter, phone first view). Not an official brand commission.",
+      "lastStep": "registered in projects.json",
+      "issues": [],
+      "updated": "2026-11-17"
+    }
+  }
+}
