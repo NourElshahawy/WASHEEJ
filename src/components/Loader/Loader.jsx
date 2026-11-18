@@ -6,7 +6,7 @@ import styles from './Loader.module.css';
 /**
  * Intro screen — first visit of a browser session only (see loaderScript.js).
  *
- * The whole intro is a fixed CSS sequence (~2.2s), so it starts with the very
+ * The whole intro is a fixed CSS sequence (under 1s), so it starts with the very
  * first paint and always plays in full, whatever the scripts are doing:
  *   the thread draws across the screen → ties a knot → the knot holds →
  *   the screen lifts away.
@@ -14,7 +14,7 @@ import styles from './Loader.module.css';
  *
  * This component only reports the end: when the lift starts it marks
  * html[data-loader="done"] and sends "loader:done", which is when the hero
- * starts writing وشيج. Reduced motion: the screen simply fades.
+ * starts writing وشيج. Reduced motion: no intro at all (loaderScript.js).
  */
 export default function Loader() {
   const screenRef = useRef(null);

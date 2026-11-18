@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocale } from 'next-intl';
 import { gsap, useGSAP, ScrollTrigger } from '@/lib/gsap';
 import { useIdleReady } from '@/lib/useIdleReady';
+import { Link } from '@/i18n/navigation';
 import Icon from '@/components/Icon/Icon';
 import card from '@/styles/card.module.css';
 import styles from './TestimonialStage.module.css';
@@ -23,7 +24,7 @@ import styles from './TestimonialStage.module.css';
 const WORD_STAGGER = 0.045; // seconds between words (their duration is in the CSS)
 const SWIPE_DISTANCE = 48; // px a touch has to travel sideways to count as a swipe
 
-export default function TestimonialStage({ items, label, previousLabel, nextLabel }) {
+export default function TestimonialStage({ items, label, previousLabel, nextLabel, viewProjectLabel }) {
   const rootRef = useRef(null);
   const quoteRef = useRef(null);
   const hasEntered = useRef(false);
@@ -133,8 +134,15 @@ export default function TestimonialStage({ items, label, previousLabel, nextLabe
             </p>
           </blockquote>
           <figcaption className={styles.quoteSource}>
+            {current.name ? <span className={styles.quoteSourceName}>{current.name}</span> : null}
             <span className={styles.quoteSourceRole}>{current.role}</span>
             <span className={styles.quoteSourceOrg}>{current.org}</span>
+            {current.business ? <span className={styles.quoteSourceOrg}>{current.business}</span> : null}
+            {current.projectHref ? (
+              <Link href={current.projectHref} className={styles.quoteSourceLink}>
+                {viewProjectLabel}
+              </Link>
+            ) : null}
           </figcaption>
         </figure>
 

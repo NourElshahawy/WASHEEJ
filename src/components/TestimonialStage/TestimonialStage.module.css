@@ -97,9 +97,23 @@
   padding-block-start: clamp(1.25rem, 1rem + 1vw, 2rem);
 }
 
+.quoteSourceName {
+  color: var(--burgundy);
+  font-weight: 700;
+}
+
 .quoteSourceRole {
   color: var(--burgundy);
   font-weight: 600;
+}
+
+.quoteSourceLink {
+  align-self: flex-start;
+  margin-block-start: 0.4rem;
+  color: var(--burgundy);
+  font-size: var(--text-small);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
 }
 
 .quoteSourceOrg {

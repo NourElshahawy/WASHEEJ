@@ -1,15 +1,17 @@
 /*
  * The intro's timing, in one place:
- *   0.00 – 0.85s  the thread draws across the screen
- *   0.85 – 1.20s  it ties a knot in the middle
- *   1.20 – 1.70s  the knot holds
- *   1.70 – 2.20s  the screen lifts away (the hero starts writing at 1.70s)
+ *   0.00 – 0.40s  the thread draws across the screen
+ *   0.40 – 0.60s  it ties a knot in the middle
+ *   0.60 – 0.75s  the knot holds
+ *   0.75 – 0.95s  the screen lifts away (the hero starts writing at 0.75s)
+ * Under one second in total. With reduced motion it is not shown at all
+ * (see loaderScript.js).
  */
 .loader {
-  --draw: 0.85s;
-  --tie: 0.35s;
-  --hold: 0.5s;
-  --lift: 0.5s;
+  --draw: 0.4s;
+  --tie: 0.2s;
+  --hold: 0.15s;
+  --lift: 0.2s;
   display: none;
 }
 

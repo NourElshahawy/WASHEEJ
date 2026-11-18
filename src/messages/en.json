@@ -174,19 +174,29 @@
       {
         "quote": "\"We needed a corporate site that looked serious in both Arabic and English, and that's exactly what we got. Revisions came back fast and every decision was explained clearly.\"",
         "role": "Project Manager",
-        "org": "Saudi engineering & contracting group"
+        "org": "Saudi engineering & contracting group",
+        "name": "[Client name or initials]",
+        "business": "[Business / city]",
+        "project": ""
       },
       {
         "quote": "\"The request flow had to feel trustworthy for government-facing users. The front end got that right from the first version, and the team was easy to reach throughout the project.\"",
         "role": "Platform Owner",
-        "org": "Saudi services company"
+        "org": "Saudi services company",
+        "name": "[Client name or initials]",
+        "business": "[Business / city]",
+        "project": ""
       },
       {
         "quote": "\"Clean work, delivered on schedule, with a landing page that holds up on mobile as well as desktop. Would work with them again without hesitation.\"",
         "role": "Project Manager",
-        "org": "Public transport technology provider"
+        "org": "Public transport technology provider",
+        "name": "[Client name or initials]",
+        "business": "[Business / city]",
+        "project": ""
       }
-    ]
+    ],
+    "viewProject": "View the project"
   },
   "faq": {
     "label": "FAQ",
