@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<!--
+  Open Graph image (1200×630), rendered by scripts/og/render-og.mjs.
+  ?lang=ar|en. The background is public/og/og-background.png; the text uses
+  the site's fonts (Readex Pro; Cormorant Garamond for the Latin wordmark).
+  The text sits in the empty paper, inside the middle 630×630 square so it
+  survives a square crop.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600&display=block" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    position: relative;
+    background: #faf6f2 url('../../public/og/og-background.png') center / cover no-repeat;
+    color: #59171b;
+    font-family: 'Readex Pro', sans-serif;
+  }
+  .text {
+    position: absolute;
+    /* Centre of the block: x = 665 (the middle square is 285–915). */
+    left: 665px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 500px;
+  }
+  .name-ar { font-size: 150px; font-weight: 700; line-height: 1.35; }
+  .name-en { font-family: 'Cormorant Garamond', serif; font-size: 84px; font-weight: 600; letter-spacing: 0.16em; line-height: 1.1; margin-inline-start: 0.16em; }
+  .rule { width: 72px; height: 2px; margin: 30px 0 22px; background: #b4574a; border-radius: 2px; }
+  .tagline { font-size: 28px; font-weight: 500; line-height: 1.5; color: #6e2a26; }
+  .tagline.en { font-size: 27px; font-weight: 400; }
+</style>
+</head>
+<body>
+  <div class="text" id="text"></div>
+  <script>
+    const lang = new URLSearchParams(location.search).get('lang') || 'ar';
+    const el = document.getElementById('text');
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    el.innerHTML = lang === 'ar'
+      ? '<div class="name-ar">وشيج</div><div class="rule"></div><div class="tagline">نصنع الرابط بين علامتك وعملائها</div>'
+      : '<div class="name-en">WASHEEJ</div><div class="rule"></div><div class="tagline en">We build the bond between<br>your brand and its people.</div>';
+  </script>
+</body>
+</html>

@@ -2,7 +2,11 @@ import { siteConfig } from '@/config/site';
 import { routing } from '@/i18n/routing';
 import { getPublishedProjects } from '@/lib/projects';
 
-/** sitemap.xml: every page in both languages, each pointing at its translation (hreflang). */
+/**
+ * sitemap.xml: every page in both languages, each pointing at its translation (hreflang).
+ * No lastmod: there is no real per-page modification date to report, and a
+ * build-time date would claim every page changed on every deploy.
+ */
 const PAGES = [
   { path: '', priority: 1, changeFrequency: 'monthly' },
   { path: '/services', priority: 0.9, changeFrequency: 'monthly' },
@@ -20,7 +24,6 @@ export default function sitemap() {
   return PAGES.flatMap(({ path, priority, changeFrequency }) =>
     routing.locales.map((locale) => ({
       url: url(locale, path),
-      lastModified: new Date(),
       changeFrequency,
       priority,
       alternates: {

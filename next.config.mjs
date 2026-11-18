@@ -7,7 +7,6 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
-  // Project pages moved to the slugs in src/data/projects.json.
   async redirects() {
     const moved = {
       'tableware-store': 'gd-tableware',
@@ -16,17 +15,23 @@ const nextConfig = {
       'hara-oven-pizza': 'papajohns-redesign',
       'waraqa-tea': 'ahmed-tea-redesign',
     };
+    // Paths without a language go to Arabic, the default (and only) entry point.
+    // Permanent, since the site never picks a language per visitor (localeDetection: false).
+    const unprefixed = ['/work', '/services', '/about', '/contact', '/faq', '/privacy'];
     return [
+      { source: '/', destination: '/ar', permanent: true },
+      ...unprefixed.map((path) => ({ source: path, destination: `/ar${path}`, permanent: true })),
+      // Project pages moved to the slugs in src/data/projects.json.
       ...Object.entries(moved).map(([from, to]) => ({
         source: `/:locale(ar|en)/work/${from}`,
         destination: `/:locale/work/${to}`,
         permanent: true,
       })),
-      // Demos that are no longer in the portfolio.
+      // Demos that are no longer in the portfolio: their visitors land on all the work.
       ...['rakaez-engineering', 'wasan-suites'].map((from) => ({
         source: `/:locale(ar|en)/work/${from}`,
         destination: '/:locale/work',
-        permanent: false,
+        permanent: true,
       })),
     ];
   },

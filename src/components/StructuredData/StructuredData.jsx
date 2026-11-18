@@ -19,14 +19,34 @@ export default async function StructuredData({ page, creativeWork, services, faq
 
   const graph = [
     {
+      // The same @id and url in both languages, so search engines see one organization.
       '@type': 'Organization',
       '@id': organizationId,
       name: t('brand.name'),
       alternateName: locale === 'ar' ? 'Washeej' : 'وشيج',
-      url: home,
-      logo: `${siteConfig.url}/favicon/icon-512.png`,
+      url: siteConfig.url,
+      // The real logo (burgundy on white, 512×512), rendered from public/logo/washeej-logo.svg.
+      logo: {
+        '@type': 'ImageObject',
+        '@id': `${siteConfig.url}/#logo`,
+        url: `${siteConfig.url}/logo/washeej-logo-512.png`,
+        width: 512,
+        height: 512,
+      },
       description: t('hero.sub'),
       slogan: t('brand.tagline'),
+      email: siteConfig.contact.email,
+      areaServed: { '@type': 'Country', name: 'SA' },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'customer service',
+        email: siteConfig.contact.email,
+        ...(siteConfig.contact.whatsappNumber ? { telephone: `+${siteConfig.contact.whatsappNumber}` } : {}),
+        availableLanguage: ['ar', 'en'],
+        areaServed: 'SA',
+      },
+      // Official profiles go here once they exist (e.g. LinkedIn, Instagram). Never invented.
+      sameAs: [],
     },
     {
       '@type': 'WebSite',

@@ -28,6 +28,9 @@ import styles from './page.module.css';
  * is simply left out; nothing is shown as a placeholder.
  */
 
+// Only the projects in projects.json exist; any other slug is a 404 (app/not-found.jsx).
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) => getPublishedProjects().map(({ slug }) => ({ locale, slug })));
 }
