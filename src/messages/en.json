@@ -297,10 +297,18 @@
         "name": "Please enter your name.",
         "service": "Please choose a service type.",
         "message": "Please write a message.",
-        "failed": "The request couldn't be sent. Please try again."
+        "failed": "The request couldn't be sent — everything you typed is still here. Please try again, or message us directly on WhatsApp.",
+        "phone": "Please enter your mobile or WhatsApp number.",
+        "phoneFormat": "Use digits only, with the country code if you can, e.g. +966 5x xxx xxxx.",
+        "email": "Please enter a valid email, or leave it empty."
       },
       "successTitle": "Request received",
-      "successAgain": "Send another request"
+      "successAgain": "Send another request",
+      "phone": "Mobile / WhatsApp",
+      "email": "Email",
+      "consent": "By sending this request you agree to our <link>privacy policy</link>.",
+      "whatsappFallback": "Message us on WhatsApp",
+      "whatsappMessage": "Hi Washeej, I tried to send a project request from your website but it didn't go through."
     },
     "faq": {
       "label": "FAQ",

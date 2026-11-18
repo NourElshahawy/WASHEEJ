@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { siteConfig, whatsappUrl, whatsappDisplay, emailUrl } from '@/config/site';
 import { pageMetadata } from '@/lib/seo';
-import { getContactPrefills } from '@/lib/projects';
+import { buildWhatsappUrl, getContactPrefills } from '@/lib/projects';
 import PageHero from '@/components/PageHero/PageHero';
 import ContactForm from '@/components/ContactForm/ContactForm';
 import Button from '@/components/Button/Button';
@@ -31,7 +31,11 @@ export default async function ContactPage({ params }) {
       <section className={styles.contact}>
         <div className={`page-container ${styles.contactLayout}`}>
           <div className={styles.formColumn}>
-            <ContactForm services={services} prefills={prefills} />
+            <ContactForm
+              services={services}
+              prefills={prefills}
+              whatsappUrl={buildWhatsappUrl(t('pages.contact.whatsappMessage'))}
+            />
           </div>
 
           <aside className={styles.direct} aria-labelledby="contact-direct">

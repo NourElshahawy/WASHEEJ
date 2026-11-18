@@ -2,23 +2,38 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { submitProjectRequest } from '@/lib/submitProjectRequest';
+import { Link } from '@/i18n/navigation';
+import { sendProjectRequest } from '@/lib/projectRequest';
 import styles from './ContactForm.module.css';
 
 /**
- * Project request form: name, company, country, service type (chips) and a
- * message. It validates on submit, then hands the payload to
- * submitProjectRequest() — the single function to connect to a backend later —
- * and shows a "request received" state with a knot tying itself.
+ * Project request form: name, phone/WhatsApp, email (optional), company,
+ * country, service type (chips) and a message. It validates on submit, sends
+ * the request through Web3Forms (lib/projectRequest.js), and shows the
+ * "request received" state only when Web3Forms confirms it.
+ *
+ * If sending fails, the form stays as it is (nothing typed is lost), with a
+ * clear error and a WhatsApp button as another way to reach the studio.
  *
  * Arriving from a project (/contact?project=<slug>), the service and a first
  * message are filled in from `prefills` (built from projects.json).
  */
-export default function ContactForm({ services, prefills = {} }) {
+
+// Accepts Arabic-Indic digits too; spaces, dashes, dots and brackets are ignored.
+const toLatinDigits = (value) =>
+  value
+    .replace(/[٠-٩]/g, (digit) => String(digit.charCodeAt(0) - 0x0660))
+    .replace(/[۰-۹]/g, (digit) => String(digit.charCodeAt(0) - 0x06f0));
+const normalizePhone = (value) => toLatinDigits(value).replace(/[\s\-().]/g, '');
+const isPhone = (value) => /^(\+|00)?\d{7,15}$/.test(value);
+const isEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+
+export default function ContactForm({ services, prefills = {}, whatsappUrl = null }) {
   const t = useTranslations('pages.contact');
   const locale = useLocale();
   const formRef = useRef(null);
   const successRef = useRef(null);
+  const failureRef = useRef(null);
   const [service, setService] = useState('');
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | sending | sent | failed
@@ -37,37 +52,44 @@ export default function ContactForm({ services, prefills = {} }) {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    if (status === 'sending') return;
     const data = new FormData(event.currentTarget);
+    const text = (key) => String(data.get(key) || '').trim();
     const payload = {
-      name: String(data.get('name') || '').trim(),
-      company: String(data.get('company') || '').trim(),
-      country: String(data.get('country') || '').trim(),
-      service,
+      name: text('name'),
+      phone: normalizePhone(text('phone')),
+      email: text('email'),
+      company: text('company'),
+      country: text('country'),
+      service: services.find((option) => option.key === service)?.title ?? '',
       ...(project ? { project } : {}),
-      message: String(data.get('message') || '').trim(),
+      message: text('message'),
       locale,
-      sentAt: new Date().toISOString(),
     };
 
     const found = {};
     if (!payload.name) found.name = t('errors.name');
+    if (!payload.phone) found.phone = t('errors.phone');
+    else if (!isPhone(payload.phone)) found.phone = t('errors.phoneFormat');
+    if (payload.email && !isEmail(payload.email)) found.email = t('errors.email');
     if (!payload.service) found.service = t('errors.service');
     if (!payload.message) found.message = t('errors.message');
     setErrors(found);
     if (Object.keys(found).length) {
       // Move focus to the first field that needs attention.
-      const first = ['name', 'service', 'message'].find((key) => found[key]);
+      const first = ['name', 'phone', 'email', 'service', 'message'].find((key) => found[key]);
       formRef.current.querySelector(`[data-field="${first}"]`)?.focus();
       return;
     }
 
     setStatus('sending');
     try {
-      await submitProjectRequest(payload);
+      await sendProjectRequest(payload, { botcheck: data.get('botcheck') === 'on' });
       setStatus('sent');
       requestAnimationFrame(() => successRef.current?.focus());
     } catch {
       setStatus('failed');
+      requestAnimationFrame(() => failureRef.current?.focus());
     }
   };
 
@@ -100,12 +122,21 @@ export default function ContactForm({ services, prefills = {} }) {
   }
 
   const describedBy = (key) => (errors[key] ? `error-${key}` : undefined);
+  const fieldError = (key) =>
+    errors[key] ? (
+      <span id={`error-${key}`} className={styles.error}>
+        {errors[key]}
+      </span>
+    ) : null;
 
   return (
     <form ref={formRef} className={styles.form} onSubmit={onSubmit} noValidate aria-labelledby="contact-form-title">
       <h2 id="contact-form-title" className={styles.formTitle}>
         {t('formTitle')}
       </h2>
+
+      {/* Honeypot for Web3Forms: hidden from people, ticked only by bots. */}
+      <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ display: 'none' }} />
 
       <div className={styles.row}>
         <label className={styles.field}>
@@ -119,11 +150,44 @@ export default function ContactForm({ services, prefills = {} }) {
             aria-invalid={Boolean(errors.name)}
             aria-describedby={describedBy('name')}
           />
-          {errors.name ? (
-            <span id="error-name" className={styles.error}>
-              {errors.name}
-            </span>
-          ) : null}
+          {fieldError('name')}
+        </label>
+
+        <label className={styles.field}>
+          <span className={styles.label}>{t('phone')}</span>
+          <input
+            className={styles.input}
+            name="phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            dir="ltr"
+            placeholder="+966 5x xxx xxxx"
+            data-field="phone"
+            aria-invalid={Boolean(errors.phone)}
+            aria-describedby={describedBy('phone')}
+          />
+          {fieldError('phone')}
+        </label>
+      </div>
+
+      <div className={styles.row}>
+        <label className={styles.field}>
+          <span className={styles.label}>
+            {t('email')} <span className={styles.optional}>({t('optional')})</span>
+          </span>
+          <input
+            className={styles.input}
+            name="email"
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            dir="ltr"
+            data-field="email"
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={describedBy('email')}
+          />
+          {fieldError('email')}
         </label>
 
         <label className={styles.field}>
@@ -160,11 +224,7 @@ export default function ContactForm({ services, prefills = {} }) {
             </label>
           ))}
         </div>
-        {errors.service ? (
-          <span id="error-service" className={styles.error}>
-            {errors.service}
-          </span>
-        ) : null}
+        {fieldError('service')}
       </fieldset>
 
       <label className={styles.field}>
@@ -177,20 +237,31 @@ export default function ContactForm({ services, prefills = {} }) {
           aria-invalid={Boolean(errors.message)}
           aria-describedby={describedBy('message')}
         />
-        {errors.message ? (
-          <span id="error-message" className={styles.error}>
-            {errors.message}
-          </span>
-        ) : null}
+        {fieldError('message')}
       </label>
 
       <div className={styles.actions}>
         <button type="submit" className={styles.submit} disabled={status === 'sending'}>
           {status === 'sending' ? t('sending') : t('submit')}
         </button>
-        <span className={styles.error} role="alert">
-          {status === 'failed' ? t('errors.failed') : ''}
-        </span>
+      </div>
+
+      <p className={styles.consent}>
+        {t.rich('consent', { link: (chunks) => <Link href="/privacy">{chunks}</Link> })}
+      </p>
+
+      {/* Sending failed: say so plainly, keep everything typed, offer WhatsApp instead. */}
+      <div role="alert">
+        {status === 'failed' ? (
+          <div ref={failureRef} className={styles.failure} tabIndex={-1}>
+            <p className={styles.failureText}>{t('errors.failed')}</p>
+            {whatsappUrl ? (
+              <a className={styles.failureWhatsapp} href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                {t('whatsappFallback')}
+              </a>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </form>
   );
