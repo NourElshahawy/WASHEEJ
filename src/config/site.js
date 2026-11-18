@@ -14,8 +14,8 @@ export const siteConfig = {
 
   contact: {
     whatsappNumber: projectSettings.whatsappNumber,
-    // Placeholder — replace with the studio's real address before relying on it.
-    email: 'hello@washeej.com',
+    // Temporary inbox. Switch to 'hello@washeej.site' once its forwarding to this inbox is live.
+    email: 'hellowasheej@gmail.com',
   },
 };
 

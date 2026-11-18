@@ -7,7 +7,7 @@
       "ar",
       "en"
     ],
-    "whatsappNumber": null,
+    "whatsappNumber": "966533819980",
     "whatsappMessageAr": "أهلًا وشيج، شفت مشروع «{project}» على موقعكم وحابب أتكلم معاكم عن مشروع مشابه.",
     "assetsBasePath": "/images/projects"
   },
@@ -131,8 +131,8 @@
         "en": "Organize a diverse catalog while highlighting product details."
       },
       "solution": {
-        "ar": "تنظيم بصري للمجموعات والمنتجات، ومسارات واضحة للاستكشاف والتواصل؛ تُراجع التفاصيل الوظيفية مع لقطات الموقع قبل نشر دراسة الحالة.",
-        "en": "A clear collection and product hierarchy, with interaction details to be verified against the live site."
+        "ar": "تنظيم بصري للمجموعات والمنتجات، ومسارات واضحة للاستكشاف والتواصل.",
+        "en": "A clear collection and product hierarchy, with clear paths for browsing and getting in touch."
       },
       "features": [
         {
