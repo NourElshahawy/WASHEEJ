@@ -42,7 +42,7 @@ export const privacy = {
         ul: [
           '**Web3Forms:** لاستقبال طلبات النموذج وتحويلها إلى بريدنا.',
           '**Google (Gmail):** لاستقبال الرسائل والرد عليها.',
-          '**Vercel:** لاستضافة الموقع.',
+          '**Vercel:** لاستضافة الموقع، وقياس الزيارات بشكل مجمّع عبر Vercel Web Analytics.',
           '**WhatsApp (Meta):** عند اختيارك التواصل عبره.',
         ],
       },
@@ -54,7 +54,8 @@ export const privacy = {
       { p: 'نحتفظ ببيانات طلبك طوال فترة تواصلنا أو تنفيذ مشروعك. وإن لم يتحوّل الطلب إلى مشروع، نحذفه خلال 24 شهرًا من آخر تواصل، ما لم يلزمنا نظام بالاحتفاظ به مدة أطول.' },
 
       { h: 'ملفات تعريف الارتباط' },
-      { p: 'نستخدم ملفات تعريف ارتباط ضرورية لتشغيل الموقع، مثل حفظ اللغة التي اخترتها. لا نستخدم حاليًا ملفات تتبّع إعلانية، وإن أضفنا أدوات تحليل سنحدّث هذه السياسة.' },
+      { p: 'نستخدم ملف تعريف ارتباط واحدًا ضروريًا لتشغيل الموقع (NEXT_LOCALE) يحفظ اللغة التي تتصفّح بها، ويُحذف عند إغلاق المتصفح. ونحفظ في ذاكرة الجلسة بالمتصفح علامة بسيطة حتى لا تتكرّر شاشة التحميل خلال الزيارة نفسها.' },
+      { p: 'ونقيس الزيارات بأداة Vercel Web Analytics بشكل مجمّع ومجهّل: لا تضع ملفات تعريف ارتباط للتتبّع، وتسجّل الصفحة التي زرتها والصفحة التي أتيت منها والموقع الجغرافي التقريبي (الدولة والمدينة) ونوع المتصفح ونظام التشغيل والجهاز، دون ربط ذلك بهويتك أو بعنوان IP، ويُحذف معرّف الزيارة خلال 24 ساعة. لا نستخدم ملفات تتبّع إعلانية، وإن أضفنا أدوات أخرى سنحدّث هذه السياسة.' },
 
       { h: 'حقوقك' },
       { p: 'يحق لك:' },
@@ -116,7 +117,7 @@ export const privacy = {
         ul: [
           '**Web3Forms:** to receive form submissions and forward them to our inbox.',
           '**Google (Gmail):** to receive messages and reply to them.',
-          '**Vercel:** to host the website.',
+          '**Vercel:** to host the website, and to measure visits in aggregate through Vercel Web Analytics.',
           '**WhatsApp (Meta):** when you choose to contact us through it.',
         ],
       },
@@ -128,7 +129,8 @@ export const privacy = {
       { p: 'We keep your request data for as long as we are in contact or working on your project. If a request does not become a project, we delete it within 24 months of the last contact, unless a law requires us to keep it longer.' },
 
       { h: 'Cookies' },
-      { p: 'We use cookies that are necessary for the website to work, such as remembering the language you chose. We do not currently use advertising tracking cookies, and if we add analytics tools we will update this policy.' },
+      { p: 'We use one cookie that is necessary for the website to work (NEXT_LOCALE), which remembers the language you are browsing in and is deleted when you close your browser. We also keep a small flag in your browser’s session storage so the loading screen does not repeat during the same visit.' },
+      { p: 'We measure visits with Vercel Web Analytics, in aggregate and anonymously: it does not set tracking cookies, and it records the page you visited, the page you came from, your approximate location (country and city), and your browser, operating system and device type, without linking any of this to your identity or IP address; the visit identifier is discarded within 24 hours. We do not use advertising tracking cookies, and if we add other tools we will update this policy.' },
 
       { h: 'Your rights' },
       { p: 'You have the right to:' },

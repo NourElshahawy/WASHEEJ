@@ -1,4 +1,5 @@
 import { Readex_Pro, Cormorant_Garamond } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { localeDirection } from '@/i18n/routing';
@@ -61,6 +62,8 @@ export default async function SiteDocument({ locale, children }) {
           <main id="main">{children}</main>
           <Footer />
         </NextIntlClientProvider>
+        {/* Vercel Web Analytics: aggregated, cookie-free page views (see the privacy policy). */}
+        <Analytics />
       </body>
     </html>
   );
