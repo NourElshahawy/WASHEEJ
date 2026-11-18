@@ -1,0 +1,46 @@
+/* A readable column of policy text. */
+.policy {
+  max-width: 50rem;
+  padding-block: clamp(1rem, 0.5rem + 2vw, 2.5rem) var(--section-space);
+  color: var(--ink);
+  font-size: var(--text-body);
+  line-height: 1.9;
+}
+
+.policy h2 {
+  margin-block: clamp(2rem, 1.5rem + 1.5vw, 3rem) 0.75rem;
+  color: var(--burgundy);
+  font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.55rem);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.policy p + p,
+.policy ul + p,
+.policy p + ul {
+  margin-block-start: 0.85rem;
+}
+
+.policy ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-inline-start: 1.25rem;
+  list-style: disc;
+}
+
+.policy li::marker {
+  color: var(--burgundy-soft);
+}
+
+.policy strong {
+  color: var(--burgundy);
+  font-weight: 600;
+}
+
+.policy a {
+  color: var(--burgundy);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  unicode-bidi: isolate;
+}

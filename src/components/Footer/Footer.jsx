@@ -73,6 +73,9 @@ export default async function Footer() {
           ))}
         </ul>
         <span className={styles.footerRule} aria-hidden="true" />
+        <Link href="/privacy" className={styles.footerLegal}>
+          {t('footer.privacy')}
+        </Link>
         <LocaleSwitch />
       </div>
     </footer>
