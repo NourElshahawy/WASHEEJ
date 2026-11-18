@@ -1,4 +1,5 @@
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { pageMetadata } from '@/lib/seo';
 import Hero from '@/components/Hero/Hero';
 import QuickNumbers from '@/components/QuickNumbers/QuickNumbers';
 import About from '@/components/About/About';
@@ -12,6 +13,12 @@ import Faq from '@/components/Faq/Faq';
 import FinalCta from '@/components/FinalCta/FinalCta';
 import ThreadLayer from '@/components/ThreadLayer/ThreadLayer';
 import StructuredData from '@/components/StructuredData/StructuredData';
+
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'seo.home' });
+  return pageMetadata({ locale, path: '', title: { absolute: t('title') }, description: t('description') });
+}
 
 export default async function HomePage({ params }) {
   const { locale } = await params;

@@ -63,6 +63,14 @@
   width: min(100%, clamp(24rem, 46vw, 44rem));
 }
 
+/* One quiet line above the title: what the studio is. */
+.heroKicker {
+  margin-block-end: 0.6rem;
+  color: var(--burgundy-soft);
+  font-size: var(--text-body);
+  font-weight: 500;
+}
+
 .heroTitle {
   color: var(--burgundy);
   font-size: var(--text-hero);

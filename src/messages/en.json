@@ -27,7 +27,8 @@
     "sub": "From a single landing page to a full platform, we design and build Arabic and English websites for brands across the Gulf, Egypt and the Arab world.",
     "primary": "Start your project",
     "secondary": "Explore our services",
-    "caption": "Washeej — Arabic for a strong, intertwined bond."
+    "caption": "Washeej — Arabic for a strong, intertwined bond.",
+    "kicker": "Website design studio"
   },
   "numbers": {
     "experience": "Our team's experience spans <num>25+</num> projects",
@@ -283,9 +284,10 @@
     },
     "services": {
       "label": "Services",
-      "title": "Digital solutions that build your brand's presence and grow its impact.",
+      "title": "Website design and development services",
       "what": "What it is",
-      "related": "A project from our work"
+      "related": "A project from our work",
+      "intro": "Digital solutions that build your brand's presence and grow its impact."
     },
     "about": {
       "label": "About",
@@ -361,6 +363,20 @@
       "hero": "{brand}: main screen",
       "detail": "{brand}: a detail of the experience",
       "mobile": "{brand}: the design on mobile"
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "Washeej — Arabic & English Website Design and Development Studio",
+      "description": "Washeej is a website design and development studio building Arabic & English websites, online stores and platforms for businesses in Saudi Arabia and the Gulf."
+    },
+    "services": {
+      "title": "Website, Store and Platform Design & Development Services",
+      "description": "Website design and development services in Saudi Arabia: landing pages, company websites, online stores, booking platforms, portals, dashboards & integrations."
+    },
+    "work": {
+      "title": "Our Website and Online Store Design Work",
+      "description": "Website and online store design in Saudi Arabia: browse Washeej's work — live sites, independent redesigns and design concepts, with details of each project."
     }
   }
 }

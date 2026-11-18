@@ -8,8 +8,8 @@ import StructuredData from '@/components/StructuredData/StructuredData';
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'pages.work' });
-  return pageMetadata({ locale, path: '/work', title: t('label'), description: t('title') });
+  const t = await getTranslations({ locale, namespace: 'seo.work' });
+  return pageMetadata({ locale, path: '/work', title: t('title'), description: t('description') });
 }
 
 export default async function WorkPage({ params }) {

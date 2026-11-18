@@ -18,6 +18,7 @@ export default async function Hero() {
 
         <div className={`page-container ${styles.heroContent}`}>
           <div className={styles.heroCopy}>
+            <p className={styles.heroKicker}>{t('hero.kicker')}</p>
             <h1 className={styles.heroTitle}>
               {t.rich('hero.title', {
                 br: () => <br />,

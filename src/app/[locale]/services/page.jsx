@@ -16,8 +16,8 @@ import styles from './page.module.css';
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'pages.services' });
-  return pageMetadata({ locale, path: '/services', title: t('label'), description: t('title') });
+  const t = await getTranslations({ locale, namespace: 'seo.services' });
+  return pageMetadata({ locale, path: '/services', title: t('title'), description: t('description') });
 }
 
 export default async function ServicesPage({ params }) {
@@ -29,7 +29,9 @@ export default async function ServicesPage({ params }) {
 
   return (
     <>
-      <PageHero label={p('label')} title={p('title')} />
+      <PageHero label={p('label')} title={p('title')}>
+        <p>{p('intro')}</p>
+      </PageHero>
 
       <div className={styles.serviceSections}>
         {services.map((service, index) => {
