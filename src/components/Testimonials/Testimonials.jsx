@@ -5,7 +5,7 @@ import { getProject } from '@/lib/projects';
 import styles from './Testimonials.module.css';
 
 // A value still in [brackets] is a placeholder waiting to be filled in: not shown.
-const filled = (value) => (value && !/^[.*]$/.test(value.trim()) ? value.trim() : null);
+const filled = (value) => (value && !/^\[.*\]$/.test(value.trim()) ? value.trim() : null);
 
 export default async function Testimonials() {
   const t = await getTranslations('testimonials');

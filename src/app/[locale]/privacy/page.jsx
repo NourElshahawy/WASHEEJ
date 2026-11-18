@@ -21,21 +21,28 @@ export async function generateMetadata({ params }) {
 const CONTACT = /([\w.+-]+@[\w-]+\.[\w.]+|\+\d{8,15})/g;
 
 function Inline({ text }) {
-  return text.split(/\*\*(.+?)\*\*/g).map((part, i) =>
-    i % 2 ? (
-      <strong key={i}>{part}</strong>
-    ) : (
-      part.split(CONTACT).map((piece, j) => {
-        if (j % 2 === 0) return piece;
-        const href = piece.includes('@') ? `mailto:${piece}` : `https://wa.me/${piece.slice(1)}`;
-        return (
-          <a key={`${i}-${j}`} href={href} dir="ltr" {...(piece.includes('@') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}>
-            {piece}
-          </a>
-        );
-      })
-    ),
-  );
+  return text.split(/\*\*(.+?)\*\*/g).map((part, i) => {
+    if (i % 2) {
+      // The label is isolated (Latin names with brackets, e.g. "Google (Gmail)",
+      // keep their order inside Arabic text); its colon stays outside.
+      const [, label, colon] = part.match(/^(.*?)(:?)$/);
+      return (
+        <strong key={i}>
+          <bdi>{label}</bdi>
+          {colon}
+        </strong>
+      );
+    }
+    return part.split(CONTACT).map((piece, j) => {
+      if (j % 2 === 0) return piece;
+      const href = piece.includes('@') ? `mailto:${piece}` : `https://wa.me/${piece.slice(1)}`;
+      return (
+        <a key={`${i}-${j}`} href={href} dir="ltr" {...(piece.includes('@') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}>
+          {piece}
+        </a>
+      );
+    });
+  });
 }
 
 export default async function PrivacyPage({ params }) {
