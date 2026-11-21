@@ -1,6 +1,7 @@
 import { siteConfig } from '@/config/site';
 import { routing } from '@/i18n/routing';
 import { getPublishedProjects } from '@/lib/projects';
+import { CITY_PAGES, SERVICE_PAGES } from '@/content/servicePages';
 
 /**
  * sitemap.xml: every page in both languages, each pointing at its translation (hreflang).
@@ -10,6 +11,8 @@ import { getPublishedProjects } from '@/lib/projects';
 const PAGES = [
   { path: '', priority: 1, changeFrequency: 'monthly' },
   { path: '/services', priority: 0.9, changeFrequency: 'monthly' },
+  ...SERVICE_PAGES.map(({ slug }) => ({ path: `/services/${slug}`, priority: 0.8, changeFrequency: 'monthly' })),
+  ...CITY_PAGES.map(({ slug }) => ({ path: `/web-design/${slug}`, priority: 0.8, changeFrequency: 'monthly' })),
   { path: '/work', priority: 0.9, changeFrequency: 'monthly' },
   ...getPublishedProjects().map(({ slug }) => ({ path: `/work/${slug}`, priority: 0.7, changeFrequency: 'monthly' })),
   { path: '/about', priority: 0.7, changeFrequency: 'monthly' },

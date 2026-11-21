@@ -1,0 +1,70 @@
+.body {
+  padding-block: clamp(2rem, 1.5rem + 2vw, 4rem);
+  max-width: 52rem;
+}
+
+.section + .section {
+  margin-block-start: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+}
+
+.heading {
+  margin-block-end: 1rem;
+  color: var(--burgundy);
+  font-size: var(--text-section);
+  font-weight: 600;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.paragraph {
+  color: var(--ink);
+  font-size: var(--text-lead);
+}
+
+.paragraph + .paragraph {
+  margin-block-start: 0.75rem;
+}
+
+.list {
+  display: grid;
+  gap: 0.6rem;
+  padding-inline-start: 1.25rem;
+  color: var(--ink);
+  font-size: var(--text-lead);
+  list-style: disc;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1.25rem;
+}
+
+.others {
+  padding-block: clamp(2rem, 1.5rem + 2vw, 4rem);
+  border-block-start: 1px solid var(--hairline);
+}
+
+.otherList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0;
+  list-style: none;
+}
+
+.otherLink {
+  display: inline-block;
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: var(--text-small);
+  text-decoration: none;
+}
+
+.otherLink:hover,
+.otherLink:focus-visible {
+  border-color: var(--burgundy);
+  color: var(--burgundy);
+}

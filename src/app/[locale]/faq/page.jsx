@@ -9,8 +9,8 @@ import StructuredData from '@/components/StructuredData/StructuredData';
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'pages.faq' });
-  return pageMetadata({ locale, path: '/faq', title: t('label'), description: t('title') });
+  const t = await getTranslations({ locale, namespace: 'seo.faq' });
+  return pageMetadata({ locale, path: '/faq', title: { absolute: t('title') }, description: t('description') });
 }
 
 export default async function FaqPage({ params }) {

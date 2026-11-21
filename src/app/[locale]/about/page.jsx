@@ -16,7 +16,7 @@ import StructuredData from '@/components/StructuredData/StructuredData';
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const t = await getTranslations({ locale });
-  return pageMetadata({ locale, path: '/about', title: t('pages.about.label'), description: t('about.text') });
+  return pageMetadata({ locale, path: '/about', title: { absolute: t('seo.about.title') }, description: t('about.text') });
 }
 
 export default async function AboutPage({ params }) {
