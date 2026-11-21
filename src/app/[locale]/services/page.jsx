@@ -1,6 +1,8 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { categoryForService, getExampleProject, toCard } from '@/lib/projects';
 import { pageMetadata } from '@/lib/seo';
+import { Link } from '@/i18n/navigation';
+import { SERVICE_PAGES, SERVICE_PAGE_FOR_KEY } from '@/content/servicePages';
 import PageHero from '@/components/PageHero/PageHero';
 import LinePreview from '@/components/LinePreview/LinePreview';
 import ProjectCard from '@/components/ProjectCard/ProjectCard';
@@ -67,6 +69,12 @@ export default async function ServicesPage({ params }) {
                     </div>
                   </dl>
 
+                  {SERVICE_PAGE_FOR_KEY[service.icon] ? (
+                    <p className={styles.more}>
+                      <Link href={`/services/${SERVICE_PAGE_FOR_KEY[service.icon]}`}>{t('pages.landing.more')}</Link>
+                    </p>
+                  ) : null}
+
                   {project ? (
                   <div className={styles.related}>
                     <h3 className={styles.relatedTitle}>{p('related')}</h3>
@@ -81,6 +89,20 @@ export default async function ServicesPage({ params }) {
           );
         })}
       </div>
+
+      {/* Every service page, including the ones without a section above (bilingual sites, apps, redesign). */}
+      <nav className={`page-container ${styles.allPages}`} aria-labelledby="all-service-pages">
+        <h2 id="all-service-pages" className={styles.serviceTitle}>
+          {t('pages.landing.allServices')}
+        </h2>
+        <ul className={styles.allPagesList}>
+          {SERVICE_PAGES.map((page) => (
+            <li key={page.slug}>
+              <Link href={`/services/${page.slug}`}>{page[locale].label}</Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       <FinalCta />
       <StructuredData

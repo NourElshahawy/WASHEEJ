@@ -7,9 +7,10 @@ import styles from './Faq.module.css';
  * FAQ accordion built on native <details> (one open at a time via the shared `name`).
  * limit: show only the first N questions · showAllLink: add the «كل الأسئلة» link.
  */
-export default async function Faq({ limit, showAllLink = false, headingLevel = 'h2', standalone = false }) {
+export default async function Faq({ limit, showAllLink = false, headingLevel = 'h2', standalone = false, items, title }) {
   const t = await getTranslations('faq');
-  const allQuestions = t.raw('items');
+  // A page can pass its own questions (service pages); otherwise the site-wide list.
+  const allQuestions = items ?? t.raw('items');
   const questions = limit ? allQuestions.slice(0, limit) : allQuestions;
 
   // Two balanced columns on desktop, numbered in reading order down each column.
@@ -25,7 +26,7 @@ export default async function Faq({ limit, showAllLink = false, headingLevel = '
     >
       <div className="page-container">
         {/* On its own page the page header carries the title. */}
-        {standalone ? null : <SectionHeading as={headingLevel} id="faq-heading" label={t('label')} title={t('title')} />}
+        {standalone ? null : <SectionHeading as={headingLevel} id="faq-heading" label={t('label')} title={title ?? t('title')} />}
 
         <div className={styles.faqColumns}>
           {columns.map((column, columnIndex) => (

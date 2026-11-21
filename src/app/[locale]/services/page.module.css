@@ -124,3 +124,30 @@
     flex: none;
   }
 }
+
+/* ---- Links to the service pages ---- */
+.more {
+  margin-block-end: 1.5rem;
+}
+
+.more a,
+.allPagesList a {
+  color: var(--burgundy);
+  font-weight: 600;
+  text-underline-offset: 0.25em;
+}
+
+.allPages {
+  padding-block: clamp(2.5rem, 2rem + 3vw, 5rem);
+  border-block-start: 1px solid var(--hairline);
+}
+
+.allPagesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.75rem;
+  margin-block-start: 1.25rem;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-lead);
+}

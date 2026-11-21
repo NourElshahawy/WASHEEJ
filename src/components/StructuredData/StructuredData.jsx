@@ -36,14 +36,17 @@ export default async function StructuredData({ page, creativeWork, services, faq
       description: t('hero.sub'),
       slogan: t('brand.tagline'),
       email: siteConfig.contact.email,
-      areaServed: { '@type': 'Country', name: 'SA' },
+      areaServed: [
+        { '@type': 'Country', name: 'SA' },
+        { '@type': 'Country', name: 'EG' },
+      ],
       contactPoint: {
         '@type': 'ContactPoint',
         contactType: 'customer service',
         email: siteConfig.contact.email,
         ...(siteConfig.contact.whatsappNumber ? { telephone: `+${siteConfig.contact.whatsappNumber}` } : {}),
         availableLanguage: ['ar', 'en'],
-        areaServed: 'SA',
+        areaServed: ['SA', 'EG'],
       },
       // Official profiles go here once they exist (e.g. LinkedIn, Instagram). Never invented.
       sameAs: [],

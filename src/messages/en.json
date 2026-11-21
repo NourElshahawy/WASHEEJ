@@ -24,11 +24,11 @@
   },
   "hero": {
     "title": "Websites that look like your brand —<br></br>and work <accent>for it</accent>.",
-    "sub": "From a single landing page to a full platform, we design and build Arabic and English websites for brands across the Gulf, Egypt and the Arab world.",
+    "sub": "From a single landing page to a full platform or a mobile app, we design and build in Arabic and English for businesses in Egypt, Saudi Arabia, the Gulf and the Arab world.",
     "primary": "Start your project",
     "secondary": "Explore our services",
     "caption": "Washeej — Arabic for a strong, intertwined bond.",
-    "kicker": "Website design studio"
+    "kicker": "Web & app design and development company"
   },
   "numbers": {
     "experience": "Our team's experience spans <num>25+</num> projects",
@@ -209,6 +209,10 @@
         "a": "Every project has its own scope, so we set price and timeline after a short call about your needs. Get in touch and you'll receive a clear quote."
       },
       {
+        "q": "Do you build mobile apps?",
+        "a": "Yes. We design and build iOS and Android apps in Arabic and English, and help you publish them on the App Store and Google Play."
+      },
+      {
         "q": "Do you use templates?",
         "a": "No. Every site is designed and built for your brand and audience."
       },
@@ -249,8 +253,8 @@
         "a": "You review the design before development and get regular updates at every stage."
       },
       {
-        "q": "Do you work with clients in Saudi Arabia and the Gulf?",
-        "a": "Yes. Saudi Arabia is our main market, and we work remotely with clients across the Gulf, Egypt and the Arab world."
+        "q": "Do you work with clients in Egypt and Saudi Arabia?",
+        "a": "Yes. Our team is in Egypt and Saudi Arabia, and we work remotely with clients across the Gulf and the Arab world, with video calls and regular updates."
       },
       {
         "q": "What happens after launch?",
@@ -287,7 +291,7 @@
       "title": "Website design and development services",
       "what": "What it is",
       "related": "A project from our work",
-      "intro": "Digital solutions that build your brand's presence and grow its impact."
+      "intro": "We design and build websites, online stores, systems and mobile apps in Arabic and English, for businesses in Egypt, Saudi Arabia and the Gulf."
     },
     "about": {
       "label": "About",
@@ -326,6 +330,13 @@
     "faq": {
       "label": "FAQ",
       "title": "Answers to the questions we hear most."
+    },
+    "landing": {
+      "examples": "Examples from our work",
+      "faqTitle": "Questions about this service",
+      "otherServices": "Other services",
+      "allServices": "All services",
+      "more": "Service details"
     }
   },
   "portfolio": {
@@ -367,16 +378,23 @@
   },
   "seo": {
     "home": {
-      "title": "Washeej — Arabic & English Website Design and Development Studio",
-      "description": "Washeej is a website design and development studio building Arabic & English websites, online stores and platforms for businesses in Saudi Arabia and the Gulf."
+      "title": "Washeej — Web Design & Development Company in Egypt and Saudi Arabia",
+      "description": "Bilingual Arabic & English web design and development for businesses in Egypt, Saudi Arabia and the Gulf: fast, mobile-first websites, online stores and mobile apps."
     },
     "services": {
-      "title": "Website, Store and Platform Design & Development Services",
-      "description": "Website design and development services in Saudi Arabia: landing pages, company websites, online stores, booking platforms, portals, dashboards & integrations."
+      "title": "Website, Store & App Design and Development Services",
+      "description": "Web design and development services in Egypt and Saudi Arabia: company websites, online stores, landing pages, booking platforms, custom systems and mobile apps."
     },
     "work": {
-      "title": "Our Website and Online Store Design Work",
-      "description": "Website and online store design in Saudi Arabia: browse Washeej's work — live sites, independent redesigns and design concepts, with details of each project."
+      "title": "Website & Online Store Design Portfolio",
+      "description": "Website and online store design work by Washeej: live sites for real clients, independent redesigns and design concepts, with details of each project."
+    },
+    "faq": {
+      "title": "Website Design FAQ: Cost, Timeline and Process — Washeej",
+      "description": "How much does a website cost, and how long does it take? Clear answers about the cost, timeline and process of building company websites, stores and apps."
+    },
+    "about": {
+      "title": "About Washeej — Arabic & English Web Design Studio"
     }
   }
 }
